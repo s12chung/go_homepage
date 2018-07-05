@@ -1,0 +1,20 @@
+{
+  "name": "go_homepage",
+  "version": "1.0.0",
+  "main": "assets/js/index.js",
+  "repository": "https://github.com/s12chung/go_homepage",
+  "author": "Steve Chung",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "css-loader": "^0.28.11",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.3",
+    "webpack-manifest-plugin": "^2.0.3"
+  },
+  "devDependencies": {
+    "webpack": "^4.15.0",
+    "webpack-cli": "^3.0.8"
+  }
+}

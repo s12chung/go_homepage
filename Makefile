@@ -4,6 +4,7 @@ install:
 	go install
 
 build:
+	webpack
 	$(GOPATH)/bin/go_homepage
 
 clean:

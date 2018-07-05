@@ -8,6 +8,25 @@
   version = "v1.0.5"
 
 [[projects]]
+  name = "github.com/go-webpack/webpack"
+  packages = [
+    ".",
+    "helper",
+    "reader",
+    "reader/manifest",
+    "reader/stats",
+    "util"
+  ]
+  revision = "2f6187f39c5b58376a0ed8b7a5c205a81fe53f90"
+  version = "1.1.1"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
@@ -25,6 +44,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2fa0433bf916eb60ef5dc0bf3be35418eabc8ea7e3c28d1b30e8a9999af82bf2"
+  inputs-digest = "247786438c8b4497d898dd2580810fa5189ca20809db134c568ca44de2fe9c2e"
   solver-name = "gps-cdcl"
   solver-version = 1

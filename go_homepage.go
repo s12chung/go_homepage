@@ -1,9 +1,9 @@
 package main
 
 import (
-	"time"
-	"path"
 	"os"
+	"path"
+	"time"
 
 	log "github.com/Sirupsen/logrus"
 
@@ -11,9 +11,9 @@ import (
 	"github.com/s12chung/go_homepage/view"
 )
 
-
-const generatedDir string = "./generated"
-const concurrency int = 10
+const generatedPath = "./generated"
+const assetsPath = "./generated/assets"
+const concurrency = 10
 
 func main() {
 	start := time.Now()
@@ -21,20 +21,42 @@ func main() {
 		log.Infof("Build completed in %v.", time.Now().Sub(start))
 	}()
 
-	createDir(generatedDir, "")
+	err := setup()
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
 
-	var tasks []*pool.Task
-
-
-	tasks = append(tasks, homepageTasks()...)
-
-	pool.NewPool(tasks, concurrency).LoggedRun()
+	setup()
+	runTasks()
 }
 
-func homepageTasks() ([]*pool.Task) {
+func setup() error {
+	if err := createDir(generatedPath, ""); err != nil {
+		return err
+	}
+	return nil
+}
+
+func runTasks() error {
+	var templateGenerator, err = view.NewTemplateGenerator(assetsPath)
+	if err != nil {
+		return nil
+	}
+
+	var tasks []*pool.Task
+
+	tasks = append(tasks, homepageTasks(templateGenerator)...)
+
+	pool.NewPool(tasks, concurrency).LoggedRun()
+
+	return nil
+}
+
+func homepageTasks(templateGenerator *view.TemplateGenerator) []*pool.Task {
 	var tasks []*pool.Task
 	tasks = append(tasks, pool.NewTask(func() error {
-		template := view.NewTemplate("home", path.Join(generatedDir, "index"))
+		template := templateGenerator.NewTemplate("home", path.Join(generatedPath, "index"))
 
 		err := template.Render()
 		if err != nil {
@@ -47,14 +69,11 @@ func homepageTasks() ([]*pool.Task) {
 	return tasks
 }
 
-
 func createDir(targetDir, newDir string) error {
 	dir := path.Join(targetDir, newDir)
 
 	err := os.MkdirAll(dir, 0755)
 	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
 		return err
 	}
 
