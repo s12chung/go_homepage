@@ -8,6 +8,7 @@
   "private": false,
   "dependencies": {
     "css-loader": "^0.28.11",
+    "hard-source-webpack-plugin": "^0.10.1",
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
