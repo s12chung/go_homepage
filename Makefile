@@ -7,6 +7,11 @@ build:
 	webpack
 	$(GOPATH)/bin/go_homepage
 
+production: clean
+	# so NODE_ENV=production sets webpack env, -p sets the compiled JS env, https://github.com/webpack/webpack/issues/2537#issuecomment-280447557
+	NODE_ENV=production webpack -p
+	$(GOPATH)/bin/go_homepage
+
 clean:
 	rm -rf generated node_modules/.cache/
 
