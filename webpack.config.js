@@ -1,40 +1,54 @@
 const path = require('path');
 
+const relativePath = function(p) { return path.resolve(__dirname, p); };
+
 const isProduction = process.env.NODE_ENV === "production";
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
+const cssLoaders = [
+    MiniCssExtractPlugin.loader,
+    {
+        loader: 'css-loader',
+        options: {
+            minimize: isProduction,
+            sourceMap: !isProduction,
+        }
+    }
+];
+
 module.exports = {
     mode: isProduction ? "production" : "development",
 
     module: {
-        rules: [{
-            test: /\.scss$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    options: {
-                        minimize: isProduction,
-                        sourceMap: !isProduction,
+        rules: [
+            {
+                test: /\.scss$/,
+                use: cssLoaders.concat([
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: !isProduction,
+                        }
                     }
-                },
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: !isProduction,
-                    }
-                },
-            ]
-        }],
+                ]),
+            },
+            {
+                test: /\.css/,
+                use: cssLoaders
+            },
+        ],
     },
 
-    entry: path.resolve(__dirname, 'assets/js/main.js'),
+    entry: {
+        main: relativePath('assets/js/main.js'),
+        vendor: relativePath('assets/js/vendor.js'),
+    },
     output: {
-        path: path.resolve(__dirname, 'generated/assets'),
-        filename: isProduction ? '[name]-[hash].js' : '[name].js'
+        path: relativePath('generated/assets'),
+        filename: isProduction ? '[name]-[hash].js' : '[name].js',
     },
 
     plugins: [
