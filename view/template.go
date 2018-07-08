@@ -5,53 +5,67 @@ import (
 	"html/template"
 	"os"
 	"path"
+	"regexp"
 
 	"github.com/s12chung/go_homepage/view/webpack"
 )
+
+const manifestFilename = "manifest.json"
 
 //
 // TemplateGenerator
 //
 type TemplateGenerator struct {
-	Webpack *webpack.Helper
+	browserAssetsPath string
+	manifestMap       map[string]string
 }
 
-func NewTemplateGenerator(assetsPath string) (*TemplateGenerator, error) {
-	helper, err := webpack.NewHelper(assetsPath)
+func NewTemplateGenerator(generatedAssetsPath string) (*TemplateGenerator, error) {
+	manifestMap, err := webpack.ReadManifest(path.Join(generatedAssetsPath, manifestFilename))
+
 	if err != nil {
 		return nil, err
 	}
 
 	return &TemplateGenerator{
-		helper,
+		regexp.MustCompile("\\A.*/").ReplaceAllString(generatedAssetsPath, "/"),
+		manifestMap,
 	}, nil
 }
 
+func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
+	return tg.browserAssetsPath + "/" + tg.manifestMap[manifestKey]
+}
+
+func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
+	return template.FuncMap{
+		"webpack": tg.webpackUrl,
+	}
+}
+
 func (tg *TemplateGenerator) NewTemplate(name, path string) *Template {
-	return NewTemplate(name, path, tg.Webpack)
+	return NewTemplate(name, path, tg)
 }
 
 //
 // Template
 //
 type Template struct {
-	Name    string
-	Path    string
-	Webpack *webpack.Helper
+	Name              string
+	Path              string
+	templateGenerator *TemplateGenerator
 }
 
-func NewTemplate(name, path string, w *webpack.Helper) *Template {
+func NewTemplate(name, path string, templateGenerator *TemplateGenerator) *Template {
 	return &Template{
 		name,
 		path,
-		w,
+		templateGenerator,
 	}
 }
 
 func (t *Template) funcs() template.FuncMap {
-	return template.FuncMap{
-		"webpack": t.Webpack.Url,
-	}
+	return t.templateGenerator.TemplateFuncs()
 }
 
 func (t *Template) Render() error {

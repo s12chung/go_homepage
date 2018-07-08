@@ -14,7 +14,7 @@ import (
 )
 
 const generatedPath = "./generated"
-const assetsPath = "./generated/assets"
+const generatedAssetsPath = "./generated/assets"
 const concurrency = 10
 
 const serverPort = 3000
@@ -55,14 +55,11 @@ func build() error {
 }
 
 func setup() error {
-	if err := createDir(generatedPath, ""); err != nil {
-		return err
-	}
-	return nil
+	return os.MkdirAll(generatedPath, 0755)
 }
 
 func runTasks() error {
-	var templateGenerator, err = view.NewTemplateGenerator(assetsPath)
+	var templateGenerator, err = view.NewTemplateGenerator(generatedAssetsPath)
 	if err != nil {
 		return nil
 	}
@@ -90,15 +87,4 @@ func homepageTasks(templateGenerator *view.TemplateGenerator) []*pool.Task {
 		return nil
 	}))
 	return tasks
-}
-
-func createDir(targetDir, newDir string) error {
-	dir := path.Join(targetDir, newDir)
-
-	err := os.MkdirAll(dir, 0755)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }

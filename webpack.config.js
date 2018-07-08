@@ -22,6 +22,15 @@ const cssLoaders = [
 module.exports = {
     mode: isProduction ? "production" : "development",
 
+    entry: {
+        main: relativePath('assets/js/main.js'),
+        vendor: relativePath('assets/js/vendor.js'),
+    },
+    output: {
+        path: relativePath('generated/assets'),
+        filename: isProduction ? '[name]-[hash].js' : '[name].js',
+    },
+
     module: {
         rules: [
             {
@@ -39,16 +48,19 @@ module.exports = {
                 test: /\.css/,
                 use: cssLoaders
             },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'images/',
+                            name: isProduction ? '[name]-[hash].[ext]' : '[name].[ext]',
+                        }
+                    }
+                ]
+            }
         ],
-    },
-
-    entry: {
-        main: relativePath('assets/js/main.js'),
-        vendor: relativePath('assets/js/vendor.js'),
-    },
-    output: {
-        path: relativePath('generated/assets'),
-        filename: isProduction ? '[name]-[hash].js' : '[name].js',
     },
 
     plugins: [
