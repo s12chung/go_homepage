@@ -1,4 +1,6 @@
-generated/*
 .idea/*
+
 vendor/**
 node_modules/**
+
+generated/*

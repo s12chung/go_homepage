@@ -4,17 +4,25 @@ all: install build
 
 build: build-assets build-go
 
-dev: clean install build
+dev: clean build
 	make server & make watch-go & make watch-assets
 
 # See https://github.com/webpack/webpack/issues/2537#issuecomment-280447557
-prod: clean install
+prod: clean
 	NODE_ENV=production webpack -p
 	$(GOPATH)/bin/go_homepage
 	make server
 
 install:
+	dep ensure
 	go install
+	yarn install --pure-lockfile
+
+docker:
+	docker-compose up
+
+docker-rm:
+	docker-compose rm -v -s
 
 clean:
 	rm -rf generated node_modules/.cache/

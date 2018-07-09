@@ -1,0 +1,9 @@
+version: "3"
+services:
+  web:
+    build: .
+    command: "tail -f /dev/null"
+    ports:
+      - "3000:3000"
+    volumes:
+     - .:/go/src/github.com/s12chung/go_homepage:cached
