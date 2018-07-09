@@ -1,0 +1,81 @@
+@import url("https://use.typekit.net/rgw6dlc.css");
+
+$ink: rgba(36,30,32,0.9);
+$grey: rgba(36,30,32,0.1);
+$paper: white;
+$blue: #5093A3;
+
+$transition_speed: 400ms ease 0s;
+
+$serif: "ff-tisa-web-pro", Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+@mixin serif {
+  font-family: $serif;
+  font-weight: 400;
+}
+
+@mixin serif-bold {
+  font-family: $serif;
+  font-weight: 700;
+}
+
+$sans-serif: "proxima-nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+@mixin sans-serif-semi-bold {
+  font-family: $sans-serif;
+  font-weight: 600;
+}
+
+$monospace: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+@mixin monospace {
+  font-family: $monospace;
+}
+
+$base-font-size: 24px;
+$small: 0.7rem;
+
+html {
+  @include serif;
+  line-height: 1.5;
+  font-size: $base-font-size;
+
+  color: $ink;
+  background-color: $paper;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav {
+  @include sans-serif-semi-bold;
+}
+
+nav {
+  text-transform: uppercase;
+
+  a {
+    color: $ink;
+  }
+}
+
+code {
+  @include monospace;
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+
+  transition: opacity $transition_speed;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:hover {
+    opacity: 0.5;
+    text-decoration: underline;
+  }
+}

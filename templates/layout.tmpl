@@ -7,13 +7,26 @@
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" media="all" href="{{webpack "vendor.css"}}">
-    <link rel="stylesheet" media="all" href="{{webpack "main.css"}}">
+    <link rel="stylesheet" media="all" href="{{Webpack "vendor.css"}}">
+    <link rel="stylesheet" media="all" href="{{Webpack "main.css"}}">
 </head>
+<body>
+<section class="layout">
+    <header class="layout">
+        <a href="/"><img class="logo" src="{{Webpack "images/logo.png"}}"/></a>
 
-<img src="{{webpack "images/logo.png"}}"/>
+        <nav>
+        {{$navItems := Slice "Posts" "Reading"}}
+        {{range $navItems}}
+            <a href="/{{ToLower .}}.html">{{.}}</a>
+        {{end}}
+        </nav>
+    </header>
+    <section class="content">
+        {{template "content"}}
+    </section>
+</section>
+</body>
 
-<body>{{template "content"}}</body>
-
-<script src="{{webpack "main.js"}}"></script>
+<script src="{{Webpack "main.js"}}"></script>
 </html>

@@ -30,9 +30,10 @@ build-assets:
 
 # https://github.com/brandur/sorg/blob/28ac85ff5fd6caf57da974aff2a1af97f8943ef3/Makefile#L132
 GO_FILES := $(shell find . -type f -name "*.go" ! -path "./vendor/*")
-TMPL_FILES := $(shell find . -type f -name "*.tmpl" ! -path "./vendor/*")
+TMPL_FILES := $(shell find ./templates -type f -name "*.tmpl")
+MARKDOWN_FILES = $(shell find ./assets/markdowns -type f -name "*.md")
 watch-go:
-	fswatch -o $(GO_FILES) $(TMPL_FILES) vendor/ | xargs -n1 -I{} make install build-go
+	fswatch -o $(GO_FILES) $(TMPL_FILES) $(MARKDOWN_FILES) vendor/ generated/assets/manifest.json | xargs -n1 -I{} make install build-go
 
 SCSS_FILES := $(shell find . -type f -name "*.scss" ! -path "./node_modules/*")
 JS_FILES := $(shell find . -type f -name "*.js" ! -path "./node_modules/*" ! -path "./generated/*")

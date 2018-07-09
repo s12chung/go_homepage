@@ -1,0 +1,14 @@
+@mixin container_left_right {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin container_spaced($space) {
+  & > * {
+    margin-right: $space;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

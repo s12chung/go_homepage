@@ -8,23 +8,16 @@
   version = "v1.0.5"
 
 [[projects]]
-  name = "github.com/go-webpack/webpack"
-  packages = [
-    ".",
-    "helper",
-    "reader",
-    "reader/manifest",
-    "reader/stats",
-    "util"
-  ]
-  revision = "2f6187f39c5b58376a0ed8b7a5c205a81fe53f90"
-  version = "1.1.1"
+  name = "github.com/russross/blackfriday"
+  packages = ["."]
+  revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
+  version = "v2.0.0"
 
 [[projects]]
-  name = "github.com/pkg/errors"
+  branch = "master"
+  name = "github.com/shurcooL/sanitized_anchor_name"
   packages = ["."]
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
+  revision = "86672fcb3f950f35f2e675df2240550f2a50762f"
 
 [[projects]]
   branch = "master"
@@ -44,6 +37,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "247786438c8b4497d898dd2580810fa5189ca20809db134c568ca44de2fe9c2e"
+  inputs-digest = "fe76d252bfb5b10ef13be7d7f697e4a49b93095b2fd739b782e8b422dd51c9c2"
   solver-name = "gps-cdcl"
   solver-version = 1

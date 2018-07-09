@@ -3,14 +3,20 @@ package view
 import (
 	"bufio"
 	"html/template"
+	"io/ioutil"
 	"os"
 	"path"
 	"regexp"
+	"strings"
 
+	"github.com/russross/blackfriday"
+
+	log "github.com/Sirupsen/logrus"
 	"github.com/s12chung/go_homepage/view/webpack"
 )
 
 const manifestFilename = "manifest.json"
+const markdownPath = "./assets/markdowns"
 
 //
 // TemplateGenerator
@@ -34,12 +40,35 @@ func NewTemplateGenerator(generatedAssetsPath string) (*TemplateGenerator, error
 }
 
 func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
-	return tg.browserAssetsPath + "/" + tg.manifestMap[manifestKey]
+	manifestValue := tg.manifestMap[manifestKey]
+
+	if manifestValue == "" {
+		log.Error("webpack manifestValue not found for key: ", manifestKey)
+	}
+
+	return tg.browserAssetsPath + "/" + manifestValue
+}
+
+func makeSlice(args ...interface{}) []interface{} {
+	return args
+}
+
+func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
+	filePath := path.Join(markdownPath, filename)
+	input, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		log.Error(err)
+		return ""
+	}
+	return template.HTML(string(blackfriday.Run(input)))
 }
 
 func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
-		"webpack": tg.webpackUrl,
+		"Slice":    makeSlice,
+		"ToLower":  strings.ToLower,
+		"Webpack":  tg.webpackUrl,
+		"Markdown": tg.parseMarkdownPath,
 	}
 }
 
