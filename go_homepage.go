@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"path"
 	"time"
 
 	log "github.com/Sirupsen/logrus"
@@ -14,7 +13,6 @@ import (
 )
 
 const generatedPath = "./generated"
-const generatedAssetsPath = "./generated/assets"
 const concurrency = 10
 
 const serverPort = 3000
@@ -59,7 +57,7 @@ func setup() error {
 }
 
 func runTasks() error {
-	var templateGenerator, err = view.NewTemplateGenerator(generatedAssetsPath)
+	var templateGenerator, err = view.NewTemplateGenerator(generatedPath)
 	if err != nil {
 		return nil
 	}
@@ -76,7 +74,7 @@ func runTasks() error {
 func homepageTasks(templateGenerator *view.TemplateGenerator) []*pool.Task {
 	var tasks []*pool.Task
 	tasks = append(tasks, pool.NewTask(func() error {
-		template := templateGenerator.NewTemplate("home", path.Join(generatedPath, "index"))
+		template := templateGenerator.NewTemplate("index")
 
 		err := template.Render()
 		if err != nil {

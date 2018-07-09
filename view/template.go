@@ -16,27 +16,35 @@ import (
 )
 
 const manifestFilename = "manifest.json"
-const markdownPath = "./assets/markdowns"
+const assetsFolder = "assets"
+const markdownsPath = "./assets/markdowns"
 
 //
 // TemplateGenerator
 //
 type TemplateGenerator struct {
-	browserAssetsPath string
-	manifestMap       map[string]string
+	generatedPath string
+	manifestMap   map[string]string
 }
 
-func NewTemplateGenerator(generatedAssetsPath string) (*TemplateGenerator, error) {
-	manifestMap, err := webpack.ReadManifest(path.Join(generatedAssetsPath, manifestFilename))
-
+func NewTemplateGenerator(generatedPath string) (*TemplateGenerator, error) {
+	manifestMap, err := webpack.ReadManifest(path.Join(generatedPath, assetsFolder, manifestFilename))
 	if err != nil {
 		return nil, err
 	}
 
 	return &TemplateGenerator{
-		regexp.MustCompile("\\A.*/").ReplaceAllString(generatedAssetsPath, "/"),
+		generatedPath,
 		manifestMap,
 	}, nil
+}
+
+func (tg *TemplateGenerator) generatedAssetsPath() string {
+	return path.Join(tg.generatedPath, assetsFolder)
+}
+
+func (tg *TemplateGenerator) browserAssetsPath() string {
+	return regexp.MustCompile("\\A.*/").ReplaceAllString(tg.generatedAssetsPath(), "/")
 }
 
 func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
@@ -46,7 +54,7 @@ func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
 		log.Error("webpack manifestValue not found for key: ", manifestKey)
 	}
 
-	return tg.browserAssetsPath + "/" + manifestValue
+	return tg.browserAssetsPath() + "/" + manifestValue
 }
 
 func makeSlice(args ...interface{}) []interface{} {
@@ -54,7 +62,7 @@ func makeSlice(args ...interface{}) []interface{} {
 }
 
 func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
-	filePath := path.Join(markdownPath, filename)
+	filePath := path.Join(markdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Error(err)
@@ -72,8 +80,8 @@ func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
 	}
 }
 
-func (tg *TemplateGenerator) NewTemplate(name, path string) *Template {
-	return NewTemplate(name, path, tg)
+func (tg *TemplateGenerator) NewTemplate(name string) *Template {
+	return NewTemplate(name, tg)
 }
 
 //
@@ -81,14 +89,12 @@ func (tg *TemplateGenerator) NewTemplate(name, path string) *Template {
 //
 type Template struct {
 	Name              string
-	Path              string
 	templateGenerator *TemplateGenerator
 }
 
-func NewTemplate(name, path string, templateGenerator *TemplateGenerator) *Template {
+func NewTemplate(name string, templateGenerator *TemplateGenerator) *Template {
 	return &Template{
 		name,
-		path,
 		templateGenerator,
 	}
 }
@@ -97,8 +103,12 @@ func (t *Template) funcs() template.FuncMap {
 	return t.templateGenerator.TemplateFuncs()
 }
 
+func (t *Template) path() string {
+	return path.Join(t.templateGenerator.generatedPath, t.Name+".html")
+}
+
 func (t *Template) Render() error {
-	file, err := os.Create(t.Path + ".html")
+	file, err := os.Create(t.path())
 	if err != nil {
 		return err
 	}
