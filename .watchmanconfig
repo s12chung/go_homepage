@@ -1,0 +1,4 @@
+{
+  "root_files": [".watchmanconfig"],
+  "ignore_dirs": ["vendor", "node_modules"]
+}
