@@ -7,6 +7,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 
 	"flag"
+	"github.com/s12chung/go_homepage/goodreads"
 	"github.com/s12chung/go_homepage/pool"
 	"github.com/s12chung/go_homepage/server"
 	"github.com/s12chung/go_homepage/view"
@@ -31,10 +32,14 @@ func main() {
 }
 
 func all() error {
-	runServerPtr := flag.Bool("server", false, "Serves page on a willServe")
+	runServerPtr := flag.Bool("server", false, "Serves page on localhost:3000")
+	apiGetPtr := flag.Bool("api-get", false, "Only gets api data")
+
 	flag.Parse()
 
-	if *runServerPtr {
+	if *apiGetPtr {
+		return apiGet()
+	} else if *runServerPtr {
 		return server.Run(generatedPath, serverPort)
 	} else {
 		return build()
@@ -53,7 +58,15 @@ func build() error {
 }
 
 func setup() error {
-	return os.MkdirAll(generatedPath, 0755)
+	err := os.MkdirAll(generatedPath, 0755)
+	if err != nil {
+		return err
+	}
+	return apiGet()
+}
+
+func apiGet() error {
+	return goodreads.Get()
 }
 
 func runTasks() error {
@@ -64,25 +77,19 @@ func runTasks() error {
 
 	var tasks []*pool.Task
 
-	tasks = append(tasks, homepageTasks(templateGenerator)...)
+	tasks = append(tasks, generateTasks(templateGenerator, []string{"index"})...)
 
 	pool.NewPool(tasks, concurrency).LoggedRun()
 
 	return nil
 }
 
-func homepageTasks(templateGenerator *view.TemplateGenerator) []*pool.Task {
+func generateTasks(templateGenerator *view.TemplateGenerator, names []string) []*pool.Task {
 	var tasks []*pool.Task
-	tasks = append(tasks, pool.NewTask(func() error {
-		template := templateGenerator.NewTemplate("index")
-
-		err := template.Render()
-		if err != nil {
-			log.Fatal(err)
-			return err
-		}
-
-		return nil
-	}))
+	for _, name := range names {
+		tasks = append(tasks, pool.NewTask(func() error {
+			return templateGenerator.RenderNewTemplate(name)
+		}))
+	}
 	return tasks
 }

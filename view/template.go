@@ -12,6 +12,7 @@ import (
 	"github.com/russross/blackfriday"
 
 	log "github.com/Sirupsen/logrus"
+
 	"github.com/s12chung/go_homepage/view/webpack"
 )
 
@@ -82,6 +83,16 @@ func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
 
 func (tg *TemplateGenerator) NewTemplate(name string) *Template {
 	return NewTemplate(name, tg)
+}
+
+func (tg *TemplateGenerator) RenderNewTemplate(name string) error {
+	err := tg.NewTemplate(name).Render()
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+
+	return nil
 }
 
 //
