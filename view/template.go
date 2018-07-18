@@ -13,23 +13,21 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 
+	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/view/webpack"
 )
-
-const manifestFilename = "manifest.json"
-const assetsFolder = "assets"
-const markdownsPath = "./assets/markdowns"
 
 //
 // TemplateGenerator
 //
 type TemplateGenerator struct {
 	generatedPath string
-	manifestMap   map[string]string
+	ManifestMap   map[string]string
+	Settings      settings.TemplateSettings
 }
 
-func NewTemplateGenerator(generatedPath string) (*TemplateGenerator, error) {
-	manifestMap, err := webpack.ReadManifest(path.Join(generatedPath, assetsFolder, manifestFilename))
+func NewTemplateGenerator(generatedPath string, settings settings.TemplateSettings) (*TemplateGenerator, error) {
+	manifestMap, err := webpack.ReadManifest(path.Join(generatedPath, settings.AssetsFolder, settings.ManifestFilename))
 	if err != nil {
 		return nil, err
 	}
@@ -37,11 +35,12 @@ func NewTemplateGenerator(generatedPath string) (*TemplateGenerator, error) {
 	return &TemplateGenerator{
 		generatedPath,
 		manifestMap,
+		settings,
 	}, nil
 }
 
 func (tg *TemplateGenerator) generatedAssetsPath() string {
-	return path.Join(tg.generatedPath, assetsFolder)
+	return path.Join(tg.generatedPath, tg.Settings.AssetsFolder)
 }
 
 func (tg *TemplateGenerator) browserAssetsPath() string {
@@ -49,7 +48,7 @@ func (tg *TemplateGenerator) browserAssetsPath() string {
 }
 
 func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
-	manifestValue := tg.manifestMap[manifestKey]
+	manifestValue := tg.ManifestMap[manifestKey]
 
 	if manifestValue == "" {
 		log.Error("webpack manifestValue not found for key: ", manifestKey)
@@ -63,7 +62,7 @@ func makeSlice(args ...interface{}) []interface{} {
 }
 
 func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
-	filePath := path.Join(markdownsPath, filename)
+	filePath := path.Join(tg.Settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Error(err)

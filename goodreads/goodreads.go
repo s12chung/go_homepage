@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
-	"github.com/s12chung/go_homepage/utils"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -12,22 +11,39 @@ import (
 	"path"
 	"reflect"
 	"strconv"
+
+	"github.com/s12chung/go_homepage/settings"
+	"github.com/s12chung/go_homepage/utils"
 )
 
-const cachePath = "cache"
-const apiKey = ""
-const userId = 0
+type Client struct {
+	Settings settings.GoodreadsSettings
+}
 
-func Get() error {
-	books, err := GetBookReviews(userId)
+func NewClient(settings settings.GoodreadsSettings) *Client {
+	return &Client{settings}
+}
+
+func (client *Client) Get() error {
+	if client.invalidSettings() {
+		return nil
+	}
+
+	books, err := client.GetBookReviews(client.Settings.UserId)
 	if err != nil {
 		return err
 	}
 
-	return jsonCache(bookContainer{*books})
+	return client.jsonCache(bookContainer{*books})
 }
 
-func jsonCache(v interface{}) error {
+func (client *Client) invalidSettings() bool {
+	return client.Settings.ApiKey != "" && client.Settings.UserId != 0
+}
+
+func (client *Client) jsonCache(v interface{}) error {
+	cachePath := client.Settings.CachePath
+
 	err := os.MkdirAll(cachePath, 0755)
 	if err != nil {
 		return err
@@ -54,12 +70,12 @@ type book struct {
 	Rating  int      `xml:"rating" json:"rating"`
 }
 
-func GetBookReviews(userId int) (*[]book, error) {
+func (client *Client) GetBookReviews(userId int) (*[]book, error) {
 	queryParams := map[string]string{
 		"v":  "2",
 		"id": strconv.Itoa(userId),
 
-		"key": apiKey,
+		"key": client.Settings.ApiKey,
 
 		"per_page": "200",
 		"sort":     "date_added",
