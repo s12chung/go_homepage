@@ -23,16 +23,17 @@ type TemplateSettings struct {
 }
 
 type GoodreadsSettings struct {
-	CachePath string `json:"cache_path,omitempty"`
-	ApiKey    string `json:"api_key,omitempty"`
-	UserId    int    `json:"user_id,omitempty"`
+	CachePath  string `json:"cache_path,omitempty"`
+	ApiKey     string `json:"api_key,omitempty"`
+	UserId     int    `json:"user_id,omitempty"`
+	PerPage    int    `json:"per_page,omitempty"`
+	MaxPerPage int    `json:"max_per_page,omitempty"`
+	RateLimit  int    `json:"rate_limit,omitempty"`
 }
 
 const settingsPath = "settings.json"
 
 func ReadFromFile() *Settings {
-	_, err := os.Stat(settingsPath)
-
 	settings := Settings{
 		"./generated",
 		10,
@@ -46,17 +47,28 @@ func ReadFromFile() *Settings {
 			"cache",
 			"",
 			0,
+			50,
+			200,
+			1000,
 		},
 	}
+	_, err := os.Stat(settingsPath)
 	if os.IsNotExist(err) {
-		log.Warn("settings.json in root directory not found, using defaults...")
-	} else {
-		file, err := ioutil.ReadFile(settingsPath)
-		if err != nil {
-			log.Warn("error reading settings.json, using defaults...")
-		}
-
-		json.Unmarshal(file, &settings)
+		log.Infof("%v not found, using defaults...", settingsPath)
+		return &settings
 	}
+
+	file, err := ioutil.ReadFile(settingsPath)
+	if err != nil {
+		log.Warnf("error reading %v, using defaults...", settingsPath)
+		return &settings
+	}
+
+	err = json.Unmarshal(file, &settings)
+	if err != nil {
+		log.Warnf("error reading %v, using defaults...", settingsPath)
+		return &settings
+	}
+
 	return &settings
 }

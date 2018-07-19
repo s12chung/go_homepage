@@ -1,6 +1,9 @@
 package utils
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 func ToSimpleQuery(queryMap map[string]string) string {
 	queryArray := make([]string, len(queryMap))
@@ -9,5 +12,6 @@ func ToSimpleQuery(queryMap map[string]string) string {
 		queryArray[index] = key + "=" + value
 		index += 1
 	}
+	sort.Strings(queryArray)
 	return strings.Join(queryArray, "&")
 }

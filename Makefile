@@ -27,6 +27,9 @@ clean:
 	watchman watch-del-all
 	watchman shutdown-server
 
+clean-all: clean
+	rm -rf cache
+
 server:
 	$(GOPATH)/bin/go_homepage -server
 

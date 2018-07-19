@@ -42,7 +42,7 @@ func (app *App) all() error {
 	flag.Parse()
 
 	if *apiGetPtr {
-		return app.apiGet(true)
+		return app.apiGet()
 	} else if *runServerPtr {
 		return server.Run(app.Settings.GeneratedPath, app.Settings.ServerPort)
 	} else {
@@ -52,7 +52,7 @@ func (app *App) all() error {
 
 func (app *App) build() error {
 	var err error
-	if err = app.setup(false); err != nil {
+	if err = app.setup(); err != nil {
 		return err
 	}
 	if err = app.runTasks(); err != nil {
@@ -61,16 +61,16 @@ func (app *App) build() error {
 	return nil
 }
 
-func (app *App) setup(initialLoad bool) error {
+func (app *App) setup() error {
 	err := os.MkdirAll(app.Settings.GeneratedPath, 0755)
 	if err != nil {
 		return err
 	}
-	return app.apiGet(initialLoad)
+	return app.apiGet()
 }
 
-func (app *App) apiGet(initialLoad bool) error {
-	return goodreads.NewClient(app.Settings.Goodreads, initialLoad).GetAll()
+func (app *App) apiGet() error {
+	return goodreads.NewClient(app.Settings.Goodreads).GetAll()
 }
 
 func (app *App) runTasks() error {
