@@ -6,7 +6,7 @@ import (
 )
 
 func ReadManifest(manifestPath string) (map[string]string, error) {
-	manifestMap := make(map[string]string)
+	manifestMap := map[string]string{}
 
 	data, err := ioutil.ReadFile(manifestPath)
 	if err != nil {

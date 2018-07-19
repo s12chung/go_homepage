@@ -3,13 +3,11 @@ package goodreads
 import (
 	"encoding/json"
 	"encoding/xml"
-	"errors"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
-	"reflect"
 	"strconv"
 
 	"github.com/s12chung/go_homepage/settings"
@@ -17,19 +15,23 @@ import (
 )
 
 type Client struct {
-	Settings settings.GoodreadsSettings
+	Settings    settings.GoodreadsSettings
+	InitialLoad bool
 }
 
-func NewClient(settings settings.GoodreadsSettings) *Client {
-	return &Client{settings}
+func NewClient(settings settings.GoodreadsSettings, initialLoad bool) *Client {
+	return &Client{
+		settings,
+		initialLoad,
+	}
 }
 
-func (client *Client) Get() error {
+func (client *Client) GetAll() error {
 	if client.invalidSettings() {
 		return nil
 	}
 
-	books, err := client.GetBookReviews(client.Settings.UserId)
+	books, err := client.GetBooks(client.Settings.UserId)
 	if err != nil {
 		return err
 	}
@@ -38,7 +40,7 @@ func (client *Client) Get() error {
 }
 
 func (client *Client) invalidSettings() bool {
-	return client.Settings.ApiKey != "" && client.Settings.UserId != 0
+	return client.Settings.ApiKey == "" && client.Settings.UserId == 0
 }
 
 func (client *Client) jsonCache(v interface{}) error {
@@ -58,7 +60,7 @@ func (client *Client) jsonCache(v interface{}) error {
 }
 
 type bookContainer struct {
-	Elements []book `json:"books"`
+	Books []book `json:"books"`
 }
 
 type book struct {
@@ -70,70 +72,80 @@ type book struct {
 	Rating  int      `xml:"rating" json:"rating"`
 }
 
-func (client *Client) GetBookReviews(userId int) (*[]book, error) {
+func (client *Client) GetBooks(userId int) (*[]book, error) {
+	response, err := client.requestGetBooks(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	var books []book
+
+	resultChan := decodeTag("review", response.Body)
+
+	for result := range resultChan {
+		if result.Error != nil {
+			return nil, err
+		}
+		book := book{}
+		result.Decode(&book)
+		books = append(books, book)
+	}
+	return &books, nil
+}
+
+func (client *Client) requestGetBooks(userId int) (resp *http.Response, err error) {
+	perPage := "50"
+	if client.InitialLoad {
+		perPage = "200"
+	}
+
 	queryParams := map[string]string{
 		"v":  "2",
 		"id": strconv.Itoa(userId),
 
 		"key": client.Settings.ApiKey,
 
-		"per_page": "200",
+		"per_page": perPage,
 		"sort":     "date_added",
 		"order":    "d",
 	}
 
-	response, err := http.Get("https://www.goodreads.com/review/list?" + utils.ToSimpleQuery(queryParams))
-
-	if err != nil {
-		return nil, err
-	}
-
-	bookContainer := bookContainer{}
-	err = unmarshallElements(&bookContainer, response.Body)
-	if err != nil {
-		return nil, err
-	}
-	return &bookContainer.Elements, nil
+	return http.Get("https://www.goodreads.com/review/list?" + utils.ToSimpleQuery(queryParams))
 }
 
-func unmarshallElements(containerStruct interface{}, r io.Reader) error {
-	elementsValue := reflect.ValueOf(containerStruct).Elem().FieldByName("Elements")
-	if elementsValue.Kind() != reflect.Slice {
-		return errors.New("containerStruct's Elements is not a slice")
-	}
+type decodeTagResult struct {
+	Decode func(interface{})
+	Error  error
+}
 
-	elementType := elementsValue.Type().Elem()
-	elementStructField, hasXMLName := elementType.FieldByName("XMLName")
-	if !hasXMLName {
-		return errors.New("containerStruct Elements does not have XMLName")
-	}
-	XMLName := elementStructField.Tag.Get("xml")
-	if XMLName == "" {
-		return errors.New("containerStruct Elements XMLName is empty")
-	}
+func decodeTag(tag string, r io.Reader) <-chan decodeTagResult {
+	resultChan := make(chan decodeTagResult)
+	go func() {
+		defer close(resultChan)
 
-	decoder := xml.NewDecoder(r)
-	for {
-		token, err := decoder.Token()
-		if token == nil {
-			break
-		}
-		if err != nil {
-			return err
-		}
+		decoder := xml.NewDecoder(r)
+		for {
+			token, err := decoder.Token()
+			if token == nil {
+				break
+			}
+			if err != nil {
+				resultChan <- decodeTagResult{nil, err}
+				break
+			}
 
-		switch element := token.(type) {
-		case xml.StartElement:
-			if element.Name.Local == XMLName {
-				n := elementsValue.Len()
-				elementsValue.Set(reflect.Append(elementsValue, reflect.Zero(elementType)))
-
-				if err := decoder.DecodeElement(elementsValue.Index(n).Addr().Interface(), &element); err != nil {
-					elementsValue.SetLen(n)
-					return err
+			switch element := token.(type) {
+			case xml.StartElement:
+				if element.Name.Local == tag {
+					resultChan <- decodeTagResult{
+						func(elementInterface interface{}) {
+							decoder.DecodeElement(elementInterface, &element)
+						},
+						nil,
+					}
 				}
 			}
 		}
-	}
-	return nil
+	}()
+	return resultChan
 }
