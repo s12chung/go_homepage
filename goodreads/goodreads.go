@@ -68,29 +68,25 @@ func (date *GoodreadsDate) UnmarshalXML(decoder *xml.Decoder, startElement xml.S
 	*date = GoodreadsDate(t)
 	return nil
 }
-func (date *GoodreadsDate) UnmarshalJSON(bytes []byte) error {
-	var t time.Time
-	err := json.Unmarshal(bytes, &t)
-	if err != nil {
-		return err
-	}
-	*date = GoodreadsDate(t)
-	return nil
-}
-func (date GoodreadsDate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(time.Time(date))
-}
 
 type Book struct {
-	XMLName     xml.Name      `xml:"review" json:"-"`
-	Id          string        `xml:"id" json:"id"`
-	Title       string        `xml:"book>title" json:"title"`
-	Authors     []string      `xml:"book>authors>author>name" json:"authors"`
-	Isbn        string        `xml:"book>isbn" json:"isbn"`
-	Isbn13      string        `xml:"book>isbn13" json:"isbn13"`
-	Rating      int           `xml:"rating" json:"rating"`
-	DateAdded   GoodreadsDate `xml:"date_added" json:"date_added"`
-	DateUpdated GoodreadsDate `xml:"date_updated" json:"date_updated"`
+	XMLName xml.Name `xml:"review" json:"-"`
+	Id      string   `xml:"id" json:"id"`
+	Title   string   `xml:"book>title" json:"title"`
+	Authors []string `xml:"book>authors>author>name" json:"authors"`
+	Isbn    string   `xml:"book>isbn" json:"isbn"`
+	Isbn13  string   `xml:"book>isbn13" json:"isbn13"`
+	Rating  int      `xml:"rating" json:"rating"`
+
+	XMLDateAdded    GoodreadsDate `xml:"date_added" json:"-"`
+	XXMLDateUpdated GoodreadsDate `xml:"date_updated" json:"-"`
+	DateAdded       time.Time     `xml:"-" json:"date_added"`
+	DateUpdated     time.Time     `xml:"-" json:"date_updated"`
+}
+
+func (book *Book) convertDates() {
+	book.DateAdded = time.Time(book.XMLDateAdded)
+	book.DateUpdated = time.Time(book.XXMLDateUpdated)
 }
 
 func (book *Book) ReviewString() string {
@@ -204,6 +200,7 @@ func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[s
 				if _, contains := bookMap[book.Id]; !contains {
 					booksAdded += 1
 					log.Infof("%v. %v", booksAdded, book.ReviewString())
+					book.convertDates()
 					bookMap[book.Id] = book
 				}
 			}
