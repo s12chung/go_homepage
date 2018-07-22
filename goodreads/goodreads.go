@@ -50,14 +50,47 @@ func (client *Client) setup() error {
 	return os.MkdirAll(cachePath, 0755)
 }
 
+type GoodreadsDate time.Time
+
+func (date *GoodreadsDate) UnmarshalXML(decoder *xml.Decoder, startElement xml.StartElement) error {
+	var stringValue string
+
+	err := decoder.DecodeElement(&stringValue, &startElement)
+	if err != nil {
+		return err
+	}
+
+	t, err := time.Parse(time.RubyDate, stringValue)
+	if err != nil {
+		return err
+	}
+
+	*date = GoodreadsDate(t)
+	return nil
+}
+func (date *GoodreadsDate) UnmarshalJSON(bytes []byte) error {
+	var t time.Time
+	err := json.Unmarshal(bytes, &t)
+	if err != nil {
+		return err
+	}
+	*date = GoodreadsDate(t)
+	return nil
+}
+func (date GoodreadsDate) MarshalJSON() ([]byte, error) {
+	return json.Marshal(time.Time(date))
+}
+
 type Book struct {
-	XMLName xml.Name `xml:"review" json:"-"`
-	Id      string   `xml:"id" json:"id"`
-	Title   string   `xml:"book>title" json:"title"`
-	Authors []string `xml:"book>authors>author>name" json:"authors"`
-	Isbn    string   `xml:"book>isbn" json:"isbn"`
-	Isbn13  string   `xml:"book>isbn13" json:"isbn13"`
-	Rating  int      `xml:"rating" json:"rating"`
+	XMLName     xml.Name      `xml:"review" json:"-"`
+	Id          string        `xml:"id" json:"id"`
+	Title       string        `xml:"book>title" json:"title"`
+	Authors     []string      `xml:"book>authors>author>name" json:"authors"`
+	Isbn        string        `xml:"book>isbn" json:"isbn"`
+	Isbn13      string        `xml:"book>isbn13" json:"isbn13"`
+	Rating      int           `xml:"rating" json:"rating"`
+	DateAdded   GoodreadsDate `xml:"date_added" json:"date_added"`
+	DateUpdated GoodreadsDate `xml:"date_updated" json:"date_updated"`
 }
 
 func (book *Book) ReviewString() string {
@@ -194,6 +227,8 @@ func (client *Client) requestGetBooks(userId int, initialLoad bool, page int) (r
 		"id": strconv.Itoa(userId),
 
 		"key": client.Settings.ApiKey,
+
+		"shelf": "read",
 
 		"page":     strconv.Itoa(page),
 		"per_page": strconv.Itoa(perPage),
