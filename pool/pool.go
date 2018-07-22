@@ -2,8 +2,6 @@ package pool
 
 import (
 	"sync"
-
-	log "github.com/Sirupsen/logrus"
 )
 
 //
@@ -42,13 +40,12 @@ func NewPool(tasks []*Task, concurrency int) *Pool {
 	}
 }
 
-func (p *Pool) HasErrors() bool {
+func (p *Pool) EachError(callback func(*Task)) {
 	for _, task := range p.Tasks {
 		if task.Err != nil {
-			return true
+			callback(task)
 		}
 	}
-	return false
 }
 
 func (p *Pool) Run() {
@@ -63,16 +60,6 @@ func (p *Pool) Run() {
 	close(p.tasksChan)
 
 	p.waitGroup.Wait()
-}
-
-func (p *Pool) LoggedRun() {
-	p.Run()
-
-	for _, task := range p.Tasks {
-		if task.Err != nil {
-			log.Error("Too many errors.")
-		}
-	}
 }
 
 func (p *Pool) work() {

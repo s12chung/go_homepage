@@ -37,13 +37,10 @@ func NewApp() *App {
 
 func (app *App) all() error {
 	runServerPtr := flag.Bool("server", false, "Serves page on localhost:3000")
-	apiGetPtr := flag.Bool("api-get", false, "Only gets api data")
 
 	flag.Parse()
 
-	if *apiGetPtr {
-		return app.apiGet()
-	} else if *runServerPtr {
+	if *runServerPtr {
 		return server.Run(app.Settings.GeneratedPath, app.Settings.ServerPort)
 	} else {
 		return app.build()
@@ -62,15 +59,7 @@ func (app *App) build() error {
 }
 
 func (app *App) setup() error {
-	err := os.MkdirAll(app.Settings.GeneratedPath, 0755)
-	if err != nil {
-		return err
-	}
-	return app.apiGet()
-}
-
-func (app *App) apiGet() error {
-	return goodreads.NewClient(app.Settings.Goodreads).GetAll()
+	return os.MkdirAll(app.Settings.GeneratedPath, 0755)
 }
 
 func (app *App) runTasks() error {
@@ -80,20 +69,36 @@ func (app *App) runTasks() error {
 	}
 
 	var tasks []*pool.Task
+	tasks = append(tasks, pool.NewTask(func() error {
+		return templateGenerator.RenderNewTemplate("index", nil)
+	}))
+	tasks = append(tasks, app.readingPageTask(templateGenerator))
 
-	tasks = append(tasks, generateTasks(templateGenerator, []string{"index"})...)
-
-	pool.NewPool(tasks, app.Settings.Concurrency).LoggedRun()
+	p := pool.NewPool(tasks, app.Settings.Concurrency)
+	p.Run()
+	p.EachError(func(task *pool.Task) {
+		log.Errorf("Error found in task - %v", task.Err)
+	})
 
 	return nil
 }
 
-func generateTasks(templateGenerator *view.TemplateGenerator, names []string) []*pool.Task {
-	var tasks []*pool.Task
-	for _, name := range names {
-		tasks = append(tasks, pool.NewTask(func() error {
-			return templateGenerator.RenderNewTemplate(name)
-		}))
-	}
-	return tasks
+func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
+	return pool.NewTask(func() error {
+		bookMap, err := goodreads.NewClient(app.Settings.Goodreads).GetBooks()
+		if err != nil {
+			return err
+		}
+
+		books := make([]goodreads.Book, len(bookMap))
+		i := 0
+		for _, v := range bookMap {
+			books[i] = v
+			i += 1
+		}
+		data := struct {
+			Books []goodreads.Book
+		}{books}
+		return templateGenerator.RenderNewTemplate("reading", data)
+	})
 }

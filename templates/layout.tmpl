@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{.Title}}</title>
+    <title>{{Title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
@@ -18,12 +18,12 @@
         <nav>
         {{$navItems := Slice "Posts" "Reading"}}
         {{range $navItems}}
-            <a href="/{{ToLower .}}.html">{{.}}</a>
+            <a href="/{{ToLower .}}">{{.}}</a>
         {{end}}
         </nav>
     </header>
     <section class="content">
-        {{template "content"}}
+        {{template "content" .}}
     </section>
 </section>
 </body>

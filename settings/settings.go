@@ -17,6 +17,7 @@ type Settings struct {
 }
 
 type TemplateSettings struct {
+	WebsiteTitle     string `json:"website_title,omitempty"`
 	AssetsFolder     string `json:"assets_folder,omitempty"`
 	ManifestFilename string `json:"manifest_filename,omitempty"`
 	MarkdownsPath    string `json:"markdowns_path,omitempty"`
@@ -39,6 +40,7 @@ func ReadFromFile() *Settings {
 		10,
 		3000,
 		TemplateSettings{
+			"Your Website Title",
 			"assets",
 			"manifest.json",
 			"./assets/markdowns",

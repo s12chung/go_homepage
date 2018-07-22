@@ -2,6 +2,7 @@ package view
 
 import (
 	"bufio"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"os"
@@ -84,8 +85,9 @@ func (tg *TemplateGenerator) NewTemplate(name string) *Template {
 	return NewTemplate(name, tg)
 }
 
-func (tg *TemplateGenerator) RenderNewTemplate(name string) error {
-	err := tg.NewTemplate(name).Render()
+func (tg *TemplateGenerator) RenderNewTemplate(name string, data interface{}) error {
+	log.Infof("Rendering template: %v", name)
+	err := tg.NewTemplate(name).Render(data)
 	if err != nil {
 		log.Fatal(err)
 		return err
@@ -110,14 +112,27 @@ func NewTemplate(name string, templateGenerator *TemplateGenerator) *Template {
 }
 
 func (t *Template) funcs() template.FuncMap {
-	return t.templateGenerator.TemplateFuncs()
+	f := t.templateGenerator.TemplateFuncs()
+	f["Title"] = func() string {
+		s := fmt.Sprintf("%v - %v", strings.Title(t.Name), t.templateGenerator.Settings.WebsiteTitle)
+		if t.Name == "index" {
+			s = t.templateGenerator.Settings.WebsiteTitle
+		}
+		return s
+	}
+	return f
 }
 
 func (t *Template) path() string {
-	return path.Join(t.templateGenerator.generatedPath, t.Name+".html")
+	filename := t.Name
+	if t.Name == "index" {
+		filename += ".html"
+	}
+
+	return path.Join(t.templateGenerator.generatedPath, filename)
 }
 
-func (t *Template) Render() error {
+func (t *Template) Render(data interface{}) error {
 	file, err := os.Create(t.path())
 	if err != nil {
 		return err
@@ -136,7 +151,5 @@ func (t *Template) Render() error {
 		return err
 	}
 
-	tmpl.ExecuteTemplate(writer, "layout.tmpl", nil)
-
-	return nil
+	return tmpl.ExecuteTemplate(writer, "layout.tmpl", data)
 }

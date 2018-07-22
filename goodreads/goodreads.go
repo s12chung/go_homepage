@@ -28,22 +28,17 @@ func NewClient(settings settings.GoodreadsSettings) *Client {
 	return &Client{settings}
 }
 
-func (client *Client) GetAll() error {
+func (client *Client) GetBooks() (map[string]Book, error) {
 	if client.invalidSettings() {
 		log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
-		return nil
+		return map[string]Book{}, nil
 	}
 	err := client.setup()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	books, err := client.GetBooks(client.Settings.UserId)
-	if err != nil {
-		return err
-	}
-
-	return client.saveBooksCache(books)
+	return client.getBooks(client.Settings.UserId)
 }
 
 func (client *Client) invalidSettings() bool {
@@ -55,31 +50,31 @@ func (client *Client) setup() error {
 	return os.MkdirAll(cachePath, 0755)
 }
 
-type book struct {
+type Book struct {
 	XMLName xml.Name `xml:"review" json:"-"`
 	Id      string   `xml:"id" json:"id"`
-	Name    string   `xml:"book>title" json:"name"`
+	Title   string   `xml:"book>title" json:"title"`
 	Authors []string `xml:"book>authors>author>name" json:"authors"`
 	Isbn    string   `xml:"book>isbn" json:"isbn"`
-	Isbn13  string   `xml:"book>isbn_13" json:"isbn_13"`
+	Isbn13  string   `xml:"book>isbn13" json:"isbn13"`
 	Rating  int      `xml:"rating" json:"rating"`
 }
 
-func (book *book) ReviewString() string {
-	return fmt.Sprintf("%v \"%v\" - %v", strings.Repeat("*", book.Rating), book.Name, strings.Join(book.Authors, ","))
+func (book *Book) ReviewString() string {
+	return fmt.Sprintf("%v \"%v\" - %v", strings.Repeat("*", book.Rating), book.Title, strings.Join(book.Authors, ","))
 }
 
-func (client *Client) GetBooks(userId int) (map[string]book, error) {
+func (client *Client) getBooks(userId int) (map[string]Book, error) {
 	bookMap := client.readBooksCache()
 	bookMap = client.GetBooksRequest(userId, bookMap)
 	return bookMap, client.saveBooksCache(bookMap)
 }
 
 type jsonBooksRoot struct {
-	Books map[string]book `json:"books"`
+	Books map[string]Book `json:"books"`
 }
 
-func (client *Client) readBooksCache() map[string]book {
+func (client *Client) readBooksCache() map[string]Book {
 	jsonRoot := jsonBooksRoot{}
 	booksCachePath := path.Join(client.Settings.CachePath, booksFile)
 
@@ -108,7 +103,7 @@ func (client *Client) readBooksCache() map[string]book {
 	return jsonRoot.Books
 }
 
-func (client *Client) saveBooksCache(bookMap map[string]book) error {
+func (client *Client) saveBooksCache(bookMap map[string]Book) error {
 	bytes, err := json.MarshalIndent(jsonBooksRoot{bookMap}, "", "  ")
 	if err != nil {
 		return err
@@ -128,16 +123,16 @@ func (response *xmlBookResponse) HasMore() bool {
 type xmlReviews struct {
 	XMLName xml.Name `xml:"reviews"`
 
-	Books []book `xml:"review"`
+	Books []Book `xml:"review"`
 
 	PageStart  int `xml:"start,attr"`
 	PageEnd    int `xml:"end,attr"`
 	TotalBooks int `xml:"total,attr"`
 }
 
-func (client *Client) GetBooksRequest(userId int, bookMap map[string]book) map[string]book {
+func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[string]Book {
 	if bookMap == nil {
-		bookMap = map[string]book{}
+		bookMap = map[string]Book{}
 	}
 
 	initialLoad := len(bookMap) == 0
