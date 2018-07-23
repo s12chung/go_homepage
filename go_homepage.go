@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"sort"
 	"time"
 
 	log "github.com/Sirupsen/logrus"
@@ -91,14 +92,28 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 		}
 
 		books := make([]goodreads.Book, len(bookMap))
+		ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 		i := 0
-		for _, v := range bookMap {
-			books[i] = v
+		for _, book := range bookMap {
+			books[i] = book
+			ratingMap[book.Rating] += 1
 			i += 1
 		}
+		sort.Slice(books, func(i, j int) bool {
+			return books[i].SortedDate().After(books[j].SortedDate())
+		})
+
 		data := struct {
-			Books []goodreads.Book
-		}{books}
+			Books        []goodreads.Book
+			RatingMap    map[int]int
+			EarliestYear int
+			Today        time.Time
+		}{
+			books,
+			ratingMap,
+			books[len(books)-1].SortedDate().Year(),
+			time.Now(),
+		}
 		return templateGenerator.RenderNewTemplate("reading", data)
 	})
 }

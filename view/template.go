@@ -58,10 +58,6 @@ func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
 	return tg.browserAssetsPath() + "/" + manifestValue
 }
 
-func makeSlice(args ...interface{}) []interface{} {
-	return args
-}
-
 func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
 	filePath := path.Join(tg.Settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
@@ -73,12 +69,15 @@ func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
 }
 
 func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
-	return template.FuncMap{
-		"Slice":    makeSlice,
-		"ToLower":  strings.ToLower,
+	defaults := defaultTemplateFuncs()
+	tgFuncs := template.FuncMap{
 		"Webpack":  tg.webpackUrl,
 		"Markdown": tg.parseMarkdownPath,
 	}
+	for k, v := range tgFuncs {
+		defaults[k] = v
+	}
+	return defaults
 }
 
 func (tg *TemplateGenerator) NewTemplate(name string) *Template {
@@ -112,15 +111,20 @@ func NewTemplate(name string, templateGenerator *TemplateGenerator) *Template {
 }
 
 func (t *Template) funcs() template.FuncMap {
-	f := t.templateGenerator.TemplateFuncs()
-	f["Title"] = func() string {
-		s := fmt.Sprintf("%v - %v", strings.Title(t.Name), t.templateGenerator.Settings.WebsiteTitle)
-		if t.Name == "index" {
-			s = t.templateGenerator.Settings.WebsiteTitle
-		}
-		return s
+	tgFuncs := t.templateGenerator.TemplateFuncs()
+	tFuncs := template.FuncMap{
+		"Title": func() string {
+			s := fmt.Sprintf("%v - %v", strings.Title(t.Name), t.templateGenerator.Settings.WebsiteTitle)
+			if t.Name == "index" {
+				s = t.templateGenerator.Settings.WebsiteTitle
+			}
+			return s
+		},
 	}
-	return f
+	for k, v := range tFuncs {
+		tgFuncs[k] = v
+	}
+	return tgFuncs
 }
 
 func (t *Template) path() string {

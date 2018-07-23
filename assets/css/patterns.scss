@@ -4,6 +4,8 @@
 }
 
 @mixin container_spaced($space) {
+  display: flex;
+
   & > * {
     margin-right: $space;
 

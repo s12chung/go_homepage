@@ -1,5 +1,56 @@
 {{define "content"}}
-	{{range .Books}}
-		{{.Title}}
-	{{end}}
+	<section class="reading">
+		<header class="main">
+			<h1>Reading</h1>
+			<div class="date">Updated on {{DateFormat .Today}}</div>
+		</header>
+
+		{{$bookCount := len .Books}}
+		<p>{{$bookCount}} books read.</p>
+
+		{{Scratch.Append "legend" "Great to priceless ideas or fun to read, no major flaws."}}
+		{{Scratch.Append "legend" (htmlSafe "Good to priceless ideas and may also have flaws&mdash;hard to read, filler, etc.")}}
+		{{Scratch.Append "legend" "Good to great ideas and may have the flaws stated above."}}
+		{{Scratch.Append "legend" "Few good ideas. I probably skimmed through it."}}
+		{{Scratch.Append "legend" "Waste of time."}}
+
+        <table class="legend">
+			{{$ratingMap := .RatingMap}}
+			{{range $index, $legendDefinition := Scratch.Get "legend" }}
+				<tr>
+					{{$rating := Subtract 5 $index}}
+					<td>{{range Sequence $rating}}&#9733;{{end}}</td>
+					<td>
+						<div class="definition">{{$legendDefinition}}</div>
+						<div class="rating_count">
+							{{$ratingCount := index $ratingMap $rating}}
+							<div class="bar" style="width: {{Percent $ratingCount $bookCount}}%;"></div>
+							<div>{{$ratingCount}} books</div>
+						</div>
+					</td>
+				</tr>
+			{{end}}
+		</table>
+
+		<section class="books">
+			{{$earliestYear := .EarliestYear}}
+			{{Scratch.Set "currentYear" 0}}
+			{{range .Books}}
+				{{if ne (Scratch.Get "currentYear") .SortedDate.Year}}
+					{{if eq .SortedDate.Year $earliestYear}}
+						<h2>{{.SortedDate.Year}} or earlier</h2>
+					{{else}}
+						<h2>{{.SortedDate.Year}}</h2>
+					{{end}}
+				{{end}}
+				{{Scratch.Set "currentYear" .SortedDate.Year}}
+
+				<article class="book">
+					<em>{{.Title}}</em>
+					by {{SliceList .Authors}}
+					&nbsp;{{range Sequence .Rating}}&#9733;{{end}}
+				</article>
+			{{end}}
+		</section>
+    </section>
 {{end}}

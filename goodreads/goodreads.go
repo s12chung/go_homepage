@@ -90,7 +90,11 @@ func (book *Book) convertDates() {
 }
 
 func (book *Book) ReviewString() string {
-	return fmt.Sprintf("%v \"%v\" - %v", strings.Repeat("*", book.Rating), book.Title, strings.Join(book.Authors, ","))
+	return fmt.Sprintf("\"%v\" by %v %v", book.Title, utils.SliceList(book.Authors), strings.Repeat("*", book.Rating))
+}
+
+func (book *Book) SortedDate() time.Time {
+	return book.DateAdded
 }
 
 func (client *Client) getBooks(userId int) (map[string]Book, error) {
