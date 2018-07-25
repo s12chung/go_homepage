@@ -84,6 +84,26 @@ type Book struct {
 	DateUpdated     time.Time     `xml:"-" json:"date_updated"`
 }
 
+func ToBooks(bookMap map[string]Book) []Book {
+	books := make([]Book, len(bookMap))
+	i := 0
+	for _, book := range bookMap {
+		books[i] = book
+		i += 1
+	}
+	return books
+}
+
+func RatingMap(bookMap map[string]Book) map[int]int {
+	ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+	i := 0
+	for _, book := range bookMap {
+		ratingMap[book.Rating] += 1
+		i += 1
+	}
+	return ratingMap
+}
+
 func (book *Book) convertDates() {
 	book.DateAdded = time.Time(book.XMLDateAdded)
 	book.DateUpdated = time.Time(book.XXMLDateUpdated)

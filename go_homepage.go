@@ -186,17 +186,8 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 			return err
 		}
 
-		books := make([]goodreads.Book, len(bookMap))
-		ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
-		i := 0
-		for _, book := range bookMap {
-			books[i] = book
-			ratingMap[book.Rating] += 1
-			i += 1
-		}
-		sort.Slice(books, func(i, j int) bool {
-			return books[i].SortedDate().After(books[j].SortedDate())
-		})
+		books := goodreads.ToBooks(bookMap)
+		sort.Slice(books, func(i, j int) bool { return books[i].SortedDate().After(books[j].SortedDate()) })
 
 		data := struct {
 			Books        []goodreads.Book
@@ -205,7 +196,7 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 			Today        time.Time
 		}{
 			books,
-			ratingMap,
+			goodreads.RatingMap(bookMap),
 			books[len(books)-1].SortedDate().Year(),
 			time.Now(),
 		}
