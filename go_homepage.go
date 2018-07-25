@@ -79,16 +79,16 @@ func (app *App) setup() error {
 }
 
 func (app *App) runTasks() error {
-	var templateGenerator, err = view.NewTemplateGenerator(app.Settings.Template, app.log)
+	var renderer, err = view.NewRenderer(app.Settings.Template, app.log)
 	if err != nil {
 		return err
 	}
 
 	var tasks []*pool.Task
-	tasks = append(tasks, app.indexPageTask(templateGenerator))
-	tasks = append(tasks, app.readingPageTask(templateGenerator))
+	tasks = append(tasks, app.indexPageTask(renderer))
+	tasks = append(tasks, app.readingPageTask(renderer))
 
-	eachPostTasks, err := app.eachPostTasks(templateGenerator)
+	eachPostTasks, err := app.eachPostTasks(renderer)
 	tasks = append(tasks, eachPostTasks...)
 
 	p := pool.NewPool(tasks, app.Settings.Concurrency)
@@ -100,10 +100,10 @@ func (app *App) runTasks() error {
 	return nil
 }
 
-func (app *App) indexPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
+func (app *App) indexPageTask(renderer *view.Renderer) *pool.Task {
 	return pool.NewTask(func() error {
 		app.log.Infof("Rendering template: %v", "index")
-		bytes, err := templateGenerator.NewTemplate("index").Render(nil)
+		bytes, err := renderer.Render("index", nil)
 		if err != nil {
 			return err
 		}
@@ -111,20 +111,20 @@ func (app *App) indexPageTask(templateGenerator *view.TemplateGenerator) *pool.T
 	})
 }
 
-func (app *App) eachPostTasks(templateGenerator *view.TemplateGenerator) ([]*pool.Task, error) {
-	postsTasks, err := app.eachPostTasksForPath(app.Settings.PostsPath, templateGenerator)
+func (app *App) eachPostTasks(renderer *view.Renderer) ([]*pool.Task, error) {
+	postsTasks, err := app.eachPostTasksForPath(app.Settings.PostsPath, renderer)
 	if err != nil {
 		return nil, err
 	}
 
-	draftTasks, err := app.eachPostTasksForPath(app.Settings.DraftsPath, templateGenerator)
+	draftTasks, err := app.eachPostTasksForPath(app.Settings.DraftsPath, renderer)
 	if err != nil {
 		return nil, err
 	}
 	return append(postsTasks, draftTasks...), nil
 }
 
-func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *view.TemplateGenerator) ([]*pool.Task, error) {
+func (app *App) eachPostTasksForPath(postsDirPath string, renderer *view.Renderer) ([]*pool.Task, error) {
 	filePaths, err := utils.FilePaths(postsDirPath)
 
 	if err != nil {
@@ -156,7 +156,7 @@ func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *vie
 			}
 			app.log.Infof("Rendering template: %v - %v", "post", currentPath)
 
-			bytes, err := templateGenerator.NewTemplate("post").Render(data)
+			bytes, err := renderer.Render("post", data)
 			if err != nil {
 				return err
 			}
@@ -192,7 +192,7 @@ func splitFrontMatter(content string) (string, string, error) {
 	return "", "", fmt.Errorf("FrontMatter format is not followed")
 }
 
-func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
+func (app *App) readingPageTask(renderer *view.Renderer) *pool.Task {
 	return pool.NewTask(func() error {
 		app.log.Infof("Starting task for: %v", "reading")
 
@@ -216,7 +216,7 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 			time.Now(),
 		}
 		app.log.Infof("Rendering template: %v", "reading")
-		bytes, err := templateGenerator.NewTemplate("reading").Render(data)
+		bytes, err := renderer.Render("reading", data)
 		if err != nil {
 			return err
 		}
