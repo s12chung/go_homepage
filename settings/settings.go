@@ -10,6 +10,8 @@ import (
 
 type Settings struct {
 	GeneratedPath string            `json:"generated_path,omitempty"`
+	PostsPath     string            `json:"generated_path,omitempty"`
+	DraftsPath    string            `json:"generated_path,omitempty"`
 	Concurrency   int               `json:"concurrency,omitempty"`
 	ServerPort    int               `json:"server_port,omitempty"`
 	Template      TemplateSettings  `json:"template,omitempty"`
@@ -37,6 +39,8 @@ const settingsPath = "settings.json"
 func ReadFromFile() *Settings {
 	settings := Settings{
 		"./generated",
+		"./content/posts",
+		"./content/drafts",
 		10,
 		3000,
 		TemplateSettings{

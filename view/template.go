@@ -65,7 +65,7 @@ func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
 		log.Error(err)
 		return ""
 	}
-	return template.HTML(string(blackfriday.Run(input)))
+	return template.HTML(blackfriday.Run(input))
 }
 
 func (tg *TemplateGenerator) TemplateFuncs() template.FuncMap {
@@ -85,7 +85,6 @@ func (tg *TemplateGenerator) NewTemplate(name string) *Template {
 }
 
 func (tg *TemplateGenerator) RenderNewTemplate(name string, data interface{}) error {
-	log.Infof("Rendering template: %v", name)
 	err := tg.NewTemplate(name).Render(data)
 	if err != nil {
 		log.Fatal(err)

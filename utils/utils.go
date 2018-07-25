@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"io/ioutil"
+	"os"
+	"path"
 	"sort"
 	"strings"
 )
@@ -33,4 +36,27 @@ func SliceList(slice []string) string {
 		newSlice = append(newSlice, between)
 	}
 	return strings.Join(newSlice, "")
+}
+
+func FilePaths(dirPaths ...string) ([]string, error) {
+	var filePaths []string
+
+	for _, dirPath := range dirPaths {
+		_, err := os.Stat(dirPath)
+		if err != nil {
+			return nil, err
+		}
+		files, err := ioutil.ReadDir(dirPath)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, fileInfo := range files {
+			if fileInfo.IsDir() {
+				continue
+			}
+			filePaths = append(filePaths, path.Join(dirPath, fileInfo.Name()))
+		}
+	}
+	return filePaths, nil
 }

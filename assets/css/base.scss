@@ -53,6 +53,44 @@ strong {
   @include serif-bold;
 }
 
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+
+  transition: opacity $transition_speed;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:hover {
+    opacity: 0.5;
+    text-decoration: underline;
+  }
+}
+
+pre {
+  font-size: $small;
+  background-color: $background_grey;
+  padding: 1em 1.5em;
+
+  code {
+    background-color: transparent;
+  }
+}
+
+code {
+  background-color: $background_grey;
+  @include monospace;
+}
+
+
 h1,
 h2,
 h3,
@@ -81,10 +119,14 @@ h1 {
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0;
   margin-top: 1.5em;
   margin-bottom: 0.3em;
+}
+
+h2 + p {
+  margin-top: 0;
 }
 
 
@@ -93,26 +135,5 @@ nav {
 
   a {
     color: $ink;
-  }
-}
-
-code {
-  @include monospace;
-}
-
-a {
-  color: $blue;
-  text-decoration: none;
-
-  transition: opacity $transition_speed;
-
-  &:active {
-    position: relative;
-    top: 1px;
-  }
-
-  &:hover {
-    opacity: 0.5;
-    text-decoration: underline;
   }
 }
