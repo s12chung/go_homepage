@@ -9,9 +9,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
-
-	log "github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/view/webpack"
@@ -23,9 +22,10 @@ import (
 type TemplateGenerator struct {
 	ManifestMap map[string]string
 	Settings    settings.TemplateSettings
+	log         logrus.FieldLogger
 }
 
-func NewTemplateGenerator(settings settings.TemplateSettings) (*TemplateGenerator, error) {
+func NewTemplateGenerator(settings settings.TemplateSettings, log logrus.FieldLogger) (*TemplateGenerator, error) {
 	manifestMap, err := webpack.ReadManifest(path.Join(settings.AssetsPath, settings.ManifestFilename))
 	if err != nil {
 		return nil, err
@@ -34,6 +34,7 @@ func NewTemplateGenerator(settings settings.TemplateSettings) (*TemplateGenerato
 	return &TemplateGenerator{
 		manifestMap,
 		settings,
+		log,
 	}, nil
 }
 
@@ -45,7 +46,7 @@ func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
 	manifestValue := tg.ManifestMap[manifestKey]
 
 	if manifestValue == "" {
-		log.Error("webpack manifestValue not found for key: ", manifestKey)
+		tg.log.Error("webpack manifestValue not found for key: ", manifestKey)
 	}
 
 	return tg.browserAssetsPath() + "/" + manifestValue
@@ -55,7 +56,7 @@ func (tg *TemplateGenerator) parseMarkdownPath(filename string) template.HTML {
 	filePath := path.Join(tg.Settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		log.Error(err)
+		tg.log.Error(err)
 		return ""
 	}
 	return template.HTML(blackfriday.Run(input))

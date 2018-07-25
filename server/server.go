@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strconv"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
-func Run(targetDir string, port int) error {
+func RunFileServer(targetDir string, port int, log logrus.FieldLogger) error {
 	log.Infof("Serving '%v' at http://localhost:%v/", targetDir, port)
 	handler := http.FileServer(http.Dir(targetDir))
 	return http.ListenAndServe(":"+strconv.Itoa(port), handler)

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
 
@@ -25,12 +25,14 @@ import (
 )
 
 func main() {
+	log := logrus.StandardLogger()
+
 	start := time.Now()
 	defer func() {
 		log.Infof("Build completed in %v.", time.Now().Sub(start))
 	}()
 
-	err := NewApp().all()
+	err := NewApp(log).all()
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
@@ -39,10 +41,14 @@ func main() {
 
 type App struct {
 	Settings settings.Settings
+	log      logrus.FieldLogger
 }
 
-func NewApp() *App {
-	return &App{*settings.ReadFromFile()}
+func NewApp(log logrus.FieldLogger) *App {
+	return &App{
+		*settings.ReadFromFile(log),
+		log,
+	}
 }
 
 func (app *App) all() error {
@@ -51,7 +57,7 @@ func (app *App) all() error {
 	flag.Parse()
 
 	if *runServerPtr {
-		return server.Run(app.Settings.GeneratedPath, app.Settings.ServerPort)
+		return server.RunFileServer(app.Settings.GeneratedPath, app.Settings.ServerPort, app.log)
 	} else {
 		return app.build()
 	}
@@ -73,7 +79,7 @@ func (app *App) setup() error {
 }
 
 func (app *App) runTasks() error {
-	var templateGenerator, err = view.NewTemplateGenerator(app.Settings.Template)
+	var templateGenerator, err = view.NewTemplateGenerator(app.Settings.Template, app.log)
 	if err != nil {
 		return err
 	}
@@ -88,7 +94,7 @@ func (app *App) runTasks() error {
 	p := pool.NewPool(tasks, app.Settings.Concurrency)
 	p.Run()
 	p.EachError(func(task *pool.Task) {
-		log.Errorf("Error found in task - %v", task.Err)
+		app.log.Errorf("Error found in task - %v", task.Err)
 	})
 
 	return nil
@@ -96,7 +102,7 @@ func (app *App) runTasks() error {
 
 func (app *App) indexPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
 	return pool.NewTask(func() error {
-		log.Infof("Rendering template: %v", "index")
+		app.log.Infof("Rendering template: %v", "index")
 		bytes, err := templateGenerator.NewTemplate("index").Render(nil)
 		if err != nil {
 			return err
@@ -123,7 +129,7 @@ func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *vie
 
 	if err != nil {
 		if os.IsNotExist(err) {
-			log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
+			app.log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
 			return nil, nil
 		}
 		return nil, err
@@ -133,7 +139,7 @@ func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *vie
 	for index, filePath := range filePaths {
 		currentPath := filePath
 		tasks[index] = pool.NewTask(func() error {
-			log.Infof("Starting task for: %v - %v", "post", currentPath)
+			app.log.Infof("Starting task for: %v - %v", "post", currentPath)
 
 			input, err := ioutil.ReadFile(filePath)
 			if err != nil {
@@ -148,7 +154,7 @@ func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *vie
 				*post,
 				template.HTML(blackfriday.Run([]byte(markdown))),
 			}
-			log.Infof("Rendering template: %v - %v", "post", currentPath)
+			app.log.Infof("Rendering template: %v - %v", "post", currentPath)
 
 			bytes, err := templateGenerator.NewTemplate("post").Render(data)
 			if err != nil {
@@ -188,9 +194,9 @@ func splitFrontMatter(content string) (string, string, error) {
 
 func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
 	return pool.NewTask(func() error {
-		log.Infof("Starting task for: %v", "reading")
+		app.log.Infof("Starting task for: %v", "reading")
 
-		bookMap, err := goodreads.NewClient(app.Settings.Goodreads).GetBooks()
+		bookMap, err := goodreads.NewClient(app.Settings.Goodreads, app.log).GetBooks()
 		if err != nil {
 			return err
 		}
@@ -209,7 +215,7 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 			books[len(books)-1].SortedDate().Year(),
 			time.Now(),
 		}
-		log.Infof("Rendering template: %v", "reading")
+		app.log.Infof("Rendering template: %v", "reading")
 		bytes, err := templateGenerator.NewTemplate("reading").Render(data)
 		if err != nil {
 			return err

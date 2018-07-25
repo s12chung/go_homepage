@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 type Settings struct {
@@ -36,7 +36,7 @@ type GoodreadsSettings struct {
 
 const settingsPath = "settings.json"
 
-func ReadFromFile() *Settings {
+func ReadFromFile(log logrus.FieldLogger) *Settings {
 	settings := Settings{
 		"./generated",
 		"./content/posts",

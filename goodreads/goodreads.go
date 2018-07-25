@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/utils"
@@ -22,15 +22,19 @@ const booksFile = "books.json"
 
 type Client struct {
 	Settings settings.GoodreadsSettings
+	log      logrus.FieldLogger
 }
 
-func NewClient(settings settings.GoodreadsSettings) *Client {
-	return &Client{settings}
+func NewClient(settings settings.GoodreadsSettings, log logrus.FieldLogger) *Client {
+	return &Client{
+		settings,
+		log,
+	}
 }
 
 func (client *Client) GetBooks() (map[string]Book, error) {
 	if client.invalidSettings() {
-		log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
+		client.log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
 		return map[string]Book{}, nil
 	}
 	err := client.setup()
@@ -133,26 +137,26 @@ func (client *Client) readBooksCache() map[string]Book {
 
 	_, err := os.Stat(booksCachePath)
 	if os.IsNotExist(err) {
-		log.Infof("%v does not exist - %v", booksCachePath, err)
+		client.log.Infof("%v does not exist - %v", booksCachePath, err)
 		return nil
 	}
 
 	bytes, err := ioutil.ReadFile(booksCachePath)
 	if err != nil {
-		log.Warnf("error reading %v - %v", booksCachePath, err)
+		client.log.Warnf("error reading %v - %v", booksCachePath, err)
 		return nil
 	}
 
 	err = json.Unmarshal(bytes, &jsonRoot)
 	if err != nil {
-		log.Warnf("error reading %v - %v", booksCachePath, err)
+		client.log.Warnf("error reading %v - %v", booksCachePath, err)
 		return nil
 	}
 
 	if jsonRoot.Books == nil {
-		log.Warnf("key books in %v is nil", booksCachePath)
+		client.log.Warnf("key books in %v is nil", booksCachePath)
 	}
-	log.Infof("Loaded %v books from %v", len(jsonRoot.Books), booksCachePath)
+	client.log.Infof("Loaded %v books from %v", len(jsonRoot.Books), booksCachePath)
 	return jsonRoot.Books
 }
 
@@ -190,7 +194,7 @@ func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[s
 
 	initialLoad := len(bookMap) == 0
 	if initialLoad {
-		log.Info("Loading all data from goodreads API")
+		client.log.Info("Loading all data from goodreads API")
 	}
 
 	totalApiBooks := 0
@@ -198,9 +202,9 @@ func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[s
 
 	defer func() {
 		if len(bookMap) < totalApiBooks {
-			log.Warnf("bookMap has %v elements, while there are %v books in the API", len(bookMap), totalApiBooks)
+			client.log.Warnf("bookMap has %v elements, while there are %v books in the API", len(bookMap), totalApiBooks)
 		} else {
-			log.Infof("bookMap has all %v books", totalApiBooks)
+			client.log.Infof("bookMap has all %v books", totalApiBooks)
 		}
 	}()
 
@@ -223,7 +227,7 @@ func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[s
 				}
 				if _, contains := bookMap[book.Id]; !contains {
 					booksAdded += 1
-					log.Infof("%v. %v", booksAdded, book.ReviewString())
+					client.log.Infof("%v. %v", booksAdded, book.ReviewString())
 					book.convertDates()
 					bookMap[book.Id] = book
 				}
@@ -232,7 +236,7 @@ func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[s
 		},
 	)
 	if err != nil {
-		log.Warnf("paginateGet error - %v", err)
+		client.log.Warnf("paginateGet error - %v", err)
 	}
 	return bookMap
 }
@@ -258,7 +262,7 @@ func (client *Client) requestGetBooks(userId int, initialLoad bool, page int) (r
 	}
 
 	url := "https://www.goodreads.com/review/list?" + utils.ToSimpleQuery(queryParams)
-	log.Infof("GET %v", url)
+	client.log.Infof("GET %v", url)
 	return http.Get(url)
 }
 
@@ -285,7 +289,7 @@ func (client *Client) paginateGet(request func(page int) (resp *http.Response, e
 		}
 		if hasMore {
 			page += 1
-			log.Infof("Sleeping for %v...", rateLimit)
+			client.log.Infof("Sleeping for %v...", rateLimit)
 			<-ticker.C
 		}
 	}
