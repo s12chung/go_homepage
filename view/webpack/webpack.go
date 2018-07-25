@@ -10,7 +10,7 @@ func ReadManifest(manifestPath string) (map[string]string, error) {
 
 	data, err := ioutil.ReadFile(manifestPath)
 	if err != nil {
-		return manifestMap, err
+		return nil, err
 	}
 	json.Unmarshal(data, &manifestMap)
 	return manifestMap, nil

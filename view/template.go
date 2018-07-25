@@ -1,11 +1,10 @@
 package view
 
 import (
-	"bufio"
+	"bytes"
 	"fmt"
 	"html/template"
 	"io/ioutil"
-	"os"
 	"path"
 	"regexp"
 	"strings"
@@ -22,30 +21,24 @@ import (
 // TemplateGenerator
 //
 type TemplateGenerator struct {
-	generatedPath string
-	ManifestMap   map[string]string
-	Settings      settings.TemplateSettings
+	ManifestMap map[string]string
+	Settings    settings.TemplateSettings
 }
 
-func NewTemplateGenerator(generatedPath string, settings settings.TemplateSettings) (*TemplateGenerator, error) {
-	manifestMap, err := webpack.ReadManifest(path.Join(generatedPath, settings.AssetsFolder, settings.ManifestFilename))
+func NewTemplateGenerator(settings settings.TemplateSettings) (*TemplateGenerator, error) {
+	manifestMap, err := webpack.ReadManifest(path.Join(settings.AssetsPath, settings.ManifestFilename))
 	if err != nil {
 		return nil, err
 	}
 
 	return &TemplateGenerator{
-		generatedPath,
 		manifestMap,
 		settings,
 	}, nil
 }
 
-func (tg *TemplateGenerator) generatedAssetsPath() string {
-	return path.Join(tg.generatedPath, tg.Settings.AssetsFolder)
-}
-
 func (tg *TemplateGenerator) browserAssetsPath() string {
-	return regexp.MustCompile("\\A.*/").ReplaceAllString(tg.generatedAssetsPath(), "/")
+	return regexp.MustCompile("\\A.*/").ReplaceAllString(tg.Settings.AssetsPath, "/")
 }
 
 func (tg *TemplateGenerator) webpackUrl(manifestKey string) string {
@@ -84,14 +77,8 @@ func (tg *TemplateGenerator) NewTemplate(name string) *Template {
 	return NewTemplate(name, tg)
 }
 
-func (tg *TemplateGenerator) RenderNewTemplate(name string, data interface{}) error {
-	err := tg.NewTemplate(name).Render(data)
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
-
-	return nil
+func (tg *TemplateGenerator) RenderNewTemplate(name string, data interface{}) ([]byte, error) {
+	return tg.NewTemplate(name).Render(data)
 }
 
 //
@@ -126,24 +113,7 @@ func (t *Template) funcs() template.FuncMap {
 	return tgFuncs
 }
 
-func (t *Template) path() string {
-	filename := t.Name
-	if t.Name == "index" {
-		filename += ".html"
-	}
-
-	return path.Join(t.templateGenerator.generatedPath, filename)
-}
-
-func (t *Template) Render(data interface{}) error {
-	file, err := os.Create(t.path())
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	writer := bufio.NewWriter(file)
-	defer writer.Flush()
-
+func (t *Template) Render(data interface{}) ([]byte, error) {
 	tmpl, err := template.New("self").
 		Funcs(t.funcs()).
 		ParseFiles(
@@ -151,8 +121,14 @@ func (t *Template) Render(data interface{}) error {
 			path.Join("templates", t.Name+".tmpl"),
 		)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return tmpl.ExecuteTemplate(writer, "layout.tmpl", data)
+	writer := bytes.Buffer{}
+	err = tmpl.ExecuteTemplate(&writer, "layout.tmpl", data)
+	if err != nil {
+		return nil, err
+	}
+	return writer.Bytes(), nil
+
 }

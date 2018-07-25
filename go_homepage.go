@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"os"
+	"path"
 	"regexp"
 	"sort"
 	"strings"
@@ -72,9 +73,9 @@ func (app *App) setup() error {
 }
 
 func (app *App) runTasks() error {
-	var templateGenerator, err = view.NewTemplateGenerator(app.Settings.GeneratedPath, app.Settings.Template)
+	var templateGenerator, err = view.NewTemplateGenerator(app.Settings.Template)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	var tasks []*pool.Task
@@ -96,29 +97,33 @@ func (app *App) runTasks() error {
 func (app *App) indexPageTask(templateGenerator *view.TemplateGenerator) *pool.Task {
 	return pool.NewTask(func() error {
 		log.Infof("Rendering template: %v", "index")
-		return templateGenerator.RenderNewTemplate("index", nil)
+		bytes, err := templateGenerator.NewTemplate("index").Render(nil)
+		if err != nil {
+			return err
+		}
+		return writeFile(path.Join(app.Settings.GeneratedPath, "index.html"), bytes)
 	})
 }
 
 func (app *App) eachPostTasks(templateGenerator *view.TemplateGenerator) ([]*pool.Task, error) {
-	postsTasks, err := eachPostTasksForPath(app.Settings.PostsPath, templateGenerator)
+	postsTasks, err := app.eachPostTasksForPath(app.Settings.PostsPath, templateGenerator)
 	if err != nil {
 		return nil, err
 	}
 
-	draftTasks, err := eachPostTasksForPath(app.Settings.DraftsPath, templateGenerator)
+	draftTasks, err := app.eachPostTasksForPath(app.Settings.DraftsPath, templateGenerator)
 	if err != nil {
 		return nil, err
 	}
 	return append(postsTasks, draftTasks...), nil
 }
 
-func eachPostTasksForPath(path string, templateGenerator *view.TemplateGenerator) ([]*pool.Task, error) {
-	filePaths, err := utils.FilePaths(path)
+func (app *App) eachPostTasksForPath(postsDirPath string, templateGenerator *view.TemplateGenerator) ([]*pool.Task, error) {
+	filePaths, err := utils.FilePaths(postsDirPath)
 
 	if err != nil {
 		if os.IsNotExist(err) {
-			log.Warnf("Posts path does not exist %v - %v", path, err)
+			log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
 			return nil, nil
 		}
 		return nil, err
@@ -144,8 +149,12 @@ func eachPostTasksForPath(path string, templateGenerator *view.TemplateGenerator
 				template.HTML(blackfriday.Run([]byte(markdown))),
 			}
 			log.Infof("Rendering template: %v - %v", "post", currentPath)
-			return templateGenerator.RenderNewTemplate("post", data)
 
+			bytes, err := templateGenerator.NewTemplate("post").Render(data)
+			if err != nil {
+				return err
+			}
+			return writeFile(path.Join(app.Settings.GeneratedPath, "post"), bytes)
 		})
 	}
 	return tasks, nil
@@ -201,6 +210,14 @@ func (app *App) readingPageTask(templateGenerator *view.TemplateGenerator) *pool
 			time.Now(),
 		}
 		log.Infof("Rendering template: %v", "reading")
-		return templateGenerator.RenderNewTemplate("reading", data)
+		bytes, err := templateGenerator.NewTemplate("reading").Render(data)
+		if err != nil {
+			return err
+		}
+		return writeFile(path.Join(app.Settings.GeneratedPath, "reading"), bytes)
 	})
+}
+
+func writeFile(path string, bytes []byte) error {
+	return ioutil.WriteFile(path, bytes, 0644)
 }
