@@ -21,11 +21,11 @@ import (
 const booksFile = "books.json"
 
 type Client struct {
-	Settings settings.GoodreadsSettings
+	Settings *settings.GoodreadsSettings
 	log      logrus.FieldLogger
 }
 
-func NewClient(settings settings.GoodreadsSettings, log logrus.FieldLogger) *Client {
+func NewClient(settings *settings.GoodreadsSettings, log logrus.FieldLogger) *Client {
 	return &Client{
 		settings,
 		log,

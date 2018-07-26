@@ -9,7 +9,7 @@ install:
 build: build-assets build-go
 
 dev: clean build watch watch-install
-	make -j server watch-logs
+	make -j file-server watch-logs
 
 # See https://github.com/webpack/webpack/issues/2537#issuecomment-280447557
 prod: clean
@@ -30,8 +30,11 @@ clean:
 clean-all: clean
 	rm -rf cache
 
-server:
+server: build-assets
 	$(GOPATH)/bin/go_homepage -server
+
+file-server:
+	$(GOPATH)/bin/go_homepage -file-server
 
 build-go:
 	go install

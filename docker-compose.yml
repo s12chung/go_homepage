@@ -5,5 +5,6 @@ services:
     command: "make dev"
     ports:
       - "3000:3000"
+      - "8080:8080"
     volumes:
      - .:/go/src/github.com/s12chung/go_homepage:cached

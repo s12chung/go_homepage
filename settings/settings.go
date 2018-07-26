@@ -9,13 +9,14 @@ import (
 )
 
 type Settings struct {
-	GeneratedPath string            `json:"generated_path,omitempty"`
-	PostsPath     string            `json:"generated_path,omitempty"`
-	DraftsPath    string            `json:"generated_path,omitempty"`
-	Concurrency   int               `json:"concurrency,omitempty"`
-	ServerPort    int               `json:"server_port,omitempty"`
-	Template      TemplateSettings  `json:"template,omitempty"`
-	Goodreads     GoodreadsSettings `json:"goodreads,omitempty"`
+	GeneratedPath  string            `json:"generated_path,omitempty"`
+	PostsPath      string            `json:"generated_path,omitempty"`
+	DraftsPath     string            `json:"generated_path,omitempty"`
+	Concurrency    int               `json:"concurrency,omitempty"`
+	ServerPort     int               `json:"server_port,omitempty"`
+	FileServerPort int               `json:"server_port,omitempty"`
+	Template       TemplateSettings  `json:"template,omitempty"`
+	Goodreads      GoodreadsSettings `json:"goodreads,omitempty"`
 }
 
 type TemplateSettings struct {
@@ -42,6 +43,7 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		"./content/posts",
 		"./content/drafts",
 		10,
+		8080,
 		3000,
 		TemplateSettings{
 			"Your Website Title",

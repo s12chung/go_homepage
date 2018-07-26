@@ -18,11 +18,11 @@ import (
 
 type Renderer struct {
 	ManifestMap map[string]string
-	Settings    settings.TemplateSettings
+	Settings    *settings.TemplateSettings
 	log         logrus.FieldLogger
 }
 
-func NewRenderer(settings settings.TemplateSettings, log logrus.FieldLogger) (*Renderer, error) {
+func NewRenderer(settings *settings.TemplateSettings, log logrus.FieldLogger) (*Renderer, error) {
 	manifestMap, err := webpack.ReadManifest(path.Join(settings.AssetsPath, settings.ManifestFilename))
 	if err != nil {
 		return nil, err

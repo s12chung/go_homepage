@@ -8,10 +8,10 @@ import (
 func ReadManifest(manifestPath string) (map[string]string, error) {
 	manifestMap := map[string]string{}
 
-	data, err := ioutil.ReadFile(manifestPath)
+	bytes, err := ioutil.ReadFile(manifestPath)
 	if err != nil {
 		return nil, err
 	}
-	json.Unmarshal(data, &manifestMap)
+	json.Unmarshal(bytes, &manifestMap)
 	return manifestMap, nil
 }

@@ -18,6 +18,7 @@ import (
 
 	"github.com/s12chung/go_homepage/goodreads"
 	"github.com/s12chung/go_homepage/pool"
+	"github.com/s12chung/go_homepage/routes"
 	"github.com/s12chung/go_homepage/server"
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/utils"
@@ -52,15 +53,33 @@ func NewApp(log logrus.FieldLogger) *App {
 }
 
 func (app *App) all() error {
-	runServerPtr := flag.Bool("server", false, "Serves page on localhost:3000")
+	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", app.Settings.GeneratedPath, app.Settings.FileServerPort))
+	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", app.Settings.ServerPort))
 
 	flag.Parse()
 
-	if *runServerPtr {
-		return server.RunFileServer(app.Settings.GeneratedPath, app.Settings.ServerPort, app.log)
+	if *fileServerPtr {
+		return server.RunFileServer(app.Settings.GeneratedPath, app.Settings.FileServerPort, app.log)
+	} else if *serverPtr {
+		return app.host()
 	} else {
 		return app.build()
 	}
+}
+
+func (app *App) host() error {
+	var renderer, err = view.NewRenderer(&app.Settings.Template, app.log)
+	if err != nil {
+		return err
+	}
+
+	router := server.NewRouter(renderer, &app.Settings, app.log)
+	router.FileServe("/assets/", app.Settings.Template.AssetsPath)
+
+	router.GetRootHTML(routes.GetIndex)
+	router.GetHTML("/reading", routes.GetReading)
+
+	return router.Run(app.Settings.ServerPort)
 }
 
 func (app *App) build() error {
@@ -79,7 +98,7 @@ func (app *App) setup() error {
 }
 
 func (app *App) runTasks() error {
-	var renderer, err = view.NewRenderer(app.Settings.Template, app.log)
+	var renderer, err = view.NewRenderer(&app.Settings.Template, app.log)
 	if err != nil {
 		return err
 	}
@@ -196,7 +215,7 @@ func (app *App) readingPageTask(renderer *view.Renderer) *pool.Task {
 	return pool.NewTask(func() error {
 		app.log.Infof("Starting task for: %v", "reading")
 
-		bookMap, err := goodreads.NewClient(app.Settings.Goodreads, app.log).GetBooks()
+		bookMap, err := goodreads.NewClient(&app.Settings.Goodreads, app.log).GetBooks()
 		if err != nil {
 			return err
 		}
