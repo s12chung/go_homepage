@@ -3,23 +3,19 @@ package main
 import (
 	"flag"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"os"
 	"path"
-	"regexp"
 	"sort"
-	"strings"
 	"time"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/russross/blackfriday"
-	"gopkg.in/yaml.v2"
-
 	"github.com/s12chung/go_homepage/goodreads"
+	"github.com/s12chung/go_homepage/models"
 	"github.com/s12chung/go_homepage/pool"
 	"github.com/s12chung/go_homepage/routes"
 	"github.com/s12chung/go_homepage/server"
+	"github.com/s12chung/go_homepage/server/router"
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/utils"
 	"github.com/s12chung/go_homepage/view"
@@ -46,8 +42,11 @@ type App struct {
 }
 
 func NewApp(log logrus.FieldLogger) *App {
+	s := *settings.ReadFromFile(log)
+	models.Config(s.PostsPath, s.DraftsPath)
+
 	return &App{
-		*settings.ReadFromFile(log),
+		s,
 		log,
 	}
 }
@@ -73,13 +72,26 @@ func (app *App) host() error {
 		return err
 	}
 
-	router := server.NewRouter(renderer, &app.Settings, app.log)
-	router.FileServe("/assets/", app.Settings.Template.AssetsPath)
+	r := router.NewWebRouter(renderer, &app.Settings, app.log)
+	r.FileServe("/assets/", app.Settings.Template.AssetsPath)
 
-	router.GetRootHTML(routes.GetIndex)
-	router.GetHTML("/reading", routes.GetReading)
+	r.Around(func(ctx *router.WebContext, handler func(ctx *router.WebContext) error) error {
+		ctx.Log().Infof("Running route: %v", ctx.Url())
 
-	return router.Run(app.Settings.ServerPort)
+		err := handler(ctx)
+
+		if err != nil {
+			ctx.Log().Errorf("Error for route %v: %v", ctx.Url(), err)
+		} else {
+			ctx.Log().Infof("Success for route: %v", ctx.Url())
+		}
+		return err
+	})
+	r.GetRootHTML(routes.GetIndex)
+	r.GetWildcardHTML(routes.GetPost)
+	r.GetHTML("/reading", routes.GetReading)
+
+	return r.Run(app.Settings.ServerPort)
 }
 
 func (app *App) build() error {
@@ -155,60 +167,10 @@ func (app *App) eachPostTasksForPath(postsDirPath string, renderer *view.Rendere
 	}
 
 	tasks := make([]*pool.Task, len(filePaths))
-	for index, filePath := range filePaths {
-		currentPath := filePath
-		tasks[index] = pool.NewTask(func() error {
-			app.log.Infof("Starting task for: %v - %v", "post", currentPath)
-
-			input, err := ioutil.ReadFile(filePath)
-			if err != nil {
-				return err
-			}
-			post, markdown, err := postParts(input)
-
-			data := struct {
-				Post         Post
-				MarkdownHTML template.HTML
-			}{
-				*post,
-				template.HTML(blackfriday.Run([]byte(markdown))),
-			}
-			app.log.Infof("Rendering template: %v - %v", "post", currentPath)
-
-			bytes, err := renderer.Render("post", data)
-			if err != nil {
-				return err
-			}
-			return writeFile(path.Join(app.Settings.GeneratedPath, "post"), bytes)
-		})
+	for index := range filePaths {
+		tasks[index] = pool.NewTask(func() error { return nil })
 	}
 	return tasks, nil
-}
-
-type Post struct {
-	Title       string    `yaml:"title"`
-	PublishedAt time.Time `yaml:"published_at"`
-}
-
-func postParts(bytes []byte) (*Post, string, error) {
-	frontMatter, markdown, err := splitFrontMatter(string(bytes))
-	if err != nil {
-		return nil, "", err
-	}
-
-	post := Post{}
-	yaml.Unmarshal([]byte(frontMatter), &post)
-	return &post, markdown, nil
-}
-
-func splitFrontMatter(content string) (string, string, error) {
-	parts := regexp.MustCompile("(?m)^---").Split(content, 3)
-
-	if len(parts) == 3 && parts[0] == "" {
-		return strings.TrimSpace(parts[1]), strings.TrimSpace(parts[2]), nil
-	}
-
-	return "", "", fmt.Errorf("FrontMatter format is not followed")
 }
 
 func (app *App) readingPageTask(renderer *view.Renderer) *pool.Task {

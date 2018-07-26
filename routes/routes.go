@@ -1,26 +1,19 @@
 package routes
 
 import (
+	"github.com/s12chung/go_homepage/goodreads"
+	"github.com/s12chung/go_homepage/models"
+	"github.com/s12chung/go_homepage/server/router"
 	"sort"
 	"time"
-
-	"github.com/s12chung/go_homepage/goodreads"
-	"github.com/s12chung/go_homepage/server"
 )
 
-func GetIndex(ctx *server.Context) error {
-	ctx.Log.Infof("Rendering template: %v", "index")
-	bytes, err := ctx.Renderer.Render("index", nil)
-	if err != nil {
-		return err
-	}
-	return ctx.Write(bytes)
+func GetIndex(ctx *router.WebContext) error {
+	return ctx.Render("index", nil)
 }
 
-func GetReading(ctx *server.Context) error {
-	ctx.Log.Infof("Starting task for: %v", "reading")
-
-	bookMap, err := goodreads.NewClient(&ctx.Settings.Goodreads, ctx.Log).GetBooks()
+func GetReading(ctx *router.WebContext) error {
+	bookMap, err := goodreads.NewClient(&ctx.Settings().Goodreads, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
@@ -39,11 +32,14 @@ func GetReading(ctx *server.Context) error {
 		books[len(books)-1].SortedDate().Year(),
 		time.Now(),
 	}
-	ctx.Log.Infof("Rendering template: %v", "reading")
-	bytes, err := ctx.Renderer.Render("reading", data)
+	return ctx.Render("reading", data)
+}
+
+func GetPost(ctx *router.WebContext) error {
+	filename := ctx.UrlParts()[0]
+	post, err := models.F.NewPost(filename)
 	if err != nil {
 		return err
 	}
-
-	return ctx.Write(bytes)
+	return ctx.Render("post", post)
 }

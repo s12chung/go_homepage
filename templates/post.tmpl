@@ -1,9 +1,9 @@
 {{define "content"}}
     <section class="post">
         <header class="main">
-            <h1>{{.Post.Title}}</h1>
-            <div class="date">{{DateFormat .Post.PublishedAt}}</div>
+            <h1>{{.Title}}</h1>
+            <div class="date">{{DateFormat .PublishedAt}}</div>
         </header>
-        {{.MarkdownHTML}}
+        {{HtmlSafe .MarkdownHTML}}
     </section>
 {{end}}

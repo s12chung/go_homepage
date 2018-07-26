@@ -14,7 +14,7 @@ func defaultTemplateFuncs() template.FuncMap {
 	return template.FuncMap{
 		"Scratch": func() *Scratch { return scratch },
 
-		"htmlSafe": htmlSafe,
+		"HtmlSafe": htmlSafe,
 
 		"SliceMake": sliceMake,
 		"Sequence":  sequence,
