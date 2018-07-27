@@ -89,10 +89,10 @@ func (renderer *Renderer) Render(name string, data interface{}) ([]byte, error) 
 		return nil, err
 	}
 
-	writer := bytes.Buffer{}
-	err = tmpl.ExecuteTemplate(&writer, "layout.tmpl", data)
+	buffer := &bytes.Buffer{}
+	err = tmpl.ExecuteTemplate(buffer, "layout.tmpl", data)
 	if err != nil {
 		return nil, err
 	}
-	return writer.Bytes(), nil
+	return buffer.Bytes(), nil
 }

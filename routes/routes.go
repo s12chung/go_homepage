@@ -1,18 +1,25 @@
 package routes
 
 import (
+	"sort"
+	"time"
+
 	"github.com/s12chung/go_homepage/goodreads"
 	"github.com/s12chung/go_homepage/models"
 	"github.com/s12chung/go_homepage/server/router"
-	"sort"
-	"time"
 )
 
-func GetIndex(ctx *router.WebContext) error {
+func SetRoutes(r router.Router) {
+	r.GetRootHTML(getIndex)
+	r.GetHTML("/reading", getReading)
+	r.GetWildcardHTML(getPost)
+}
+
+func getIndex(ctx router.Context) error {
 	return ctx.Render("index", nil)
 }
 
-func GetReading(ctx *router.WebContext) error {
+func getReading(ctx router.Context) error {
 	bookMap, err := goodreads.NewClient(&ctx.Settings().Goodreads, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
@@ -35,7 +42,7 @@ func GetReading(ctx *router.WebContext) error {
 	return ctx.Render("reading", data)
 }
 
-func GetPost(ctx *router.WebContext) error {
+func getPost(ctx router.Context) error {
 	filename := ctx.UrlParts()[0]
 	post, err := models.F.NewPost(filename)
 	if err != nil {

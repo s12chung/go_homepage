@@ -279,6 +279,7 @@ func (client *Client) paginateGet(request func(page int) (resp *http.Response, e
 			return err
 		}
 		bytes, err := ioutil.ReadAll(response.Body)
+		response.Body.Close()
 		if err != nil {
 			return err
 		}

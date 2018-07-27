@@ -15,10 +15,14 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/view"
+	"io/ioutil"
 )
 
+//
+// Context
+//
 type WebContext struct {
-	renderer *view.Renderer
+	r        *view.Renderer
 	settings *settings.Settings
 	log      logrus.FieldLogger
 	urlParts []string
@@ -44,10 +48,12 @@ func (ctx *WebContext) Url() string {
 	return ctx.url
 }
 
-func (ctx *WebContext) Render(name string, data interface{}) error {
-	ctx.Log().Infof("Rendering template: %v", ctx.Url())
+func (ctx *WebContext) renderer() *view.Renderer {
+	return ctx.r
+}
 
-	bytes, err := ctx.renderer.Render("index", data)
+func (ctx *WebContext) Render(name string, data interface{}) error {
+	bytes, err := renderTemplate(ctx, name, data)
 	if err != nil {
 		return err
 	}
@@ -55,19 +61,23 @@ func (ctx *WebContext) Render(name string, data interface{}) error {
 	return err
 }
 
+//
+// Router
+//
 type WebRouter struct {
 	defaultContext *WebContext
 	serveMux       *http.ServeMux
 	log            logrus.FieldLogger
 
-	arounds []func(ctx *WebContext, handler func(ctx *WebContext) error) error
+	arounds []func(ctx Context, handler func(ctx Context) error) error
+	routes  map[string]bool
 
 	rootHandler     func(w http.ResponseWriter, r *http.Request)
 	wildcardHandler func(w http.ResponseWriter, r *http.Request)
 }
 
 func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logrus.FieldLogger) *WebRouter {
-	defaultContext := WebContext{
+	defaultContext := &WebContext{
 		renderer,
 		settings,
 		log,
@@ -85,10 +95,11 @@ func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logr
 	}
 
 	router := &WebRouter{
-		&defaultContext,
+		defaultContext,
 		http.DefaultServeMux,
 		log,
 		nil,
+		make(map[string]bool),
 		defaultHandler,
 		defaultHandler,
 	}
@@ -96,35 +107,64 @@ func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logr
 	return router
 }
 
-func (router *WebRouter) Around(handler func(ctx *WebContext, handler func(ctx *WebContext) error) error) {
+func (router *WebRouter) Around(handler func(ctx Context, handler func(ctx Context) error) error) {
 	router.arounds = append(router.arounds, handler)
 }
 
-func (router *WebRouter) htmlHandler(handler func(ctx *WebContext) error) func(w http.ResponseWriter, r *http.Request) error {
+func (router *WebRouter) GetWildcardHTML(handler func(ctx Context) error) {
+	router.checkAndSetRoutes(WildcardUrlPattern)
+	router.wildcardHandler = router.getRequestHandler(router.htmlHandler(handler))
+}
+
+func (router *WebRouter) GetRootHTML(handler func(ctx Context) error) {
+	router.checkAndSetRoutes(RootUrlPattern)
+	router.rootHandler = router.getRequestHandler(router.htmlHandler(handler))
+}
+
+func (router *WebRouter) GetHTML(pattern string, handler func(ctx Context) error) {
+	router.checkAndSetRoutes(pattern)
+	router.Get(pattern, router.htmlHandler(handler))
+}
+
+func (router *WebRouter) checkAndSetRoutes(pattern string) error {
+	_, has := router.routes[pattern]
+	if has {
+		panicDuplicateRoute(pattern)
+	}
+	router.routes[pattern] = true
+	return nil
+}
+
+func (router *WebRouter) StaticRoutes() []string {
+	var staticRoutes []string
+	for k := range router.routes {
+		if k != WildcardUrlPattern {
+			staticRoutes = append(staticRoutes, k)
+		}
+	}
+	return staticRoutes
+}
+
+func (router *WebRouter) Requester() Requester {
+	return newWebRequester(router.defaultContext.settings)
+}
+
+func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
 	return func(w http.ResponseWriter, r *http.Request) error {
 		w.Header().Set("Content-Type", mime.TypeByExtension(".html"))
 
 		ctx := *router.defaultContext
+		ctx.url = r.URL.String()
+		parts, err := urlParts(ctx.url)
+		if err != nil {
+			return err
+		}
+		ctx.urlParts = parts
+
 		ctx.responseWriter = w
 		ctx.request = r
-		ctx.url = r.URL.String()
 
-		arounds := router.arounds
-		aroundToNext := make([]func(ctx *WebContext) error, len(arounds))
-		for index := range arounds {
-			reverseIndex := len(arounds) - 1 - index
-			around := arounds[reverseIndex]
-			if index == 0 {
-				aroundToNext[reverseIndex] = func(ctx *WebContext) error {
-					return around(ctx, handler)
-				}
-			} else {
-				aroundToNext[reverseIndex] = func(ctx *WebContext) error {
-					return around(ctx, aroundToNext[reverseIndex+1])
-				}
-			}
-		}
-		return aroundToNext[0](&ctx)
+		return callArounds(router.arounds, handler, &ctx)
 	}
 }
 
@@ -140,7 +180,7 @@ func (router *WebRouter) getRequestHandler(handler func(w http.ResponseWriter, r
 }
 
 func (router *WebRouter) handleWildcard() {
-	router.serveMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	router.serveMux.HandleFunc(RootUrlPattern, func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.String() == "/" {
 			router.rootHandler(w, r)
 		} else {
@@ -165,35 +205,8 @@ func (router *WebRouter) FileServe(pattern, dirPath string) {
 	})
 }
 
-func (router *WebRouter) GetWildcardHTML(handler func(ctx *WebContext) error) {
-	router.wildcardHandler = router.getRequestHandler(router.htmlHandler(func(ctx *WebContext) error {
-		url := ctx.request.URL.String()
-
-		var parts []string
-		for _, part := range strings.Split(url, "/") {
-			if part != "" {
-				parts = append(parts, part)
-			}
-		}
-		if len(parts) > 1 {
-			return fmt.Errorf("currently can't handle more than 1 UrlPart - %v", url)
-		}
-
-		ctx.urlParts = parts
-		return handler(ctx)
-	}))
-}
-
-func (router *WebRouter) GetRootHTML(handler func(ctx *WebContext) error) {
-	router.rootHandler = router.getRequestHandler(router.htmlHandler(handler))
-}
-
-func (router *WebRouter) GetHTML(pattern string, handler func(ctx *WebContext) error) {
-	router.Get(pattern, router.htmlHandler(handler))
-}
-
 func (router *WebRouter) Get(pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
-	if pattern == "/" {
+	if pattern == RootUrlPattern {
 		router.log.Errorf("Can not use pattern that touches root, use GetRootHTML or GetWildcardHTML instead")
 		return
 	}
@@ -204,4 +217,30 @@ func (router *WebRouter) Get(pattern string, handler func(w http.ResponseWriter,
 func (router *WebRouter) Run(port int) error {
 	router.log.Infof("Running server at http://localhost:%v/", port)
 	return http.ListenAndServe(":"+strconv.Itoa(port), router.serveMux)
+}
+
+//
+// Requester
+//
+type WebRequester struct {
+	host string
+	port int
+}
+
+func newWebRequester(s *settings.Settings) *WebRequester {
+	return &WebRequester{
+		"localhost",
+		s.ServerPort,
+	}
+}
+
+func (requester *WebRequester) Get(url string) ([]byte, error) {
+	response, err := http.Get(fmt.Sprintf("http://%v:%v%v", requester.host, requester.port, url))
+	if err != nil {
+		return nil, err
+	}
+
+	defer response.Body.Close()
+	return ioutil.ReadAll(response.Body)
+
 }
