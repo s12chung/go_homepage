@@ -1,0 +1,10 @@
+header.main {
+  text-align: center;
+  margin-bottom: 3em;
+
+  .date {
+    font-size: $small;
+    color: $ink_light;
+    font-style: italic;
+  }
+}

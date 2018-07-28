@@ -2,22 +2,25 @@ package pool
 
 import (
 	"sync"
+
+	"github.com/Sirupsen/logrus"
 )
 
 //
 // Task
 //
 type Task struct {
-	Err error
-	run func() error
+	run   func() error
+	Log   logrus.FieldLogger
+	Error error
 }
 
-func NewTask(run func() error) *Task {
-	return &Task{run: run}
+func NewTask(log logrus.FieldLogger, run func() error) *Task {
+	return &Task{run, log, nil}
 }
 
-func (t *Task) Run(waitGroup *sync.WaitGroup) {
-	t.Err = t.run()
+func (task *Task) Run(waitGroup *sync.WaitGroup) {
+	task.Error = task.run()
 	waitGroup.Done()
 }
 
@@ -40,30 +43,30 @@ func NewPool(tasks []*Task, concurrency int) *Pool {
 	}
 }
 
-func (p *Pool) EachError(callback func(*Task)) {
-	for _, task := range p.Tasks {
-		if task.Err != nil {
+func (pool *Pool) EachError(callback func(*Task)) {
+	for _, task := range pool.Tasks {
+		if task.Error != nil {
 			callback(task)
 		}
 	}
 }
 
-func (p *Pool) Run() {
-	for i := 0; i < p.concurrency; i++ {
-		go p.work()
+func (pool *Pool) Run() {
+	for i := 0; i < pool.concurrency; i++ {
+		go pool.work()
 	}
 
-	p.waitGroup.Add(len(p.Tasks))
-	for _, task := range p.Tasks {
-		p.tasksChan <- task
+	pool.waitGroup.Add(len(pool.Tasks))
+	for _, task := range pool.Tasks {
+		pool.tasksChan <- task
 	}
-	close(p.tasksChan)
+	close(pool.tasksChan)
 
-	p.waitGroup.Wait()
+	pool.waitGroup.Wait()
 }
 
-func (p *Pool) work() {
-	for task := range p.tasksChan {
-		task.Run(&p.waitGroup)
+func (pool *Pool) work() {
+	for task := range pool.tasksChan {
+		task.Run(&pool.waitGroup)
 	}
 }

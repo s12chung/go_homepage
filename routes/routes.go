@@ -9,9 +9,14 @@ import (
 	"github.com/s12chung/go_homepage/server/router"
 )
 
+var DependentUrls = map[string]bool{
+	"/posts": true,
+}
+
 func SetRoutes(r router.Router) {
 	r.GetRootHTML(getIndex)
 	r.GetHTML("/reading", getReading)
+	r.GetHTML("/posts", getPosts)
 	r.GetWildcardHTML(getPost)
 }
 
@@ -42,9 +47,24 @@ func getReading(ctx router.Context) error {
 
 func getPost(ctx router.Context) error {
 	filename := ctx.UrlParts()[0]
-	post, err := models.F.NewPost(filename)
+	post, err := models.NewPost(filename)
 	if err != nil {
 		return err
 	}
 	return ctx.Render("post", post)
+}
+
+func getPosts(ctx router.Context) error {
+	posts, err := models.Posts(func(post *models.Post) bool {
+		return !post.IsDraft
+	})
+	if err != nil {
+		return err
+	}
+	data := struct {
+		Posts []*models.Post
+	}{
+		posts,
+	}
+	return ctx.Render("posts", data)
 }

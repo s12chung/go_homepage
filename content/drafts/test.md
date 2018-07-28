@@ -1,6 +1,7 @@
 ---
 title: Some Test Post
 published_at: 2014-07-25
+description: This is a test. I want to test stuff. Here we go!
 ---
 
 

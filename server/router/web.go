@@ -82,13 +82,9 @@ type WebRouter struct {
 
 func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logrus.FieldLogger) *WebRouter {
 	defaultContext := &WebContext{
-		renderer,
-		settings,
-		log,
-		nil,
-		"",
-		nil,
-		nil,
+		r:        renderer,
+		settings: settings,
+		log:      log,
 	}
 
 	defaultHandler := func(w http.ResponseWriter, r *http.Request) {

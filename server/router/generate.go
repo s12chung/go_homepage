@@ -67,12 +67,9 @@ type GenerateRouter struct {
 
 func NewGenerateRouter(renderer *view.Renderer, settings *settings.Settings, log logrus.FieldLogger) *GenerateRouter {
 	defaultContext := &GenerateContext{
-		renderer,
-		settings,
-		log,
-		nil,
-		"",
-		nil,
+		r:        renderer,
+		settings: settings,
+		log:      log,
 	}
 	return &GenerateRouter{
 		defaultContext,

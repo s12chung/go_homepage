@@ -6,8 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"path/filepath"
-	"strings"
+	"regexp"
 	"time"
 
 	"github.com/Sirupsen/logrus"
@@ -18,12 +17,17 @@ import (
 	"github.com/s12chung/go_homepage/server"
 	"github.com/s12chung/go_homepage/server/router"
 	"github.com/s12chung/go_homepage/settings"
-	"github.com/s12chung/go_homepage/utils"
 	"github.com/s12chung/go_homepage/view"
 )
 
 func main() {
-	log := &logrus.Logger{
+	var log logrus.FieldLogger
+	start := time.Now()
+	defer func() {
+		log.Infof("Build completed in %v.", time.Now().Sub(start))
+	}()
+
+	log = &logrus.Logger{
 		Out: os.Stderr,
 		Formatter: &logrus.TextFormatter{
 			ForceColors: true,
@@ -32,12 +36,12 @@ func main() {
 		Level: logrus.InfoLevel,
 	}
 
-	start := time.Now()
-	defer func() {
-		log.Infof("Build completed in %v.", time.Now().Sub(start))
-	}()
+	s := settings.ReadFromFile(log)
+	models.Config(s.PostsPath, s.DraftsPath, log.WithFields(logrus.Fields{
+		"type": "models",
+	}))
 
-	err := NewApp(log).all()
+	err := NewApp(s, log).all()
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
@@ -45,16 +49,13 @@ func main() {
 }
 
 type App struct {
-	Settings settings.Settings
+	Settings *settings.Settings
 	log      logrus.FieldLogger
 }
 
-func NewApp(log logrus.FieldLogger) *App {
-	s := *settings.ReadFromFile(log)
-	models.Config(s.PostsPath, s.DraftsPath)
-
+func NewApp(settings *settings.Settings, log logrus.FieldLogger) *App {
 	return &App{
-		s,
+		settings,
 		log,
 	}
 }
@@ -68,35 +69,42 @@ func (app *App) all() error {
 	if *fileServerPtr {
 		return server.RunFileServer(app.Settings.GeneratedPath, app.Settings.FileServerPort, app.log)
 	} else {
-		var renderer, err = view.NewRenderer(&app.Settings.Template, app.log)
-		if err != nil {
-			return err
-		}
 		if *serverPtr {
-			return app.host(renderer)
+			return app.host()
 		} else {
-			return app.build(renderer)
+			return app.build()
 		}
 	}
 }
 
-func (app *App) host(renderer *view.Renderer) error {
-	r := router.NewWebRouter(renderer, &app.Settings, app.log)
+func (app *App) host() error {
+	var renderer, err = view.NewRenderer(&app.Settings.Template, app.log)
+	if err != nil {
+		return err
+	}
+
+	r := router.NewWebRouter(renderer, app.Settings, app.log)
 	r.FileServe("/assets/", app.Settings.Template.AssetsPath)
 	setRoutes(r)
 
 	return r.Run(app.Settings.ServerPort)
 }
 
-func (app *App) build(renderer *view.Renderer) error {
-	var err error
-	if err = app.setup(); err != nil {
+func (app *App) build() error {
+	err := app.setup()
+	if err != nil {
 		return err
 	}
 
-	r := router.NewGenerateRouter(renderer, &app.Settings, app.log)
+	renderer, err := view.NewRenderer(&app.Settings.Template, app.log)
+	if err != nil {
+		return err
+	}
+
+	r := router.NewGenerateRouter(renderer, app.Settings, app.log)
 	setRoutes(r)
-	if err = app.requestRoutes(r); err != nil {
+	err = app.requestRoutes(r)
+	if err != nil {
 		return err
 	}
 	return nil
@@ -109,22 +117,24 @@ func (app *App) setup() error {
 func setRoutes(r router.Router) {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
-			"url": ctx.Url(),
+			"type": "routes",
+			"url":  ctx.Url(),
 		}))
 
 		var err error
 
+		ctx.Log().Infof("Running route")
 		start := time.Now()
 		defer func() {
-			ending := fmt.Sprintf(" for route (%v)", time.Now().Sub(start))
+			ending := fmt.Sprintf(" for route")
+
+			log := ctx.Log().WithField("time", time.Now().Sub(start))
 			if err != nil {
-				ctx.Log().Errorf("Error"+ending+" - %v", err)
+				log.Errorf("Error"+ending+" - %v", err)
 			} else {
-				ctx.Log().Infof("Success" + ending)
+				log.Infof("Success" + ending)
 			}
 		}()
-
-		ctx.Log().Infof("Running route")
 
 		err = handler(ctx)
 		return err
@@ -133,33 +143,42 @@ func setRoutes(r router.Router) {
 }
 
 func (app *App) requestRoutes(r router.Router) error {
+	requester := r.Requester()
+
 	allUrls, err := app.allUrls(r)
 	if err != nil {
 		return err
 	}
 
-	requester := r.Requester()
-
-	tasks := make([]*pool.Task, len(allUrls))
-	for i, url := range allUrls {
-		tasks[i] = app.getUrlTask(requester, url)
+	tasks := make([]*pool.Task, len(allUrls)-len(routes.DependentUrls))
+	i := 0
+	for _, url := range allUrls {
+		_, exists := routes.DependentUrls[url]
+		if !exists {
+			tasks[i] = app.getUrlTask(requester, url)
+			i += 1
+		}
 	}
+	app.runTasks(tasks)
 
-	p := pool.NewPool(tasks, app.Settings.Concurrency)
-	p.Run()
-	p.EachError(func(task *pool.Task) {
-		app.log.Errorf("Error found in task - %v", task.Err)
-	})
+	tasks = make([]*pool.Task, len(routes.DependentUrls))
+	i = 0
+	for url := range routes.DependentUrls {
+		tasks[i] = app.getUrlTask(requester, url)
+		i += 1
+	}
+	app.runTasks(tasks)
 
 	return nil
 }
 
 func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
-	return pool.NewTask(func() error {
-		log := app.log.WithFields(logrus.Fields{
-			"url": url,
-		})
+	log := app.log.WithFields(logrus.Fields{
+		"type": "task",
+		"url":  url,
+	})
 
+	return pool.NewTask(log, func() error {
 		bytes, err := requester.Get(url)
 		if err != nil {
 			return err
@@ -183,36 +202,25 @@ func writeFile(path string, bytes []byte) error {
 
 func (app *App) allUrls(r router.Router) ([]string, error) {
 	allUrls := r.StaticRoutes()
-
-	postsUrls, err := app.eachPostUrl(app.Settings.PostsPath)
+	allPostFilenames, err := models.AllPostFilenames()
 	if err != nil {
 		return nil, err
 	}
-	allUrls = append(allUrls, postsUrls...)
 
-	draftUrls, err := app.eachPostUrl(app.Settings.DraftsPath)
-	if err != nil {
-		return nil, err
+	hasSpace := regexp.MustCompile(`\s`).MatchString
+	for i, filename := range allPostFilenames {
+		if hasSpace(filename) {
+			return nil, fmt.Errorf("filename '%v' has a space", filename)
+		}
+		allPostFilenames[i] = "/" + filename
 	}
-	allUrls = append(allUrls, draftUrls...)
-
-	return allUrls, nil
+	return append(allUrls, allPostFilenames...), nil
 }
 
-func (app *App) eachPostUrl(postsDirPath string) ([]string, error) {
-	filePaths, err := utils.FilePaths(postsDirPath)
-	if err != nil {
-		if os.IsNotExist(err) {
-			app.log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
-			return nil, nil
-		}
-		return nil, err
-	}
-
-	urls := make([]string, len(filePaths))
-	for i, filePath := range filePaths {
-		basename := filepath.Base(filePath)
-		urls[i] = fmt.Sprintf("/%v", strings.TrimSuffix(basename, filepath.Ext(basename)))
-	}
-	return urls, nil
+func (app *App) runTasks(tasks []*pool.Task) {
+	p := pool.NewPool(tasks, app.Settings.Concurrency)
+	p.Run()
+	p.EachError(func(task *pool.Task) {
+		task.Log.Errorf("Error for task - %v", task.Error)
+	})
 }

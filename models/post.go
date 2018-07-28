@@ -5,13 +5,18 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
+
+	"github.com/s12chung/go_homepage/utils"
 )
+
+var postMap = map[string]*Post{}
 
 type Post struct {
 	Title       string    `yaml:"title"`
@@ -21,6 +26,10 @@ type Post struct {
 	Filename     string `yaml:"-"`
 	IsDraft      bool   `yaml:"-"`
 	MarkdownHTML string `yaml:"-"`
+}
+
+func NewPost(filename string) (*Post, error) {
+	return factory.NewPost(filename)
 }
 
 func (factory *Factory) NewPost(filename string) (*Post, error) {
@@ -41,7 +50,84 @@ func (factory *Factory) NewPost(filename string) (*Post, error) {
 	if err != nil {
 		return nil, err
 	}
+	postMap[post.Filename] = post
 	return post, nil
+}
+
+func Posts(sel func(*Post) bool) ([]*Post, error) {
+	err := fillPostMap()
+	if err != nil {
+		return nil, err
+	}
+	return toPosts(postMap, sel), nil
+}
+
+func fillPostMap() error {
+	allPostFilenames, err := AllPostFilenames()
+	if err != nil {
+		return err
+	}
+
+	if len(allPostFilenames) != len(postMap) {
+		for _, filename := range allPostFilenames {
+			_, exists := postMap[filename]
+			if !exists {
+				_, err := NewPost(filename)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
+}
+
+func toPosts(postMap map[string]*Post, sel func(*Post) bool) []*Post {
+	var posts []*Post
+	for _, post := range postMap {
+		if sel(post) {
+			posts = append(posts, post)
+		}
+	}
+	return posts
+}
+
+func AllPostFilenames() ([]string, error) {
+	return factory.allPostFilenames()
+}
+
+func (factory *Factory) allPostFilenames() ([]string, error) {
+	var allPostUrls []string
+
+	postsUrls, err := factory.postFilenames(factory.postsPath)
+	if err != nil {
+		return nil, err
+	}
+	allPostUrls = append(allPostUrls, postsUrls...)
+
+	draftUrls, err := factory.postFilenames(factory.draftsPath)
+	if err != nil {
+		return nil, err
+	}
+	return append(allPostUrls, draftUrls...), nil
+}
+
+func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
+	filePaths, err := utils.FilePaths(postsDirPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			factory.log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	urls := make([]string, len(filePaths))
+	for i, filePath := range filePaths {
+		basename := filepath.Base(filePath)
+		urls[i] = strings.TrimSuffix(basename, filepath.Ext(basename))
+	}
+	return urls, nil
 }
 
 func (factory *Factory) postPath(filename string) (string, bool, error) {

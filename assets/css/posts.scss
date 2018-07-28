@@ -1,0 +1,19 @@
+section.posts {
+  & h2 + article.post h3 {
+    margin-top: 0;
+  }
+
+  article.post {
+    font-size: $small;
+
+    h3 {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+    .published_at {
+      color: $ink_light;
+      font-style: italic;
+      font-size: $tiny;
+    }
+  }
+}

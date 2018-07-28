@@ -73,23 +73,28 @@ a {
     opacity: 0.5;
     text-decoration: underline;
   }
-}
 
-pre {
-  font-size: $small;
-  background-color: $background_grey;
-  padding: 1em 1.5em;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $ink;
+  }
 
-  code {
-    background-color: transparent;
+  &:hover {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      // weird bug
+      text-decoration: underline;
+    }
   }
 }
-
-code {
-  background-color: $background_grey;
-  @include monospace;
-}
-
 
 h1,
 h2,
@@ -101,25 +106,16 @@ nav {
   @include sans-serif-semi-bold;
 }
 
-header.main {
-  text-align: center;
-  margin-bottom: 3em;
-
-  .date {
-    font-size: $small;
-    color: $ink_light;
-    font-style: italic;
-  }
-}
-
 h1 {
   font-size: 3em;
-  line-height: 1.25;
+  line-height: 1.1;
   margin: 0;
 }
 
-h2 {
+h2,
+h3 {
   font-size: 1.5em;
+
   margin: 0;
   margin-top: 1.5em;
   margin-bottom: 0.3em;
@@ -136,4 +132,19 @@ nav {
   a {
     color: $ink;
   }
+}
+
+pre {
+  font-size: $small;
+  background-color: $background_grey;
+  padding: 1em 1.5em;
+
+  code {
+    background-color: transparent;
+  }
+}
+
+code {
+  background-color: $background_grey;
+  @include monospace;
 }
