@@ -32,17 +32,31 @@ func NewClient(settings *settings.GoodreadsSettings, log logrus.FieldLogger) *Cl
 	}
 }
 
-func (client *Client) GetBooks() (map[string]Book, error) {
+func (client *Client) GetBooks() ([]*Book, error) {
 	if client.invalidSettings() {
 		client.log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
-		return map[string]Book{}, nil
+		return nil, nil
 	}
 	err := client.setup()
 	if err != nil {
 		return nil, err
 	}
 
-	return client.getBooks(client.Settings.UserId)
+	bookMap, err := client.getBooks(client.Settings.UserId)
+	if err != nil {
+		return nil, err
+	}
+	return toBooks(bookMap), nil
+}
+
+func toBooks(bookMap map[string]*Book) []*Book {
+	books := make([]*Book, len(bookMap))
+	i := 0
+	for _, book := range bookMap {
+		books[i] = book
+		i += 1
+	}
+	return books
 }
 
 func (client *Client) invalidSettings() bool {
@@ -88,20 +102,10 @@ type Book struct {
 	DateUpdated     time.Time     `xml:"-" json:"date_updated"`
 }
 
-func ToBooks(bookMap map[string]Book) []Book {
-	books := make([]Book, len(bookMap))
-	i := 0
-	for _, book := range bookMap {
-		books[i] = book
-		i += 1
-	}
-	return books
-}
-
-func RatingMap(bookMap map[string]Book) map[int]int {
+func RatingMap(books []*Book) map[int]int {
 	ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 	i := 0
-	for _, book := range bookMap {
+	for _, book := range books {
 		ratingMap[book.Rating] += 1
 		i += 1
 	}
@@ -121,17 +125,17 @@ func (book *Book) SortedDate() time.Time {
 	return book.DateAdded
 }
 
-func (client *Client) getBooks(userId int) (map[string]Book, error) {
+func (client *Client) getBooks(userId int) (map[string]*Book, error) {
 	bookMap := client.readBooksCache()
 	bookMap = client.GetBooksRequest(userId, bookMap)
 	return bookMap, client.saveBooksCache(bookMap)
 }
 
 type jsonBooksRoot struct {
-	Books map[string]Book `json:"books"`
+	Books map[string]*Book `json:"books"`
 }
 
-func (client *Client) readBooksCache() map[string]Book {
+func (client *Client) readBooksCache() map[string]*Book {
 	jsonRoot := jsonBooksRoot{}
 	booksCachePath := path.Join(client.Settings.CachePath, booksFile)
 
@@ -160,7 +164,7 @@ func (client *Client) readBooksCache() map[string]Book {
 	return jsonRoot.Books
 }
 
-func (client *Client) saveBooksCache(bookMap map[string]Book) error {
+func (client *Client) saveBooksCache(bookMap map[string]*Book) error {
 	bytes, err := json.MarshalIndent(jsonBooksRoot{bookMap}, "", "  ")
 	if err != nil {
 		return err
@@ -180,16 +184,16 @@ func (response *xmlBookResponse) HasMore() bool {
 type xmlReviews struct {
 	XMLName xml.Name `xml:"reviews"`
 
-	Books []Book `xml:"review"`
+	Books []*Book `xml:"review"`
 
 	PageStart  int `xml:"start,attr"`
 	PageEnd    int `xml:"end,attr"`
 	TotalBooks int `xml:"total,attr"`
 }
 
-func (client *Client) GetBooksRequest(userId int, bookMap map[string]Book) map[string]Book {
+func (client *Client) GetBooksRequest(userId int, bookMap map[string]*Book) map[string]*Book {
 	if bookMap == nil {
-		bookMap = map[string]Book{}
+		bookMap = map[string]*Book{}
 	}
 
 	initialLoad := len(bookMap) == 0

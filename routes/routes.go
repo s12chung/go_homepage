@@ -20,22 +20,20 @@ func getIndex(ctx router.Context) error {
 }
 
 func getReading(ctx router.Context) error {
-	bookMap, err := goodreads.NewClient(&ctx.Settings().Goodreads, ctx.Log()).GetBooks()
+	books, err := goodreads.NewClient(&ctx.Settings().Goodreads, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
-
-	books := goodreads.ToBooks(bookMap)
 	sort.Slice(books, func(i, j int) bool { return books[i].SortedDate().After(books[j].SortedDate()) })
 
 	data := struct {
-		Books        []goodreads.Book
+		Books        []*goodreads.Book
 		RatingMap    map[int]int
 		EarliestYear int
 		Today        time.Time
 	}{
 		books,
-		goodreads.RatingMap(bookMap),
+		goodreads.RatingMap(books),
 		books[len(books)-1].SortedDate().Year(),
 		time.Now(),
 	}
