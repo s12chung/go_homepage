@@ -101,11 +101,15 @@ func (app *App) setup() error {
 
 func setRoutes(r router.Router) {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
+		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
+			"url": ctx.Url(),
+		}))
+
 		var err error
 
 		start := time.Now()
 		defer func() {
-			ending := fmt.Sprintf(" for route %v (%v)", ctx.Url(), time.Now().Sub(start))
+			ending := fmt.Sprintf(" for route (%v)", time.Now().Sub(start))
 			if err != nil {
 				ctx.Log().Errorf("Error"+ending+" - %v", err)
 			} else {
@@ -113,7 +117,7 @@ func setRoutes(r router.Router) {
 			}
 		}()
 
-		ctx.Log().Infof("Running route: %v", ctx.Url())
+		ctx.Log().Infof("Running route")
 
 		err = handler(ctx)
 		return err
@@ -145,6 +149,10 @@ func (app *App) requestRoutes(r router.Router) error {
 
 func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 	return pool.NewTask(func() error {
+		log := app.log.WithFields(logrus.Fields{
+			"url": url,
+		})
+
 		bytes, err := requester.Get(url)
 		if err != nil {
 			return err
@@ -156,7 +164,8 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 		}
 
 		generatedFilePath := path.Join(app.Settings.GeneratedPath, filename)
-		app.log.Infof("Writing response for URL %v into FILE_PATH %v", url, generatedFilePath)
+
+		log.Infof("Writing response into %v", generatedFilePath)
 		return writeFile(generatedFilePath, bytes)
 	})
 }

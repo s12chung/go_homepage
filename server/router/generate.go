@@ -29,6 +29,10 @@ func (ctx *GenerateContext) Log() logrus.FieldLogger {
 	return ctx.log
 }
 
+func (ctx *GenerateContext) SetLog(log logrus.FieldLogger) {
+	ctx.log = log
+}
+
 func (ctx *GenerateContext) UrlParts() []string {
 	return ctx.urlParts
 }

@@ -40,6 +40,10 @@ func (ctx *WebContext) Log() logrus.FieldLogger {
 	return ctx.log
 }
 
+func (ctx *WebContext) SetLog(log logrus.FieldLogger) {
+	ctx.log = log
+}
+
 func (ctx *WebContext) UrlParts() []string {
 	return ctx.urlParts
 }

@@ -18,6 +18,7 @@ type Context interface {
 
 	Settings() *settings.Settings
 	Log() logrus.FieldLogger
+	SetLog(log logrus.FieldLogger)
 	UrlParts() []string
 	Url() string
 }
@@ -72,6 +73,6 @@ func callArounds(arounds []func(ctx Context, handler func(ctx Context) error) er
 }
 
 func renderTemplate(ctx Context, name string, data interface{}) ([]byte, error) {
-	ctx.Log().Infof("Rendering template: %v", ctx.Url())
+	ctx.Log().Infof("Rendering template")
 	return ctx.renderer().Render(name, data)
 }
