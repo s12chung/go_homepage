@@ -41,7 +41,7 @@ build-go:
 	$(GOPATH)/bin/go_homepage
 
 build-assets:
-	webpack
+	webpack --color
 
 watch:
 	watchman watch-project .

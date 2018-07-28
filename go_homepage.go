@@ -23,7 +23,14 @@ import (
 )
 
 func main() {
-	log := logrus.StandardLogger()
+	log := &logrus.Logger{
+		Out: os.Stderr,
+		Formatter: &logrus.TextFormatter{
+			ForceColors: true,
+		},
+		Hooks: make(logrus.LevelHooks),
+		Level: logrus.InfoLevel,
+	}
 
 	start := time.Now()
 	defer func() {
