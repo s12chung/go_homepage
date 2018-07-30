@@ -58,6 +58,8 @@ func getPosts(ctx router.Context) error {
 	if err != nil {
 		return err
 	}
+	sort.Slice(posts, func(i, j int) bool { return posts[i].PublishedAt.After(posts[j].PublishedAt) })
+
 	data := struct {
 		Posts []*models.Post
 	}{

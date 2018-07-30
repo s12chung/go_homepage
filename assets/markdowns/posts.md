@@ -1,1 +1,1 @@
-Where I mostly try to make my reading knowledge more accessible. [Atom Feed](/posts.atom).
+I mostly share ideas from what I read, but I try to be entertaining too. [Atom Feed](/posts.atom).
