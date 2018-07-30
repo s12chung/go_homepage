@@ -81,9 +81,9 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 func (renderer *Renderer) templateFuncs(name string) template.FuncMap {
 	defaults := defaultTemplateFuncs()
 	tgFuncs := template.FuncMap{
-		"Webpack":  renderer.webpackUrl,
-		"Markdown": renderer.parseMarkdownPath,
-		"Title": func() string {
+		"webpack":  renderer.webpackUrl,
+		"markdown": renderer.parseMarkdownPath,
+		"title": func() string {
 			s := fmt.Sprintf("%v - %v", strings.Title(name), renderer.Settings.WebsiteTitle)
 			if name == "index" {
 				s = renderer.Settings.WebsiteTitle

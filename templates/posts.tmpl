@@ -1,17 +1,17 @@
 {{define "content"}}
-	{{Markdown "posts.md"}}
+	{{markdown "posts.md"}}
 
     <section class="posts">
-        {{Scratch.Set "currentYear" 0}}
+        {{scratch.Set "currentYear" 0}}
         {{range .Posts}}
-            {{if ne (Scratch.Get "currentYear") .PublishedAt.Year}}
-                {{Scratch.Set "currentYear" .PublishedAt.Year}}
+            {{if ne (scratch.Get "currentYear") .PublishedAt.Year}}
+                {{scratch.Set "currentYear" .PublishedAt.Year}}
                 <h2>{{.PublishedAt.Year}}</h2>
             {{end}}
             <article class="post">
                 <header>
                     <a href="/{{.Filename}}"><h3>{{.Title}}</h3></a>
-                    <span class="published_at">{{DateFormat .PublishedAt}}</span>
+                    <span class="published_at">{{dateFormat .PublishedAt}}</span>
                 </header>
                 {{.Description}}
             </article>

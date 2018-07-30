@@ -1,27 +1,27 @@
 {{define "content"}}
 	<section class="reading">
-        {{template "main_header" DictMake "Title" "Reading" "Date" (print "Updated on " DateFormat Now) }}
+        {{template "main_header" dictMake "Title" "Reading" "Date" (print "Updated on " (dateFormat now)) }}
 
 		{{$bookCount := len .Books}}
 		<p>{{$bookCount}} books read.</p>
 
-		{{Scratch.Append "legend" "Great to priceless ideas or fun to read, no major flaws."}}
-		{{Scratch.Append "legend" (HtmlSafe "Good to priceless ideas and may also have flaws&mdash;hard to read, filler, etc.")}}
-		{{Scratch.Append "legend" "Good to great ideas and may have the flaws stated above."}}
-		{{Scratch.Append "legend" "Few good ideas. I probably skimmed through it."}}
-		{{Scratch.Append "legend" "Waste of time."}}
+		{{scratch.Append "legend" "Great to priceless ideas or fun to read, no major flaws."}}
+		{{scratch.Append "legend" (htmlSafe "Good to priceless ideas and may also have flaws&mdash;hard to read, filler, etc.")}}
+		{{scratch.Append "legend" "Good to great ideas and may have the flaws stated above."}}
+		{{scratch.Append "legend" "Few good ideas. I probably skimmed through it."}}
+		{{scratch.Append "legend" "Waste of time."}}
 
         <table class="legend">
 			{{$ratingMap := .RatingMap}}
-			{{range $index, $legendDefinition := Scratch.Get "legend" }}
+			{{range $index, $legendDefinition := scratch.Get "legend" }}
 				<tr>
-					{{$rating := Subtract 5 $index}}
-					<td>{{range Sequence $rating}}&#9733;{{end}}</td>
+					{{$rating := subtract 5 $index}}
+					<td>{{range sequence $rating}}&#9733;{{end}}</td>
 					<td>
 						<div class="definition">{{$legendDefinition}}</div>
 						<div class="rating_count">
 							{{$ratingCount := index $ratingMap $rating}}
-							<div class="bar" style="width: {{Percent $ratingCount $bookCount}}%;"></div>
+							<div class="bar" style="width: {{percent $ratingCount $bookCount}}%;"></div>
 							<div>{{$ratingCount}} books</div>
 						</div>
 					</td>
@@ -31,10 +31,10 @@
 
 		<section class="books">
 			{{$earliestYear := .EarliestYear}}
-			{{Scratch.Set "currentYear" 0}}
+			{{scratch.Set "currentYear" 0}}
 			{{range .Books}}
-				{{if ne (Scratch.Get "currentYear") .SortedDate.Year}}
-				    {{Scratch.Set "currentYear" .SortedDate.Year}}
+				{{if ne (scratch.Get "currentYear") .SortedDate.Year}}
+				    {{scratch.Set "currentYear" .SortedDate.Year}}
 					{{if eq .SortedDate.Year $earliestYear}}
 						<h2>{{.SortedDate.Year}} or earlier</h2>
 					{{else}}
@@ -43,9 +43,9 @@
 				{{end}}
 
 				<article class="book">
-                    <em>{{.Title}}</em> by {{SliceList .Authors}}
-                    &nbsp;{{range Sequence .Rating}}&#9733;{{end}}
-                    <span class="date">{{DateFormat .SortedDate}}</span>
+                    <em>{{.Title}}</em> by {{sliceList .Authors}}
+                    &nbsp;{{range sequence .Rating}}&#9733;{{end}}
+                    <span class="date">{{dateFormat .SortedDate}}</span>
 				</article>
 			{{end}}
 		</section>

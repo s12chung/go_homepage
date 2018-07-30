@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{Title}}</title>
+    <title>{{title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" media="all" href="{{Webpack "vendor.css"}}">
-    <link rel="stylesheet" media="all" href="{{Webpack "main.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpack "vendor.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpack "main.css"}}">
 </head>
 <body>
 <section class="layout">
     <header class="layout">
-        <a href="/"><img class="logo" src="{{Webpack "images/logo.png"}}"/></a>
+        <a href="/"><img class="logo" src="{{webpack "images/logo.png"}}"/></a>
 
         <nav>
-        {{$navItems := SliceMake "Posts" "Reading"}}
+        {{$navItems := sliceMake "Posts" "Reading"}}
         {{range $navItems}}
-            <a href="/{{ToLower .}}">{{.}}</a>
+            <a href="/{{toLower .}}">{{.}}</a>
         {{end}}
         </nav>
     </header>
@@ -28,5 +28,5 @@
 </section>
 </body>
 
-<script src="{{Webpack "main.js"}}"></script>
+<script src="{{webpack "main.js"}}"></script>
 </html>

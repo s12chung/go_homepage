@@ -13,23 +13,23 @@ func defaultTemplateFuncs() template.FuncMap {
 	scratch := NewScratch()
 
 	return template.FuncMap{
-		"Scratch": func() *Scratch { return scratch },
+		"scratch": func() *Scratch { return scratch },
 
-		"HtmlSafe": htmlSafe,
+		"htmlSafe": htmlSafe,
 
-		"SliceMake": sliceMake,
-		"Dict":      dictMake,
-		"Sequence":  sequence,
+		"sliceMake": sliceMake,
+		"dictMake":  dictMake,
+		"sequence":  sequence,
 
-		"DateFormat": dateFormat,
-		"Now":        time.Now,
+		"dateFormat": dateFormat,
+		"now":        time.Now,
 
-		"SliceList": utils.SliceList,
-		"ToLower":   strings.ToLower,
+		"sliceList": utils.SliceList,
+		"toLower":   strings.ToLower,
 
-		"Add":      add,
-		"Subtract": subtract,
-		"Percent":  percent,
+		"add":      add,
+		"subtract": subtract,
+		"percent":  percent,
 	}
 }
 
