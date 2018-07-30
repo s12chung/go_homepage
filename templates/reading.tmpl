@@ -1,9 +1,6 @@
 {{define "content"}}
 	<section class="reading">
-		<header class="main">
-			<h1>Reading</h1>
-			<div class="date">Updated on {{DateFormat .Today}}</div>
-		</header>
+        {{template "main_header" DictMake "Title" "Reading" "Date" (print "Updated on " DateFormat Now) }}
 
 		{{$bookCount := len .Books}}
 		<p>{{$bookCount}} books read.</p>
@@ -37,18 +34,18 @@
 			{{Scratch.Set "currentYear" 0}}
 			{{range .Books}}
 				{{if ne (Scratch.Get "currentYear") .SortedDate.Year}}
+				    {{Scratch.Set "currentYear" .SortedDate.Year}}
 					{{if eq .SortedDate.Year $earliestYear}}
 						<h2>{{.SortedDate.Year}} or earlier</h2>
 					{{else}}
 						<h2>{{.SortedDate.Year}}</h2>
 					{{end}}
 				{{end}}
-				{{Scratch.Set "currentYear" .SortedDate.Year}}
 
 				<article class="book">
-					<em>{{.Title}}</em>
-					by {{SliceList .Authors}}
-					&nbsp;{{range Sequence .Rating}}&#9733;{{end}}
+                    <em>{{.Title}}</em> by {{SliceList .Authors}}
+                    &nbsp;{{range Sequence .Rating}}&#9733;{{end}}
+                    <span class="date">{{DateFormat .SortedDate}}</span>
 				</article>
 			{{end}}
 		</section>

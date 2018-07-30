@@ -2,7 +2,6 @@ package routes
 
 import (
 	"sort"
-	"time"
 
 	"github.com/s12chung/go_homepage/goodreads"
 	"github.com/s12chung/go_homepage/models"
@@ -35,12 +34,10 @@ func getReading(ctx router.Context) error {
 		Books        []*goodreads.Book
 		RatingMap    map[int]int
 		EarliestYear int
-		Today        time.Time
 	}{
 		books,
 		goodreads.RatingMap(books),
 		books[len(books)-1].SortedDate().Year(),
-		time.Now(),
 	}
 	return ctx.Render("reading", data)
 }

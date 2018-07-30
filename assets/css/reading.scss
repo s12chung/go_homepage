@@ -31,5 +31,9 @@ section.books {
 
   article.book {
     margin-bottom: 1em;
+    .date {
+      color: $ink_light;
+      font-size: $tiny;
+    }
   }
 }

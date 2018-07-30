@@ -1,9 +1,6 @@
 {{define "content"}}
     <section class="post">
-        <header class="main">
-            <h1>{{.Title}}</h1>
-            <div class="date">{{DateFormat .PublishedAt}}</div>
-        </header>
+        {{template "main_header" DictMake "Title" .Title "Date" (DateFormat .PublishedAt) }}
         {{HtmlSafe .MarkdownHTML}}
     </section>
 {{end}}

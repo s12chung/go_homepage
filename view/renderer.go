@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -13,8 +14,11 @@ import (
 	"github.com/russross/blackfriday"
 
 	"github.com/s12chung/go_homepage/settings"
+	"github.com/s12chung/go_homepage/utils"
 	"github.com/s12chung/go_homepage/view/webpack"
 )
+
+const templatePath = "./templates"
 
 type Renderer struct {
 	ManifestMap map[string]string
@@ -59,7 +63,22 @@ func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
 	return template.HTML(blackfriday.Run(input))
 }
 
-func (renderer *Renderer) TemplateFuncs(name string) template.FuncMap {
+func (renderer *Renderer) partialPaths() ([]string, error) {
+	filePaths, err := utils.FilePaths(templatePath)
+	if err != nil {
+		return nil, err
+	}
+
+	var partialPaths []string
+	for _, filePath := range filePaths {
+		if strings.HasPrefix(filepath.Base(filePath), "_") {
+			partialPaths = append(partialPaths, filePath)
+		}
+	}
+	return partialPaths, nil
+}
+
+func (renderer *Renderer) templateFuncs(name string) template.FuncMap {
 	defaults := defaultTemplateFuncs()
 	tgFuncs := template.FuncMap{
 		"Webpack":  renderer.webpackUrl,
@@ -79,12 +98,19 @@ func (renderer *Renderer) TemplateFuncs(name string) template.FuncMap {
 }
 
 func (renderer *Renderer) Render(name string, data interface{}) ([]byte, error) {
+	partialPaths, err := renderer.partialPaths()
+	if err != nil {
+		return nil, err
+	}
+
+	templatePaths := append(partialPaths, []string{
+		path.Join(templatePath, "layout.tmpl"),
+		path.Join(templatePath, name+".tmpl"),
+	}...)
+
 	tmpl, err := template.New("self").
-		Funcs(renderer.TemplateFuncs(name)).
-		ParseFiles(
-			path.Join("templates", "layout.tmpl"),
-			path.Join("templates", name+".tmpl"),
-		)
+		Funcs(renderer.templateFuncs(name)).
+		ParseFiles(templatePaths...)
 	if err != nil {
 		return nil, err
 	}

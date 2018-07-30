@@ -1,6 +1,7 @@
 package view
 
 import (
+	"fmt"
 	"html/template"
 	"strings"
 	"time"
@@ -17,11 +18,14 @@ func defaultTemplateFuncs() template.FuncMap {
 		"HtmlSafe": htmlSafe,
 
 		"SliceMake": sliceMake,
+		"Dict":      dictMake,
 		"Sequence":  sequence,
 
 		"DateFormat": dateFormat,
-		"SliceList":  utils.SliceList,
-		"ToLower":    strings.ToLower,
+		"Now":        time.Now,
+
+		"SliceList": utils.SliceList,
+		"ToLower":   strings.ToLower,
 
 		"Add":      add,
 		"Subtract": subtract,
@@ -73,6 +77,21 @@ func htmlSafe(s string) template.HTML {
 
 func sliceMake(args ...interface{}) []interface{} {
 	return args
+}
+
+func dictMake(values ...interface{}) (map[string]interface{}, error) {
+	if len(values)%2 != 0 {
+		return nil, fmt.Errorf("invalid Dict call, need to match keys with values")
+	}
+	dict := make(map[string]interface{}, len(values)/2)
+	for i := 0; i < len(values); i += 2 {
+		key, ok := values[i].(string)
+		if !ok {
+			return nil, fmt.Errorf("dict keys must be strings")
+		}
+		dict[key] = values[i+1]
+	}
+	return dict, nil
 }
 
 func sequence(n int) []int {
