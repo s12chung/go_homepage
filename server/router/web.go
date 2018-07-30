@@ -25,11 +25,17 @@ type WebContext struct {
 	r        *view.Renderer
 	settings *settings.Settings
 	log      logrus.FieldLogger
-	urlParts []string
 
-	url            string
+	url      string
+	urlParts []string
+	tmplName string
+
 	responseWriter http.ResponseWriter
 	request        *http.Request
+}
+
+func (ctx *WebContext) renderer() *view.Renderer {
+	return ctx.r
 }
 
 func (ctx *WebContext) Settings() *settings.Settings {
@@ -52,12 +58,16 @@ func (ctx *WebContext) Url() string {
 	return ctx.url
 }
 
-func (ctx *WebContext) renderer() *view.Renderer {
-	return ctx.r
+func (ctx *WebContext) TemplateName() string {
+	return templateName(ctx, ctx.tmplName)
 }
 
-func (ctx *WebContext) Render(name string, data interface{}) error {
-	bytes, err := renderTemplate(ctx, name, data)
+func (ctx *WebContext) SetTemplateName(templateName string) {
+	ctx.tmplName = templateName
+}
+
+func (ctx *WebContext) Render(data interface{}) error {
+	bytes, err := renderTemplate(ctx, data)
 	if err != nil {
 		return err
 	}

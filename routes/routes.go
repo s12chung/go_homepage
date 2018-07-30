@@ -9,18 +9,18 @@ import (
 )
 
 var DependentUrls = map[string]bool{
-	"/posts": true,
+	"/": true,
 }
 
 func SetRoutes(r router.Router) {
-	r.GetRootHTML(getIndex)
-	r.GetHTML("/reading", getReading)
-	r.GetHTML("/posts", getPosts)
+	r.GetRootHTML(getPosts)
 	r.GetWildcardHTML(getPost)
+	r.GetHTML("/reading", getReading)
+	r.GetHTML("/about", getAbout)
 }
 
-func getIndex(ctx router.Context) error {
-	return ctx.Render("index", nil)
+func getAbout(ctx router.Context) error {
+	return ctx.Render(nil)
 }
 
 func getReading(ctx router.Context) error {
@@ -39,7 +39,7 @@ func getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		books[len(books)-1].SortedDate().Year(),
 	}
-	return ctx.Render("reading", data)
+	return ctx.Render(data)
 }
 
 func getPost(ctx router.Context) error {
@@ -48,7 +48,8 @@ func getPost(ctx router.Context) error {
 	if err != nil {
 		return err
 	}
-	return ctx.Render("post", post)
+	ctx.SetTemplateName("post")
+	return ctx.Render(post)
 }
 
 func getPosts(ctx router.Context) error {
@@ -65,5 +66,6 @@ func getPosts(ctx router.Context) error {
 	}{
 		posts,
 	}
-	return ctx.Render("posts", data)
+	ctx.SetTemplateName("posts")
+	return ctx.Render(data)
 }

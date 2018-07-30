@@ -12,8 +12,10 @@ import (
 const WildcardUrlPattern = "*"
 const RootUrlPattern = "/"
 
+var IsRootUrlPart = func(urlParts []string) bool { return len(urlParts) == 0 }
+
 type Context interface {
-	Render(name string, data interface{}) error
+	Render(data interface{}) error
 	renderer() *view.Renderer
 
 	Settings() *settings.Settings
@@ -21,6 +23,8 @@ type Context interface {
 	SetLog(log logrus.FieldLogger)
 	UrlParts() []string
 	Url() string
+	TemplateName() string
+	SetTemplateName(templateName string)
 }
 
 type Router interface {
@@ -72,7 +76,26 @@ func callArounds(arounds []func(ctx Context, handler func(ctx Context) error) er
 	return aroundToNext[0](ctx)
 }
 
-func renderTemplate(ctx Context, name string, data interface{}) ([]byte, error) {
-	ctx.Log().Infof("Rendering template")
-	return ctx.renderer().Render(name, data)
+func templateName(ctx Context, templateName string) string {
+	if templateName == "" {
+		// assume len of <= 1: https://github.com/s12chung/go_homepage/blob/aa77eaf3ffff669b6abaab35078fb65ee3ffb17c/server/router/router.go#L52
+		if IsRootUrlPart(ctx.UrlParts()) {
+			ctx.Log().Panicf("No TemplateName given for root route")
+			return ""
+		}
+		return ctx.UrlParts()[0]
+	} else {
+		return templateName
+	}
+}
+
+func renderTemplate(ctx Context, data interface{}) ([]byte, error) {
+	templateName := ctx.TemplateName()
+	defaultTitle := templateName
+	if IsRootUrlPart(ctx.UrlParts()) {
+		defaultTitle = ""
+	}
+
+	ctx.Log().Infof("Rendering template %v", templateName)
+	return ctx.renderer().Render(templateName, defaultTitle, data)
 }

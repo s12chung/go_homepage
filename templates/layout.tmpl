@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
+    <title>{{(title .)}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
@@ -16,10 +16,10 @@
         <a href="/"><img class="logo" src="{{webpack "images/logo.png"}}"/></a>
 
         <nav>
-        {{$navItems := sliceMake "Posts" "Reading"}}
-        {{range $navItems}}
-            <a href="/{{toLower .}}">{{.}}</a>
-        {{end}}
+            {{$navItems := sliceMake "Reading" "About"}}
+            {{range $navItems}}
+                <a href="/{{toLower .}}">{{.}}</a>
+            {{end}}
         </nav>
     </header>
     <section class="content">

@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"reflect"
 	"sort"
 	"strings"
 )
@@ -59,4 +60,22 @@ func FilePaths(dirPaths ...string) ([]string, error) {
 		}
 	}
 	return filePaths, nil
+}
+
+func GetStringField(data interface{}, name string) string {
+	if data == nil {
+		return ""
+	}
+
+	dataValue := reflect.ValueOf(data)
+	if dataValue.Type().Kind() != reflect.Ptr {
+		dataValue = reflect.New(reflect.TypeOf(data))
+	}
+
+	field := dataValue.Elem().FieldByName(name)
+	if field.IsValid() {
+		return field.String()
+	} else {
+		return ""
+	}
 }

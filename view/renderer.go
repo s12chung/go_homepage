@@ -78,26 +78,31 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 	return partialPaths, nil
 }
 
-func (renderer *Renderer) templateFuncs(name string) template.FuncMap {
-	defaults := defaultTemplateFuncs()
+func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	tgFuncs := template.FuncMap{
 		"webpack":  renderer.webpackUrl,
 		"markdown": renderer.parseMarkdownPath,
-		"title": func() string {
-			s := fmt.Sprintf("%v - %v", strings.Title(name), renderer.Settings.WebsiteTitle)
-			if name == "index" {
-				s = renderer.Settings.WebsiteTitle
+		"title": func(data interface{}) string {
+			title := utils.GetStringField(data, "Title")
+			if title == "" {
+				title = defaultTitle
 			}
-			return s
+
+			if title == "" {
+				return renderer.Settings.WebsiteTitle
+			}
+			return fmt.Sprintf("%v - %v", strings.Title(title), renderer.Settings.WebsiteTitle)
 		},
 	}
+
+	defaults := defaultTemplateFuncs()
 	for k, v := range tgFuncs {
 		defaults[k] = v
 	}
 	return defaults
 }
 
-func (renderer *Renderer) Render(name string, data interface{}) ([]byte, error) {
+func (renderer *Renderer) Render(name, defaultTitle string, data interface{}) ([]byte, error) {
 	partialPaths, err := renderer.partialPaths()
 	if err != nil {
 		return nil, err
@@ -109,7 +114,7 @@ func (renderer *Renderer) Render(name string, data interface{}) ([]byte, error) 
 	}...)
 
 	tmpl, err := template.New("self").
-		Funcs(renderer.templateFuncs(name)).
+		Funcs(renderer.templateFuncs(defaultTitle)).
 		ParseFiles(templatePaths...)
 	if err != nil {
 		return nil, err

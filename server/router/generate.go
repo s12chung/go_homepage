@@ -14,11 +14,16 @@ type GenerateContext struct {
 	r        *view.Renderer
 	settings *settings.Settings
 	log      logrus.FieldLogger
-	urlParts []string
 
-	url string
+	url      string
+	urlParts []string
+	tmplName string
 
 	response []byte
+}
+
+func (ctx *GenerateContext) renderer() *view.Renderer {
+	return ctx.r
 }
 
 func (ctx *GenerateContext) Settings() *settings.Settings {
@@ -41,12 +46,16 @@ func (ctx *GenerateContext) Url() string {
 	return ctx.url
 }
 
-func (ctx *GenerateContext) renderer() *view.Renderer {
-	return ctx.r
+func (ctx *GenerateContext) TemplateName() string {
+	return templateName(ctx, ctx.tmplName)
 }
 
-func (ctx *GenerateContext) Render(name string, data interface{}) error {
-	bytes, err := renderTemplate(ctx, name, data)
+func (ctx *GenerateContext) SetTemplateName(templateName string) {
+	ctx.tmplName = templateName
+}
+
+func (ctx *GenerateContext) Render(data interface{}) error {
+	bytes, err := renderTemplate(ctx, data)
 	if err != nil {
 		return err
 	}
