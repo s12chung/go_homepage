@@ -22,9 +22,6 @@ And then move a wonderful quote for niceness.
 
 > I'm wondering through the forest speaking some wise words.
 
-Broken Image is here:
-![Broken Image](images/broken_not_existing.jpg)
-
 Test images is here:
 ![Test JPG](images/test.jpg)
 ![Test PNG](images/test.png)

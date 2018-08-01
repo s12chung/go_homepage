@@ -20,37 +20,42 @@ import (
 
 const templatePath = "./templates"
 
+var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
+
 type Renderer struct {
-	ManifestMap map[string]string
-	Settings    *settings.TemplateSettings
-	log         logrus.FieldLogger
+	Settings *settings.TemplateSettings
+	webpack  *webpack.Webpack
+	log      logrus.FieldLogger
 }
 
-func NewRenderer(settings *settings.TemplateSettings, log logrus.FieldLogger) (*Renderer, error) {
-	manifestMap, err := webpack.ReadManifest(path.Join(settings.AssetsPath, settings.ManifestFilename))
-	if err != nil {
-		return nil, err
-	}
-
+func NewRenderer(generatedPath string, settings *settings.TemplateSettings, log logrus.FieldLogger) *Renderer {
+	webpack := webpack.NewWebpack(generatedPath, settings, log)
 	return &Renderer{
-		manifestMap,
 		settings,
+		webpack,
 		log,
-	}, nil
+	}
 }
 
 func (renderer *Renderer) browserAssetsPath() string {
 	return regexp.MustCompile("\\A.*/").ReplaceAllString(renderer.Settings.AssetsPath, "/")
 }
 
-func (renderer *Renderer) webpackUrl(manifestKey string) string {
-	manifestValue := renderer.ManifestMap[manifestKey]
+func (renderer *Renderer) webpackUrl(key string) string {
+	return renderer.browserAssetsPath() + "/" + renderer.webpack.ManifestValue(key)
+}
 
-	if manifestValue == "" {
-		renderer.log.Error("webpack manifestValue not found for key: ", manifestKey)
-	}
+func (renderer *Renderer) processHTML(html string) string {
+	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
+		matches := imgRegex.FindStringSubmatch(imgTag)
+		responsiveImage := renderer.webpack.GetResponsiveImage(matches[2])
 
-	return renderer.browserAssetsPath() + "/" + manifestValue
+		attributes := []string{fmt.Sprintf(`src="%v"`, responsiveImage.Src)}
+		if responsiveImage.SrcSet != "" {
+			attributes = append(attributes, fmt.Sprintf(`srcset="%v"`, responsiveImage.SrcSet))
+		}
+		return strings.Replace(imgTag, matches[1], strings.Join(attributes, " "), 1)
+	})
 }
 
 func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
@@ -80,8 +85,9 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	tgFuncs := template.FuncMap{
-		"webpack":  renderer.webpackUrl,
-		"markdown": renderer.parseMarkdownPath,
+		"webpack":     renderer.webpackUrl,
+		"markdown":    renderer.parseMarkdownPath,
+		"processHTML": renderer.processHTML,
 		"title": func(data interface{}) string {
 			title := utils.GetStringField(data, "Title")
 			if title == "" {

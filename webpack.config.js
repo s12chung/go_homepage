@@ -27,6 +27,10 @@ const imageTest = /\.(png|jpg|gif)$/;
 const contentImagesPath = 'content/images/';
 
 module.exports = {
+    resolveLoader: {
+        modules: ['node_modules', 'webpack/loaders']
+    },
+
     mode: isProduction ? "production" : "development",
 
     entry: {
@@ -87,6 +91,14 @@ module.exports = {
                 test: /\.(png|jpg)$/,
                 include: relativePath('content'),
                 use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'content/responsive/',
+                            name: '[name].[ext].json',
+                        }
+                    },
+                    'eval-loader',
                     {
                         loader: 'responsive-loader',
                         options: {

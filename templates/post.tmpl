@@ -1,6 +1,6 @@
 {{define "content"}}
     <section class="post">
         {{template "main_header" dictMake "Title" .Title "Date" (dateFormat .PublishedAt) }}
-        {{htmlSafe .MarkdownHTML}}
+        {{htmlSafe (processHTML .MarkdownHTML)}}
     </section>
 {{end}}

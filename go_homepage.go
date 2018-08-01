@@ -78,11 +78,7 @@ func (app *App) all() error {
 }
 
 func (app *App) host() error {
-	var renderer, err = view.NewRenderer(&app.Settings.Template, app.log)
-	if err != nil {
-		return err
-	}
-
+	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewWebRouter(renderer, app.Settings, app.log)
 	r.FileServe("/assets/", app.Settings.Template.AssetsPath)
 	setRoutes(r)
@@ -96,11 +92,7 @@ func (app *App) build() error {
 		return err
 	}
 
-	renderer, err := view.NewRenderer(&app.Settings.Template, app.log)
-	if err != nil {
-		return err
-	}
-
+	renderer := view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewGenerateRouter(renderer, app.Settings, app.log)
 	setRoutes(r)
 	err = app.requestRoutes(r)
