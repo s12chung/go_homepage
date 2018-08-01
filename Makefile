@@ -19,6 +19,12 @@ prod: clean
 docker:
 	docker-compose up
 
+docker-build:
+	docker-compose up --build
+
+docker-sh:
+	docker-compose exec web sh
+
 docker-rm:
 	docker-compose rm -v -s
 

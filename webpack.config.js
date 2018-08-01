@@ -8,6 +8,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
 const cssLoaders = [
     MiniCssExtractPlugin.loader,
     {
@@ -19,6 +21,11 @@ const cssLoaders = [
     }
 ];
 
+
+const filename = isProduction ? '[name]-[hash]' : '[name]';
+const imageTest = /\.(png|jpg|gif)$/;
+const contentImagesPath = 'content/images/';
+
 module.exports = {
     mode: isProduction ? "production" : "development",
 
@@ -28,7 +35,7 @@ module.exports = {
     },
     output: {
         path: relativePath('generated/assets'),
-        filename: isProduction ? '[name]-[hash].js' : '[name].js',
+        filename: filename + '.js',
     },
 
     module: {
@@ -49,23 +56,60 @@ module.exports = {
                 use: cssLoaders
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: imageTest,
+                include: relativePath('assets/images'),
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             outputPath: 'images/',
-                            name: isProduction ? '[name]-[hash].[ext]' : '[name].[ext]',
+                            name: filename + '.[ext]',
                         }
                     }
                 ]
-            }
+            },
+            {
+                // load what responsive-loader can't
+                test: /\.(gif)$/,
+                include: relativePath('content'),
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: contentImagesPath,
+                            name: filename + '.[ext]',
+                        }
+                    }
+                ]
+            },
+            {
+                // no support for gif
+                test: /\.(png|jpg)$/,
+                include: relativePath('content'),
+                use: [
+                    {
+                        loader: 'responsive-loader',
+                        options: {
+                            name: contentImagesPath + filename + '-[width].[ext]',
+                            quality: 85, // this is default for JPEG, making it explicit
+                            adapter: require('responsive-loader/sharp'),
+                            sizes: [325, 750, 1500, 3000, 6000]
+                        }
+                    }
+                ]
+            },
         ],
     },
 
     plugins: [
+        // lossless compression, responsive-loader will do a quality change on JPEG to 85 quality
+        new ImageminPlugin({
+            test: /\.(png|gif)$/,
+            cacheFolder: relativePath('node_modules/.cache/imagemin'),
+            jpegtran: null
+        }),
         new MiniCssExtractPlugin({
-            filename: isProduction ? '[name]-[hash].css' : '[name].css',
+            filename: filename + '.css',
             chunkFilename: isProduction ? '[id]-[hash].css' : '[id].css',
         }),
         new ManifestPlugin(),
