@@ -113,7 +113,7 @@ func (factory *Factory) allPostFilenames() ([]string, error) {
 }
 
 func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
-	filePaths, err := utils.FilePaths(postsDirPath)
+	filePaths, err := utils.FilePaths(".md", postsDirPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			factory.log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)

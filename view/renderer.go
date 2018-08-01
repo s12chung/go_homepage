@@ -64,7 +64,7 @@ func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
-	filePaths, err := utils.FilePaths(templatePath)
+	filePaths, err := utils.FilePaths(".tmpl", templatePath)
 	if err != nil {
 		return nil, err
 	}

@@ -39,7 +39,7 @@ func SliceList(slice []string) string {
 	return strings.Join(newSlice, "")
 }
 
-func FilePaths(dirPaths ...string) ([]string, error) {
+func FilePaths(suffix string, dirPaths ...string) ([]string, error) {
 	var filePaths []string
 
 	for _, dirPath := range dirPaths {
@@ -53,7 +53,7 @@ func FilePaths(dirPaths ...string) ([]string, error) {
 		}
 
 		for _, fileInfo := range files {
-			if fileInfo.IsDir() {
+			if fileInfo.IsDir() || !strings.HasSuffix(fileInfo.Name(), suffix) {
 				continue
 			}
 			filePaths = append(filePaths, path.Join(dirPath, fileInfo.Name()))
