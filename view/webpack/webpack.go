@@ -20,6 +20,7 @@ var responsiveExtensions = map[string]bool{
 	".jpg": true,
 }
 
+var toLastSlashRegex = regexp.MustCompile(`\A.*/`)
 var spacesRegex = regexp.MustCompile(`\s+`)
 
 type Webpack struct {
@@ -129,7 +130,7 @@ func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage,
 	return responsiveImage, nil
 }
 
-func (w *Webpack) ManifestValue(key string) string {
+func (w *Webpack) manifestValue(key string) string {
 	if len(w.manifestMap) == 0 {
 		err := w.readManifest()
 		if err != nil {
@@ -150,4 +151,12 @@ func (w *Webpack) readManifest() error {
 		return err
 	}
 	return json.Unmarshal(bytes, &w.manifestMap)
+}
+
+func (w *Webpack) browserAssetsPath() string {
+	return toLastSlashRegex.ReplaceAllString(w.settings.AssetsPath, "/")
+}
+
+func (w *Webpack) ManifestPath(key string) string {
+	return w.browserAssetsPath() + "/" + w.manifestValue(key)
 }

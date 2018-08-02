@@ -15,8 +15,10 @@ const RootUrlPattern = "/"
 var IsRootUrlPart = func(urlParts []string) bool { return len(urlParts) == 0 }
 
 type Context interface {
+	Renderer() *view.Renderer
+
 	Render(data interface{}) error
-	renderer() *view.Renderer
+	Respond(bytes []byte) error
 
 	Settings() *settings.Settings
 	Log() logrus.FieldLogger
@@ -97,5 +99,5 @@ func renderTemplate(ctx Context, data interface{}) ([]byte, error) {
 	}
 
 	ctx.Log().Infof("Rendering template %v", templateName)
-	return ctx.renderer().Render(templateName, defaultTitle, data)
+	return ctx.Renderer().Render(templateName, defaultTitle, data)
 }

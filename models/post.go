@@ -28,6 +28,10 @@ type Post struct {
 	MarkdownHTML string `yaml:"-"`
 }
 
+func (post *Post) Id() string {
+	return post.Filename
+}
+
 func NewPost(filename string) (*Post, error) {
 	return factory.NewPost(filename)
 }
@@ -54,12 +58,18 @@ func (factory *Factory) NewPost(filename string) (*Post, error) {
 	return post, nil
 }
 
-func Posts(sel func(*Post) bool) ([]*Post, error) {
+func AllPosts(sel func(*Post) bool) ([]*Post, error) {
 	err := fillPostMap()
 	if err != nil {
 		return nil, err
 	}
 	return toPosts(postMap, sel), nil
+}
+
+func Posts() ([]*Post, error) {
+	return AllPosts(func(post *Post) bool {
+		return !post.IsDraft
+	})
 }
 
 func fillPostMap() error {
@@ -83,6 +93,10 @@ func fillPostMap() error {
 }
 
 func toPosts(postMap map[string]*Post, sel func(*Post) bool) []*Post {
+	if sel == nil {
+		sel = func(post *Post) bool { return true }
+	}
+
 	var posts []*Post
 	for _, post := range postMap {
 		if sel(post) {

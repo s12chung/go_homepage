@@ -22,7 +22,7 @@ type GenerateContext struct {
 	response []byte
 }
 
-func (ctx *GenerateContext) renderer() *view.Renderer {
+func (ctx *GenerateContext) Renderer() *view.Renderer {
 	return ctx.r
 }
 
@@ -59,6 +59,10 @@ func (ctx *GenerateContext) Render(data interface{}) error {
 	if err != nil {
 		return err
 	}
+	return ctx.Respond(bytes)
+}
+
+func (ctx *GenerateContext) Respond(bytes []byte) error {
 	ctx.response = bytes
 	return nil
 }

@@ -23,32 +23,28 @@ const templatePath = "./templates"
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
 
 type Renderer struct {
-	Settings *settings.TemplateSettings
-	webpack  *webpack.Webpack
+	settings *settings.TemplateSettings
+	w        *webpack.Webpack
 	log      logrus.FieldLogger
 }
 
 func NewRenderer(generatedPath string, settings *settings.TemplateSettings, log logrus.FieldLogger) *Renderer {
-	webpack := webpack.NewWebpack(generatedPath, settings, log)
+	w := webpack.NewWebpack(generatedPath, settings, log)
 	return &Renderer{
 		settings,
-		webpack,
+		w,
 		log,
 	}
 }
 
-func (renderer *Renderer) browserAssetsPath() string {
-	return regexp.MustCompile("\\A.*/").ReplaceAllString(renderer.Settings.AssetsPath, "/")
-}
-
-func (renderer *Renderer) webpackUrl(key string) string {
-	return renderer.browserAssetsPath() + "/" + renderer.webpack.ManifestValue(key)
+func (renderer *Renderer) Webpack() *webpack.Webpack {
+	return renderer.w
 }
 
 func (renderer *Renderer) processHTML(html string) string {
 	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
 		matches := imgRegex.FindStringSubmatch(imgTag)
-		responsiveImage := renderer.webpack.GetResponsiveImage(matches[2])
+		responsiveImage := renderer.Webpack().GetResponsiveImage(matches[2])
 
 		attributes := []string{fmt.Sprintf(`src="%v"`, responsiveImage.Src)}
 		if responsiveImage.SrcSet != "" {
@@ -59,7 +55,7 @@ func (renderer *Renderer) processHTML(html string) string {
 }
 
 func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
-	filePath := path.Join(renderer.Settings.MarkdownsPath, filename)
+	filePath := path.Join(renderer.settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		renderer.log.Error(err)
@@ -85,7 +81,7 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	tgFuncs := template.FuncMap{
-		"webpack":     renderer.webpackUrl,
+		"webpackPath": renderer.Webpack().ManifestPath,
 		"markdown":    renderer.parseMarkdownPath,
 		"processHTML": renderer.processHTML,
 		"title": func(data interface{}) string {
@@ -95,9 +91,9 @@ func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 			}
 
 			if title == "" {
-				return renderer.Settings.WebsiteTitle
+				return renderer.settings.WebsiteTitle
 			}
-			return fmt.Sprintf("%v - %v", strings.Title(title), renderer.Settings.WebsiteTitle)
+			return fmt.Sprintf("%v - %v", strings.Title(title), renderer.settings.WebsiteTitle)
 		},
 	}
 

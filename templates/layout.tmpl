@@ -7,13 +7,13 @@
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" media="all" href="{{webpack "vendor.css"}}">
-    <link rel="stylesheet" media="all" href="{{webpack "main.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpackPath "vendor.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpackPath "main.css"}}">
 </head>
 <body>
 <section class="layout">
     <header class="layout">
-        <a href="/"><img class="logo" src="{{webpack "images/logo.png"}}"/></a>
+        <a href="/"><img class="logo" src="{{webpackPath "images/logo.png"}}"/></a>
 
         <nav>
             {{$navItems := sliceMake "Reading" "About"}}

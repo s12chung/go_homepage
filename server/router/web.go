@@ -34,7 +34,7 @@ type WebContext struct {
 	request        *http.Request
 }
 
-func (ctx *WebContext) renderer() *view.Renderer {
+func (ctx *WebContext) Renderer() *view.Renderer {
 	return ctx.r
 }
 
@@ -71,7 +71,11 @@ func (ctx *WebContext) Render(data interface{}) error {
 	if err != nil {
 		return err
 	}
-	_, err = ctx.responseWriter.Write(bytes)
+	return ctx.Respond(bytes)
+}
+
+func (ctx *WebContext) Respond(bytes []byte) error {
+	_, err := ctx.responseWriter.Write(bytes)
 	return err
 }
 

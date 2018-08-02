@@ -2,8 +2,10 @@ package settings
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/Sirupsen/logrus"
 )
@@ -17,6 +19,7 @@ type Settings struct {
 	FileServerPort int               `json:"server_port,omitempty"`
 	Template       TemplateSettings  `json:"template,omitempty"`
 	Goodreads      GoodreadsSettings `json:"goodreads,omitempty"`
+	Domain         DomainSettings    `json:"domain,omitempty"`
 }
 
 type TemplateSettings struct {
@@ -35,6 +38,30 @@ type GoodreadsSettings struct {
 	PerPage    int    `json:"per_page,omitempty"`
 	MaxPerPage int    `json:"max_per_page,omitempty"`
 	RateLimit  int    `json:"rate_limit,omitempty"`
+}
+
+type DomainSettings struct {
+	AuthorName string `json:"author_name,omitempty"`
+	AuthorUri  string `json:"author_uri,omitempty"`
+
+	Host string `json:"host,omitempty"`
+	SSL  bool   `json:"ssl,omitempty"`
+}
+
+func (domainSettings *DomainSettings) Url() string {
+	ssl := ""
+	if domainSettings.SSL {
+		ssl = "s"
+	}
+	return fmt.Sprintf("http%v://%v", ssl, domainSettings.Host)
+}
+
+func (domainSettings *DomainSettings) UrlFor(path string) string {
+	path = strings.Trim(path, "/")
+	if path == "" {
+		return domainSettings.Url()
+	}
+	return strings.Join([]string{domainSettings.Url(), path}, "/")
 }
 
 const settingsPath = "settings.json"
@@ -63,6 +90,12 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 			200,
 			1000,
 		},
+		DomainSettings{
+			"Your Name",
+			"",
+			"yourwebsite.com",
+			true,
+		},
 	}
 	_, err := os.Stat(settingsPath)
 	if os.IsNotExist(err) {
@@ -82,5 +115,6 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		return &settings
 	}
 
+	settings.Domain.AuthorUri = settings.Domain.Url()
 	return &settings
 }
