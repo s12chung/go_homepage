@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/url"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -13,6 +12,7 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/settings"
+	"net/url"
 )
 
 var responsiveExtensions = map[string]bool{
@@ -61,7 +61,7 @@ type ResponsiveImage struct {
 	Src    string `json:"src"`
 }
 
-func (r *ResponsiveImage) changeImagesUrl(imagesUrl string) error {
+func (r *ResponsiveImage) changeResponsiveImageUrl(imagesUrl string) error {
 	r.Src = r.changeSrc(imagesUrl, r.Src)
 	if r.SrcSet == "" {
 		return nil
@@ -87,25 +87,18 @@ func (r *ResponsiveImage) changeSrc(imagesUrl, src string) string {
 }
 
 func (w *Webpack) GetResponsiveImage(originalSrc string) *ResponsiveImage {
-	responsiveImage, err := w.readResponsiveImageJSON(originalSrc)
+	responsiveImage, err := w.getResponsiveImage(originalSrc)
 	if err != nil {
 		w.log.Errorf("GetResponsiveImage error: %v", err)
-		responsiveImage = &ResponsiveImage{Src: originalSrc}
+		return &ResponsiveImage{Src: originalSrc}
 	}
-
-	err = responsiveImage.changeImagesUrl(w.imagesUrl)
-	if err != nil {
-		w.log.Errorf("GetResponsiveImage error: %v", err)
-		responsiveImage = &ResponsiveImage{Src: originalSrc}
-	}
-
 	return responsiveImage
 }
 
-func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage, error) {
+func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, error) {
 	_, hasResponsive := responsiveExtensions[filepath.Ext(originalSrc)]
 	if !hasResponsive {
-		return &ResponsiveImage{Src: originalSrc}, nil
+		return &ResponsiveImage{Src: w.ManifestPath(filepath.Join("content", originalSrc))}, nil
 	}
 
 	u, err := url.Parse(originalSrc)
@@ -116,6 +109,19 @@ func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage,
 		return &ResponsiveImage{Src: originalSrc}, nil
 	}
 
+	responsiveImage, err := w.readResponsiveImageJSON(originalSrc)
+	if err != nil {
+		return nil, err
+	}
+	err = responsiveImage.changeResponsiveImageUrl(w.imagesUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	return responsiveImage, nil
+}
+
+func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage, error) {
 	responsiveImageFilename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
 	bytes, err := ioutil.ReadFile(path.Join(w.settings.ResponsivePath, responsiveImageFilename))
 	if err != nil {
