@@ -23,12 +23,8 @@ type Settings struct {
 }
 
 type TemplateSettings struct {
-	WebsiteTitle   string `json:"website_title,omitempty"`
-	AssetsPath     string `json:"assets_path,omitempty"`
-	ManifestPath   string `json:"manifest_path,omitempty"`
-	ResponsivePath string `json:"responsive_path,omitempty"`
-	PostImagesPath string `json:"post_images_path,omitempty"`
-	MarkdownsPath  string `json:"markdowns_path,omitempty"`
+	WebsiteTitle  string `json:"website_title,omitempty"`
+	MarkdownsPath string `json:"markdowns_path,omitempty"`
 }
 
 type GoodreadsSettings struct {
@@ -76,10 +72,6 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		3000,
 		TemplateSettings{
 			"Your Website Title",
-			"./generated/assets",
-			"./generated/assets/manifest.json",
-			"./generated/assets/content/responsive",
-			"./generated/assets/content/images",
 			"./assets/markdowns",
 		},
 		GoodreadsSettings{

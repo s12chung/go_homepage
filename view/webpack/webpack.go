@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/url"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -12,48 +13,50 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/settings"
-	"net/url"
 )
+
+// in settings.Settings, GeneratedPath must have:
+const AssetsPath = "assets"
+
+const manifestpath = "manifest.json"
+
+func fullManifestPath() string {
+	return fmt.Sprintf("%v/%v", AssetsPath, manifestpath)
+}
+
+const postImagesPath = "content/images"
+
+func fullPostImagesPath() string {
+	return fmt.Sprintf("%v/%v", AssetsPath, postImagesPath)
+}
+
+const responsivePath = "content/responsive"
+
+func fullResponsivePath() string {
+	return fmt.Sprintf("%v/%v", AssetsPath, responsivePath)
+}
 
 var responsiveExtensions = map[string]bool{
 	".png": true,
 	".jpg": true,
 }
 
-var toLastSlashRegex = regexp.MustCompile(`\A.*/`)
 var spacesRegex = regexp.MustCompile(`\s+`)
 
 type Webpack struct {
-	imagesUrl   string
-	settings    *settings.TemplateSettings
-	manifestMap map[string]string
-	log         logrus.FieldLogger
+	generatedPath string
+	settings      *settings.TemplateSettings
+	manifestMap   map[string]string
+	log           logrus.FieldLogger
 }
 
 func NewWebpack(generatedPath string, templateSettings *settings.TemplateSettings, log logrus.FieldLogger) *Webpack {
-	w := &Webpack{
-		"",
+	return &Webpack{
+		generatedPath,
 		templateSettings,
 		map[string]string{},
 		log,
 	}
-	w.setImagesUrl(generatedPath)
-	return w
-}
-
-func (w *Webpack) setImagesUrl(generatedPath string) {
-	absPostImagesPath, err := filepath.Abs(w.settings.PostImagesPath)
-	if err != nil {
-		w.log.Errorf("setImagesUrl error: %v", err)
-		return
-	}
-
-	absGeneratedPath, err := filepath.Abs(generatedPath)
-	if err != nil {
-		w.log.Errorf("setImagesUrl error: %v", err)
-		return
-	}
-	w.imagesUrl = strings.Replace(absPostImagesPath, absGeneratedPath, "", 1)
 }
 
 type ResponsiveImage struct {
@@ -98,7 +101,8 @@ func (w *Webpack) GetResponsiveImage(originalSrc string) *ResponsiveImage {
 func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, error) {
 	_, hasResponsive := responsiveExtensions[filepath.Ext(originalSrc)]
 	if !hasResponsive {
-		return &ResponsiveImage{Src: w.ManifestPath(filepath.Join("content", originalSrc))}, nil
+		manifestKey := filepath.Join(postImagesPath, filepath.Base(originalSrc))
+		return &ResponsiveImage{Src: w.ManifestPath(manifestKey)}, nil
 	}
 
 	u, err := url.Parse(originalSrc)
@@ -113,7 +117,7 @@ func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, erro
 	if err != nil {
 		return nil, err
 	}
-	err = responsiveImage.changeResponsiveImageUrl(w.imagesUrl)
+	err = responsiveImage.changeResponsiveImageUrl(fullPostImagesPath())
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +127,7 @@ func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, erro
 
 func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage, error) {
 	responsiveImageFilename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
-	bytes, err := ioutil.ReadFile(path.Join(w.settings.ResponsivePath, responsiveImageFilename))
+	bytes, err := ioutil.ReadFile(path.Join(w.generatedPath, fullResponsivePath(), responsiveImageFilename))
 	if err != nil {
 		return nil, err
 	}
@@ -152,17 +156,13 @@ func (w *Webpack) manifestValue(key string) string {
 }
 
 func (w *Webpack) readManifest() error {
-	bytes, err := ioutil.ReadFile(w.settings.ManifestPath)
+	bytes, err := ioutil.ReadFile(filepath.Join(w.generatedPath, fullManifestPath()))
 	if err != nil {
 		return err
 	}
 	return json.Unmarshal(bytes, &w.manifestMap)
 }
 
-func (w *Webpack) browserAssetsPath() string {
-	return toLastSlashRegex.ReplaceAllString(w.settings.AssetsPath, "/")
-}
-
 func (w *Webpack) ManifestPath(key string) string {
-	return w.browserAssetsPath() + "/" + w.manifestValue(key)
+	return AssetsPath + "/" + w.manifestValue(key)
 }

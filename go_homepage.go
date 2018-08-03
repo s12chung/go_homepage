@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"time"
 
@@ -18,6 +19,7 @@ import (
 	"github.com/s12chung/go_homepage/server/router"
 	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/view"
+	"github.com/s12chung/go_homepage/view/webpack"
 )
 
 func main() {
@@ -80,7 +82,7 @@ func (app *App) all() error {
 func (app *App) host() error {
 	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewWebRouter(renderer, app.Settings, app.log)
-	r.FileServe("/assets/", app.Settings.Template.AssetsPath)
+	r.FileServe(fmt.Sprintf("/%v/", webpack.AssetsPath), filepath.Join(app.Settings.GeneratedPath, webpack.AssetsPath))
 	setRoutes(r)
 
 	return r.Run(app.Settings.ServerPort)
