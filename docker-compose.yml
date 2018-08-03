@@ -1,11 +1,19 @@
 version: "3"
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        DOCKER_WORKDIR: $DOCKER_WORKDIR
     command: "make dev"
     tty: true
+    env_file:
+      - docker.env
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: ${DOCKER_WORKDIR}/aws/credentials
+      AWS_CONFIG_FILE: ${DOCKER_WORKDIR}/aws/config
     ports:
       - "3000:3000"
       - "8080:8080"
     volumes:
-     - .:/go/src/github.com/s12chung/go_homepage:cached
+      - .:${DOCKER_WORKDIR}:cached

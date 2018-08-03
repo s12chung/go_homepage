@@ -1,0 +1,4 @@
+# docker-compose will set an env var to this file
+[default]
+region=us-east-1
+output=json

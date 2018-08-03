@@ -7,3 +7,6 @@ generated/*
 logs/*
 cache/*
 settings.json
+
+docker.env
+aws/credentials
