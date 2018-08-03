@@ -8,6 +8,7 @@ import (
 	"github.com/s12chung/go_homepage/models"
 	"github.com/s12chung/go_homepage/server/router"
 	"github.com/s12chung/go_homepage/view/atom"
+	"github.com/s12chung/go_homepage/view/robots"
 )
 
 var DependentUrls = map[string]bool{
@@ -21,6 +22,7 @@ func SetRoutes(r router.Router) {
 	r.GetHTML("/about", getAbout)
 
 	r.GetHTML("/posts.atom", getPostsAtom)
+	r.GetHTML("/robots.txt", getRobotsTxt)
 }
 
 func getAbout(ctx router.Context) error {
@@ -93,6 +95,22 @@ func getPostsAtom(ctx router.Context) error {
 		return err
 	}
 	return ctx.Respond(bytes)
+}
+
+func getRobotsTxt(ctx router.Context) error {
+	posts, err := models.Drafts()
+	if err != nil {
+		return err
+	}
+
+	paths := make([]string, len(posts))
+	for i, post := range posts {
+		paths[i] = "/" + post.Filename
+	}
+	sort.Strings(paths)
+
+	userAgents := []*robots.UserAgent{robots.NewUserAgent(robots.EverythingUserAgent, paths)}
+	return ctx.Respond([]byte(robots.ToFileString(userAgents)))
 }
 
 func sortedPosts() ([]*models.Post, error) {

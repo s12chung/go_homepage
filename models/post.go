@@ -67,9 +67,11 @@ func AllPosts(sel func(*Post) bool) ([]*Post, error) {
 }
 
 func Posts() ([]*Post, error) {
-	return AllPosts(func(post *Post) bool {
-		return !post.IsDraft
-	})
+	return AllPosts(func(post *Post) bool { return !post.IsDraft })
+}
+
+func Drafts() ([]*Post, error) {
+	return AllPosts(func(post *Post) bool { return post.IsDraft })
 }
 
 func fillPostMap() error {
