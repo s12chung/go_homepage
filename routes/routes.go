@@ -77,17 +77,17 @@ func getPosts(ctx router.Context) error {
 	return ctx.Render(data)
 }
 
+const atomPostLimit = 100
+
 func getPostsAtom(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
 	}
 
-	limit := 100
-	if limit > len(posts) {
-		limit = len(posts)
+	if atomPostLimit < len(posts) {
+		posts = posts[0 : atomPostLimit-1]
 	}
-	posts = posts[0 : limit-1]
 
 	atomRenderer := atom.NewAtomRenderer(&ctx.Settings().Domain)
 	bytes, err := atomRenderer.PostsToFeed(ctx, posts).Marhshall()
