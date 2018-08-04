@@ -15,11 +15,11 @@ type Feed struct {
 	XMLLang string `xml:"xml:lang,attr"`
 	XMLNS   string `xml:"xmlns,attr"`
 
-	Title   string    `xml:"title"`
-	Icon    string    `xml:"icon"`
 	ID      string    `xml:"id"`
+	Title   string    `xml:"title"`
 	Updated time.Time `xml:"updated"`
 
+	Icon   string  `xml:"icon"`
 	Author *Author `xml:"author"`
 
 	Links   []*Link  `xml:"link"`
