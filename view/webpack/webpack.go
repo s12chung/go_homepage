@@ -23,7 +23,7 @@ func AssetsPath() string {
 	if assetsPath != "" {
 		return assetsPath
 	}
-	assetsPath = os.Getenv("GENERATED_PATH")
+	assetsPath = os.Getenv("ASSETS_PATH")
 	if assetsPath != "" {
 		return assetsPath
 	}

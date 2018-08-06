@@ -8,5 +8,5 @@ logs/*
 cache/*
 settings.json
 
-docker.env
+.envrc
 aws/credentials

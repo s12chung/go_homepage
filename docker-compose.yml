@@ -6,9 +6,10 @@ services:
       args:
         DOCKER_WORKDIR: $DOCKER_WORKDIR
     tty: true
-    env_file:
-      - docker.env
     environment:
+      GENERATED_PATH: $GENERATED_PATH
+      ASSETS_PATH: $ASSETS_PATH
+      S3_BUCKET: $S3_BUCKET
       AWS_SHARED_CREDENTIALS_FILE: ${DOCKER_WORKDIR}/aws/credentials
       AWS_CONFIG_FILE: ${DOCKER_WORKDIR}/aws/config
     ports:
