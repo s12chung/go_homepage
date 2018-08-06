@@ -82,7 +82,7 @@ func (app *App) all() error {
 func (app *App) host() error {
 	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewWebRouter(renderer, app.Settings, app.log)
-	r.FileServe(fmt.Sprintf("/%v/", webpack.AssetsPath), filepath.Join(app.Settings.GeneratedPath, webpack.AssetsPath))
+	r.FileServe(fmt.Sprintf("/%v/", webpack.AssetsPath()), filepath.Join(app.Settings.GeneratedPath, webpack.AssetsPath()))
 	setRoutes(r)
 
 	return r.Run(app.Settings.ServerPort)

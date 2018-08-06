@@ -2,3 +2,5 @@ version: "3"
 services:
   web:
     command: "make prod deploy"
+    volumes:
+      - .:${DOCKER_WORKDIR}:cached

@@ -63,6 +63,7 @@ func (domainSettings *DomainSettings) UrlFor(path string) string {
 const settingsPath = "settings.json"
 
 func ReadFromFile(log logrus.FieldLogger) *Settings {
+	// also programmatically set below
 	settings := Settings{
 		"./generated",
 		"./content/posts",
@@ -89,6 +90,13 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 			true,
 		},
 	}
+
+	// set here
+	generatedPath := os.Getenv("GENERATED_PATH")
+	if generatedPath != "" {
+		settings.GeneratedPath = generatedPath
+	}
+
 	_, err := os.Stat(settingsPath)
 	if os.IsNotExist(err) {
 		log.Infof("%v not found, using defaults...", settingsPath)
@@ -101,12 +109,14 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		return &settings
 	}
 
+	// set through settingsPath
 	err = json.Unmarshal(file, &settings)
 	if err != nil {
 		log.Warnf("error reading %v, using defaults...", settingsPath)
 		return &settings
 	}
 
+	// set here
 	settings.Domain.AuthorUri = settings.Domain.Url()
 	return &settings
 }

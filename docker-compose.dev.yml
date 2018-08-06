@@ -1,6 +1,6 @@
 version: "3"
 services:
   web:
-    command: "make prod file-server"
+    command: "make dev"
     volumes:
       - .:${DOCKER_WORKDIR}:cached

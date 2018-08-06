@@ -5,7 +5,6 @@ services:
       context: .
       args:
         DOCKER_WORKDIR: $DOCKER_WORKDIR
-    command: "make dev"
     tty: true
     env_file:
       - docker.env
@@ -15,5 +14,3 @@ services:
     ports:
       - "3000:3000"
       - "8080:8080"
-    volumes:
-      - .:${DOCKER_WORKDIR}:cached

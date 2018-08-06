@@ -1,0 +1,13 @@
+{
+  "template" : {
+    "website_title": "Your Website Title"
+  },
+  "goodreads": {
+    "api_key": "",
+    "user_id": 0
+  },
+  "domain": {
+    "author_name": "Your Name",
+    "host": "yourwebsite.com"
+  }
+}

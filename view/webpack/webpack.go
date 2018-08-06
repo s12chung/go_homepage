@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/url"
+	"os"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -16,24 +17,36 @@ import (
 )
 
 // in settings.Settings, GeneratedPath must have:
-const AssetsPath = "assets"
+var assetsPath = ""
+
+func AssetsPath() string {
+	if assetsPath != "" {
+		return assetsPath
+	}
+	assetsPath = os.Getenv("GENERATED_PATH")
+	if assetsPath != "" {
+		return assetsPath
+	}
+	assetsPath = "assets"
+	return assetsPath
+}
 
 const manifestpath = "manifest.json"
 
 func fullManifestPath() string {
-	return fmt.Sprintf("%v/%v", AssetsPath, manifestpath)
+	return fmt.Sprintf("%v/%v", AssetsPath(), manifestpath)
 }
 
 const postImagesPath = "content/images"
 
 func fullPostImagesPath() string {
-	return fmt.Sprintf("%v/%v", AssetsPath, postImagesPath)
+	return fmt.Sprintf("%v/%v", AssetsPath(), postImagesPath)
 }
 
 const responsivePath = "content/responsive"
 
 func fullResponsivePath() string {
-	return fmt.Sprintf("%v/%v", AssetsPath, responsivePath)
+	return fmt.Sprintf("%v/%v", AssetsPath(), responsivePath)
 }
 
 var responsiveExtensions = map[string]bool{
@@ -164,5 +177,5 @@ func (w *Webpack) readManifest() error {
 }
 
 func (w *Webpack) ManifestPath(key string) string {
-	return AssetsPath + "/" + w.manifestValue(key)
+	return AssetsPath() + "/" + w.manifestValue(key)
 }

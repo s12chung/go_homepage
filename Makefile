@@ -1,6 +1,3 @@
-GENERATED_PATH := ./generated
-ASSETS_PATH := assets
-
 SHORT_TTL := 3600
 # for assets, which don't change or have hashed filenames
 LONG_TTL := 86400
@@ -25,16 +22,26 @@ prod: clean
 	$(GOPATH)/bin/go_homepage
 
 deploy:
-	aws s3 sync $(GENERATED_PATH) s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --delete --content-type text/html --exclude 'assets/*' --exclude '*.atom'
+	aws s3 sync $(GENERATED_PATH) s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --delete --content-type text/html --exclude '${ASSETS_PATH}/*' --exclude '*.atom'
 	aws s3 sync $(GENERATED_PATH)/$(ASSETS_PATH) s3://$(S3_BUCKET)/$(ASSETS_PATH)/ --cache-control max-age=$(LONG_TTL) --delete
 	find $(GENERATED_PATH) -name '*.atom' | sed "s|^\$(GENERATED_PATH)/||" | xargs -I{} -n1 aws s3 cp $(GENERATED_PATH)/{} s3://$(S3_BUCKET)/{} --cache-control max-age=$(SHORT_TTL) --content-type application/xml
 	aws s3 cp $(GENERATED_PATH)/robots.txt s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --content-type text/plain
 
-docker:
-	docker-compose up
+docker-install: docker-build-install docker-copy
+
+docker-build-install:
+	docker-compose up --no-start
+
+# $(shell docker-compose ps -q web) breaks if this target is combined with docker-build
+docker-copy:
+	docker cp $(shell docker-compose ps -q web):$(DOCKER_WORKDIR)/node_modules ./node_modules
+	docker cp $(shell docker-compose ps -q web):$(DOCKER_WORKDIR)/vendor ./vendor
 
 docker-build:
-	docker-compose up --build
+	docker-compose up --build --no-start
+
+docker:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 docker-prod:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
@@ -73,6 +80,7 @@ watch:
 	watchman watch-project .
 
 watch-logs:
+	mkdir -p logs
 	touch logs/watchman-build.log
 	tail -f logs/watchman-build.log
 
