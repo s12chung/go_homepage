@@ -43,6 +43,12 @@ html {
   background-color: $paper;
 }
 
+@media all and (max-width: 575px) {
+  html {
+    font-size: $base-font-size * 0.75;
+  }
+}
+
 i,
 em {
   font-style: italic;

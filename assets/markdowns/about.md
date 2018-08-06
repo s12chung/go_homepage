@@ -9,5 +9,3 @@ Things I like:
 - [Satisficing](https://en.wikipedia.org/wiki/Satisficing)
 - Scuba diving and hiking
 - Ruby and Go
-
-Feel free to contact me at [hello@stevenchung.ca](mailto:hello@stevenchung.ca).
