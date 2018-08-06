@@ -391,8 +391,4 @@ Or, in pure Markdown, but losing the image sizing and border:
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 ```
 
-Referencing a bug by #bugID in your git commit links it to the slip. For example #1. 
-
----
-
-License: [CC-BY](https://creativecommons.org/licenses/by/3.0/)
+Referencing a bug by #bugID in your git commit links it to the slip. For example #1.

@@ -14,6 +14,7 @@ type Settings struct {
 	GeneratedPath  string            `json:"generated_path,omitempty"`
 	PostsPath      string            `json:"generated_path,omitempty"`
 	DraftsPath     string            `json:"generated_path,omitempty"`
+	GithubUrl      string            `json:"github_url,omitempty"`
 	Concurrency    int               `json:"concurrency,omitempty"`
 	ServerPort     int               `json:"server_port,omitempty"`
 	FileServerPort int               `json:"server_port,omitempty"`
@@ -68,6 +69,7 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		"./generated",
 		"./content/posts",
 		"./content/drafts",
+		"",
 		10,
 		8080,
 		3000,

@@ -2,5 +2,12 @@
     <section class="post">
         {{template "main_header" dictMake "Title" .Title "Date" (dateFormat .PublishedAt) }}
         {{htmlSafe (processHTML .MarkdownHTML)}}
+
+        {{if ne .EditGithubUrl ""}}
+            <footer class="post">
+                <div class="border"></div>
+                <p>Typos? Mistakes? Help out and <a href="{{.EditGithubUrl}}">send a Pull Request</a>.</p>
+            </footer>
+        {{end}}
     </section>
 {{end}}

@@ -3,4 +3,13 @@ section.post {
     display: block;
     width: 100%;
   }
+
+  footer.post {
+    font-style: italic;
+
+    .border {
+      margin: 2em 5em;
+      border-bottom: 1px solid $light_grey;
+    }
+  }
 }

@@ -16,6 +16,8 @@ import (
 	"github.com/s12chung/go_homepage/utils"
 )
 
+const markdownExtension = ".md"
+
 var postMap = map[string]*Post{}
 
 type Post struct {
@@ -30,6 +32,35 @@ type Post struct {
 
 func (post *Post) Id() string {
 	return post.Filename
+}
+
+func (post *Post) MarkdownFilename() string {
+	return markdownFilename(post.Filename)
+}
+
+func (post *Post) FilePath() string {
+	folderPath := factory.postsPath
+	if post.IsDraft {
+		folderPath = factory.draftsPath
+	}
+	folderPath = strings.TrimLeft(folderPath, ".")
+	folderPath = strings.Trim(folderPath, "/")
+
+	return strings.Join([]string{
+		folderPath,
+		post.MarkdownFilename(),
+	}, "/")
+}
+
+func (post *Post) EditGithubUrl() string {
+	if factory.githubUrl == "" {
+		return ""
+	}
+	return strings.Join([]string{
+		factory.githubUrl,
+		"edit/master",
+		post.FilePath(),
+	}, "/")
 }
 
 func NewPost(filename string) (*Post, error) {
@@ -129,7 +160,7 @@ func (factory *Factory) allPostFilenames() ([]string, error) {
 }
 
 func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
-	filePaths, err := utils.FilePaths(".md", postsDirPath)
+	filePaths, err := utils.FilePaths(markdownExtension, postsDirPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			factory.log.Warnf("Posts path does not exist %v - %v", postsDirPath, err)
@@ -147,7 +178,7 @@ func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
 }
 
 func (factory *Factory) postPath(filename string) (string, bool, error) {
-	filename = filename + ".md"
+	filename = markdownFilename(filename)
 	paths := []string{
 		path.Join(factory.postsPath, filename),
 		path.Join(factory.draftsPath, filename),
@@ -186,4 +217,8 @@ func splitFrontMatter(content string) (string, string, error) {
 	}
 
 	return "", "", fmt.Errorf("FrontMatter format is not followed")
+}
+
+func markdownFilename(filename string) string {
+	return filename + ".md"
 }

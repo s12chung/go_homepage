@@ -39,7 +39,7 @@ func main() {
 	}
 
 	s := settings.ReadFromFile(log)
-	models.Config(s.PostsPath, s.DraftsPath, log.WithFields(logrus.Fields{
+	models.Config(s.PostsPath, s.DraftsPath, s.GithubUrl, log.WithFields(logrus.Fields{
 		"type": "models",
 	}))
 
