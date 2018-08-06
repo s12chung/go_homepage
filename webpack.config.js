@@ -60,6 +60,18 @@ module.exports = {
                 use: cssLoaders
             },
             {
+                include: relativePath('assets/favicon'),
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'favicon/',
+                            name: '[name].[ext]',
+                        }
+                    }
+                ]
+            },
+            {
                 test: imageTest,
                 include: relativePath('assets/images'),
                 use: [
@@ -116,7 +128,7 @@ module.exports = {
     plugins: [
         // lossless compression, responsive-loader will do a quality change on JPEG to 85 quality
         new ImageminPlugin({
-            test: /\.(png|gif)$/,
+            test: /\.(png|gif|svg)$/,
             cacheFolder: relativePath('node_modules/.cache/imagemin'),
             jpegtran: null
         }),
