@@ -21,7 +21,7 @@ prod: clean
 	go install
 	$(GOPATH)/bin/go_homepage
 
-push-deploy:
+push-docker-deploy:
 	git push origin master
 	make docker-deploy
 
