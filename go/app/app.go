@@ -12,9 +12,9 @@ import (
 
 	"github.com/s12chung/go_homepage/go/app/routes"
 	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
-	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 type App struct {
@@ -47,7 +47,7 @@ func (app *App) Run() error {
 }
 
 func (app *App) host() error {
-	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
+	var renderer = html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewWebRouter(renderer, app.Settings.ServerPort, app.log)
 	r.FileServe(renderer.AssetsUrl(), renderer.GenereratedAssetsPath())
 	app.setRoutes(r, renderer)
@@ -61,7 +61,7 @@ func (app *App) build() error {
 		return err
 	}
 
-	renderer := view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
+	renderer := html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewGenerateRouter(renderer, app.log)
 	routeSetter := app.setRoutes(r, renderer)
 	err = app.requestRoutes(routeSetter)
@@ -75,7 +75,7 @@ func (app *App) setup() error {
 	return os.MkdirAll(app.Settings.GeneratedPath, 0755)
 }
 
-func (app *App) setRoutes(r router.Router, renderer *view.Renderer) *routes.RouteSetter {
+func (app *App) setRoutes(r router.Router, renderer *html.Renderer) *routes.RouteSetter {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
 			"type": "routes",

@@ -10,8 +10,8 @@ import (
 	"github.com/s12chung/go_homepage/go/app/models"
 	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
+	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
-	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 var dependentUrls = map[string]bool{
@@ -21,11 +21,11 @@ var dependentUrls = map[string]bool{
 
 type RouteSetter struct {
 	Router   router.Router
-	renderer *view.Renderer
+	renderer *html.Renderer
 	settings *settings.Settings
 }
 
-func NewRouteSetter(r router.Router, renderer *view.Renderer, s *settings.Settings) *RouteSetter {
+func NewRouteSetter(r router.Router, renderer *html.Renderer, s *settings.Settings) *RouteSetter {
 	return &RouteSetter{r, renderer, s}
 }
 

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/s12chung/go_homepage/go/lib/view/atom"
+	"github.com/s12chung/go_homepage/go/lib/atom"
 )
 
 const atomPostLimit = 100

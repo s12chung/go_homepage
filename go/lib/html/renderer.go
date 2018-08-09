@@ -1,4 +1,4 @@
-package view
+package html
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"github.com/russross/blackfriday"
 
 	"github.com/s12chung/go_homepage/go/app/utils"
-	"github.com/s12chung/go_homepage/go/lib/view/webpack"
+	"github.com/s12chung/go_homepage/go/lib/html/webpack"
 )
 
 const templatePath = "./go/app/templates"

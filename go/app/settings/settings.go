@@ -7,9 +7,9 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
+	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/view"
-	"github.com/s12chung/go_homepage/go/lib/view/atom"
+	"github.com/s12chung/go_homepage/go/lib/html"
 )
 
 type Settings struct {
@@ -20,7 +20,7 @@ type Settings struct {
 	Concurrency    int                `json:"concurrency,omitempty"`
 	ServerPort     int                `json:"server_port,omitempty"`
 	FileServerPort int                `json:"server_port,omitempty"`
-	Template       view.Settings      `json:"template,omitempty"`
+	Template       html.Settings      `json:"template,omitempty"`
 	Goodreads      goodreads.Settings `json:"goodreads,omitempty"`
 	Atom           atom.Settings      `json:"atom,omitempty"`
 }
@@ -36,7 +36,7 @@ func DefaultSettings() *Settings {
 		10,
 		8080,
 		3000,
-		*view.DefaultSettings(),
+		*html.DefaultSettings(),
 		*goodreads.DefaultSettings(),
 		*atom.DefaultSettings(),
 	}

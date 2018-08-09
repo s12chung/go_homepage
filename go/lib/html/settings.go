@@ -1,4 +1,4 @@
-package view
+package html
 
 type Settings struct {
 	WebsiteTitle  string `json:"website_title,omitempty"`
