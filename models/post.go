@@ -43,11 +43,8 @@ func (post *Post) FilePath() string {
 	if post.IsDraft {
 		folderPath = factory.draftsPath
 	}
-	folderPath = strings.TrimLeft(folderPath, ".")
-	folderPath = strings.Trim(folderPath, "/")
-
 	return strings.Join([]string{
-		folderPath,
+		utils.CleanFilePath(folderPath),
 		post.MarkdownFilename(),
 	}, "/")
 }

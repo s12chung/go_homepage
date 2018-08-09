@@ -12,8 +12,6 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/settings"
 )
 
 // in settings.Settings, GeneratedPath must have:
@@ -58,15 +56,13 @@ var spacesRegex = regexp.MustCompile(`\s+`)
 
 type Webpack struct {
 	generatedPath string
-	settings      *settings.TemplateSettings
 	manifestMap   map[string]string
 	log           logrus.FieldLogger
 }
 
-func NewWebpack(generatedPath string, templateSettings *settings.TemplateSettings, log logrus.FieldLogger) *Webpack {
+func NewWebpack(generatedPath string, log logrus.FieldLogger) *Webpack {
 	return &Webpack{
 		generatedPath,
-		templateSettings,
 		map[string]string{},
 		log,
 	}

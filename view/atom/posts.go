@@ -3,12 +3,12 @@ package atom
 import (
 	"time"
 
-	"github.com/s12chung/go_homepage/models"
-	"github.com/s12chung/go_homepage/server/router"
 	"strings"
+
+	"github.com/s12chung/go_homepage/models"
 )
 
-func (a *AtomRenderer) PostsToFeed(ctx router.Context, sortedPosts []*models.Post) *Feed {
+func (a *AtomRenderer) PostsToFeed(url, logoPath string, sortedPosts []*models.Post) *Feed {
 	entries := make([]*Entry, len(sortedPosts))
 	for i, post := range sortedPosts {
 		entries[i] = a.PostToEntry(post)
@@ -18,9 +18,7 @@ func (a *AtomRenderer) PostsToFeed(ctx router.Context, sortedPosts []*models.Pos
 	if len(sortedPosts) >= 1 {
 		lastUpdated = sortedPosts[0].PublishedAt
 	}
-	logoPath := ctx.Renderer().Webpack().ManifestPath("images/logo.png")
-
-	feed := a.NewFeed("posts", lastUpdated, ctx.Url(), logoPath)
+	feed := a.NewFeed("posts", lastUpdated, url, logoPath)
 	feed.Entries = entries
 	return feed
 }

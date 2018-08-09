@@ -88,8 +88,10 @@ func getPostsAtom(ctx router.Context) error {
 		posts = posts[0 : atomPostLimit-1]
 	}
 
-	atomRenderer := atom.NewAtomRenderer(&ctx.Settings().Domain)
-	bytes, err := atomRenderer.PostsToFeed(ctx, posts).Marhshall()
+	atomRenderer := atom.NewAtomRenderer(&ctx.Settings().Atom)
+
+	logoPath := ctx.Renderer().Webpack().ManifestPath("images/logo.png")
+	bytes, err := atomRenderer.PostsToFeed(ctx.Url(), logoPath, posts).Marhshall()
 	if err != nil {
 		return err
 	}

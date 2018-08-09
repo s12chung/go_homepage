@@ -9,6 +9,11 @@ import (
 	"strings"
 )
 
+func CleanFilePath(filePath string) string {
+	filePath = strings.TrimLeft(filePath, ".")
+	return strings.Trim(filePath, "/")
+}
+
 func ToSimpleQuery(queryMap map[string]string) string {
 	queryArray := make([]string, len(queryMap))
 	index := 0

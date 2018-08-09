@@ -14,18 +14,17 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/utils"
 )
 
 const booksFile = "books.json"
 
 type Client struct {
-	Settings *settings.GoodreadsSettings
+	Settings *Settings
 	log      logrus.FieldLogger
 }
 
-func NewClient(settings *settings.GoodreadsSettings, log logrus.FieldLogger) *Client {
+func NewClient(settings *Settings, log logrus.FieldLogger) *Client {
 	return &Client{
 		settings,
 		log,
@@ -64,8 +63,7 @@ func (client *Client) invalidSettings() bool {
 }
 
 func (client *Client) setup() error {
-	cachePath := client.Settings.CachePath
-	return os.MkdirAll(cachePath, 0755)
+	return os.MkdirAll(client.Settings.CachePath, 0755)
 }
 
 type GoodreadsDate time.Time

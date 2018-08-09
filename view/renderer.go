@@ -13,7 +13,6 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
 
-	"github.com/s12chung/go_homepage/settings"
 	"github.com/s12chung/go_homepage/utils"
 	"github.com/s12chung/go_homepage/view/webpack"
 )
@@ -23,13 +22,13 @@ const templatePath = "./templates"
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
 
 type Renderer struct {
-	settings *settings.TemplateSettings
+	settings *Settings
 	w        *webpack.Webpack
 	log      logrus.FieldLogger
 }
 
-func NewRenderer(generatedPath string, settings *settings.TemplateSettings, log logrus.FieldLogger) *Renderer {
-	w := webpack.NewWebpack(generatedPath, settings, log)
+func NewRenderer(generatedPath string, settings *Settings, log logrus.FieldLogger) *Renderer {
+	w := webpack.NewWebpack(generatedPath, log)
 	return &Renderer{
 		settings,
 		w,

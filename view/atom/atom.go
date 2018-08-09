@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"strings"
 	"time"
-
-	"github.com/s12chung/go_homepage/settings"
 )
 
 type Feed struct {
@@ -72,10 +70,10 @@ type Link struct {
 }
 
 type AtomRenderer struct {
-	settings *settings.DomainSettings
+	settings *Settings
 }
 
-func NewAtomRenderer(settings *settings.DomainSettings) *AtomRenderer {
+func NewAtomRenderer(settings *Settings) *AtomRenderer {
 	return &AtomRenderer{settings}
 }
 
