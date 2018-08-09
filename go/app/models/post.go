@@ -13,7 +13,7 @@ import (
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
 
-	"github.com/s12chung/go_homepage/utils"
+	"github.com/s12chung/go_homepage/go/app/utils"
 )
 
 const markdownExtension = ".md"
@@ -96,10 +96,6 @@ func AllPosts(sel func(*Post) bool) ([]*Post, error) {
 
 func Posts() ([]*Post, error) {
 	return AllPosts(func(post *Post) bool { return !post.IsDraft })
-}
-
-func Drafts() ([]*Post, error) {
-	return AllPosts(func(post *Post) bool { return post.IsDraft })
 }
 
 func fillPostMap() error {

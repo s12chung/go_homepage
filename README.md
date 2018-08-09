@@ -22,7 +22,7 @@ make docker-install
 
 This will build docker and do all the installation inside docker. After, it’ll copy all downloaded code libraries from the docker container to the host, so that when the container and host sync filesystems, the libraries will be there.
 
-Look for all files with `.example` in the filename. Make a copy without `.example` and fill in the missing information. You can skip the [`aws`](aws) folder, as that relates to deploying. You also can set more settings by looking at [`settings.go`](settings/settings.go).
+Look for all files with `.example` in the filename. Make a copy without `.example` and fill in the missing information. You can skip the [`aws`](aws) folder, as that relates to deploying. You also can set more settings by looking at [`settings.go`](go/app/settings/settings.go).
 
 You can run a developer instance through Docker via:
 ```sh

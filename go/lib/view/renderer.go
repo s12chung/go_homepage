@@ -13,11 +13,11 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
 
-	"github.com/s12chung/go_homepage/utils"
-	"github.com/s12chung/go_homepage/view/webpack"
+	"github.com/s12chung/go_homepage/go/app/utils"
+	"github.com/s12chung/go_homepage/go/lib/view/webpack"
 )
 
-const templatePath = "./templates"
+const templatePath = "./go/app/templates"
 
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
 

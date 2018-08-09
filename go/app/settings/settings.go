@@ -7,9 +7,9 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/goodreads"
-	"github.com/s12chung/go_homepage/view"
-	"github.com/s12chung/go_homepage/view/atom"
+	"github.com/s12chung/go_homepage/go/lib/goodreads"
+	"github.com/s12chung/go_homepage/go/lib/view"
+	"github.com/s12chung/go_homepage/go/lib/view/atom"
 )
 
 type Settings struct {

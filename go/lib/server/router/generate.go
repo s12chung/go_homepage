@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/settings"
-	"github.com/s12chung/go_homepage/view"
+	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 //

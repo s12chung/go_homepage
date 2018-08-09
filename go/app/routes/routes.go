@@ -4,10 +4,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/s12chung/go_homepage/goodreads"
-	"github.com/s12chung/go_homepage/models"
-	"github.com/s12chung/go_homepage/server/router"
-	"github.com/s12chung/go_homepage/view/atom"
+	"github.com/s12chung/go_homepage/go/app/atom"
+	"github.com/s12chung/go_homepage/go/app/models"
+	"github.com/s12chung/go_homepage/go/lib/goodreads"
+	"github.com/s12chung/go_homepage/go/lib/server/router"
 )
 
 var DependentUrls = map[string]bool{
@@ -76,22 +76,16 @@ func getPosts(ctx router.Context) error {
 	return ctx.Render(data)
 }
 
-const atomPostLimit = 100
-
 func getPostsAtom(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
 	}
 
-	if atomPostLimit < len(posts) {
-		posts = posts[0 : atomPostLimit-1]
-	}
-
-	atomRenderer := atom.NewAtomRenderer(&ctx.Settings().Atom)
-
 	logoPath := ctx.Renderer().Webpack().ManifestPath("images/logo.png")
-	bytes, err := atomRenderer.PostsToFeed(ctx.Url(), logoPath, posts).Marhshall()
+	htmlEntries := atom.PostsToHtmlEntries(posts)
+
+	bytes, err := atom.Render(&ctx.Settings().Atom, "posts", ctx.Url(), logoPath, htmlEntries)
 	if err != nil {
 		return err
 	}

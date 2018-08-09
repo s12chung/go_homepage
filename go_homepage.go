@@ -12,14 +12,14 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/models"
-	"github.com/s12chung/go_homepage/pool"
-	"github.com/s12chung/go_homepage/routes"
-	"github.com/s12chung/go_homepage/server"
-	"github.com/s12chung/go_homepage/server/router"
-	"github.com/s12chung/go_homepage/settings"
-	"github.com/s12chung/go_homepage/view"
-	"github.com/s12chung/go_homepage/view/webpack"
+	"github.com/s12chung/go_homepage/go/app/models"
+	"github.com/s12chung/go_homepage/go/app/routes"
+	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/lib/pool"
+	"github.com/s12chung/go_homepage/go/lib/server"
+	"github.com/s12chung/go_homepage/go/lib/server/router"
+	"github.com/s12chung/go_homepage/go/lib/view"
+	"github.com/s12chung/go_homepage/go/lib/view/webpack"
 )
 
 func main() {

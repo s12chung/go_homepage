@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"mime"
 	"net/http"
 	"os"
@@ -13,9 +14,9 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/s12chung/go_homepage/settings"
-	"github.com/s12chung/go_homepage/view"
-	"io/ioutil"
+
+	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 //

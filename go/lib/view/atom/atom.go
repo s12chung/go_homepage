@@ -70,19 +70,19 @@ type Link struct {
 }
 
 type AtomRenderer struct {
-	settings *Settings
+	Settings *Settings
 }
 
 func NewAtomRenderer(settings *Settings) *AtomRenderer {
 	return &AtomRenderer{settings}
 }
 
-func (a *AtomRenderer) author() *Author {
-	return &Author{Name: a.settings.AuthorName, Uri: a.settings.AuthorUri}
+func (a *AtomRenderer) Author() *Author {
+	return &Author{Name: a.Settings.AuthorName, Uri: a.Settings.AuthorUri}
 }
 
-func (a *AtomRenderer) alternateLink(path string) *Link {
-	return &Link{Rel: "alternate", Type: "text/html", Href: a.settings.UrlFor(path)}
+func (a *AtomRenderer) AlternateLink(path string) *Link {
+	return &Link{Rel: "alternate", Type: "text/html", Href: a.Settings.UrlFor(path)}
 }
 
 func (a *AtomRenderer) NewFeed(entryName string, lastUpdated time.Time, selfPath, iconPath string) *Feed {
@@ -90,16 +90,16 @@ func (a *AtomRenderer) NewFeed(entryName string, lastUpdated time.Time, selfPath
 		XMLLang: "en-US",
 		XMLNS:   "http://www.w3.org/2005/Atom",
 
-		Title:   fmt.Sprintf("%v - %v", strings.Title(entryName), a.settings.Host),
-		Icon:    a.settings.UrlFor(iconPath),
-		ID:      strings.Join([]string{a.settings.Host, "2018", entryName}, ":"),
+		Title:   fmt.Sprintf("%v - %v", strings.Title(entryName), a.Settings.Host),
+		Icon:    a.Settings.UrlFor(iconPath),
+		ID:      strings.Join([]string{a.Settings.Host, "2018", entryName}, ":"),
 		Updated: lastUpdated,
 
-		Author: a.author(),
+		Author: a.Author(),
 
 		Links: []*Link{
-			{Rel: "self", Type: "application/atom+xml", Href: a.settings.UrlFor(selfPath)},
-			a.alternateLink(""),
+			{Rel: "self", Type: "application/atom+xml", Href: a.Settings.UrlFor(selfPath)},
+			a.AlternateLink(""),
 		},
 	}
 }
