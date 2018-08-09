@@ -40,6 +40,14 @@ func (renderer *Renderer) Webpack() *webpack.Webpack {
 	return renderer.w
 }
 
+func (renderer *Renderer) AssetsUrl() string {
+	return webpack.AssetsUrl()
+}
+
+func (renderer *Renderer) GenereratedAssetsPath() string {
+	return renderer.Webpack().GeneratedAssetsPath()
+}
+
 func (renderer *Renderer) processHTML(html string) string {
 	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
 		matches := imgRegex.FindStringSubmatch(imgTag)

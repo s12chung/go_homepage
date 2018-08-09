@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"fmt"
+	"regexp"
 	"sort"
 	"time"
 
@@ -8,16 +10,17 @@ import (
 	"github.com/s12chung/go_homepage/go/app/models"
 	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/server/router"
+	"github.com/s12chung/go_homepage/go/lib/router"
 	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
-var DependentUrls = map[string]bool{
-	"/": true,
+var dependentUrls = map[string]bool{
+	"/":           true,
+	"/posts.atom": true,
 }
 
 type RouteSetter struct {
-	router   router.Router
+	Router   router.Router
 	renderer *view.Renderer
 	settings *settings.Settings
 }
@@ -27,13 +30,59 @@ func NewRouteSetter(r router.Router, renderer *view.Renderer, s *settings.Settin
 }
 
 func (routeSetter *RouteSetter) SetRoutes() {
-	routeSetter.router.GetRootHTML(routeSetter.getPosts)
-	routeSetter.router.GetWildcardHTML(routeSetter.getPost)
-	routeSetter.router.GetHTML("/reading", routeSetter.getReading)
-	routeSetter.router.GetHTML("/about", routeSetter.getAbout)
+	routeSetter.Router.GetRootHTML(routeSetter.getPosts)
+	routeSetter.Router.GetHTML("/posts.atom", routeSetter.getPostsAtom)
 
-	routeSetter.router.GetHTML("/posts.atom", routeSetter.getPostsAtom)
-	routeSetter.router.GetHTML("/robots.txt", routeSetter.getRobotsTxt)
+	routeSetter.Router.GetWildcardHTML(routeSetter.getPost)
+	routeSetter.Router.GetHTML("/reading", routeSetter.getReading)
+	routeSetter.Router.GetHTML("/about", routeSetter.getAbout)
+	routeSetter.Router.GetHTML("/robots.txt", routeSetter.getRobotsTxt)
+}
+
+func (routeSetter *RouteSetter) AllUrls() ([]string, error) {
+	allUrls := routeSetter.Router.StaticRoutes()
+	allPostFilenames, err := models.AllPostFilenames()
+	if err != nil {
+		return nil, err
+	}
+
+	hasSpace := regexp.MustCompile(`\s`).MatchString
+	for i, filename := range allPostFilenames {
+		if hasSpace(filename) {
+			return nil, fmt.Errorf("filename '%v' has a space", filename)
+		}
+		allPostFilenames[i] = "/" + filename
+	}
+
+	return append(allUrls, allPostFilenames...), nil
+}
+
+func (routeSetter *RouteSetter) IndependentUrls() ([]string, error) {
+	allUrls, err := routeSetter.AllUrls()
+	if err != nil {
+		return nil, err
+	}
+
+	independentUrls := make([]string, len(allUrls)-len(dependentUrls))
+	i := 0
+	for _, url := range allUrls {
+		_, exists := dependentUrls[url]
+		if !exists {
+			independentUrls[i] = url
+			i += 1
+		}
+	}
+	return independentUrls, nil
+}
+
+func (routeSetter *RouteSetter) DependentUrls() []string {
+	urls := make([]string, len(dependentUrls))
+	i := 0
+	for url := range dependentUrls {
+		urls[i] = url
+		i += 1
+	}
+	return urls
 }
 
 func (routeSetter *RouteSetter) getAbout(ctx router.Context) error {

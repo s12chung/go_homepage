@@ -3,22 +3,18 @@ package app
 import (
 	"flag"
 	"fmt"
-	"github.com/Sirupsen/logrus"
 	"io/ioutil"
+	"os"
 	"path"
-	"regexp"
+	"time"
 
-	"github.com/s12chung/go_homepage/go/app/models"
+	"github.com/Sirupsen/logrus"
+
 	"github.com/s12chung/go_homepage/go/app/routes"
 	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/pool"
-	"github.com/s12chung/go_homepage/go/lib/server"
-	"github.com/s12chung/go_homepage/go/lib/server/router"
+	"github.com/s12chung/go_homepage/go/lib/router"
 	"github.com/s12chung/go_homepage/go/lib/view"
-	"github.com/s12chung/go_homepage/go/lib/view/webpack"
-	"os"
-	"path/filepath"
-	"time"
 )
 
 type App struct {
@@ -40,7 +36,7 @@ func (app *App) Run() error {
 	flag.Parse()
 
 	if *fileServerPtr {
-		return server.RunFileServer(app.Settings.GeneratedPath, app.Settings.FileServerPort, app.log)
+		return router.RunFileServer(app.Settings.GeneratedPath, app.Settings.FileServerPort, app.log)
 	} else {
 		if *serverPtr {
 			return app.host()
@@ -53,7 +49,7 @@ func (app *App) Run() error {
 func (app *App) host() error {
 	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewWebRouter(renderer, app.Settings.ServerPort, app.log)
-	r.FileServe(fmt.Sprintf("/%v/", webpack.AssetsPath()), filepath.Join(app.Settings.GeneratedPath, webpack.AssetsPath()))
+	r.FileServe(renderer.AssetsUrl(), renderer.GenereratedAssetsPath())
 	app.setRoutes(r, renderer)
 
 	return r.Run()
@@ -67,8 +63,8 @@ func (app *App) build() error {
 
 	renderer := view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewGenerateRouter(renderer, app.log)
-	app.setRoutes(r, renderer)
-	err = app.requestRoutes(r)
+	routeSetter := app.setRoutes(r, renderer)
+	err = app.requestRoutes(routeSetter)
 	if err != nil {
 		return err
 	}
@@ -79,7 +75,7 @@ func (app *App) setup() error {
 	return os.MkdirAll(app.Settings.GeneratedPath, 0755)
 }
 
-func (app *App) setRoutes(r router.Router, renderer *view.Renderer) {
+func (app *App) setRoutes(r router.Router, renderer *view.Renderer) *routes.RouteSetter {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
 			"type": "routes",
@@ -105,37 +101,36 @@ func (app *App) setRoutes(r router.Router, renderer *view.Renderer) {
 		return err
 	})
 
-	routes.NewRouteSetter(r, renderer, app.Settings).SetRoutes()
+	routeSetter := routes.NewRouteSetter(r, renderer, app.Settings)
+	routeSetter.SetRoutes()
+	return routeSetter
 }
 
-func (app *App) requestRoutes(r router.Router) error {
-	requester := r.Requester()
+func (app *App) requestRoutes(routeSetter *routes.RouteSetter) error {
+	requester := routeSetter.Router.Requester()
 
-	allUrls, err := app.allUrls(r)
+	var urlBatches [][]string
+
+	independentUrls, err := routeSetter.IndependentUrls()
 	if err != nil {
 		return err
 	}
 
-	tasks := make([]*pool.Task, len(allUrls)-len(routes.DependentUrls))
-	i := 0
-	for _, url := range allUrls {
-		_, exists := routes.DependentUrls[url]
-		if !exists {
-			tasks[i] = app.getUrlTask(requester, url)
-			i += 1
-		}
-	}
-	app.runTasks(tasks)
+	urlBatches = append(urlBatches, independentUrls)
+	urlBatches = append(urlBatches, routeSetter.DependentUrls())
 
-	tasks = make([]*pool.Task, len(routes.DependentUrls))
-	i = 0
-	for url := range routes.DependentUrls {
-		tasks[i] = app.getUrlTask(requester, url)
-		i += 1
+	for _, urlBatch := range urlBatches {
+		app.runTasks(app.urlsToTasks(requester, urlBatch))
 	}
-	app.runTasks(tasks)
-
 	return nil
+}
+
+func (app *App) urlsToTasks(requester router.Requester, urls []string) []*pool.Task {
+	tasks := make([]*pool.Task, len(urls))
+	for i, url := range urls {
+		tasks[i] = app.getUrlTask(requester, url)
+	}
+	return tasks
 }
 
 func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
@@ -164,23 +159,6 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 
 func writeFile(path string, bytes []byte) error {
 	return ioutil.WriteFile(path, bytes, 0644)
-}
-
-func (app *App) allUrls(r router.Router) ([]string, error) {
-	allUrls := r.StaticRoutes()
-	allPostFilenames, err := models.AllPostFilenames()
-	if err != nil {
-		return nil, err
-	}
-
-	hasSpace := regexp.MustCompile(`\s`).MatchString
-	for i, filename := range allPostFilenames {
-		if hasSpace(filename) {
-			return nil, fmt.Errorf("filename '%v' has a space", filename)
-		}
-		allPostFilenames[i] = "/" + filename
-	}
-	return append(allUrls, allPostFilenames...), nil
 }
 
 func (app *App) runTasks(tasks []*pool.Task) {

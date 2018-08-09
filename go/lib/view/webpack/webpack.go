@@ -29,6 +29,10 @@ func AssetsPath() string {
 	return assetsPath
 }
 
+func AssetsUrl() string {
+	return fmt.Sprintf("/%v/", AssetsPath())
+}
+
 const manifestpath = "manifest.json"
 
 func fullManifestPath() string {
@@ -98,6 +102,10 @@ func (r *ResponsiveImage) changeSrc(imagesUrl, src string) string {
 	return fmt.Sprintf("%v/%v", imagesUrl, path.Base(src))
 }
 
+func (w *Webpack) GeneratedAssetsPath() string {
+	return filepath.Join(w.generatedPath, AssetsPath())
+}
+
 func (w *Webpack) GetResponsiveImage(originalSrc string) *ResponsiveImage {
 	responsiveImage, err := w.getResponsiveImage(originalSrc)
 	if err != nil {
@@ -134,9 +142,13 @@ func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, erro
 	return responsiveImage, nil
 }
 
+func (w *Webpack) generatedResponsiveJSONPath(filename string) string {
+	return path.Join(w.generatedPath, fullResponsivePath(), filename)
+}
+
 func (w *Webpack) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage, error) {
-	responsiveImageFilename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
-	bytes, err := ioutil.ReadFile(path.Join(w.generatedPath, fullResponsivePath(), responsiveImageFilename))
+	responsiveJSONFilename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
+	bytes, err := ioutil.ReadFile(w.generatedResponsiveJSONPath(responsiveJSONFilename))
 	if err != nil {
 		return nil, err
 	}
@@ -164,8 +176,12 @@ func (w *Webpack) manifestValue(key string) string {
 	return value
 }
 
+func (w *Webpack) GeneratedManifestPath() string {
+	return filepath.Join(w.generatedPath, fullManifestPath())
+}
+
 func (w *Webpack) readManifest() error {
-	bytes, err := ioutil.ReadFile(filepath.Join(w.generatedPath, fullManifestPath()))
+	bytes, err := ioutil.ReadFile(w.GeneratedManifestPath())
 	if err != nil {
 		return err
 	}
