@@ -48,7 +48,7 @@ func (app *App) Run() error {
 
 func (app *App) host() error {
 	var renderer = html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
-	r := router.NewWebRouter(renderer, app.Settings.ServerPort, app.log)
+	r := router.NewWebRouter(app.Settings.ServerPort, app.log)
 	r.FileServe(renderer.AssetsUrl(), renderer.GenereratedAssetsPath())
 	app.setRoutes(r, renderer)
 
@@ -62,7 +62,7 @@ func (app *App) build() error {
 	}
 
 	renderer := html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
-	r := router.NewGenerateRouter(renderer, app.log)
+	r := router.NewGenerateRouter(app.log)
 	routeSetter := app.setRoutes(r, renderer)
 	err = app.requestRoutes(routeSetter)
 	if err != nil {

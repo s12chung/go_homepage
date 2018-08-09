@@ -17,18 +17,16 @@ func RunFileServer(targetDir string, port int, log logrus.FieldLogger) error {
 // Context
 //
 type GenerateContext struct {
-	r   Renderer
 	log logrus.FieldLogger
 
 	url      string
 	urlParts []string
-	tmplName string
 
 	response []byte
 }
 
-func (ctx *GenerateContext) Renderer() Renderer {
-	return ctx.r
+func NewGenerateContext(log logrus.FieldLogger) *GenerateContext {
+	return &GenerateContext{log: log}
 }
 
 func (ctx *GenerateContext) Log() logrus.FieldLogger {
@@ -47,22 +45,6 @@ func (ctx *GenerateContext) Url() string {
 	return ctx.url
 }
 
-func (ctx *GenerateContext) TemplateName() string {
-	return templateName(ctx, ctx.tmplName)
-}
-
-func (ctx *GenerateContext) SetTemplateName(templateName string) {
-	ctx.tmplName = templateName
-}
-
-func (ctx *GenerateContext) Render(data interface{}) error {
-	bytes, err := renderTemplate(ctx, data)
-	if err != nil {
-		return err
-	}
-	return ctx.Respond(bytes)
-}
-
 func (ctx *GenerateContext) Respond(bytes []byte) error {
 	ctx.response = bytes
 	return nil
@@ -72,20 +54,14 @@ func (ctx *GenerateContext) Respond(bytes []byte) error {
 // Router
 //
 type GenerateRouter struct {
-	defaultContext *GenerateContext
-	log            logrus.FieldLogger
-	routes         map[string]func(ctx Context) error
+	log    logrus.FieldLogger
+	routes map[string]func(ctx Context) error
 
 	arounds []func(ctx Context, handler func(ctx Context) error) error
 }
 
-func NewGenerateRouter(renderer Renderer, log logrus.FieldLogger) *GenerateRouter {
-	defaultContext := &GenerateContext{
-		r:   renderer,
-		log: log,
-	}
+func NewGenerateRouter(log logrus.FieldLogger) *GenerateRouter {
 	return &GenerateRouter{
-		defaultContext,
 		log,
 		make(map[string]func(ctx Context) error),
 		nil,
@@ -122,7 +98,7 @@ func (router *GenerateRouter) get(url string) ([]byte, error) {
 		handler = router.routes[WildcardUrlPattern]
 	}
 
-	ctx := *router.defaultContext
+	ctx := NewGenerateContext(router.log)
 	ctx.url = url
 	parts, err := urlParts(ctx.url)
 	if err != nil {
@@ -130,7 +106,7 @@ func (router *GenerateRouter) get(url string) ([]byte, error) {
 	}
 	ctx.urlParts = parts
 
-	err = callArounds(router.arounds, handler, &ctx)
+	err = callArounds(router.arounds, handler, ctx)
 	if err != nil {
 		return nil, err
 	}

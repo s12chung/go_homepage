@@ -86,7 +86,7 @@ func (routeSetter *RouteSetter) DependentUrls() []string {
 }
 
 func (routeSetter *RouteSetter) getAbout(ctx router.Context) error {
-	return ctx.Render(nil)
+	return routeSetter.respondUrlHTML(ctx, nil)
 }
 
 func (routeSetter *RouteSetter) getReading(ctx router.Context) error {
@@ -110,7 +110,7 @@ func (routeSetter *RouteSetter) getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		earliestYear,
 	}
-	return ctx.Render(data)
+	return routeSetter.respondUrlHTML(ctx, data)
 }
 
 func (routeSetter *RouteSetter) getPost(ctx router.Context) error {
@@ -118,8 +118,7 @@ func (routeSetter *RouteSetter) getPost(ctx router.Context) error {
 	if err != nil {
 		return err
 	}
-	ctx.SetTemplateName("post")
-	return ctx.Render(post)
+	return routeSetter.respondHTML(ctx, "post", post)
 }
 
 func (routeSetter *RouteSetter) getPosts(ctx router.Context) error {
@@ -133,8 +132,7 @@ func (routeSetter *RouteSetter) getPosts(ctx router.Context) error {
 	}{
 		posts,
 	}
-	ctx.SetTemplateName("posts")
-	return ctx.Render(data)
+	return routeSetter.respondHTML(ctx, "posts", data)
 }
 
 func (routeSetter *RouteSetter) getPostsAtom(ctx router.Context) error {
@@ -164,4 +162,44 @@ func sortedPosts() ([]*models.Post, error) {
 	}
 	sort.Slice(posts, func(i, j int) bool { return posts[i].PublishedAt.After(posts[j].PublishedAt) })
 	return posts, nil
+}
+
+func (routeSetter *RouteSetter) respondUrlHTML(ctx router.Context, data interface{}) error {
+	return routeSetter.respondHTML(ctx, "", data)
+}
+
+func (routeSetter *RouteSetter) respondHTML(ctx router.Context, templateName string, data interface{}) error {
+	bytes, err := routeSetter.renderHTML(ctx, templateName, data)
+	if err != nil {
+		return err
+	}
+	return ctx.Respond(bytes)
+}
+
+func (routeSetter *RouteSetter) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
+	tmplName = templateName(ctx, tmplName)
+	defaultTitle := defaultTitle(ctx, tmplName)
+	ctx.Log().Infof("Rendering template %v with title %v", tmplName, defaultTitle)
+	return routeSetter.renderer.Render(tmplName, defaultTitle, data)
+}
+
+func templateName(ctx router.Context, templateName string) string {
+	if templateName == "" {
+		// assume len of <= 1: https://github.com/s12chung/go_homepage/blob/aa77eaf3ffff669b6abaab35078fb65ee3ffb17c/server/router/router.go#L52
+		if router.IsRootUrlPart(ctx.UrlParts()) {
+			ctx.Log().Panicf("No TemplateName given for root route")
+			return ""
+		}
+		return ctx.UrlParts()[0]
+	} else {
+		return templateName
+	}
+}
+
+func defaultTitle(ctx router.Context, templateName string) string {
+	defaultTitle := templateName
+	if router.IsRootUrlPart(ctx.UrlParts()) {
+		defaultTitle = ""
+	}
+	return defaultTitle
 }

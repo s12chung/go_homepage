@@ -20,19 +20,17 @@ import (
 // Context
 //
 type WebContext struct {
-	r   Renderer
 	log logrus.FieldLogger
 
 	url      string
 	urlParts []string
-	tmplName string
 
 	responseWriter http.ResponseWriter
 	request        *http.Request
 }
 
-func (ctx *WebContext) Renderer() Renderer {
-	return ctx.r
+func NewWebContext(log logrus.FieldLogger) *WebContext {
+	return &WebContext{log: log}
 }
 
 func (ctx *WebContext) Log() logrus.FieldLogger {
@@ -51,22 +49,6 @@ func (ctx *WebContext) Url() string {
 	return ctx.url
 }
 
-func (ctx *WebContext) TemplateName() string {
-	return templateName(ctx, ctx.tmplName)
-}
-
-func (ctx *WebContext) SetTemplateName(templateName string) {
-	ctx.tmplName = templateName
-}
-
-func (ctx *WebContext) Render(data interface{}) error {
-	bytes, err := renderTemplate(ctx, data)
-	if err != nil {
-		return err
-	}
-	return ctx.Respond(bytes)
-}
-
 func (ctx *WebContext) Respond(bytes []byte) error {
 	_, err := ctx.responseWriter.Write(bytes)
 	return err
@@ -76,9 +58,8 @@ func (ctx *WebContext) Respond(bytes []byte) error {
 // Router
 //
 type WebRouter struct {
-	defaultContext *WebContext
-	serveMux       *http.ServeMux
-	log            logrus.FieldLogger
+	serveMux *http.ServeMux
+	log      logrus.FieldLogger
 
 	arounds []func(ctx Context, handler func(ctx Context) error) error
 	routes  map[string]bool
@@ -89,12 +70,7 @@ type WebRouter struct {
 	port int
 }
 
-func NewWebRouter(renderer Renderer, port int, log logrus.FieldLogger) *WebRouter {
-	defaultContext := &WebContext{
-		r:   renderer,
-		log: log,
-	}
-
+func NewWebRouter(port int, log logrus.FieldLogger) *WebRouter {
 	defaultHandler := func(w http.ResponseWriter, r *http.Request) {
 		s := fmt.Sprintf("%v is not being handled", r.URL)
 		log.Errorf(s)
@@ -103,7 +79,6 @@ func NewWebRouter(renderer Renderer, port int, log logrus.FieldLogger) *WebRoute
 	}
 
 	router := &WebRouter{
-		defaultContext,
 		http.DefaultServeMux,
 		log,
 		nil,
@@ -162,7 +137,7 @@ func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w htt
 	return func(w http.ResponseWriter, r *http.Request) error {
 		w.Header().Set("Content-Type", mime.TypeByExtension(".html"))
 
-		ctx := *router.defaultContext
+		ctx := NewWebContext(router.log)
 		ctx.url = r.URL.String()
 		parts, err := urlParts(ctx.url)
 		if err != nil {
@@ -173,7 +148,7 @@ func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w htt
 		ctx.responseWriter = w
 		ctx.request = r
 
-		return callArounds(router.arounds, handler, &ctx)
+		return callArounds(router.arounds, handler, ctx)
 	}
 }
 
