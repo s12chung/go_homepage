@@ -5,9 +5,6 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/go/app/settings"
-	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 const WildcardUrlPattern = "*"
@@ -15,13 +12,16 @@ const RootUrlPattern = "/"
 
 var IsRootUrlPart = func(urlParts []string) bool { return len(urlParts) == 0 }
 
+type Renderer interface {
+	Render(name, defaultTitle string, data interface{}) ([]byte, error)
+}
+
 type Context interface {
-	Renderer() *view.Renderer
+	Renderer() Renderer
 
 	Render(data interface{}) error
 	Respond(bytes []byte) error
 
-	Settings() *settings.Settings
 	Log() logrus.FieldLogger
 	SetLog(log logrus.FieldLogger)
 	UrlParts() []string

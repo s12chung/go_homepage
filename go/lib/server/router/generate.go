@@ -2,18 +2,14 @@ package router
 
 import (
 	"github.com/Sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/go/app/settings"
-	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 //
 // Context
 //
 type GenerateContext struct {
-	r        *view.Renderer
-	settings *settings.Settings
-	log      logrus.FieldLogger
+	r   Renderer
+	log logrus.FieldLogger
 
 	url      string
 	urlParts []string
@@ -22,12 +18,8 @@ type GenerateContext struct {
 	response []byte
 }
 
-func (ctx *GenerateContext) Renderer() *view.Renderer {
+func (ctx *GenerateContext) Renderer() Renderer {
 	return ctx.r
-}
-
-func (ctx *GenerateContext) Settings() *settings.Settings {
-	return ctx.settings
 }
 
 func (ctx *GenerateContext) Log() logrus.FieldLogger {
@@ -78,11 +70,10 @@ type GenerateRouter struct {
 	arounds []func(ctx Context, handler func(ctx Context) error) error
 }
 
-func NewGenerateRouter(renderer *view.Renderer, settings *settings.Settings, log logrus.FieldLogger) *GenerateRouter {
+func NewGenerateRouter(renderer Renderer, log logrus.FieldLogger) *GenerateRouter {
 	defaultContext := &GenerateContext{
-		r:        renderer,
-		settings: settings,
-		log:      log,
+		r:   renderer,
+		log: log,
 	}
 	return &GenerateRouter{
 		defaultContext,

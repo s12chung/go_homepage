@@ -6,30 +6,42 @@ import (
 
 	"github.com/s12chung/go_homepage/go/app/atom"
 	"github.com/s12chung/go_homepage/go/app/models"
+	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
 	"github.com/s12chung/go_homepage/go/lib/server/router"
+	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 var DependentUrls = map[string]bool{
 	"/": true,
 }
 
-func SetRoutes(r router.Router) {
-	r.GetRootHTML(getPosts)
-	r.GetWildcardHTML(getPost)
-	r.GetHTML("/reading", getReading)
-	r.GetHTML("/about", getAbout)
-
-	r.GetHTML("/posts.atom", getPostsAtom)
-	r.GetHTML("/robots.txt", getRobotsTxt)
+type RouteSetter struct {
+	router   router.Router
+	renderer *view.Renderer
+	settings *settings.Settings
 }
 
-func getAbout(ctx router.Context) error {
+func NewRouteSetter(r router.Router, renderer *view.Renderer, s *settings.Settings) *RouteSetter {
+	return &RouteSetter{r, renderer, s}
+}
+
+func (routeSetter *RouteSetter) SetRoutes() {
+	routeSetter.router.GetRootHTML(routeSetter.getPosts)
+	routeSetter.router.GetWildcardHTML(routeSetter.getPost)
+	routeSetter.router.GetHTML("/reading", routeSetter.getReading)
+	routeSetter.router.GetHTML("/about", routeSetter.getAbout)
+
+	routeSetter.router.GetHTML("/posts.atom", routeSetter.getPostsAtom)
+	routeSetter.router.GetHTML("/robots.txt", routeSetter.getRobotsTxt)
+}
+
+func (routeSetter *RouteSetter) getAbout(ctx router.Context) error {
 	return ctx.Render(nil)
 }
 
-func getReading(ctx router.Context) error {
-	books, err := goodreads.NewClient(&ctx.Settings().Goodreads, ctx.Log()).GetBooks()
+func (routeSetter *RouteSetter) getReading(ctx router.Context) error {
+	books, err := goodreads.NewClient(&routeSetter.settings.Goodreads, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
@@ -52,7 +64,7 @@ func getReading(ctx router.Context) error {
 	return ctx.Render(data)
 }
 
-func getPost(ctx router.Context) error {
+func (routeSetter *RouteSetter) getPost(ctx router.Context) error {
 	post, err := models.NewPost(ctx.UrlParts()[0])
 	if err != nil {
 		return err
@@ -61,7 +73,7 @@ func getPost(ctx router.Context) error {
 	return ctx.Render(post)
 }
 
-func getPosts(ctx router.Context) error {
+func (routeSetter *RouteSetter) getPosts(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
@@ -76,23 +88,23 @@ func getPosts(ctx router.Context) error {
 	return ctx.Render(data)
 }
 
-func getPostsAtom(ctx router.Context) error {
+func (routeSetter *RouteSetter) getPostsAtom(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
 	}
 
-	logoPath := ctx.Renderer().Webpack().ManifestPath("images/logo.png")
+	logoPath := routeSetter.renderer.Webpack().ManifestPath("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
 
-	bytes, err := atom.Render(&ctx.Settings().Atom, "posts", ctx.Url(), logoPath, htmlEntries)
+	bytes, err := atom.Render(&routeSetter.settings.Atom, "posts", ctx.Url(), logoPath, htmlEntries)
 	if err != nil {
 		return err
 	}
 	return ctx.Respond(bytes)
 }
 
-func getRobotsTxt(ctx router.Context) error {
+func (routeSetter *RouteSetter) getRobotsTxt(ctx router.Context) error {
 	return ctx.Respond([]byte{})
 }
 

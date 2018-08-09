@@ -14,18 +14,14 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/go/app/settings"
-	"github.com/s12chung/go_homepage/go/lib/view"
 )
 
 //
 // Context
 //
 type WebContext struct {
-	r        *view.Renderer
-	settings *settings.Settings
-	log      logrus.FieldLogger
+	r   Renderer
+	log logrus.FieldLogger
 
 	url      string
 	urlParts []string
@@ -35,12 +31,8 @@ type WebContext struct {
 	request        *http.Request
 }
 
-func (ctx *WebContext) Renderer() *view.Renderer {
+func (ctx *WebContext) Renderer() Renderer {
 	return ctx.r
-}
-
-func (ctx *WebContext) Settings() *settings.Settings {
-	return ctx.settings
 }
 
 func (ctx *WebContext) Log() logrus.FieldLogger {
@@ -93,13 +85,14 @@ type WebRouter struct {
 
 	rootHandler     func(w http.ResponseWriter, r *http.Request)
 	wildcardHandler func(w http.ResponseWriter, r *http.Request)
+
+	port int
 }
 
-func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logrus.FieldLogger) *WebRouter {
+func NewWebRouter(renderer Renderer, port int, log logrus.FieldLogger) *WebRouter {
 	defaultContext := &WebContext{
-		r:        renderer,
-		settings: settings,
-		log:      log,
+		r:   renderer,
+		log: log,
 	}
 
 	defaultHandler := func(w http.ResponseWriter, r *http.Request) {
@@ -117,6 +110,7 @@ func NewWebRouter(renderer *view.Renderer, settings *settings.Settings, log logr
 		make(map[string]bool),
 		defaultHandler,
 		defaultHandler,
+		port,
 	}
 	router.handleWildcard()
 	return router
@@ -161,7 +155,7 @@ func (router *WebRouter) StaticRoutes() []string {
 }
 
 func (router *WebRouter) Requester() Requester {
-	return newWebRequester(router.defaultContext.settings)
+	return newWebRequester(router.port)
 }
 
 func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
@@ -229,9 +223,9 @@ func (router *WebRouter) Get(pattern string, handler func(w http.ResponseWriter,
 	router.serveMux.HandleFunc(pattern, router.getRequestHandler(handler))
 }
 
-func (router *WebRouter) Run(port int) error {
-	router.log.Infof("Running server at http://localhost:%v/", port)
-	return http.ListenAndServe(":"+strconv.Itoa(port), router.serveMux)
+func (router *WebRouter) Run() error {
+	router.log.Infof("Running server at http://localhost:%v/", router.port)
+	return http.ListenAndServe(":"+strconv.Itoa(router.port), router.serveMux)
 }
 
 //
@@ -242,10 +236,10 @@ type WebRequester struct {
 	port int
 }
 
-func newWebRequester(s *settings.Settings) *WebRequester {
+func newWebRequester(port int) *WebRequester {
 	return &WebRequester{
 		"localhost",
-		s.ServerPort,
+		port,
 	}
 }
 

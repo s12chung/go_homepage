@@ -81,11 +81,11 @@ func (app *App) all() error {
 
 func (app *App) host() error {
 	var renderer = view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
-	r := router.NewWebRouter(renderer, app.Settings, app.log)
+	r := router.NewWebRouter(renderer, app.Settings.ServerPort, app.log)
 	r.FileServe(fmt.Sprintf("/%v/", webpack.AssetsPath()), filepath.Join(app.Settings.GeneratedPath, webpack.AssetsPath()))
-	setRoutes(r)
+	app.setRoutes(r, renderer)
 
-	return r.Run(app.Settings.ServerPort)
+	return r.Run()
 }
 
 func (app *App) build() error {
@@ -95,8 +95,8 @@ func (app *App) build() error {
 	}
 
 	renderer := view.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
-	r := router.NewGenerateRouter(renderer, app.Settings, app.log)
-	setRoutes(r)
+	r := router.NewGenerateRouter(renderer, app.log)
+	app.setRoutes(r, renderer)
 	err = app.requestRoutes(r)
 	if err != nil {
 		return err
@@ -108,7 +108,7 @@ func (app *App) setup() error {
 	return os.MkdirAll(app.Settings.GeneratedPath, 0755)
 }
 
-func setRoutes(r router.Router) {
+func (app *App) setRoutes(r router.Router, renderer *view.Renderer) {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
 			"type": "routes",
@@ -133,7 +133,8 @@ func setRoutes(r router.Router) {
 		err = handler(ctx)
 		return err
 	})
-	routes.SetRoutes(r)
+
+	routes.NewRouteSetter(r, renderer, app.Settings).SetRoutes()
 }
 
 func (app *App) requestRoutes(r router.Router) error {
