@@ -7,8 +7,8 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/app/models"
 	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/content/models"
 )
 
 func main() {

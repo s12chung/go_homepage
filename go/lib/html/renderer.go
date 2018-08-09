@@ -17,8 +17,6 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/html/webpack"
 )
 
-const templatePath = "./go/app/templates"
-
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
 
 type Renderer struct {
@@ -72,7 +70,7 @@ func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
-	filePaths, err := utils.FilePaths(".tmpl", templatePath)
+	filePaths, err := utils.FilePaths(".tmpl", renderer.settings.TemplatePath)
 	if err != nil {
 		return nil, err
 	}
@@ -118,8 +116,8 @@ func (renderer *Renderer) Render(name, defaultTitle string, data interface{}) ([
 	}
 
 	templatePaths := append(partialPaths, []string{
-		path.Join(templatePath, "layout.tmpl"),
-		path.Join(templatePath, name+".tmpl"),
+		path.Join(renderer.settings.TemplatePath, "layout.tmpl"),
+		path.Join(renderer.settings.TemplatePath, name+".tmpl"),
 	}...)
 
 	tmpl, err := template.New("self").

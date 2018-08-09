@@ -7,8 +7,9 @@ import (
 	"time"
 
 	"github.com/s12chung/go_homepage/go/app/atom"
-	"github.com/s12chung/go_homepage/go/app/models"
 	"github.com/s12chung/go_homepage/go/app/settings"
+	contentAtom "github.com/s12chung/go_homepage/go/content/atom"
+	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
 	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
@@ -142,7 +143,7 @@ func (routeSetter *RouteSetter) getPostsAtom(ctx router.Context) error {
 	}
 
 	logoPath := routeSetter.renderer.Webpack().ManifestPath("images/logo.png")
-	htmlEntries := atom.PostsToHtmlEntries(posts)
+	htmlEntries := contentAtom.PostsToHtmlEntries(posts)
 
 	bytes, err := atom.Render(&routeSetter.settings.Atom, "posts", ctx.Url(), logoPath, htmlEntries)
 	if err != nil {

@@ -7,7 +7,7 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/atom"
 )
 
-const atomPostLimit = 100
+const EntryLimit = 100
 
 type HtmlEntry struct {
 	Id          string
