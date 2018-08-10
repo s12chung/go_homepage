@@ -3,8 +3,6 @@ package atom
 import (
 	"strings"
 	"time"
-
-	"github.com/s12chung/go_homepage/go/lib/atom"
 )
 
 const EntryLimit = 100
@@ -18,14 +16,14 @@ type HtmlEntry struct {
 	Published   time.Time
 }
 
-func (htmlEntry *HtmlEntry) ToEntry(a *atom.AtomRenderer) *atom.Entry {
-	return &atom.Entry{
+func (htmlEntry *HtmlEntry) ToEntry(a *AtomRenderer) *Entry {
+	return &Entry{
 		ID:      strings.Join([]string{a.Settings.Host, htmlEntry.Id, htmlEntry.Published.Format("2006-01-02")}, ":"),
 		Title:   htmlEntry.Title,
 		Updated: htmlEntry.Updated,
 
 		Author:  a.Author(),
-		Content: &atom.EntryContent{Content: htmlEntry.HtmlContent, Type: "html"},
+		Content: &EntryContent{Content: htmlEntry.HtmlContent, Type: "html"},
 		Summary: htmlEntry.Summary,
 		Link:    a.AlternateLink(htmlEntry.Id),
 
@@ -33,14 +31,14 @@ func (htmlEntry *HtmlEntry) ToEntry(a *atom.AtomRenderer) *atom.Entry {
 	}
 }
 
-func Render(settings *atom.Settings, entryName, url, logoPath string, htmlEntries []*HtmlEntry) ([]byte, error) {
-	atomRenderer := atom.NewAtomRenderer(settings)
+func Render(settings *Settings, entryName, url, logoPath string, htmlEntries []*HtmlEntry) ([]byte, error) {
+	atomRenderer := NewAtomRenderer(settings)
 	feed := HtmlEntriesToFeed(atomRenderer, entryName, url, logoPath, htmlEntries)
 	return feed.Marhshall()
 }
 
-func HtmlEntriesToFeed(atomRenderer *atom.AtomRenderer, entryName, url, logoPath string, htmlEntries []*HtmlEntry) *atom.Feed {
-	entries := make([]*atom.Entry, len(htmlEntries))
+func HtmlEntriesToFeed(atomRenderer *AtomRenderer, entryName, url, logoPath string, htmlEntries []*HtmlEntry) *Feed {
+	entries := make([]*Entry, len(htmlEntries))
 	for i, htmlEntry := range htmlEntries {
 		entries[i] = htmlEntry.ToEntry(atomRenderer)
 	}

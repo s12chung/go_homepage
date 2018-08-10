@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/s12chung/go_homepage/go/app/utils"
+	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
 func defaultTemplateFuncs() template.FuncMap {

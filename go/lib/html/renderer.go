@@ -13,8 +13,8 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
 
-	"github.com/s12chung/go_homepage/go/app/utils"
 	"github.com/s12chung/go_homepage/go/lib/html/webpack"
+	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)

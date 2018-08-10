@@ -1,8 +1,8 @@
 package respond
 
 import (
-	"github.com/s12chung/go_homepage/go/app/atom"
 	"github.com/s12chung/go_homepage/go/app/settings"
+	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )

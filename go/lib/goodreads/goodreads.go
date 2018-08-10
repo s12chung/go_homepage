@@ -14,7 +14,7 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/go/app/utils"
+	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
 const booksFile = "books.json"
