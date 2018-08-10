@@ -7,8 +7,11 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/app"
+	"github.com/s12chung/go_homepage/go/app/respond"
 	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/content/models"
+	"github.com/s12chung/go_homepage/go/content/routes"
+	"github.com/s12chung/go_homepage/go/lib/html"
 )
 
 func main() {
@@ -32,7 +35,11 @@ func main() {
 		"type": "models",
 	}))
 
-	err := app.NewApp(s, log).Run()
+	renderer := html.NewRenderer(s.GeneratedPath, &s.Template, log)
+	respondHelper := respond.NewHelper(renderer, s)
+	routeSetter := routes.NewSetter(respondHelper)
+
+	err := app.NewApp(routeSetter, s, log).Run()
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)

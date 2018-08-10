@@ -42,7 +42,7 @@ func (renderer *Renderer) AssetsUrl() string {
 	return webpack.AssetsUrl()
 }
 
-func (renderer *Renderer) GenereratedAssetsPath() string {
+func (renderer *Renderer) GeneratedAssetsPath() string {
 	return renderer.Webpack().GeneratedAssetsPath()
 }
 

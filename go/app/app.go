@@ -10,33 +10,33 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/go/app/routes"
 	"github.com/s12chung/go_homepage/go/app/settings"
-	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
 type App struct {
-	Settings *settings.Settings
-	log      logrus.FieldLogger
+	routeSetter router.Setter
+	settings    *settings.Settings
+	log         logrus.FieldLogger
 }
 
-func NewApp(settings *settings.Settings, log logrus.FieldLogger) *App {
+func NewApp(routeSetter router.Setter, settings *settings.Settings, log logrus.FieldLogger) *App {
 	return &App{
+		routeSetter,
 		settings,
 		log,
 	}
 }
 
 func (app *App) Run() error {
-	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", app.Settings.GeneratedPath, app.Settings.FileServerPort))
-	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", app.Settings.ServerPort))
+	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", app.settings.GeneratedPath, app.settings.FileServerPort))
+	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", app.settings.ServerPort))
 
 	flag.Parse()
 
 	if *fileServerPtr {
-		return router.RunFileServer(app.Settings.GeneratedPath, app.Settings.FileServerPort, app.log)
+		return router.RunFileServer(app.settings.GeneratedPath, app.settings.FileServerPort, app.log)
 	} else {
 		if *serverPtr {
 			return app.host()
@@ -47,10 +47,9 @@ func (app *App) Run() error {
 }
 
 func (app *App) host() error {
-	var renderer = html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
-	r := router.NewWebRouter(app.Settings.ServerPort, app.log)
-	r.FileServe(renderer.AssetsUrl(), renderer.GenereratedAssetsPath())
-	app.setRoutes(r, renderer)
+	r := router.NewWebRouter(app.settings.ServerPort, app.log)
+	r.FileServe(app.routeSetter.AssetsUrl(), app.routeSetter.GeneratedAssetsPath())
+	app.setRoutes(r)
 
 	return r.Run()
 }
@@ -61,10 +60,9 @@ func (app *App) build() error {
 		return err
 	}
 
-	renderer := html.NewRenderer(app.Settings.GeneratedPath, &app.Settings.Template, app.log)
 	r := router.NewGenerateRouter(app.log)
-	routeSetter := app.setRoutes(r, renderer)
-	err = app.requestRoutes(routeSetter)
+	routeTracker := app.setRoutes(r)
+	err = app.requestRoutes(routeTracker)
 	if err != nil {
 		return err
 	}
@@ -72,10 +70,10 @@ func (app *App) build() error {
 }
 
 func (app *App) setup() error {
-	return os.MkdirAll(app.Settings.GeneratedPath, 0755)
+	return os.MkdirAll(app.settings.GeneratedPath, 0755)
 }
 
-func (app *App) setRoutes(r router.Router, renderer *html.Renderer) *routes.RouteSetter {
+func (app *App) setRoutes(r router.Router) *router.Tracker {
 	r.Around(func(ctx router.Context, handler func(ctx router.Context) error) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
 			"type": "routes",
@@ -101,23 +99,23 @@ func (app *App) setRoutes(r router.Router, renderer *html.Renderer) *routes.Rout
 		return err
 	})
 
-	routeSetter := routes.NewRouteSetter(r, renderer, app.Settings)
-	routeSetter.SetRoutes()
-	return routeSetter
+	routeTracker := router.NewTracker(r, app.routeSetter.WildcardRoutes)
+	app.routeSetter.SetRoutes(r, routeTracker)
+	return routeTracker
 }
 
-func (app *App) requestRoutes(routeSetter *routes.RouteSetter) error {
-	requester := routeSetter.Router.Requester()
+func (app *App) requestRoutes(tracker *router.Tracker) error {
+	requester := tracker.Router.Requester()
 
 	var urlBatches [][]string
 
-	independentUrls, err := routeSetter.IndependentUrls()
+	independentUrls, err := tracker.IndependentUrls()
 	if err != nil {
 		return err
 	}
 
 	urlBatches = append(urlBatches, independentUrls)
-	urlBatches = append(urlBatches, routeSetter.DependentUrls())
+	urlBatches = append(urlBatches, tracker.DependentUrls())
 
 	for _, urlBatch := range urlBatches {
 		app.runTasks(app.urlsToTasks(requester, urlBatch))
@@ -150,7 +148,7 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 			filename = "index.html"
 		}
 
-		generatedFilePath := path.Join(app.Settings.GeneratedPath, filename)
+		generatedFilePath := path.Join(app.settings.GeneratedPath, filename)
 
 		log.Infof("Writing response into %v", generatedFilePath)
 		return writeFile(generatedFilePath, bytes)
@@ -162,7 +160,7 @@ func writeFile(path string, bytes []byte) error {
 }
 
 func (app *App) runTasks(tasks []*pool.Task) {
-	p := pool.NewPool(tasks, app.Settings.Concurrency)
+	p := pool.NewPool(tasks, app.settings.Concurrency)
 	p.Run()
 	p.EachError(func(task *pool.Task) {
 		task.Log.Errorf("Error for task - %v", task.Error)
