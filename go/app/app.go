@@ -1,7 +1,6 @@
 package app
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -29,24 +28,7 @@ func NewApp(routeSetter router.Setter, settings *settings.Settings, log logrus.F
 	}
 }
 
-func (app *App) Run() error {
-	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", app.settings.GeneratedPath, app.settings.FileServerPort))
-	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", app.settings.ServerPort))
-
-	flag.Parse()
-
-	if *fileServerPtr {
-		return router.RunFileServer(app.settings.GeneratedPath, app.settings.FileServerPort, app.log)
-	} else {
-		if *serverPtr {
-			return app.host()
-		} else {
-			return app.build()
-		}
-	}
-}
-
-func (app *App) host() error {
+func (app *App) Host() error {
 	r := router.NewWebRouter(app.settings.ServerPort, app.log)
 	r.FileServe(app.routeSetter.AssetsUrl(), app.routeSetter.GeneratedAssetsPath())
 	app.setRoutes(r)
@@ -54,7 +36,7 @@ func (app *App) host() error {
 	return r.Run()
 }
 
-func (app *App) build() error {
+func (app *App) Generate() error {
 	err := app.setup()
 	if err != nil {
 		return err

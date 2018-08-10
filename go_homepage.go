@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"os"
 	"time"
 
@@ -12,6 +14,7 @@ import (
 	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/content/routes"
 	"github.com/s12chung/go_homepage/go/lib/html"
+	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
 func main() {
@@ -35,13 +38,31 @@ func main() {
 		"type": "models",
 	}))
 
-	renderer := html.NewRenderer(s.GeneratedPath, &s.Template, log)
-	respondHelper := respond.NewHelper(renderer, s)
-	routeSetter := routes.NewSetter(respondHelper)
-
-	err := app.NewApp(routeSetter, s, log).Run()
+	err := run(s, log)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
+	}
+}
+
+func run(s *settings.Settings, log logrus.FieldLogger) error {
+	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", s.GeneratedPath, s.FileServerPort))
+	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", s.ServerPort))
+
+	flag.Parse()
+
+	if *fileServerPtr {
+		return router.RunFileServer(s.GeneratedPath, s.FileServerPort, log)
+	} else {
+		renderer := html.NewRenderer(s.GeneratedPath, &s.Template, log)
+		respondHelper := respond.NewHelper(renderer, s)
+		routeSetter := routes.NewSetter(respondHelper)
+		a := app.NewApp(routeSetter, s, log)
+
+		if *serverPtr {
+			return a.Host()
+		} else {
+			return a.Generate()
+		}
 	}
 }
