@@ -84,6 +84,10 @@ func (router *GenerateRouter) GetHTML(pattern string, handler func(ctx Context) 
 	router.checkAndSetRoutes(pattern, handler)
 }
 
+func (router *GenerateRouter) Get(pattern, mimeType string, handler func(ctx Context) error) {
+	router.checkAndSetRoutes(pattern, handler)
+}
+
 func (router *GenerateRouter) checkAndSetRoutes(pattern string, handler func(ctx Context) error) {
 	_, has := router.routes[pattern]
 	if has {

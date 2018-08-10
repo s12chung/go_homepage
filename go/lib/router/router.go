@@ -27,6 +27,7 @@ type Router interface {
 	GetWildcardHTML(handler func(ctx Context) error)
 	GetRootHTML(handler func(ctx Context) error)
 	GetHTML(pattern string, handler func(ctx Context) error)
+	Get(pattern, mimeType string, handler func(ctx Context) error)
 
 	StaticRoutes() []string
 	Requester() Requester

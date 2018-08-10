@@ -107,7 +107,12 @@ func (router *WebRouter) GetRootHTML(handler func(ctx Context) error) {
 
 func (router *WebRouter) GetHTML(pattern string, handler func(ctx Context) error) {
 	router.checkAndSetRoutes(pattern)
-	router.Get(pattern, router.htmlHandler(handler))
+	router.get(pattern, router.htmlHandler(handler))
+}
+
+func (router *WebRouter) Get(pattern, mimeType string, handler func(ctx Context) error) {
+	router.checkAndSetRoutes(pattern)
+	router.get(pattern, router.handler(mimeType, handler))
 }
 
 func (router *WebRouter) checkAndSetRoutes(pattern string) error {
@@ -134,8 +139,12 @@ func (router *WebRouter) Requester() Requester {
 }
 
 func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
+	return router.handler(mime.TypeByExtension(".html"), handler)
+}
+
+func (router *WebRouter) handler(mimeType string, handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
 	return func(w http.ResponseWriter, r *http.Request) error {
-		w.Header().Set("Content-Type", mime.TypeByExtension(".html"))
+		w.Header().Set("Content-Type", mimeType)
 
 		ctx := NewWebContext(router.log)
 		ctx.url = r.URL.String()
@@ -174,7 +183,7 @@ func (router *WebRouter) handleWildcard() {
 }
 
 func (router *WebRouter) FileServe(pattern, dirPath string) {
-	router.Get(pattern, func(w http.ResponseWriter, r *http.Request) error {
+	router.get(pattern, func(w http.ResponseWriter, r *http.Request) error {
 		regex := regexp.MustCompile(strings.Replace(`^/`+pattern+`/`, "//", "/", -1))
 		assetFilePath := path.Join(dirPath, regex.ReplaceAllString(r.URL.String(), ""))
 
@@ -189,7 +198,7 @@ func (router *WebRouter) FileServe(pattern, dirPath string) {
 	})
 }
 
-func (router *WebRouter) Get(pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
+func (router *WebRouter) get(pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
 	if pattern == RootUrlPattern {
 		router.log.Errorf("Can not use pattern that touches root, use GetRootHTML or GetWildcardHTML instead")
 		return

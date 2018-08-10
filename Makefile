@@ -67,7 +67,8 @@ clean:
 clean-all: clean
 	rm -rf cache
 
-server: build-assets
+server: clean build-assets
+	go install
 	$(GOPATH)/bin/go_homepage -server
 
 file-server:
