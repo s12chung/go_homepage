@@ -21,10 +21,15 @@ const cssLoaders = [
     }
 ];
 
-
 const filename = isProduction ? '[name]-[hash]' : '[name]';
 const imageTest = /\.(png|jpg|gif)$/;
 const contentImagesPath = 'content/images/';
+const rootFaviconFiles = [
+    "favicon.ico",
+    "browserconfig.xml"
+].map(function (filename) {
+    return relativePath('assets/favicon/' + filename)
+});
 
 module.exports = {
     resolveLoader: {
@@ -60,12 +65,25 @@ module.exports = {
                 use: cssLoaders
             },
             {
+                exclude: rootFaviconFiles,
                 include: relativePath('assets/favicon'),
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             outputPath: 'favicon/',
+                            name: '[name].[ext]',
+                        }
+                    }
+                ]
+            },
+            {
+                include: rootFaviconFiles,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: '../',
                             name: '[name].[ext]',
                         }
                     }

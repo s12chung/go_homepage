@@ -26,9 +26,11 @@ push-docker-deploy:
 	make docker-deploy
 
 deploy:
-	aws s3 sync $(GENERATED_PATH) s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --delete --content-type text/html --exclude '$(ASSETS_PATH)/*' --exclude '*.atom'
+	aws s3 sync $(GENERATED_PATH) s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --delete --content-type text/html --exclude '$(ASSETS_PATH)/*' --exclude '*.*' --include '*.html'
 	aws s3 sync $(GENERATED_PATH)/$(ASSETS_PATH) s3://$(S3_BUCKET)/$(ASSETS_PATH)/ --cache-control max-age=$(LONG_TTL) --delete
-	find $(GENERATED_PATH) -name '*.atom' | sed "s|^\$(GENERATED_PATH)/||" | xargs -I{} -n1 aws s3 cp $(GENERATED_PATH)/{} s3://$(S3_BUCKET)/{} --cache-control max-age=$(SHORT_TTL) --content-type application/xml
+	aws s3 cp $(GENERATED_PATH)/favicon.ico s3://$(S3_BUCKET)/ --cache-control max-age=$(LONG_TTL) --content-type image/x-icon
+	aws s3 cp $(GENERATED_PATH)/browserconfig.xml s3://$(S3_BUCKET)/ --cache-control max-age=$(LONG_TTL) --content-type application/xml
+	aws s3 cp $(GENERATED_PATH)/posts.atom s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --content-type application/xml
 	aws s3 cp $(GENERATED_PATH)/robots.txt s3://$(S3_BUCKET)/ --cache-control max-age=$(SHORT_TTL) --content-type text/plain
 
 docker-install: docker-build-install docker-copy
