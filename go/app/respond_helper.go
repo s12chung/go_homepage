@@ -1,22 +1,21 @@
-package respond
+package app
 
 import (
-	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
-type Helper struct {
+type RespondHelper struct {
 	Renderer *html.Renderer
-	Settings *settings.Settings
+	Settings *Settings
 }
 
-func NewHelper(renderer *html.Renderer, s *settings.Settings) *Helper {
-	return &Helper{renderer, s}
+func NewRespondHelper(renderer *html.Renderer, s *Settings) *RespondHelper {
+	return &RespondHelper{renderer, s}
 }
 
-func (helper *Helper) RespondAtom(ctx router.Context, entryName, logoPath string, htmlEntries []*atom.HtmlEntry) error {
+func (helper *RespondHelper) RespondAtom(ctx router.Context, entryName, logoPath string, htmlEntries []*atom.HtmlEntry) error {
 	bytes, err := atom.Render(&helper.Settings.Atom, entryName, ctx.Url(), logoPath, htmlEntries)
 	if err != nil {
 		return err
@@ -24,11 +23,11 @@ func (helper *Helper) RespondAtom(ctx router.Context, entryName, logoPath string
 	return ctx.Respond(bytes)
 }
 
-func (helper *Helper) RespondUrlHTML(ctx router.Context, data interface{}) error {
+func (helper *RespondHelper) RespondUrlHTML(ctx router.Context, data interface{}) error {
 	return helper.RespondHTML(ctx, "", data)
 }
 
-func (helper *Helper) RespondHTML(ctx router.Context, templateName string, data interface{}) error {
+func (helper *RespondHelper) RespondHTML(ctx router.Context, templateName string, data interface{}) error {
 	bytes, err := helper.renderHTML(ctx, templateName, data)
 	if err != nil {
 		return err
@@ -36,7 +35,7 @@ func (helper *Helper) RespondHTML(ctx router.Context, templateName string, data 
 	return ctx.Respond(bytes)
 }
 
-func (helper *Helper) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
+func (helper *RespondHelper) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
 	tmplName = templateName(ctx, tmplName)
 	defaultTitle := defaultTitle(ctx, tmplName)
 	ctx.Log().Infof("Rendering template %v with title %v", tmplName, defaultTitle)

@@ -9,18 +9,17 @@ import (
 
 	"github.com/Sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
 type App struct {
 	routeSetter router.Setter
-	settings    *settings.Settings
+	settings    *Settings
 	log         logrus.FieldLogger
 }
 
-func NewApp(routeSetter router.Setter, settings *settings.Settings, log logrus.FieldLogger) *App {
+func NewApp(routeSetter router.Setter, settings *Settings, log logrus.FieldLogger) *App {
 	return &App{
 		routeSetter,
 		settings,

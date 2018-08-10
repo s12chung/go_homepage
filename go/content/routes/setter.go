@@ -1,15 +1,15 @@
 package routes
 
 import (
-	"github.com/s12chung/go_homepage/go/app/respond"
+	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
 type Setter struct {
-	h *respond.Helper
+	h *app.RespondHelper
 }
 
-func NewSetter(h *respond.Helper) *Setter {
+func NewSetter(h *app.RespondHelper) *Setter {
 	return &Setter{h}
 }
 

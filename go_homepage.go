@@ -9,8 +9,6 @@ import (
 	"github.com/Sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/app/respond"
-	"github.com/s12chung/go_homepage/go/app/settings"
 	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/content/routes"
 	"github.com/s12chung/go_homepage/go/lib/html"
@@ -33,7 +31,7 @@ func main() {
 		Level: logrus.InfoLevel,
 	}
 
-	s := settings.ReadFromFile(log)
+	s := app.ReadFromFile(log)
 	models.Config(s.PostsPath, s.DraftsPath, s.GithubUrl, log.WithFields(logrus.Fields{
 		"type": "models",
 	}))
@@ -45,7 +43,7 @@ func main() {
 	}
 }
 
-func run(s *settings.Settings, log logrus.FieldLogger) error {
+func run(s *app.Settings, log logrus.FieldLogger) error {
 	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", s.GeneratedPath, s.FileServerPort))
 	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", s.ServerPort))
 
@@ -55,7 +53,7 @@ func run(s *settings.Settings, log logrus.FieldLogger) error {
 		return router.RunFileServer(s.GeneratedPath, s.FileServerPort, log)
 	} else {
 		renderer := html.NewRenderer(s.GeneratedPath, &s.Template, log)
-		respondHelper := respond.NewHelper(renderer, s)
+		respondHelper := app.NewRespondHelper(renderer, s)
 		routeSetter := routes.NewSetter(respondHelper)
 		a := app.NewApp(routeSetter, s, log)
 
