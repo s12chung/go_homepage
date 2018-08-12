@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/content/models"

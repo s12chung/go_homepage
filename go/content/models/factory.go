@@ -1,6 +1,6 @@
 package models
 
-import "github.com/Sirupsen/logrus"
+import "github.com/sirupsen/logrus"
 
 type Factory struct {
 	postsPath  string

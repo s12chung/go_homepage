@@ -10,8 +10,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/russross/blackfriday"
+	"github.com/sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/lib/html/webpack"
 	"github.com/s12chung/go_homepage/go/lib/utils"

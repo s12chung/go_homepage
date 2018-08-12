@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"

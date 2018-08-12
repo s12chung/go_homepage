@@ -7,7 +7,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
