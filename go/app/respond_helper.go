@@ -15,8 +15,8 @@ func NewRespondHelper(renderer *html.Renderer, s *Settings) *RespondHelper {
 	return &RespondHelper{renderer, s}
 }
 
-func (helper *RespondHelper) RespondAtom(ctx router.Context, entryName, logoPath string, htmlEntries []*atom.HtmlEntry) error {
-	bytes, err := atom.Render(&helper.Settings.Atom, entryName, ctx.Url(), logoPath, htmlEntries)
+func (helper *RespondHelper) RespondAtom(ctx router.Context, feedName, logoPath string, htmlEntries []*atom.HtmlEntry) error {
+	bytes, err := atom.Render(&helper.Settings.Atom, feedName, ctx.Url(), logoPath, htmlEntries)
 	if err != nil {
 		return err
 	}

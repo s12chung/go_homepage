@@ -16,7 +16,7 @@ type HtmlEntry struct {
 	Published   time.Time
 }
 
-func (htmlEntry *HtmlEntry) ToEntry(a *AtomRenderer) *Entry {
+func (htmlEntry *HtmlEntry) ToEntry(a *Renderer) *Entry {
 	return &Entry{
 		ID:      strings.Join([]string{a.Settings.Host, htmlEntry.Id, htmlEntry.Published.Format("2006-01-02")}, ":"),
 		Title:   htmlEntry.Title,
@@ -31,13 +31,13 @@ func (htmlEntry *HtmlEntry) ToEntry(a *AtomRenderer) *Entry {
 	}
 }
 
-func Render(settings *Settings, entryName, url, logoPath string, htmlEntries []*HtmlEntry) ([]byte, error) {
-	atomRenderer := NewAtomRenderer(settings)
-	feed := HtmlEntriesToFeed(atomRenderer, entryName, url, logoPath, htmlEntries)
+func Render(settings *Settings, feedName, selfPath, logoPath string, htmlEntries []*HtmlEntry) ([]byte, error) {
+	atomRenderer := NewRenderer(settings)
+	feed := HtmlEntriesToFeed(atomRenderer, feedName, selfPath, logoPath, htmlEntries)
 	return feed.Marhshall()
 }
 
-func HtmlEntriesToFeed(atomRenderer *AtomRenderer, entryName, url, logoPath string, htmlEntries []*HtmlEntry) *Feed {
+func HtmlEntriesToFeed(atomRenderer *Renderer, feedName, selfPath, logoPath string, htmlEntries []*HtmlEntry) *Feed {
 	entries := make([]*Entry, len(htmlEntries))
 	for i, htmlEntry := range htmlEntries {
 		entries[i] = htmlEntry.ToEntry(atomRenderer)
@@ -47,7 +47,7 @@ func HtmlEntriesToFeed(atomRenderer *AtomRenderer, entryName, url, logoPath stri
 	if len(htmlEntries) >= 1 {
 		lastUpdated = htmlEntries[0].Updated
 	}
-	feed := atomRenderer.NewFeed(entryName, lastUpdated, url, logoPath)
+	feed := atomRenderer.NewFeed(feedName, lastUpdated, selfPath, logoPath)
 	feed.Entries = entries
 	return feed
 }

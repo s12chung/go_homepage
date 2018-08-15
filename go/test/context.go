@@ -16,7 +16,7 @@ func NewContext() *Context {
 	return &Context{}
 }
 
-func (context *Context) SetFields(fields ContextFields) {
+func (context *Context) SetFields(fields ContextFields) *Context {
 	fieldStrings := make([]string, len(fields))
 	i := 0
 	for k, v := range fields {
@@ -25,6 +25,7 @@ func (context *Context) SetFields(fields ContextFields) {
 	}
 	sort.Strings(fieldStrings)
 	context.fieldsString = strings.Join(fieldStrings, " ")
+	return context
 }
 
 func (context *Context) String(i interface{}) string {
@@ -37,4 +38,8 @@ func (context *Context) Stringf(format string, args ...interface{}) string {
 
 func (context *Context) GotExpString(label string, got, exp interface{}) string {
 	return context.Stringf("%v - got: %v, exp: %v", label, got, exp)
+}
+
+func (context *Context) DiffString(label string, got, exp, diff interface{}) string {
+	return context.Stringf("%v - got: %v, exp: %v, diff: %v", label, got, exp, diff)
 }

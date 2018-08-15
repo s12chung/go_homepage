@@ -70,8 +70,5 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 		log.Warnf("error reading %v, using defaults...", settingsPath)
 		return settings
 	}
-
-	// set here
-	settings.Atom.AuthorUri = settings.Atom.Url()
 	return settings
 }
