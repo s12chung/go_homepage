@@ -2,6 +2,24 @@
 
 
 [[projects]]
+  name = "github.com/ernsheong/grand"
+  packages = ["."]
+  revision = "1b2738dec966a11a2b36c0db5d2aee7b95ce424d"
+  version = "1.1"
+
+[[projects]]
+  name = "github.com/google/go-cmp"
+  packages = [
+    "cmp",
+    "cmp/cmpopts",
+    "cmp/internal/diff",
+    "cmp/internal/function",
+    "cmp/internal/value"
+  ]
+  revision = "3af367b6b30c263d47e8895973edcca9a49cf029"
+  version = "v0.2.0"
+
+[[projects]]
   name = "github.com/russross/blackfriday"
   packages = ["."]
   revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
@@ -46,6 +64,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1d2b95556b907e7f89d45808e259abd79453bfeab1f0a3155a2d308c6b664255"
+  inputs-digest = "56e8d9cf6856a0d726e871e4359aef09bd3bc48fd3a201a9d8e86b3ad7e4445c"
   solver-name = "gps-cdcl"
   solver-version = 1

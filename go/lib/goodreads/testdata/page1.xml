@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GoodreadsResponse>
+  <Request>
+    <authentication>true</authentication>
+      <key><![CDATA[NBP98rsAm8Hd5W44EFrp2A]]></key>
+    <method><![CDATA[review_list]]></method>
+  </Request>
+  
+<reviews start="1" end="20" total="55">
+    <review>
+  <id>2474898895</id>
+    <book>
+  <id type="integer">725027</id>
+  <isbn>0812218191</isbn>
+  <isbn13>9780812218190</isbn13>
+  <text_reviews_count type="integer">23</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.P0WxmLoInNIlzlPeBb8h2w</uri>
+  <title>The Organization Man: The Book That Defined a Generation</title>
+  <title_without_series>The Organization Man: The Book That Defined a Generation</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/725027.The_Organization_Man</link>
+  <num_pages>448</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>University of Pennsylvania Press</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2002</publication_year>
+  <publication_month>5</publication_month>
+  <average_rating>3.78</average_rating>
+  <ratings_count>230</ratings_count>
+  <description>"The Organization Man is one of the most influential books of the twentieth century. It established the categories Americans now use when thinking about the workplace, the suburbs, and their lives."--David Brooks, senior editor at the Weekly Sta</description>
+<authors>
+<author>
+<id>303432</id>
+<name>William H. Whyte</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1305117495p5/303432.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1305117495p2/303432.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/303432.William_H_Whyte]]></link>
+<average_rating>4.14</average_rating>
+<ratings_count>1164</ratings_count>
+<text_reviews_count>104</text_reviews_count>
+</author>
+<author>
+<id>34105</id>
+<name>Carlota Pérez</name>
+<role></role>
+<image_url nophoto='true'>
+  <![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+  <![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/34105.Carlota_P_rez]]></link>
+<average_rating>4.29</average_rating>
+<ratings_count>237</ratings_count>
+<text_reviews_count>26</text_reviews_count>
+</author>
+</authors>
+  <published>2002</published>
+<work>  <id>711247</id>
+  <uri>kca://work/amzn1.gr.work.v1.BA6gv2jtlYXbMmqzbvkWCw</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Jul 29 15:39:52 -0700 2018</date_added>
+  <date_updated>Sun Jul 29 15:39:54 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2474898895]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2474898895]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2455919126</id>
+    <book>
+  <id type="integer">60509</id>
+  <isbn>1843763311</isbn>
+  <isbn13>9781843763314</isbn13>
+  <text_reviews_count type="integer">23</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.yJ0d0prXGoHi6nFnXISHZQ</uri>
+  <title>Technological Revolutions and Financial Capital: The Dynamics of Bubbles and Golden Ages</title>
+  <title_without_series>Technological Revolutions and Financial Capital: The Dynamics of Bubbles and Golden Ages</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/60509.Technological_Revolutions_and_Financial_Capital</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.29</average_rating>
+  <ratings_count>237</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>34105</id>
+<name>Carlota Pérez</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/34105.Carlota_P_rez]]></link>
+<average_rating>4.29</average_rating>
+<ratings_count>237</ratings_count>
+<text_reviews_count>26</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>58870</id>
+  <uri>kca://work/amzn1.gr.work.v1.PtxBQxf4NT4aut7gQOv5WQ</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Jul 13 13:07:11 -0700 2018</date_added>
+  <date_updated>Fri Jul 13 13:07:13 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2455919126]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2455919126]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2429351430</id>
+    <book>
+  <id type="integer">306940</id>
+  <isbn>0878301178</isbn>
+  <isbn13>9780878301171</isbn13>
+  <text_reviews_count type="integer">157</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.QWDBChZDph9zoC7fTxHPWg</uri>
+  <title>Impro</title>
+  <title_without_series>Impro</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/306940.Impro</link>
+  <num_pages>208</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Routledge</publisher>
+  <publication_day>7</publication_day>
+  <publication_year>1987</publication_year>
+  <publication_month>1</publication_month>
+  <average_rating>4.26</average_rating>
+  <ratings_count>2119</ratings_count>
+  <description>Keith Johnstone's involvement with the theatre began when George Devine and Tony Richardson, artistic directors of the Royal Court Theatre, commissioned a play from him. This was in 1956. A few years later he was himself Associate Artistic Director, working as a play-reader and director, in particular helping to run the Writers' Group. The improvisatory techniques and exercises evolved there to foster spontaneity and narrative skills were developed further in the actors' studio then in demonstrations to schools and colleges and ultimately in the founding of a company of performers, called The Theatre Machine. Divided into four sections, 'Status', 'Spontaneity', 'Narrative Skills', and 'Masks and Trance', arranged more or less in the order a group might approach them, the book sets out the specific techniques and exercises which Johnstone has himself found most useful and most stimulating. The result is both an ideas book and a fascinating exploration of the nature of spontaneous creativity.</description>
+<authors>
+<author>
+<id>154721</id>
+<name>Keith Johnstone</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1483965951p5/154721.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1483965951p2/154721.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/154721.Keith_Johnstone]]></link>
+<average_rating>4.25</average_rating>
+<ratings_count>2444</ratings_count>
+<text_reviews_count>193</text_reviews_count>
+</author>
+</authors>
+  <published>1987</published>
+<work>  <id>297914</id>
+  <uri>kca://work/amzn1.gr.work.v1.rBja41uyxmFx5drp23iZ2g</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Tue Jun 19 15:16:22 -0700 2018</date_added>
+  <date_updated>Tue Jun 19 15:16:23 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2429351430]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2429351430]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2426336660</id>
+    <book>
+  <id type="integer">16489759</id>
+  <isbn nil="true"/>
+  <isbn13>9781107036819</isbn13>
+  <text_reviews_count type="integer">4</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.5oB3Srd0gLVt5-Y4fuCqTg</uri>
+  <title>Rulers, Religion, and Riches: Why the West Got Rich and the Middle East Did Not</title>
+  <title_without_series>Rulers, Religion, and Riches: Why the West Got Rich and the Middle East Did Not</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1485264326m/16489759.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1485264326s/16489759.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/16489759-rulers-religion-and-riches</link>
+  <num_pages>288</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Cambridge University Press</publisher>
+  <publication_day>7</publication_day>
+  <publication_year>2017</publication_year>
+  <publication_month>2</publication_month>
+  <average_rating>4.29</average_rating>
+  <ratings_count>21</ratings_count>
+  <description>For centuries following the spread of Islam, the Middle East was far ahead of Europe. Yet, the modern economy was born in Europe. Why was it not born in the Middle East? In this book Jared Rubin examines the role that Islam played in this reversal of fortunes. It argues that the religion itself is not to blame; the importance of religious legitimacy in Middle Eastern politics was the primary culprit. Muslim religious authorities were given an important seat at the political bargaining table, which they used to block important advancements such as the printing press and lending at interest. In Europe, however, the Church played a weaker role in legitimizing rule, especially where Protestantism spread (indeed, the Reformation was successful due to the spread of printing, which was blocked in the Middle East). It was precisely in those Protestant nations, especially England and the Dutch Republic, where the modern economy was born.&lt;br /&gt;&lt;br /&gt;• Verbalizes economic models, but avoids mathematics and econometrics, helping readers to understand the arguments without wading through mathematics • Mixes modern economic techniques with historical narrative • Avoids jargon, remaining accessible to readers outside economics</description>
+<authors>
+<author>
+<id>6704950</id>
+<name>Jared Rubin</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/6704950.Jared_Rubin]]></link>
+<average_rating>4.29</average_rating>
+<ratings_count>21</ratings_count>
+<text_reviews_count>6</text_reviews_count>
+</author>
+</authors>
+  <published>2017</published>
+<work>  <id>22689287</id>
+  <uri>kca://work/amzn1.gr.work.v1.iRUgXDhW9Z72eEmBsUflFw</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sat Jun 16 19:59:58 -0700 2018</date_added>
+  <date_updated>Sat Jun 16 20:00:00 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2426336660]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2426336660]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2422969763</id>
+    <book>
+  <id type="integer">36064445</id>
+  <isbn>0241300657</isbn>
+  <isbn13>9780241300657</isbn13>
+  <text_reviews_count type="integer">407</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.axE0MsZyK2iuA2ZXFIOGwA</uri>
+  <title>Skin in the Game: The Hidden Asymmetries in Daily Life</title>
+  <title_without_series>Skin in the Game: The Hidden Asymmetries in Daily Life</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1510319798m/36064445.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1510319798s/36064445.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/36064445-skin-in-the-game</link>
+  <num_pages>272</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Allen Lane</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2018</publication_year>
+  <publication_month>6</publication_month>
+  <average_rating>3.84</average_rating>
+  <ratings_count>4586</ratings_count>
+  <description>From the &lt;i&gt;New York Times&lt;/i&gt; bestselling author of &lt;i&gt;The Black Swan,&lt;/i&gt; a bold new work that challenges many of our long-held beliefs about risk and reward, politics and religion, finance and personal responsibility&lt;br /&gt;&lt;br /&gt; In his most provocative and practical book yet, one of the foremost thinkers of our time redefines what it means to understand the world, succeed in a profession, contribute to a fair and just society, detect nonsense, and influence others. Citing examples ranging from Hammurabi to Seneca, Antaeus the Giant to Donald Trump, Nassim Nicholas Taleb shows how the willingness to accept one’s own risks is an essential attribute of heroes, saints, and flourishing people in all walks of life.&lt;br /&gt;&lt;br /&gt; As always both accessible and iconoclastic, Taleb challenges long-held beliefs about the values of those who spearhead military interventions, make financial investments, and propagate religious faiths. Among his insights:&lt;br /&gt;&lt;br /&gt;&lt;b&gt;• &lt;i&gt;For social justice, focus on symmetry and risk sharing. &lt;/i&gt;&lt;/b&gt;You cannot make profits and transfer the risks to others, as bankers and large corporations do. You cannot get rich without owning your own risk and paying for your own losses. Forcing skin in the game corrects this asymmetry better than thousands of laws and regulations.&lt;br /&gt;&lt;b&gt;• &lt;i&gt;Ethical rules aren’t universal&lt;/i&gt;.&lt;/b&gt; You’re part of a group larger than you, but it’s still smaller than humanity in general.&lt;br /&gt;&lt;b&gt;• &lt;i&gt;Minorities, not majorities, run the world. &lt;/i&gt;&lt;/b&gt;The world is not run by consensus but by stubborn minorities imposing their tastes and ethics on others.&lt;br /&gt;&lt;b&gt;• &lt;i&gt;You can be an intellectual yet still be an idiot&lt;/i&gt;.&lt;/b&gt; “Educated philistines” have been wrong on everything from Stalinism to Iraq to low-carb diets.&lt;br /&gt;&lt;b&gt;• &lt;i&gt;Beware of complicated solutions (that someone was paid to find)&lt;/i&gt;.&lt;/b&gt; A simple barbell can build muscle better than expensive new machines.&lt;br /&gt;&lt;b&gt;• &lt;i&gt;True religion is commitment, not just faith&lt;/i&gt;.&lt;/b&gt; How much you believe in something is manifested only by what you’re willing to risk for it.&lt;br /&gt;&lt;br /&gt;The phrase “skin in the game” is one we have often heard but rarely stopped to truly dissect. It is the backbone of risk management, but it’s also an astonishingly rich worldview that, as Taleb shows in this book, applies to all aspects of our lives. As Taleb says, “The symmetry of skin in the game is a simple rule that’s necessary for fairness and justice, and the ultimate BS-buster,” and “Never trust anyone who doesn’t have skin in the game. Without it, fools and crooks will benefit, and their mistakes will never come back to haunt them.”</description>
+<authors>
+<author>
+<id>21559</id>
+<name>Nassim Nicholas Taleb</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1206025993p5/21559.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1206025993p2/21559.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/21559.Nassim_Nicholas_Taleb]]></link>
+<average_rating>3.96</average_rating>
+<ratings_count>134635</ratings_count>
+<text_reviews_count>8186</text_reviews_count>
+</author>
+</authors>
+  <published>2018</published>
+<work>  <id>57645736</id>
+  <uri>kca://work/amzn1.gr.work.v1.ty-ArUdPIHFLg7zWHr9gkQ</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed Jun 13 11:38:17 -0700 2018</date_added>
+  <date_updated>Wed Jun 13 11:38:18 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2422969763]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2422969763]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2419978714</id>
+    <book>
+  <id type="integer">9704856</id>
+  <isbn>0374227349</isbn>
+  <isbn13>9780374227340</isbn13>
+  <text_reviews_count type="integer">347</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.JGRS0JorRB-pYiOIf_fJKA</uri>
+  <title>The Origins of Political Order: From Prehuman Times to the French Revolution</title>
+  <title_without_series>The Origins of Political Order: From Prehuman Times to the French Revolution</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1317064084m/9704856.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1317064084s/9704856.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/9704856-the-origins-of-political-order</link>
+  <num_pages>585</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Farrar Straus Giroux</publisher>
+  <publication_day>12</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>4.15</average_rating>
+  <ratings_count>5240</ratings_count>
+  <description>Virtually all human societies were once organized tribally, yet over time most developed new political institutions which included a central state that could keep the peace and uniform laws that applied to all citizens. Some went on to create governments that were accountable to their constituents. We take these institutions for granted, but they are absent or are unable to perform in many of today’s developing countries—with often disastrous consequences for the rest of the world.&lt;br /&gt;&lt;br /&gt;Francis Fukuyama, author of the bestselling &lt;i&gt;The End of History and the Last Man &lt;/i&gt;and one of our most important political thinkers, provides a sweeping account of how today’s basic political institutions developed. The first of a major two-volume work, &lt;i&gt;The Origins of Political Order&lt;/i&gt; begins with politics among our primate ancestors and follows the story through the emergence of tribal societies, the growth of the first modern state in China, the beginning of the rule of law in India and the Middle East, and the development of political accountability in Europe up until the eve of the French Revolution.&lt;br /&gt;&lt;br /&gt;Drawing on a vast body of knowledge—history, evolutionary biology, archaeology, and economics—Fukuyama has produced a brilliant, provocative work that offers fresh insights on the origins of democratic societies and raises essential questions about the nature of politics and its discontents.</description>
+<authors>
+<author>
+<id>32633</id>
+<name>Francis Fukuyama</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1226219290p5/32633.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1226219290p2/32633.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/32633.Francis_Fukuyama]]></link>
+<average_rating>3.89</average_rating>
+<ratings_count>14349</ratings_count>
+<text_reviews_count>1109</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>14593088</id>
+  <uri>kca://work/amzn1.gr.work.v1.rx7VTvgxmV4FYOugvSqG1g</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Jun 10 18:04:45 -0700 2018</date_added>
+  <date_updated>Mon Jun 11 06:44:29 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2419978714]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2419978714]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2408988110</id>
+    <book>
+  <id type="integer">401876</id>
+  <isbn>0385337388</isbn>
+  <isbn13>9780385337380</isbn13>
+  <text_reviews_count type="integer">761</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.BxBFaPdCdPMitSlRjSP-hg</uri>
+  <title>The House of God</title>
+  <title_without_series>The House of God</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1320486672m/401876.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1320486672s/401876.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/401876.The_House_of_God</link>
+  <num_pages>416</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Dell</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2003</publication_year>
+  <publication_month>7</publication_month>
+  <average_rating>3.95</average_rating>
+  <ratings_count>12124</ratings_count>
+  <description>The hilarious novel of the healing arts that reveals everything your doctor never wanted you to know. &lt;br /&gt;&lt;br /&gt;Six eager interns  -- they saw themselves as modern saviors-to-be.   They came from the top of their medical school class  to the bottom of the hospital staff to serve a  year in the time-honored tradition, racing to answer  the flash of on-duty call lights and nubile  nurses. &lt;br /&gt;&lt;br /&gt;But only the Fat Man -- the Clam, all-knowing resident -- could sustain them in their struggle to survive, to stay sane, to love and even to be doctors when their harrowing year was done.</description>
+<authors>
+<author>
+<id>2735</id>
+<name>Samuel Shem</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1282911181p5/2735.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1282911181p2/2735.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/2735.Samuel_Shem]]></link>
+<average_rating>3.92</average_rating>
+<ratings_count>13307</ratings_count>
+<text_reviews_count>973</text_reviews_count>
+</author>
+</authors>
+  <published>2003</published>
+<work>  <id>1596107</id>
+  <uri>kca://work/amzn1.gr.work.v1.UnHsD7T3zLqRaAKr9VLIjw</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Thu May 31 12:25:26 -0700 2018</date_added>
+  <date_updated>Thu May 31 12:25:27 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2408988110]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2408988110]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2403347583</id>
+    <book>
+  <id type="integer">189989</id>
+  <isbn>0345341848</isbn>
+  <isbn13>9780345341846</isbn13>
+  <text_reviews_count type="integer">241</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.OVTDnmH8S-2FzKzkgznvqQ</uri>
+  <title>Finite and Infinite Games: A Vision of Life as Play and Possibility</title>
+  <title_without_series>Finite and Infinite Games: A Vision of Life as Play and Possibility</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/189989.Finite_and_Infinite_Games</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.02</average_rating>
+  <ratings_count>2312</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>54828</id>
+<name>James P. Carse</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/54828.James_P_Carse]]></link>
+<average_rating>3.99</average_rating>
+<ratings_count>2758</ratings_count>
+<text_reviews_count>375</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>658469</id>
+  <uri>kca://work/amzn1.gr.work.v1.uWReEIdYQ12uB0cYFK2gVQ</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sat May 26 07:01:09 -0700 2018</date_added>
+  <date_updated>Sat May 26 07:01:11 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2403347583]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2403347583]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2400835194</id>
+    <book>
+  <id type="integer">36198931</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1._9RTBgvHVnjTGOLnK59VsA</uri>
+  <title>The Mysteries of Money: Ribbonfarm: The Rust Age (Ribbonfarm Roughs Book 7)</title>
+  <title_without_series>The Mysteries of Money: Ribbonfarm: The Rust Age</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/36198931-the-mysteries-of-money</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.38</average_rating>
+  <ratings_count>8</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>8328629</id>
+<name>Venkatesh Rao</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/8328629.Venkatesh_Rao]]></link>
+<average_rating>4.28</average_rating>
+<ratings_count>141</ratings_count>
+<text_reviews_count>16</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>57827964</id>
+  <uri>kca://work/amzn1.gr.work.v1.msEwsaNAfMqpCiyW2TnVSw</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed May 23 13:40:09 -0700 2018</date_added>
+  <date_updated>Wed May 23 13:40:10 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2400835194]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2400835194]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2384853920</id>
+    <book>
+  <id type="integer">917421</id>
+  <isbn>1842170732</isbn>
+  <isbn13>9781842170731</isbn13>
+  <text_reviews_count type="integer">0</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.tNsO9-s546XojQ9lmlLSYA</uri>
+  <title>Credit and Debt in Medieval England C.1180-C.1350</title>
+  <title_without_series>Credit and Debt in Medieval England C.1180-C.1350</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/917421.Credit_and_Debt_in_Medieval_England_C_1180_C_1350</link>
+  <num_pages>200</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Oxbow Books Limited</publisher>
+  <publication_day>7</publication_day>
+  <publication_year>2002</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>4.00</average_rating>
+  <ratings_count>2</ratings_count>
+  <description>The essays in this volume look at the mechanics of debt, the legal process, and its economics in early medieval England. Beneath the elevated plane of high politics, affairs of the Crown and international finance of the Middle Ages, lurked huge numbers of credit and debt transactions. The transactions and those who conducted them moved between social and economic worlds; merchants and traders, clerics and Jews, extending and receiving credit to and from their social superiors, equals and inferiors. These papers build upon an established tradition of approaches to the study of credit and debt in the Middle Ages, looking at the wealth of historical material, from registries of debt and legal records, to parliamentary roles and statues, merchant accounts, rents and leases, wills and probates. Four of the six papers in this volume were given at a conference on 'Credit and debt in medieval and early modern England' held in Oxford in 2000. The other two papers draw upon new important postgraduate theses.&lt;br /&gt; Contents: Introduction (Phillipp Schofield); Aspects of the law of debt, 1189-1307 (Paul Brand); Christian and Jewish lending patterns and financial dealings during the twelfth and thirteenth centuries (Robin R. Mundill); Some aspects of the business of statutory debt registries, 1283-1307 (Christopher McNall); The English parochial clergy as investors and creditors in the first half of the fourteenth century (Pamela Nightingale); Access to credit in the medieval English countryside (Phillipp Schofield); Creditors and debtors at Oakington, Cottenham and Dry Drayton (Cambridgeshire), 1291-1350 (Chris Briggs) .&lt;br /&gt;</description>
+<authors>
+<author>
+<id>5387324</id>
+<name>P. R. Schofield</name>
+<role>Editor</role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/5387324.P_R_Schofield]]></link>
+<average_rating>4.00</average_rating>
+<ratings_count>2</ratings_count>
+<text_reviews_count>0</text_reviews_count>
+</author>
+</authors>
+  <published>2002</published>
+<work>  <id>902496</id>
+  <uri>kca://work/amzn1.gr.work.v1.XxeRzWKWrQgOx2eQibGXjg</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon May 07 13:10:48 -0700 2018</date_added>
+  <date_updated>Mon May 07 13:10:49 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2384853920]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2384853920]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2384852871</id>
+    <book>
+  <id type="integer">2763322</id>
+  <isbn>0801876125</isbn>
+  <isbn13>9780801876127</isbn13>
+  <text_reviews_count type="integer">0</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.MSzW8eHGVx39D1H4-fCchg</uri>
+  <title>Writings of the Luddites</title>
+  <title_without_series>Writings of the Luddites</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/2763322-writings-of-the-luddites</link>
+  <num_pages>312</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Johns Hopkins University Press</publisher>
+  <publication_day>10</publication_day>
+  <publication_year>2004</publication_year>
+  <publication_month>5</publication_month>
+  <average_rating>2.67</average_rating>
+  <ratings_count>3</ratings_count>
+  <description>Named for their probably mythical leader, Ned Ludd, the Luddites were a group of social agitators in nineteenth-century Britain who tried to prevent the mechanization of cloth factories, which they blamed for increased unemployment, poverty, and hunger in industrial centers. Though famous for the often violent protests they organized, the Luddites also engaged in literary resistence in the form of poems, proclamations, petitions, songs, and letters. In this volume, literary scholar Kevin Binfield collects complete texts written by Luddites or Luddite sympathizers between 1811 and 1816, adds detailed notes, and organizes the documents by the three primary regions of origin: the Midlands, Northwestern England, and Yorkshire.&lt;br /&gt;&lt;br /&gt;In an extensive introduction to the texts, Binfield provides a historical overview for those unfamiliar with the particulars of the Luddites and their activities, while also exploring their rhetorical strategies and illuminating their literary context. Written for the most part from a collective point of view, the writings range from judicious to bloodthirsty in tone and reveal a fascination both with legal forms of address and with the more personal forms of Romantic literature, as well as with the recent political revolutions in France and America. By bringing together diverse texts, the true meaning and value of Luddite writings can be analyzed and assessed. As such, this anthology, which features a foreword by Adrian Randall of the University of Birmingham, will be an ideal reference for scholars of rhetoric and the history of labor, technology and society.</description>
+<authors>
+<author>
+<id>1206900</id>
+<name>Kevin Binfield</name>
+<role>Editor</role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/1206900.Kevin_Binfield]]></link>
+<average_rating>2.67</average_rating>
+<ratings_count>3</ratings_count>
+<text_reviews_count>0</text_reviews_count>
+</author>
+</authors>
+  <published>2004</published>
+<work>  <id>2789032</id>
+  <uri>kca://work/amzn1.gr.work.v1.ShGKj9JwHsJ9-ORDB2SJTA</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon May 07 13:09:44 -0700 2018</date_added>
+  <date_updated>Mon May 07 13:09:51 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2384852871]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2384852871]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2384177362</id>
+    <book>
+  <id type="integer">31521461</id>
+  <isbn>0198706782</isbn>
+  <isbn13>9780198706786</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.c1fJFgHCpr2M09JBuk57iQ</uri>
+  <title>The Industrial Revolution: A Very Short Introduction</title>
+  <title_without_series>The Industrial Revolution: A Very Short Introduction</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1503500076m/31521461.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1503500076s/31521461.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/31521461-the-industrial-revolution</link>
+  <num_pages>144</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Oxford University Press, USA</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2017</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>4.00</average_rating>
+  <ratings_count>24</ratings_count>
+  <description>The Industrial Revolution was a pivotal point in British history that occurred between the mid-eighteenth and mid-nineteenth centuries and led to far reaching transformations of society. With the advent of revolutionary manufacturing technology productivity boomed. Machines were used to spin and weave cloth, steam engines were used to provide reliable power, and industry was fed by the construction of the first railways, a great network of arteries feeding the factories. Cities grew as people shifted from agriculture to industry and commerce. Hand in hand with the growth of cities came rising levels of pollution and disease. Many people lost their jobs to the new machinery, whilst working conditions in the factories were grim and pay was low. As the middle classes prospered, social unrest ran through the working classes, and the exploitation of workers led to the growth of trade unions and protest movements.&lt;br /&gt;&lt;br /&gt;In this &lt;em&gt;Very Short Introduction&lt;/em&gt;, Robert C. Allen analyzes the key features of the Industrial Revolution in Britain, and the spread of industrialization to other countries. He considers the factors that combined to enable industrialization at this time, including Britain's position as a global commercial empire, and discusses the changes in technology and business organization, and their impact on different social classes and groups. Introducing the "winners" and the "losers" of the Industrial Revolution, he looks at how the changes were reflected in evolving government policies, and what contribution these made to the economic transformation.&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;ABOUT THE SERIES: &lt;/strong&gt; The &lt;em&gt;Very Short Introductions&lt;/em&gt; series from Oxford University Press contains hundreds of titles in almost every subject area. These pocket-sized books are the perfect way to get ahead in a new subject quickly. Our expert authors combine facts, analysis, perspective, new ideas, and enthusiasm to make interesting and challenging topics highly readable.&lt;br /&gt;</description>
+<authors>
+<author>
+<id>13962</id>
+<name>Robert C. Allen</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/13962.Robert_C_Allen]]></link>
+<average_rating>3.84</average_rating>
+<ratings_count>851</ratings_count>
+<text_reviews_count>103</text_reviews_count>
+</author>
+</authors>
+  <published>2017</published>
+<work>  <id>52202958</id>
+  <uri>kca://work/amzn1.gr.work.v1.sRq6YIvsLxENnlUXc3otVw</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun May 06 20:29:22 -0700 2018</date_added>
+  <date_updated>Sun May 06 20:29:24 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2384177362]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2384177362]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2383687970</id>
+    <book>
+  <id type="integer">31869077</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">162</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.EpZRcgttdhsV0J_LWLxrfQ</uri>
+  <title>The Internet of Money</title>
+  <title_without_series>The Internet of Money</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/31869077-the-internet-of-money</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.14</average_rating>
+  <ratings_count>1429</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>8115718</id>
+<name>Andreas M. Antonopoulos</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1474336822p5/8115718.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1474336822p2/8115718.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/8115718.Andreas_M_Antonopoulos]]></link>
+<average_rating>4.23</average_rating>
+<ratings_count>2920</ratings_count>
+<text_reviews_count>326</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>52540171</id>
+  <uri>kca://work/amzn1.gr.work.v1.M-v3ZaIU5GXLXjNsVukOgQ</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun May 06 11:05:56 -0700 2018</date_added>
+  <date_updated>Sun May 06 11:05:57 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2383687970]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2383687970]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2381206585</id>
+    <book>
+  <id type="integer">1404323</id>
+  <isbn>0231123574</isbn>
+  <isbn13>9780231123570</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.p_mvOSirU9uw6frkOWF9hw</uri>
+  <title>Medieval Trade in the Mediterranean World: Illustrative Documents</title>
+  <title_without_series>Medieval Trade in the Mediterranean World: Illustrative Documents</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/1404323.Medieval_Trade_in_the_Mediterranean_World</link>
+  <num_pages>496</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Columbia University Press</publisher>
+  <publication_day>18</publication_day>
+  <publication_year>2001</publication_year>
+  <publication_month>9</publication_month>
+  <average_rating>3.91</average_rating>
+  <ratings_count>11</ratings_count>
+  <description>This collection of merchant documents is essential reading for any student of economic developments in the Middle Ages who wishes to go beyond the level of textbook summaries. Different aspects of economic life in the Mediterranean world are delineated in the light of a rich variety of articles and other contemporary writings, drawn from Muslim and Christian sources. From commercial contracts, promissory notes, and judicial acts to working manuals of practical geography and philology, this volume of documents provides an unparalleled portrait of the world of medieval commerce.</description>
+<authors>
+<author>
+<id>1553556</id>
+<name>Robert Sabatino Lopez</name>
+<role>Translation</role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/1553556.Robert_Sabatino_Lopez]]></link>
+<average_rating>3.63</average_rating>
+<ratings_count>65</ratings_count>
+<text_reviews_count>7</text_reviews_count>
+</author>
+</authors>
+  <published>2001</published>
+<work>  <id>1394551</id>
+  <uri>kca://work/amzn1.gr.work.v1.8DmK-9J3FDkbkZrjbDL0QQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Thu May 03 17:47:27 -0700 2018</date_added>
+  <date_updated>Thu May 03 17:47:29 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2381206585]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2381206585]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2378755308</id>
+    <book>
+  <id type="integer">2183778</id>
+  <isbn>0691023727</isbn>
+  <isbn13>9780691023724</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.r2jqVH1HPlRY2y4mWn7EUw</uri>
+  <title>The Nature and Growth of Modern Mathematics</title>
+  <title_without_series>The Nature and Growth of Modern Mathematics</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/2183778.The_Nature_and_Growth_of_Modern_Mathematics</link>
+  <num_pages>784</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>21</publication_day>
+  <publication_year>1983</publication_year>
+  <publication_month>2</publication_month>
+  <average_rating>3.89</average_rating>
+  <ratings_count>18</ratings_count>
+  <description>The book traces the development of the most important mathematical concepts, giving special attention to the lives and thoughts of such mathematical innovators as Pythagoras, Newton, Poincare, and Godel. Beginning with a Sumerian short story - ultimately linked to modern digital computers - the author clearly introduces concepts of binary operations; point-set topology; the nature of post-relativity geometries; optimization and decision processes; erogodic theorems; epsilon-delta arithmetization; integral equations.</description>
+<authors>
+<author>
+<id>1354118</id>
+<name>Edna E. Kramer</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/1354118.Edna_E_Kramer]]></link>
+<average_rating>4.08</average_rating>
+<ratings_count>25</ratings_count>
+<text_reviews_count>3</text_reviews_count>
+</author>
+</authors>
+  <published>1983</published>
+<work>  <id>2189471</id>
+  <uri>kca://work/amzn1.gr.work.v1.I4rwDOBFtOcyp_qOPzKeGA</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Tue May 01 10:46:49 -0700 2018</date_added>
+  <date_updated>Tue May 01 10:46:49 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2378755308]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2378755308]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2374857625</id>
+    <book>
+  <id type="integer">23269281</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">0</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.KTH0xhCfDkMA45d6AMUoXg</uri>
+  <title>Conquest, Tribute and Trade: How the Quest for Precious Metals Gave Birth to Globalization. Second Edition.</title>
+  <title_without_series>Conquest, Tribute and Trade: How the Quest for Precious Metals Gave Birth to Globalization. Second Edition.</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1411604970m/23269281.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1411604970s/23269281.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/23269281-conquest-tribute-and-trade</link>
+  <num_pages/>
+  <format>Kindle Edition</format>
+  <edition_information>second</edition_information>
+  <publisher>Howard J. Erlichman</publisher>
+  <publication_day>6</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>3.77</average_rating>
+  <ratings_count>13</ratings_count>
+  <description>This new (2016) edition of Conquest, Tribute and Trade: How the Quest for Precious Metals Gave Birth to Globalization has been revised to improve the clarity of the text, maps and end-notes. The book itself attempts to explain the birth of globalization in a new way and address three interrelated developments which have been under-analyzed, pigeon-holed or even ignored. &lt;br /&gt;&lt;br /&gt;First, how and why the discovery, extraction and distribution of precious metals -- gold, copper and, above all, silver -- enabled the closely-related Portuguese, Spanish and Dutch to supersede the great Italian city-states, neutralize the Ottomans and overturn centuries of Muslim domination in Africa and Asia during the course of the sixteenth century. &lt;br /&gt;&lt;br /&gt;Second, how and why the Europeans squandered much of the metallic wealth of Africa, the Americas and the Far East on inconclusive military affairs, exploited (and often destroyed) indigenous societies across the globe and left behind a wake of east-west animosities which has lasted for five centuries. &lt;br /&gt;&lt;br /&gt;And third, how and why a breakaway portion of the Spanish Netherlands, the Dutch Republic, co-opted many of the achievements of the Iberians, gained control of increasingly large stocks of precious metals between 1590 and 1609 and served as a commercial “bridge” to the later British Empire (and the United States). &lt;br /&gt;&lt;br /&gt;Conquest, Tribute and Trade is intended to serve as a very modern tale of business and economic history which just happens to be set in the sixteenth century. The book also helps to explain how and why Europe’s remarkable geographical conquests in this one century laid a foundation of Western dominance (and animosities) which has lasted for roughly five hundred years, introduced patterns of economic development which are being repeated in the twenty-first and generated a host of lessons to be studied by anyone interested in the processes through which commercial empires are won and lost.</description>
+<authors>
+<author>
+<id>191604</id>
+<name>Howard J. Erlichman</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/191604.Howard_J_Erlichman]]></link>
+<average_rating>3.88</average_rating>
+<ratings_count>16</ratings_count>
+<text_reviews_count>1</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>13843713</id>
+  <uri>kca://work/amzn1.gr.work.v1.KI_r4iDqn9GVOZqohwCF1Q</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Apr 27 13:28:36 -0700 2018</date_added>
+  <date_updated>Fri Apr 27 13:28:36 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2374857625]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2374857625]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2367836686</id>
+    <book>
+  <id type="integer">1080960</id>
+  <isbn>007008209X</isbn>
+  <isbn13>9780070082090</isbn13>
+  <text_reviews_count type="integer">9</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.U2tJ64QS9D3a4fmKK52REA</uri>
+  <title>Human Universals</title>
+  <title_without_series>Human Universals</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/1080960.Human_Universals</link>
+  <num_pages>230</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day/>
+  <publication_year/>
+  <publication_month/>
+  <average_rating>3.82</average_rating>
+  <ratings_count>72</ratings_count>
+  <description>This book covers physical and behavioural characteristics that can be considered universal among all cultures and people. The text is divided into three parts: the problems posed for anthropology by universals; six important studies that have forced anthropologists to rethink; and the distinctions between linguistic, cultural and social universals.</description>
+<authors>
+<author>
+<id>799664</id>
+<name>Donald E. Brown</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/799664.Donald_E_Brown]]></link>
+<average_rating>3.80</average_rating>
+<ratings_count>76</ratings_count>
+<text_reviews_count>9</text_reviews_count>
+</author>
+</authors>
+  <published/>
+<work>  <id>1067697</id>
+  <uri>kca://work/amzn1.gr.work.v1.uTaAtvvGi7i_x0qc37LHJA</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Apr 20 15:59:55 -0700 2018</date_added>
+  <date_updated>Fri Apr 20 15:59:55 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2367836686]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2367836686]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2365948836</id>
+    <book>
+  <id type="integer">703532</id>
+  <isbn>0465046746</isbn>
+  <isbn13>9780465046744</isbn13>
+  <text_reviews_count type="integer">63</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.ufhvg2m__FY7IYlB3xB2tw</uri>
+  <title>Mindstorms: Children, Computers, And Powerful Ideas</title>
+  <title_without_series>Mindstorms: Children, Computers, And Powerful Ideas</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/703532.Mindstorms</link>
+  <num_pages>252</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Basic Books</publisher>
+  <publication_day>4</publication_day>
+  <publication_year>1993</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>4.32</average_rating>
+  <ratings_count>537</ratings_count>
+  <description>&lt;i&gt;Mindstorms&lt;/i&gt; has two central themes: that children can learn to use computers in a masterful way and that learning to use computers can change the way they learn everything else. Even outside the classroom, Papert had a vision that the computer could be used just as casually and as personally for a diversity of purposes throughout a person's entire life. Seymour Papert makes the point that in classrooms saturated with technology there is actually more socialization and that the technology often contributes to greater interaction among students and among students and instructors.</description>
+<authors>
+<author>
+<id>329859</id>
+<name>Seymour Papert</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1470164858p5/329859.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1470164858p2/329859.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/329859.Seymour_Papert]]></link>
+<average_rating>4.27</average_rating>
+<ratings_count>674</ratings_count>
+<text_reviews_count>78</text_reviews_count>
+</author>
+</authors>
+  <published>1993</published>
+<work>  <id>689823</id>
+  <uri>kca://work/amzn1.gr.work.v1.AEo5HUDZseWsEZdEuYUhiQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed Apr 18 18:17:10 -0700 2018</date_added>
+  <date_updated>Wed Apr 18 18:17:10 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2365948836]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2365948836]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2363825676</id>
+    <book>
+  <id type="integer">36606376</id>
+  <isbn nil="true"/>
+  <isbn13>9781939311207</isbn13>
+  <text_reviews_count type="integer">39</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.rPfG73i9lL884pKo5nN9Tg</uri>
+  <title>Inadequate Equilibria: Where and How Civilizations Get Stuck</title>
+  <title_without_series>Inadequate Equilibria: Where and How Civilizations Get Stuck</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1510848448m/36606376.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1510848448s/36606376.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/36606376-inadequate-equilibria</link>
+  <num_pages>167</num_pages>
+  <format>ebook</format>
+  <edition_information/>
+  <publisher>Machine Intelligence Research institute</publisher>
+  <publication_day>16</publication_day>
+  <publication_year>2017</publication_year>
+  <publication_month>11</publication_month>
+  <average_rating>4.15</average_rating>
+  <ratings_count>426</ratings_count>
+  <description>When should you think that you may be able to do something unusually well?&lt;br /&gt;&lt;br /&gt;Whether you’re trying to outperform in science, or in business, or just in finding good deals shopping on eBay, it’s important that you have a sober understanding of your relative competencies. The story only ends there, however, if you’re fortunate enough to live in an adequate civilization.&lt;br /&gt;&lt;br /&gt;Eliezer Yudkowsky’s Inadequate Equilibria is a sharp and lively guidebook for anyone questioning when and how they can know better, and do better, than the status quo. Freely mixing debates on the foundations of rational decision-making with tips for everyday life, Yudkowsky explores the central question of when we can (and can’t) expect to spot systemic inefficiencies, and exploit them.</description>
+<authors>
+<author>
+<id>4533716</id>
+<name>Eliezer Yudkowsky</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1510007132p5/4533716.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1510007132p2/4533716.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/4533716.Eliezer_Yudkowsky]]></link>
+<average_rating>4.35</average_rating>
+<ratings_count>14810</ratings_count>
+<text_reviews_count>1351</text_reviews_count>
+</author>
+</authors>
+  <published>2017</published>
+<work>  <id>58236311</id>
+  <uri>kca://work/amzn1.gr.work.v1.lXcWwh9ljNqibLSsEzul-A</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Apr 16 18:12:29 -0700 2018</date_added>
+  <date_updated>Mon Apr 16 18:12:29 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2363825676]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2363825676]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2360399720</id>
+    <book>
+  <id type="integer">34459</id>
+  <isbn>0226468011</isbn>
+  <isbn13>9780226468013</isbn13>
+  <text_reviews_count type="integer">278</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.FrRvw670P-HOF8T_Yc7CDw</uri>
+  <title>Metaphors We Live By</title>
+  <title_without_series>Metaphors We Live By</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1388194058m/34459.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1388194058s/34459.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/34459.Metaphors_We_Live_By</link>
+  <num_pages>276</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>University Of Chicago Press</publisher>
+  <publication_day/>
+  <publication_year>2003</publication_year>
+  <publication_month/>
+  <average_rating>4.08</average_rating>
+  <ratings_count>3953</ratings_count>
+  <description>&lt;div&gt;The now-classic &lt;i&gt;Metaphors We Live By&lt;/i&gt; changed our understanding of metaphor and its role in language and the mind. Metaphor, the authors explain, is a fundamental mechanism of mind, one that allows us to use what we know about our physical and social experience to provide understanding of countless other subjects. Because such metaphors structure our most basic understandings of our experience, they are "metaphors we live by", metaphors that can shape our perceptions and actions without our ever noticing them.&lt;br /&gt;&lt;br /&gt;In this updated edition of Lakoff and Johnson's influential book, the authors supply an afterword surveying how their theory of metaphor has developed within the cognitive sciences to become central to the contemporary understanding of how we think and how we express our thoughts in language.&lt;/div&gt;</description>
+<authors>
+<author>
+<id>8419</id>
+<name>George Lakoff</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1293642722p5/8419.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1293642722p2/8419.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/8419.George_Lakoff]]></link>
+<average_rating>4.00</average_rating>
+<ratings_count>14170</ratings_count>
+<text_reviews_count>1427</text_reviews_count>
+</author>
+</authors>
+  <published>2003</published>
+<work>  <id>34433</id>
+  <uri>kca://work/amzn1.gr.work.v1.r4k_XGWR1keLKm7gdiUF1Q</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Apr 13 14:13:44 -0700 2018</date_added>
+  <date_updated>Fri Apr 13 14:13:44 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2360399720]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2360399720]]></link>
+    <owned>0</owned>
+</review>
+
+</reviews>
+
+</GoodreadsResponse>

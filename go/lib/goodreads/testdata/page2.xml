@@ -1,0 +1,1532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GoodreadsResponse>
+  <Request>
+    <authentication>true</authentication>
+      <key><![CDATA[NBP98rsAm8Hd5W44EFrp2A]]></key>
+    <method><![CDATA[review_list]]></method>
+  </Request>
+  
+<reviews start="21" end="40" total="55">
+    <review>
+  <id>2358614905</id>
+    <book>
+  <id type="integer">731392</id>
+  <isbn>081380499X</isbn>
+  <isbn13>9780813804996</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.xdWI6heQJjyoMaZweLpkUg</uri>
+  <title>A History of Western Technology</title>
+  <title_without_series>A History of Western Technology</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/731392.A_History_of_Western_Technology</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>3.00</average_rating>
+  <ratings_count>4</ratings_count>
+  <description>This history of technology from Graeco-Roman times through the early twentieth century is told through contemporary writings by technologists, churchmen, naturalists, poets, economists, and statesman. These writings reveal how historical circumstance altered the direction of technical development, and how the intellectual forces of a period influenced and were in turn modified by technical progress.&lt;br /&gt;&lt;br /&gt; Topics covered include the position of technology in ancient Greece; early Christianity and technology; Islamic technology; engineering artists in the Renaissance; technical undertakings in the Baroque period; eighteenth-century England's lead in technology ; the factory system of the industrial age; and automation in the twentieth century. Each section of the book contains numerous illustrations.</description>
+<authors>
+<author>
+<id>388373</id>
+<name>Friedrich Klemm</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/388373.Friedrich_Klemm]]></link>
+<average_rating>3.20</average_rating>
+<ratings_count>5</ratings_count>
+<text_reviews_count>1</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>717584</id>
+  <uri>kca://work/amzn1.gr.work.v1.EgDBpcqB5TCdG7H86c5QUw</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed Apr 11 19:50:22 -0700 2018</date_added>
+  <date_updated>Wed Apr 11 19:50:22 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2358614905]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2358614905]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2350848664</id>
+    <book>
+  <id type="integer">340415</id>
+  <isbn>0275980928</isbn>
+  <isbn13>9780275980924</isbn13>
+  <text_reviews_count type="integer">46</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.guoPvei4gkB5PpryDbYOxw</uri>
+  <title>The Columbian Exchange: Biological and Cultural Consequences of 1492</title>
+  <title_without_series>The Columbian Exchange: Biological and Cultural Consequences of 1492</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/340415.The_Columbian_Exchange</link>
+  <num_pages>320</num_pages>
+  <format>Paperback</format>
+  <edition_information>30th Anniversary Edition</edition_information>
+  <publisher>Praeger</publisher>
+  <publication_day>30</publication_day>
+  <publication_year>2003</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>3.96</average_rating>
+  <ratings_count>723</ratings_count>
+  <description>Thirty years ago, Alfred Crosby published a small work that illuminated a simple point, that the most important changes brought on by the voyages of Columbus were not social or political, but biological in nature. The book told the story of how 1492 sparked the movement of organisms, both large and small, in &lt;i&gt;both &lt;/i&gt;directions across the Atlantic. This Columbian exchange, between the Old World and the New, changed the history of our planet drastically and forever.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;The book &lt;i&gt;The Columbian Exchange &lt;/i&gt;changed the field of history drastically and forever as well. It has become one of the foundational works in the burgeoning field of environmental history, and it remains one of the canonical texts for the study of world history. This 30th anniversary edition of &lt;i&gt;The Columbian Exchange &lt;/i&gt;includes a new preface from the author, reflecting on the book and its creation, and a new foreword by J. R. McNeill that demonstrates how Crosby established a brand new perspective for understanding ecological and social events. As the foreword indicates, &lt;i&gt;The Columbian Exchange &lt;/i&gt;remains a vital book, a small work that contains within the inspiration for future examinations into what happens when two peoples, separated by time and space, finally meet.</description>
+<authors>
+<author>
+<id>42888</id>
+<name>Alfred W. Crosby</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1346438005p5/42888.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1346438005p2/42888.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/42888.Alfred_W_Crosby]]></link>
+<average_rating>3.93</average_rating>
+<ratings_count>2706</ratings_count>
+<text_reviews_count>220</text_reviews_count>
+</author>
+</authors>
+  <published>2003</published>
+<work>  <id>1615068</id>
+  <uri>kca://work/amzn1.gr.work.v1.cwzrlRNQwdllQgldfCb7ag</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed Apr 04 17:35:29 -0700 2018</date_added>
+  <date_updated>Wed Apr 04 17:35:29 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2350848664]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2350848664]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2349813822</id>
+    <book>
+  <id type="integer">18581690</id>
+  <isbn nil="true"/>
+  <isbn13>9780982703038</isbn13>
+  <text_reviews_count type="integer">36</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.LIw-bK6sn2ZcdPzWjT4Vmw</uri>
+  <title>The Gervais Principle: The Complete Series, with a Bonus Essay on Office Space</title>
+  <title_without_series>The Gervais Principle: The Complete Series, with a Bonus Essay on Office Space</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1380014072m/18581690.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1380014072s/18581690.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/18581690-the-gervais-principle</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.26</average_rating>
+  <ratings_count>373</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>4762746</id>
+<name>Venkatesh G. Rao</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/4762746.Venkatesh_G_Rao]]></link>
+<average_rating>3.98</average_rating>
+<ratings_count>928</ratings_count>
+<text_reviews_count>83</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>26317289</id>
+  <uri>kca://work/amzn1.gr.work.v1.rLESrpT3yXcdHtICD_r-9w</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Tue Apr 03 20:29:29 -0700 2018</date_added>
+  <date_updated>Tue Apr 03 20:29:29 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2349813822]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2349813822]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2348119070</id>
+    <book>
+  <id type="integer">36319077</id>
+  <isbn>0691174652</isbn>
+  <isbn13>9780691174655</isbn13>
+  <text_reviews_count type="integer">65</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.9O66CaoTDafo4QaWwZ353A</uri>
+  <title>The Case Against Education: Why the Education System Is a Waste of Time and Money</title>
+  <title_without_series>The Case Against Education: Why the Education System Is a Waste of Time and Money</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1510263235m/36319077.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1510263235s/36319077.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/36319077-the-case-against-education</link>
+  <num_pages>416</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>13</publication_day>
+  <publication_year>2018</publication_year>
+  <publication_month>2</publication_month>
+  <average_rating>4.12</average_rating>
+  <ratings_count>375</ratings_count>
+  <description>Despite being immensely popular--and immensely lucrative—education is grossly overrated. In this explosive book, Bryan Caplan argues that the primary function of education is not to enhance students' skill but to certify their intelligence, work ethic, and conformity—in other words, to signal the qualities of a good employee. Learn why students hunt for easy As and casually forget most of what they learn after the final exam, why decades of growing access to education have not resulted in better jobs for the average worker but instead in runaway credential inflation, how employers reward workers for costly schooling they rarely if ever use, and why cutting education spending is the best remedy.&lt;br /&gt;&lt;br /&gt;Caplan draws on the latest social science to show how the labor market values grades over knowledge, and why the more education your rivals have, the more you need to impress employers. He explains why graduation is our society's top conformity signal, and why even the most useless degrees can certify employability. He advocates two major policy responses. The first is educational austerity. Government needs to sharply cut education funding to curb this wasteful rat race. The second is more vocational education, because practical skills are more socially valuable than teaching students how to outshine their peers.&lt;br /&gt;&lt;br /&gt;Romantic notions about education being "good for the soul" must yield to careful research and common sense — &lt;i&gt;The Case against Education&lt;/i&gt; points the way.</description>
+<authors>
+<author>
+<id>373203</id>
+<name>Bryan Caplan</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1257402293p5/373203.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1257402293p2/373203.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/373203.Bryan_Caplan]]></link>
+<average_rating>3.82</average_rating>
+<ratings_count>2543</ratings_count>
+<text_reviews_count>419</text_reviews_count>
+</author>
+</authors>
+  <published>2018</published>
+<work>  <id>57993703</id>
+  <uri>kca://work/amzn1.gr.work.v1.2jBCXzVrVfmDypfFmuteWg</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Apr 02 12:58:04 -0700 2018</date_added>
+  <date_updated>Mon Apr 02 12:58:06 -0700 2018</date_updated>
+  <read_count>2</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2348119070]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2348119070]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2340243390</id>
+    <book>
+  <id type="integer">11569567</id>
+  <isbn>0199596654</isbn>
+  <isbn13>9780199596652</isbn13>
+  <text_reviews_count type="integer">50</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.jQB-GIN2GfWDNbx-mLLxmA</uri>
+  <title>Global Economic History: A Very Short Introduction</title>
+  <title_without_series>Global Economic History: A Very Short Introduction</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/11569567-global-economic-history</link>
+  <num_pages>196</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Oxford University Press, USA</publisher>
+  <publication_day>15</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>11</publication_month>
+  <average_rating>3.81</average_rating>
+  <ratings_count>470</ratings_count>
+  <description>Why are some countries rich and others poor? In 1500, global income differences were small, but disparities have grown dramatically since Columbus reached America. In this Very Short Introduction, Robert C. Allen shows how the interplay of geography, globalization, technological change, and economic policy has determined the wealth and poverty of nations. Allen shows how the industrial revolution was Britain's path-breaking response to the challenge of globalization. Western Europe and North America joined Britain to form a club of rich nations, pursuing four polices--creating a national market by abolishing internal tariffs and investing in transportation, erecting an external tariff to protect their fledgling industries from British competition, creating banks to stabilize the currency and mobilize domestic savings for investment, and promoting mass education to prepare people for industrial work. Together these countries pioneered new technologies that have made them ever richer. A few countries--Japan, Soviet Russia, South Korea, Taiwan, and perhaps China--have caught up with the West through creative responses to the technological challenge and with Big Push industrialization that has achieved rapid growth through coordinated investment.</description>
+<authors>
+<author>
+<id>13962</id>
+<name>Robert C. Allen</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/13962.Robert_C_Allen]]></link>
+<average_rating>3.84</average_rating>
+<ratings_count>851</ratings_count>
+<text_reviews_count>103</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>16510295</id>
+  <uri>kca://work/amzn1.gr.work.v1.kMAM4HM_WCQABbDWAjaiiw</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Mar 26 07:37:11 -0700 2018</date_added>
+  <date_updated>Mon Mar 26 07:37:11 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2340243390]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2340243390]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2316645095</id>
+    <book>
+  <id type="integer">11612989</id>
+  <isbn>161039044X</isbn>
+  <isbn13>9781610390446</isbn13>
+  <text_reviews_count type="integer">472</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.cxXjIEpm0aF6zFJoroXUCw</uri>
+  <title>The Dictator's Handbook: Why Bad Behavior is Almost Always Good Politics</title>
+  <title_without_series>The Dictator's Handbook: Why Bad Behavior is Almost Always Good Politics</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1328737207m/11612989.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1328737207s/11612989.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/11612989-the-dictator-s-handbook</link>
+  <num_pages>352</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>PublicAffairs</publisher>
+  <publication_day>27</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>9</publication_month>
+  <average_rating>4.28</average_rating>
+  <ratings_count>4235</ratings_count>
+  <description>For eighteen years, Bruce Bueno de Mesquita and Alastair Smith have been part of a team revolutionizing the study of politics by turning conventional wisdom on its head. They start from a single assertion: Leaders do whatever keeps them in power. They don't care about the "national interest"--or even their subjects--unless they have to.&lt;p&gt; This clever and accessible book shows that the difference between tyrants and democrats is just a convenient fiction. Governments do not differ in kind but only in the number of essential supporters, or backs that need scratching. The size of this group determines almost everything about politics: what leaders can get away with, and the quality of life or misery under them. The picture the authors paint is not pretty. But it just may be the truth, which is a good starting point for anyone seeking to improve human governance.&lt;/p&gt;</description>
+<authors>
+<author>
+<id>319571</id>
+<name>Bruce Bueno De Mesquita</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1464909455p5/319571.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1464909455p2/319571.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/319571.Bruce_Bueno_De_Mesquita]]></link>
+<average_rating>4.16</average_rating>
+<ratings_count>5167</ratings_count>
+<text_reviews_count>685</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>16555815</id>
+  <uri>kca://work/amzn1.gr.work.v1.n_LJViyEQHF6aVfIP_v_xw</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Mar 04 15:23:25 -0800 2018</date_added>
+  <date_updated>Sun Mar 04 15:23:25 -0800 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2316645095]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2316645095]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2293672324</id>
+    <book>
+  <id type="integer">34785419</id>
+  <isbn>0190495995</isbn>
+  <isbn13>9780190495992</isbn13>
+  <text_reviews_count type="integer">11</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.FQsc79X5Ge1gohHas1ZYqQ</uri>
+  <title>The Elephant in the Brain: Hidden Motives in Everyday Life</title>
+  <title_without_series>The Elephant in the Brain: Hidden Motives in Everyday Life</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1494708147m/34785419.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1494708147s/34785419.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/34785419-the-elephant-in-the-brain</link>
+  <num_pages>400</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Oxford University Press, USA</publisher>
+  <publication_day>2</publication_day>
+  <publication_year>2018</publication_year>
+  <publication_month>1</publication_month>
+  <average_rating>4.24</average_rating>
+  <ratings_count>797</ratings_count>
+  <description>Human beings are primates, and primates are political animals. Our brains, therefore, are designed not just to hunt and gather, but also to help us get ahead socially, often via deception and self-deception. But while we may be self-interested schemers, we benefit by pretending otherwise. The less we know about our own ugly motives, the better - and thus we don't like to talk or even think about the extent of our selfishness. This is -the elephant in the brain.- Such an introspective taboo makes it hard for us to think clearly about our nature and the explanations for our behavior. The aim of this book, then, is to confront our hidden motives directly - to track down the darker, unexamined corners of our psyches and blast them with floodlights. Then, once everything is clearly visible, we can work to better understand ourselves: Why do we laugh? Why are artists sexy? Why do we brag about travel? Why do we prefer to speak rather than listen? &lt;br /&gt;Our unconscious motives drive more than just our private behavior; they also infect our venerated social institutions such as Art, School, Charity, Medicine, Politics, and Religion. In fact, these institutions are in many ways designed to accommodate our hidden motives, to serve covert agendas alongside their -official- ones. The existence of big hidden motives can upend the usual political debates, leading one to question the legitimacy of these social institutions, and of standard policies designed to favor or discourage them. You won't see yourself - or the world - the same after confronting the elephant in the brain.&lt;br /&gt;</description>
+<authors>
+<author>
+<id>14932232</id>
+<name>Kevin Simler</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/14932232.Kevin_Simler]]></link>
+<average_rating>4.24</average_rating>
+<ratings_count>797</ratings_count>
+<text_reviews_count>94</text_reviews_count>
+</author>
+</authors>
+  <published>2018</published>
+<work>  <id>49038120</id>
+  <uri>kca://work/amzn1.gr.work.v1.8HbiOvCPk2j-wyYHRA5khA</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Feb 12 10:18:55 -0800 2018</date_added>
+  <date_updated>Mon Feb 12 10:18:55 -0800 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2293672324]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2293672324]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2282148196</id>
+    <book>
+  <id type="integer">29983711</id>
+  <isbn>1455563935</isbn>
+  <isbn13>9781455563937</isbn13>
+  <text_reviews_count type="integer">5300</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.n86RGF8xzJVpV3tv497PvQ</uri>
+  <title>Pachinko</title>
+  <title_without_series>Pachinko</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1462393298m/29983711.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1462393298s/29983711.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/29983711-pachinko</link>
+  <num_pages>489</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Grand Central Publishing</publisher>
+  <publication_day>7</publication_day>
+  <publication_year>2017</publication_year>
+  <publication_month>2</publication_month>
+  <average_rating>4.27</average_rating>
+  <ratings_count>59895</ratings_count>
+  <description>&lt;i&gt;Pachinko&lt;/i&gt; follows one Korean family through the generations, beginning in early 1900s Korea with Sunja, the prized daughter of a poor yet proud family, whose unplanned pregnancy threatens to shame them all. Deserted by her lover, Sunja is saved when a young tubercular minister offers to marry and bring her to Japan. &lt;br /&gt;&lt;br /&gt;So begins a sweeping saga of an exceptional family in exile from its homeland and caught in the indifferent arc of history. Through desperate struggles and hard-won triumphs, its members are bound together by deep roots as they face enduring questions of faith, family, and identity.</description>
+<authors>
+<author>
+<id>378209</id>
+<name>Min Jin Lee</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1192651627p5/378209.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1192651627p2/378209.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/378209.Min_Jin_Lee]]></link>
+<average_rating>4.21</average_rating>
+<ratings_count>65893</ratings_count>
+<text_reviews_count>8207</text_reviews_count>
+</author>
+</authors>
+  <published>2017</published>
+<work>  <id>50384116</id>
+  <uri>kca://work/amzn1.gr.work.v1.Kfq1uC_3eoSK1b271iNVKQ</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Feb 02 15:03:10 -0800 2018</date_added>
+  <date_updated>Fri Feb 02 15:03:10 -0800 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2282148196]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2282148196]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2217520870</id>
+    <book>
+  <id type="integer">10984768</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">18</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.gqk1ylQekfBw1n1SgLs4Aw</uri>
+  <title>Tempo: Timing, Tactics and Strategy in Narrative-Driven Decision-Making</title>
+  <title_without_series>Tempo: Timing, Tactics and Strategy in Narrative-Driven Decision-Making</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1358907246m/10984768.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1358907246s/10984768.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/10984768-tempo</link>
+  <num_pages>176</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Ribbonfarm Inc.</publisher>
+  <publication_day>28</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>3</publication_month>
+  <average_rating>3.73</average_rating>
+  <ratings_count>240</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>4762746</id>
+<name>Venkatesh G. Rao</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/4762746.Venkatesh_G_Rao]]></link>
+<average_rating>3.98</average_rating>
+<ratings_count>928</ratings_count>
+<text_reviews_count>83</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>15903197</id>
+  <uri>kca://work/amzn1.gr.work.v1.SzGrps5SW8_I5oYiDYPAvA</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Dec 17 20:00:42 -0800 2017</date_added>
+  <date_updated>Sun Dec 17 20:00:42 -0800 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2217520870]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2217520870]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>2113973113</id>
+    <book>
+  <id type="integer">20186</id>
+  <isbn>0300078153</isbn>
+  <isbn13>9780300078152</isbn13>
+  <text_reviews_count type="integer">192</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.K66tA6sS6wBUKURSuaU1PA</uri>
+  <title>Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed</title>
+  <title_without_series>Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/20186.Seeing_Like_a_State</link>
+  <num_pages>445</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Yale University Press</publisher>
+  <publication_day/>
+  <publication_year>1998</publication_year>
+  <publication_month/>
+  <average_rating>4.18</average_rating>
+  <ratings_count>2206</ratings_count>
+  <description>Compulsory &lt;i&gt;ujamaa&lt;/i&gt; villages in Tanzania, collectivization in Russia, Le Corbusier’s urban planning theory realized in Brasilia, the Great Leap Forward in China, agricultural "modernization" in the Tropics—the twentieth century has been racked by grand utopian schemes that have inadvertently brought death and disruption to millions. Why do well-intentioned plans for improving the human condition go tragically awry?&lt;br /&gt;&lt;br /&gt;In this wide-ranging and original book, James C. Scott analyzes failed cases of large-scale authoritarian plans in a variety of fields. Centrally managed social plans misfire, Scott argues, when they impose schematic visions that do violence to complex interdependencies that are not—and cannot—be fully understood. Further, the success of designs for social organization depends upon the recognition that local, practical knowledge is as important as formal, epistemic knowledge. The author builds a persuasive case against "development theory" and imperialistic state planning that disregards the values, desires, and objections of its subjects. He identifies and discusses four conditions common to all planning disasters: administrative ordering of nature and society by the state; a "high-modernist ideology" that places confidence in the ability of science to improve every aspect of human life; a willingness to use authoritarian state power to effect large- scale interventions; and a prostrate civil society that cannot effectively resist such plans.</description>
+<authors>
+<author>
+<id>11958</id>
+<name>James C. Scott</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1272598101p5/11958.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1272598101p2/11958.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/11958.James_C_Scott]]></link>
+<average_rating>4.10</average_rating>
+<ratings_count>5821</ratings_count>
+<text_reviews_count>564</text_reviews_count>
+</author>
+</authors>
+  <published>1998</published>
+<work>  <id>21381</id>
+  <uri>kca://work/amzn1.gr.work.v1.O3BjUg1Im__1BBdth4MJwA</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Sep 04 17:15:44 -0700 2017</date_added>
+  <date_updated>Mon Sep 04 17:15:44 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/2113973113]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/2113973113]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1993951167</id>
+    <book>
+  <id type="integer">27845690</id>
+  <isbn>0241145473</isbn>
+  <isbn13>9780241145470</isbn13>
+  <text_reviews_count type="integer">1282</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.tHC83et9czdoS5WgqKJnXA</uri>
+  <title>The Course of Love</title>
+  <title_without_series>The Course of Love</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1447781024m/27845690.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1447781024s/27845690.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/27845690-the-course-of-love</link>
+  <num_pages>240</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Hamish Hamilton</publisher>
+  <publication_day>28</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>4.03</average_rating>
+  <ratings_count>14100</ratings_count>
+  <description>"An engrossing tale that provides plenty of food for thought" (People, Best New Books pick), this playful, wise, and profoundly moving second novel from the internationally bestselling author of How Proust Can Change Your Life tracks the beautifully complicated arc of a romantic partnership.&lt;br /&gt;&lt;br /&gt;The long-awaited and beguiling second novel from Alain de Botton that tracks the beautifully complicated arc of a romantic partnership, from the internationally bestselling author of How Proust Can Change Your Life. De Botton's essay "Why You Will Marry the Wrong Person" (The New York Times, May 28, 2016), which draws from The Course of Love, was the #1 most emailed article for days.&lt;br /&gt;&lt;br /&gt;We all know the headiness and excitement of the early days of love. But what comes after? In Edinburgh, a couple, Rabih and Kirsten, fall in love. They get married, they have children—but no long-term relationship is as simple as "happily ever after." The Course of Love is a novel that explores what happens after the birth of love, what it takes to maintain love, and what happens to our original ideals under the pressures of an average existence. You experience, along with Rabih and Kirsten, the first flush of infatuation, the effortlessness of falling into romantic love, and the course of life thereafter. Interwoven with their story and its challenges is an overlay of philosophy—an annotation and a guide to what we are reading.&lt;br /&gt;&lt;br /&gt;This is a Romantic novel in the true sense, one interested in exploring how love can survive and thrive in the long term. The result is a sensory experience—fictional, philosophical, psychological—that urges us to identify deeply with these characters and to reflect on his and her own experiences in love. Fresh, visceral, and utterly compelling, The Course of Love is a provocative and life-affirming novel for everyone who believes in love.</description>
+<authors>
+<author>
+<id>13199</id>
+<name>Alain de Botton</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1189753902p5/13199.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1189753902p2/13199.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/13199.Alain_de_Botton]]></link>
+<average_rating>3.85</average_rating>
+<ratings_count>115743</ratings_count>
+<text_reviews_count>10581</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>46106442</id>
+  <uri>kca://work/amzn1.gr.work.v1.MZBpQs54RAH29cOs8tM1nQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun May 07 18:27:31 -0700 2017</date_added>
+  <date_updated>Sun May 07 18:27:31 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1993951167]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1993951167]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1979391214</id>
+    <book>
+  <id type="integer">6477876</id>
+  <isbn>0300152280</isbn>
+  <isbn13>9780300152289</isbn13>
+  <text_reviews_count type="integer">47</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.IKooq8P6S7yKBjLyWUr3TQ</uri>
+  <title>The Art of Not Being Governed: An Anarchist History of Upland Southeast Asia</title>
+  <title_without_series>The Art of Not Being Governed: An Anarchist History of Upland Southeast Asia</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1328826955m/6477876.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1328826955s/6477876.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/6477876-the-art-of-not-being-governed</link>
+  <num_pages>464</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Yale University Press</publisher>
+  <publication_day>30</publication_day>
+  <publication_year>2009</publication_year>
+  <publication_month>9</publication_month>
+  <average_rating>4.12</average_rating>
+  <ratings_count>648</ratings_count>
+  <description>For two thousand years the disparate groups that now reside in Zomia (a mountainous region the size of Europe that consists of portions of seven Asian countries) have fled the projects of the organized state societies that surround them—slavery, conscription, taxes, corvée labor, epidemics, and warfare. This book, essentially an “anarchist history,” is the first-ever examination of the huge literature on state-making whose author evaluates why people would deliberately and reactively remain stateless. Among the strategies employed by the people of Zomia to remain stateless are physical dispersion in rugged terrain; agricultural practices that enhance mobility; pliable ethnic identities; devotion to prophetic, millenarian leaders; and maintenance of a largely oral culture that allows them to reinvent their histories and genealogies as they move between and around states.&lt;br /&gt;&lt;br /&gt;In accessible language, James Scott, recognized worldwide as an eminent authority in Southeast Asian, peasant, and agrarian studies, tells the story of the peoples of Zomia and their unlikely odyssey in search of self-determination. He redefines our views on Asian politics, history, demographics, and even our fundamental ideas about what constitutes civilization, and challenges us with a radically different approach to history that presents events from the perspective of stateless peoples and redefines state-making as a form of “internal colonialism.” This new perspective requires a radical reevaluation of the civilizational narratives of the lowland states. Scott’s work on Zomia represents a new way to think of area studies that will be applicable to other runaway, fugitive, and marooned communities, be they Gypsies, Cossacks, tribes fleeing slave raiders, Marsh Arabs, or San-Bushmen.</description>
+<authors>
+<author>
+<id>11958</id>
+<name>James C. Scott</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1272598101p5/11958.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1272598101p2/11958.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/11958.James_C_Scott]]></link>
+<average_rating>4.10</average_rating>
+<ratings_count>5821</ratings_count>
+<text_reviews_count>564</text_reviews_count>
+</author>
+</authors>
+  <published>2009</published>
+<work>  <id>6669089</id>
+  <uri>kca://work/amzn1.gr.work.v1.nbrV6jIGNurE6Tl5Fg1C7w</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sat Apr 22 18:16:05 -0700 2017</date_added>
+  <date_updated>Sat Apr 22 18:16:07 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1979391214]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1979391214]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1968723648</id>
+    <book>
+  <id type="integer">463337</id>
+  <isbn>0691001618</isbn>
+  <isbn13>9780691001616</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.A6Jr9mKyKVGgZYRESrun7Q</uri>
+  <title>Adam Smith in His Time and Ours: Designing the Decent Society</title>
+  <title_without_series>Adam Smith in His Time and Ours: Designing the Decent Society</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/463337.Adam_Smith_in_His_Time_and_Ours</link>
+  <num_pages>288</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>23</publication_day>
+  <publication_year>1995</publication_year>
+  <publication_month>7</publication_month>
+  <average_rating>3.82</average_rating>
+  <ratings_count>22</ratings_count>
+  <description>Now that the Marxist project of human transformation through the elimination of self-interest and markets stands thoroughly discredited, it is time to acknowledge Adam Smith as one of the most important social thinkers of modern times. Smith's Inquiry into the Nature and Causes of the Wealth of Nations, published in 1776, argued that a market economy was not only best able to meet the material needs of the people; it also provided a moral system which relied on human nature to create order and fairness. But Smith's intentions and conclusions, much maligned by his opponents on the left, have just as often been misunderstood by his conservative defenders. Counter to the popular impression that Smith was a champion of selfishness and greed, Jerry Z. Muller shows in this powerful and provocative work of historical reconstruction that Smith hoped to promote the welfare of society as a whole, and that he wrote The Wealth of Nations to warn of the dangers to the common good posed by organized mercantile interests. And contrary to those who believe that the naked pursuit of self-interest always leads to socially beneficial results, Smith maintained that government must intervene to counteract its negative effects. Smith's analysis went beyond economics to embrace a larger "civilizing project" designed to create a more decent society. The freedom made possible by a commercial society, Smith thought, would only be desirable when coupled with supporting institutions - including the law, family, and religion - which fostered the virtues of self-control and altruism that people need to manage their new liberty. He also explained how human passions could be harnessed to that goal. In doing so, helaid the ground for much of modern social science, as he explored the unanticipated consequences of social action, the social formation of conscience, and the linkages between social, political, and economic institutions. By balancing a healthy respect for self-interest with awarene</description>
+<authors>
+<author>
+<id>259761</id>
+<name>Jerry Z. Muller</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/259761.Jerry_Z_Muller]]></link>
+<average_rating>3.91</average_rating>
+<ratings_count>722</ratings_count>
+<text_reviews_count>102</text_reviews_count>
+</author>
+</authors>
+  <published>1995</published>
+<work>  <id>451765</id>
+  <uri>kca://work/amzn1.gr.work.v1.HGgcHK2UCwz0QG3ddnyW7w</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Tue Apr 11 12:53:25 -0700 2017</date_added>
+  <date_updated>Tue Apr 11 12:53:26 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1968723648]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1968723648]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1961203667</id>
+    <book>
+  <id type="integer">19797846</id>
+  <isbn>159803510X</isbn>
+  <isbn13>9781598035100</isbn13>
+  <text_reviews_count type="integer">12</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.zaCUigys7DvWN4BKa9q6vg</uri>
+  <title>Thinking About Capitalism</title>
+  <title_without_series>Thinking About Capitalism</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/19797846-thinking-about-capitalism</link>
+  <num_pages>18</num_pages>
+  <format>Audio CD</format>
+  <edition_information>Great Courses</edition_information>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.03</average_rating>
+  <ratings_count>79</ratings_count>
+  <description>This is a set of eighteen audio CDs and an accompanying softcover course guidebook.&lt;br /&gt;&lt;br /&gt;Contains parts 1 - 3 of the Thinking About Capitalism course.</description>
+<authors>
+<author>
+<id>259761</id>
+<name>Jerry Z. Muller</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/259761.Jerry_Z_Muller]]></link>
+<average_rating>3.91</average_rating>
+<ratings_count>722</ratings_count>
+<text_reviews_count>102</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>6632637</id>
+  <uri>kca://work/amzn1.gr.work.v1.sfm0oUORi9H6QfOpO0553w</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Apr 03 14:43:25 -0700 2017</date_added>
+  <date_updated>Tue Apr 10 07:30:57 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1961203667]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1961203667]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1949651278</id>
+    <book>
+  <id type="integer">27289556</id>
+  <isbn>1259584135</isbn>
+  <isbn13>9781259584138</isbn13>
+  <text_reviews_count type="integer">13</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.cLKMq2cgTv2LxIgHfrvg4Q</uri>
+  <title>Impossible to Ignore: Creating Memorable Content to Influence Decisions</title>
+  <title_without_series>Impossible to Ignore: Creating Memorable Content to Influence Decisions</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1458496964m/27289556.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1458496964s/27289556.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/27289556-impossible-to-ignore</link>
+  <num_pages>288</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>McGraw-Hill Education</publisher>
+  <publication_day>11</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>5</publication_month>
+  <average_rating>3.94</average_rating>
+  <ratings_count>216</ratings_count>
+  <description>A groundbreaking approach to creating memorable messages that are easy to process, hard to forget, and impossible to ignore using the latest in brain science&lt;br /&gt;&lt;br /&gt;Audiences forget up to 90 percent of what you communicate. But people make decisions and act based on what they remember, so a pragmatic approach for the effective communicator is to be deliberate about the 10 percent that audiences do retain. Otherwise, content recall is random and inconsistent.&lt;br /&gt;&lt;br /&gt;Many experts have offered techniques on how to improve your own memory, but not how to influence other people s memory. Drawing on the latest research in neuroscience and cognitive psychology, Impossible to Ignore is a practical step-by-step guide that will show you how to control the 10 percent that your audiences doremember by creating content that attracts attention, sharpens recall, and guides behavior toward a desired action."</description>
+<authors>
+<author>
+<id>14562237</id>
+<name>Carmen Simon</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/14562237.Carmen_Simon]]></link>
+<average_rating>3.94</average_rating>
+<ratings_count>216</ratings_count>
+<text_reviews_count>15</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>47345521</id>
+  <uri>kca://work/amzn1.gr.work.v1.VoRK_txAzHtocOIaHEsgQQ</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Wed Mar 22 17:36:50 -0700 2017</date_added>
+  <date_updated>Wed Mar 22 17:36:51 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1949651278]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1949651278]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1947608174</id>
+    <book>
+  <id type="integer">8913542</id>
+  <isbn>1608191664</isbn>
+  <isbn13>9781608191666</isbn13>
+  <text_reviews_count type="integer">433</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.1UvWKon9QSsF_NmxsyZzhg</uri>
+  <title>23 Things They Don't Tell You about Capitalism</title>
+  <title_without_series>23 Things They Don't Tell You about Capitalism</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1316738602m/8913542.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1316738602s/8913542.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/8913542-23-things-they-don-t-tell-you-about-capitalism</link>
+  <num_pages>286</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Bloomsbury Publishing PLC</publisher>
+  <publication_day>2</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>1</publication_month>
+  <average_rating>3.97</average_rating>
+  <ratings_count>6225</ratings_count>
+  <description>&lt;div&gt;&lt;br /&gt;Thing 1: There is no such thing as free market. &lt;br /&gt;Thing 4: The washing machine has changed the world more than the Internet. &lt;br /&gt;Thing 5: Assume the worst about people, and you get the worst. &lt;br /&gt;Thing 13: Making rich people richer doesn't make the rest of us richer.&lt;/div&gt;&lt;br /&gt;&lt;div&gt;If you've wondered how we did not see the economic collapse coming, Ha-Joon Chang knows the answer: We didn't ask what they didn't tell us about capitalism. This is a lighthearted book with a serious purpose: to question the assumptions behind the dogma and sheer hype that the dominant school of neoliberal economists-the apostles of the freemarket-have spun since the Age of Reagan.&lt;/div&gt;&lt;br /&gt;&lt;div&gt;Chang, the author of the international bestseller &lt;i&gt;Bad Samaritans&lt;/i&gt;, is one of the world's most respected economists, a voice of sanity-and wit-in the tradition of John Kenneth Galbraith and Joseph Stiglitz. &lt;i&gt;23 Things They Don't Tell You About Capitalism&lt;/i&gt; equips readers with an understanding of how global capitalism works-and doesn't. In his final chapter, "How to Rebuild the World," Chang offers a vision of how we can shape capitalism to humane ends, instead of becoming slaves of the market.&lt;/div&gt;&lt;br /&gt;&lt;div&gt;Ha-Joon Chang teaches in the Faculty of Economics at the University of Cambridge. His books include the bestselling &lt;i&gt;Bad Samaritans: The Myth of Free Trade&lt;/i&gt; and the &lt;i&gt;Secret History of Capitalism&lt;/i&gt;. His &lt;i&gt;Kicking Away the Ladder&lt;/i&gt; received the 2003 Myrdal Prize, and, in 2005, Chang was awarded the Leontief Prize for Advancing the Frontiers of Economic Thought.&lt;/div&gt;</description>
+<authors>
+<author>
+<id>95227</id>
+<name>Ha-Joon Chang</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1294879177p5/95227.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1294879177p2/95227.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/95227.Ha_Joon_Chang]]></link>
+<average_rating>4.07</average_rating>
+<ratings_count>13694</ratings_count>
+<text_reviews_count>1285</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>14015226</id>
+  <uri>kca://work/amzn1.gr.work.v1.TJEOSB8RDAwYp5XqtbswFA</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Mar 20 15:34:12 -0700 2017</date_added>
+  <date_updated>Mon Mar 20 15:34:12 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1947608174]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1947608174]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1946584888</id>
+    <book>
+  <id type="integer">25131230</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">65</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.Zx-LBPscki8pCb7DWjTZPw</uri>
+  <title>Rationality: From AI to Zombies</title>
+  <title_without_series>Rationality: From AI to Zombies</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/25131230-rationality</link>
+  <num_pages>1813</num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.41</average_rating>
+  <ratings_count>698</ratings_count>
+  <description>What does it actually mean to be rational? Not Hollywood-style "rational," where you forsake all human feeling to embrace Cold Hard Logic. Real rationality, of the sort studied by psychologists, social scientists, and mathematicians. The kind of rationality where you make good decisions, even when it's hard; where you reason well, even in the face of massive uncertainty; where you recognize and make full use of your fuzzy intuitions and emotions, rather than trying to discard them. &lt;br /&gt;&lt;br /&gt;In "Rationality: From AI to Zombies," Eliezer Yudkowsky explains the science underlying human irrationality with a mix of fables, argumentative essays, and personal vignettes. These eye-opening accounts of how the mind works (and how, all too often, it doesn't!) are then put to the test through some genuinely difficult puzzles: computer scientists' debates about the future of artificial intelligence (AI), physicists' debates about the relationship between the quantum and classical worlds, philosophers' debates about the metaphysics of zombies and the nature of morality, and many more. In the process, "Rationality: From AI to Zombies" delves into the human significance of correct reasoning more deeply than you'll find in any conventional textbook on cognitive science or philosophy of mind. &lt;br /&gt;&lt;br /&gt;A decision theorist and researcher at the Machine Intelligence Research Institute, Yudkowsky published earlier drafts of his writings to the websites Overcoming Bias and Less Wrong. "Rationality: From AI to Zombies" compiles six volumes of Yudkowsky's essays into a single electronic tome. Collectively, these sequences of linked essays serve as a rich and lively introduction to the science—and the art—of human rationality.</description>
+<authors>
+<author>
+<id>4533716</id>
+<name>Eliezer Yudkowsky</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1510007132p5/4533716.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1510007132p2/4533716.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/4533716.Eliezer_Yudkowsky]]></link>
+<average_rating>4.35</average_rating>
+<ratings_count>14810</ratings_count>
+<text_reviews_count>1351</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>44828040</id>
+  <uri>kca://work/amzn1.gr.work.v1.6s90ljQR6_jnRNekUv9fsA</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Mar 19 15:11:01 -0700 2017</date_added>
+  <date_updated>Sun Mar 19 15:11:01 -0700 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1946584888]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1946584888]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1901180663</id>
+    <book>
+  <id type="integer">25622864</id>
+  <isbn>0393069028</isbn>
+  <isbn13>9780393069020</isbn13>
+  <text_reviews_count type="integer">58</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.WjgRin4Bs9Q-fhBm42sXKg</uri>
+  <title>Naked Money: A Revealing Look at What It Is and Why It Matters</title>
+  <title_without_series>Naked Money: A Revealing Look at What It Is and Why It Matters</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1435193066m/25622864.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1435193066s/25622864.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/25622864-naked-money</link>
+  <num_pages>368</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>W. W. Norton  Company</publisher>
+  <publication_day>4</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>4.29</average_rating>
+  <ratings_count>625</ratings_count>
+  <description>Consider the $20 bill.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;It has no more value, as a simple slip of paper, than Monopoly money. Yet even children recognize that tearing one into small pieces is an act of inconceivable stupidity. What makes a $20 bill actually worth twenty dollars? In the third volume of his best-selling &lt;em&gt;Naked&lt;/em&gt; series, Charles Wheelan uses this seemingly simple question to open the door to the surprisingly colorful world of money and banking.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;The search for an answer triggers countless other questions along the way: Why does paper money (“fiat currency” if you want to be fancy) even exist? And why do some nations, like Zimbabwe in the 1990s, print so much of it that it becomes more valuable as toilet paper than as currency? How do central banks use the power of money creation to stop financial crises? Why does most of Europe share a common currency, and why has that arrangement caused so much trouble? And will payment apps, bitcoin, or other new technologies render all of this moot?&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;In &lt;em&gt;Naked Money&lt;/em&gt;, Wheelan tackles all of the above and more, showing us how our banking and monetary systems should work in ideal situations and revealing the havoc and suffering caused in real situations by inflation, deflation, illiquidity, and other monetary effects. Throughout, Wheelan’s uniquely bright-eyed, whimsical style brings levity and clarity to a subject often devoid of both. With illuminating stories from Argentina, Zimbabwe, North Korea, America, China, and elsewhere around the globe, Wheelan demystifies the curious world behind the paper in our wallets and the digits in our bank accounts.</description>
+<authors>
+<author>
+<id>18704</id>
+<name>Charles Wheelan</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1456860234p5/18704.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1456860234p2/18704.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/18704.Charles_Wheelan]]></link>
+<average_rating>3.98</average_rating>
+<ratings_count>20672</ratings_count>
+<text_reviews_count>1732</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>45435006</id>
+  <uri>kca://work/amzn1.gr.work.v1.BmoPZ5IZCUfLm9ldM6Dagg</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Feb 03 01:27:43 -0800 2017</date_added>
+  <date_updated>Fri Feb 03 01:27:43 -0800 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1901180663]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1901180663]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1888017762</id>
+    <book>
+  <id type="integer">2631984</id>
+  <isbn>1416541985</isbn>
+  <isbn13>9781416541981</isbn13>
+  <text_reviews_count type="integer">138</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.1njxgqJijZSCx1v_UbltfQ</uri>
+  <title>The Time Paradox: The New Psychology of Time That Will Change Your Life</title>
+  <title_without_series>The Time Paradox: The New Psychology of Time That Will Change Your Life</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/2631984-the-time-paradox</link>
+  <num_pages>368</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Atria Books</publisher>
+  <publication_day>5</publication_day>
+  <publication_year>2008</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>3.74</average_rating>
+  <ratings_count>2024</ratings_count>
+  <description>Your every significant choice -- every important decision you make -- is determined by a force operating deep inside your mind: your perspective on time -- your internal, personal time zone. This is the most influential force in your life, yet you are virtually unaware of it. Once you become aware of your personal time zone, you can begin to see and manage your life in exciting new ways. &lt;br /&gt;&lt;br /&gt; In &lt;i&gt;The Time Paradox,&lt;/i&gt; Drs. Zimbardo and Boyd draw on thirty years of pioneering research to reveal, for the first time, how your individual time perspective shapes your life and is shaped by the world around you. Further, they demonstrate that your and every other individual's time zones interact to create national cultures, economics, and personal destinies. &lt;br /&gt;&lt;br /&gt; You will discover what time zone you live in through Drs. Zimbardo and Boyd's revolutionary tests. Ask yourself: &lt;br /&gt;&lt;br /&gt;&lt;b&gt;• Does the smell of fresh-baked cookies bring you back to your childhood? &lt;br /&gt;&lt;br /&gt; • Do you believe that nothing will ever change in your world? &lt;br /&gt;&lt;br /&gt; • Do you believe that the present encompasses all and the future and past are mere abstractions? &lt;br /&gt;&lt;br /&gt; • Do you wear a watch, balance your checkbook, and make to-do lists -- every day? &lt;br /&gt;&lt;br /&gt; • Do you believe that life on earth is merely preparation for life after death? &lt;br /&gt;&lt;br /&gt; • Do you ruminate over failed relationships? &lt;br /&gt;&lt;br /&gt; • Are you the life of every party -- always late, always laughing, and always broke?&lt;/b&gt; &lt;br /&gt;&lt;br /&gt; These statements are representative of the seven most common ways people relate to time, each of which, in its extreme, creates benefits and pitfalls. &lt;i&gt;The Time Paradox&lt;/i&gt; is a practical plan for optimizing your blend of time perspectives so you get the utmost out of every minute in your personal and professional life as well as a fascinating commentary about the power and paradoxes of time in the modern world. &lt;br /&gt;&lt;br /&gt; No matter your time perspective, you experience these paradoxes. Only by understanding this new psychological science of time zones will you be able to overcome the mental biases that keep you too attached to the past, too focused on immediate gratification, or unhealthily obsessed with future goals. Time passes no matter what you do -- it's up to you to spend it wisely and enjoy it well. Here's how.</description>
+<authors>
+<author>
+<id>124526</id>
+<name>Philip G. Zimbardo</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1297629852p5/124526.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1297629852p2/124526.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/124526.Philip_G_Zimbardo]]></link>
+<average_rating>3.90</average_rating>
+<ratings_count>19208</ratings_count>
+<text_reviews_count>1098</text_reviews_count>
+</author>
+</authors>
+  <published>2008</published>
+<work>  <id>2656685</id>
+  <uri>kca://work/amzn1.gr.work.v1.TfVku9nPdwOqinK-XwezGw</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Jan 22 00:23:29 -0800 2017</date_added>
+  <date_updated>Sun Jan 22 00:23:32 -0800 2017</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1888017762]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1888017762]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1830950539</id>
+    <book>
+  <id type="integer">317333</id>
+  <isbn>0393329461</isbn>
+  <isbn13>9780393329469</isbn13>
+  <text_reviews_count type="integer">42</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.esw-erlPnjcfKb36NCHxmg</uri>
+  <title>Micromotives and Macrobehavior</title>
+  <title_without_series>Micromotives and Macrobehavior</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/317333.Micromotives_and_Macrobehavior</link>
+  <num_pages>272</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>W. W. Norton  Company</publisher>
+  <publication_day>17</publication_day>
+  <publication_year>2006</publication_year>
+  <publication_month>10</publication_month>
+  <average_rating>4.04</average_rating>
+  <ratings_count>865</ratings_count>
+  <description>"Schelling here offers an early analysis of 'tipping' in social situations involving a large number of individuals." —official citation for the 2005 Nobel Prize&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;em&gt;Micromotives and Macrobehavior&lt;/em&gt; was originally published over twenty-five years ago, yet the stories it tells feel just as fresh today. And the subject of these stories—how small and seemingly meaningless decisions and actions by individuals often lead to significant unintended consequences for a large group—is more important than ever. In one famous example, Thomas C. Schelling shows that a slight-but-not-malicious preference to have neighbors of the same race eventually leads to completely segregated populations.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;The updated edition of this landmark book contains a new preface and the author's Nobel Prize acceptance speech.</description>
+<authors>
+<author>
+<id>65915</id>
+<name>Thomas C. Schelling</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1237864126p5/65915.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1237864126p2/65915.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/65915.Thomas_C_Schelling]]></link>
+<average_rating>4.06</average_rating>
+<ratings_count>2040</ratings_count>
+<text_reviews_count>116</text_reviews_count>
+</author>
+</authors>
+  <published>2006</published>
+<work>  <id>308149</id>
+  <uri>kca://work/amzn1.gr.work.v1.5EVP2oPtZjbS3Y1csDASRw</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Dec 05 19:08:28 -0800 2016</date_added>
+  <date_updated>Mon Dec 05 19:08:29 -0800 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1830950539]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1830950539]]></link>
+    <owned>0</owned>
+</review>
+
+</reviews>
+
+</GoodreadsResponse>

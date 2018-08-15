@@ -17,7 +17,17 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
-const booksFile = "books.json"
+const booksCacheFilename = "books.json"
+
+func RatingMap(books []*Book) map[int]int {
+	ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+	i := 0
+	for _, book := range books {
+		ratingMap[book.Rating] += 1
+		i += 1
+	}
+	return ratingMap
+}
 
 type Client struct {
 	Settings *Settings
@@ -66,63 +76,6 @@ func (client *Client) setup() error {
 	return os.MkdirAll(client.Settings.CachePath, 0755)
 }
 
-type GoodreadsDate time.Time
-
-func (date *GoodreadsDate) UnmarshalXML(decoder *xml.Decoder, startElement xml.StartElement) error {
-	var stringValue string
-
-	err := decoder.DecodeElement(&stringValue, &startElement)
-	if err != nil {
-		return err
-	}
-
-	t, err := time.Parse(time.RubyDate, stringValue)
-	if err != nil {
-		return err
-	}
-
-	*date = GoodreadsDate(t)
-	return nil
-}
-
-type Book struct {
-	XMLName xml.Name `xml:"review" json:"-"`
-	Id      string   `xml:"id" json:"id"`
-	Title   string   `xml:"book>title" json:"title"`
-	Authors []string `xml:"book>authors>author>name" json:"authors"`
-	Isbn    string   `xml:"book>isbn" json:"isbn"`
-	Isbn13  string   `xml:"book>isbn13" json:"isbn13"`
-	Rating  int      `xml:"rating" json:"rating"`
-
-	XMLDateAdded    GoodreadsDate `xml:"date_added" json:"-"`
-	XXMLDateUpdated GoodreadsDate `xml:"date_updated" json:"-"`
-	DateAdded       time.Time     `xml:"-" json:"date_added"`
-	DateUpdated     time.Time     `xml:"-" json:"date_updated"`
-}
-
-func RatingMap(books []*Book) map[int]int {
-	ratingMap := map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
-	i := 0
-	for _, book := range books {
-		ratingMap[book.Rating] += 1
-		i += 1
-	}
-	return ratingMap
-}
-
-func (book *Book) convertDates() {
-	book.DateAdded = time.Time(book.XMLDateAdded)
-	book.DateUpdated = time.Time(book.XXMLDateUpdated)
-}
-
-func (book *Book) ReviewString() string {
-	return fmt.Sprintf("\"%v\" by %v %v", book.Title, utils.SliceList(book.Authors), strings.Repeat("*", book.Rating))
-}
-
-func (book *Book) SortedDate() time.Time {
-	return book.DateAdded
-}
-
 func (client *Client) getBooks(userId int) (map[string]*Book, error) {
 	bookMap := client.readBooksCache()
 	bookMap = client.GetBooksRequest(userId, bookMap)
@@ -135,7 +88,7 @@ type jsonBooksRoot struct {
 
 func (client *Client) readBooksCache() map[string]*Book {
 	jsonRoot := jsonBooksRoot{}
-	booksCachePath := path.Join(client.Settings.CachePath, booksFile)
+	booksCachePath := path.Join(client.Settings.CachePath, booksCacheFilename)
 
 	_, err := os.Stat(booksCachePath)
 	if os.IsNotExist(err) {
@@ -167,7 +120,7 @@ func (client *Client) saveBooksCache(bookMap map[string]*Book) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(path.Join(client.Settings.CachePath, booksFile), bytes, 0755)
+	return ioutil.WriteFile(path.Join(client.Settings.CachePath, booksCacheFilename), bytes, 0755)
 }
 
 type xmlBookResponse struct {
@@ -263,7 +216,7 @@ func (client *Client) requestGetBooks(userId int, initialLoad bool, page int) (r
 		"order":    "d",
 	}
 
-	url := "https://www.goodreads.com/review/list?" + utils.ToSimpleQuery(queryParams)
+	url := fmt.Sprintf("%v/review/list?%v", client.Settings.ApiURL, utils.ToSimpleQuery(queryParams))
 	client.log.Infof("GET %v", url)
 	return http.Get(url)
 }
@@ -297,4 +250,55 @@ func (client *Client) paginateGet(request func(page int) (resp *http.Response, e
 		}
 	}
 	return nil
+}
+
+type GoodreadsDate time.Time
+
+func (date GoodreadsDate) Equal(u GoodreadsDate) bool {
+	return time.Time(date).Equal(time.Time(u))
+}
+
+func (date *GoodreadsDate) UnmarshalXML(decoder *xml.Decoder, startElement xml.StartElement) error {
+	var stringValue string
+
+	err := decoder.DecodeElement(&stringValue, &startElement)
+	if err != nil {
+		return err
+	}
+
+	t, err := time.Parse(time.RubyDate, stringValue)
+	if err != nil {
+		return err
+	}
+
+	*date = GoodreadsDate(t)
+	return nil
+}
+
+type Book struct {
+	XMLName xml.Name `xml:"review" json:"-"`
+	Id      string   `xml:"id" json:"id"`
+	Title   string   `xml:"book>title" json:"title"`
+	Authors []string `xml:"book>authors>author>name" json:"authors"`
+	Isbn    string   `xml:"book>isbn" json:"isbn"`
+	Isbn13  string   `xml:"book>isbn13" json:"isbn13"`
+	Rating  int      `xml:"rating" json:"rating"`
+
+	XMLDateAdded    GoodreadsDate `xml:"date_added" json:"-"`
+	XXMLDateUpdated GoodreadsDate `xml:"date_updated" json:"-"`
+	DateAdded       time.Time     `xml:"-" json:"date_added"`
+	DateUpdated     time.Time     `xml:"-" json:"date_updated"`
+}
+
+func (book *Book) convertDates() {
+	book.DateAdded = time.Time(book.XMLDateAdded)
+	book.DateUpdated = time.Time(book.XXMLDateUpdated)
+}
+
+func (book *Book) ReviewString() string {
+	return fmt.Sprintf("\"%v\" by %v %v", book.Title, utils.SliceList(book.Authors), strings.Repeat("*", book.Rating))
+}
+
+func (book *Book) SortedDate() time.Time {
+	return book.DateAdded
 }

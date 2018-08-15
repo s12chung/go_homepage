@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GoodreadsResponse>
+  <Request>
+    <authentication>true</authentication>
+      <key><![CDATA[NBP98rsAm8Hd5W44EFrp2A]]></key>
+    <method><![CDATA[review_list]]></method>
+  </Request>
+  
+<reviews start="41" end="55" total="55">
+    <review>
+  <id>1821386223</id>
+    <book>
+  <id type="integer">29940834</id>
+  <isbn>067466048X</isbn>
+  <isbn13>9780674660489</isbn13>
+  <text_reviews_count type="integer">20</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.WG0j7fGf3cpLpdEU6CgdRQ</uri>
+  <title>The Great Convergence: Information Technology and the New Globalization</title>
+  <title_without_series>The Great Convergence: Information Technology and the New Globalization</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1469403678m/29940834.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1469403678s/29940834.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/29940834-the-great-convergence</link>
+  <num_pages>344</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Belknap Press: An Imprint of Harvard University Press</publisher>
+  <publication_day>14</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>11</publication_month>
+  <average_rating>4.20</average_rating>
+  <ratings_count>225</ratings_count>
+  <description>Between 1820 and 1990, the share of world income going to today's wealthy nations soared from twenty percent to almost seventy. Since then, that share has plummeted to where it was in 1900. As Richard Baldwin explains, this reversal of fortune reflects a new age of globalisation that is drastically different from the old.&lt;br /&gt;&lt;br /&gt;In the 1800s, globalisation leaped forward when steam power and international peace lowered the costs of moving goods across borders. This triggered a self-fueling cycle of industrial agglomeration and growth that propelled today's rich nations to dominance. That was the Great Divergence. The new globalisation is driven by information technology, which has radically reduced the cost of moving ideas across borders. This has made it practical for multinational firms to move labor-intensive work to developing nations. But to keep the whole manufacturing process in sync, the firms also shipped their marketing, managerial, and technical know-how abroad along with the offshored jobs. The new possibility of combining high tech with low wages propelled the rapid industrialisation of a handful of developing nations, the simultaneous deindustrialisation of developed nations, and a commodity supercycle that is only now petering out. The result is today's Great Convergence.&lt;br /&gt;&lt;br /&gt;Because globalisation is now driven by fast-paced technological change and the fragmentation of production, its impact is more sudden, more selective, more unpredictable, and more uncontrollable. As The Great Convergence shows, the new globalisation presents rich and developing nations alike with unprecedented policy challenges in their efforts to maintain reliable growth and social cohesion.</description>
+<authors>
+<author>
+<id>254433</id>
+<name>Richard Baldwin</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/254433.Richard_Baldwin]]></link>
+<average_rating>3.96</average_rating>
+<ratings_count>314</ratings_count>
+<text_reviews_count>42</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>50331468</id>
+  <uri>kca://work/amzn1.gr.work.v1.ShI-0tyvZg8vh_8OciEpxw</uri>
+</work></book>
+
+
+  <rating>0</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+
+    <shelf exclusive='true' id='48059140' name='to-read' review_shelf_id='1483501844' sortable='true'></shelf>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Nov 25 12:50:01 -0800 2016</date_added>
+  <date_updated>Fri Nov 25 12:50:01 -0800 2016</date_updated>
+  <read_count>0</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1821386223]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1821386223]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1811003888</id>
+    <book>
+  <id type="integer">6944391</id>
+  <isbn>0678050236</isbn>
+  <isbn13>9780678050231</isbn13>
+  <text_reviews_count type="integer">1</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.fLFRNPqW8YCuP8vPBo7AAA</uri>
+  <title>History of the Bank of England, 1640 to 1903</title>
+  <title_without_series>History of the Bank of England, 1640 to 1903</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/6944391-history-of-the-bank-of-england-1640-to-1903</link>
+  <num_pages>455</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Harvard University Press</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>1966</publication_year>
+  <publication_month>11</publication_month>
+  <average_rating>3.67</average_rating>
+  <ratings_count>6</ratings_count>
+  <description></description>
+<authors>
+<author>
+<id>5466377</id>
+<name>Andreas Michaēl Andreadēs</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/5466377.Andreas_Micha_l_Andread_s]]></link>
+<average_rating>3.67</average_rating>
+<ratings_count>6</ratings_count>
+<text_reviews_count>1</text_reviews_count>
+</author>
+</authors>
+  <published>1966</published>
+<work>  <id>7177853</id>
+  <uri>kca://work/amzn1.gr.work.v1.8V_8DvutMbXTcOdsY5KF6g</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Nov 13 13:15:52 -0800 2016</date_added>
+  <date_updated>Sun Nov 13 13:15:53 -0800 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1811003888]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1811003888]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1806249121</id>
+    <book>
+  <id type="integer">25159057</id>
+  <isbn>0465059732</isbn>
+  <isbn13>9780465059737</isbn13>
+  <text_reviews_count type="integer">32</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.0js4U_DgKEamHAoj1wg_Dw</uri>
+  <title>Ametora: How Japan Saved American Style</title>
+  <title_without_series>Ametora: How Japan Saved American Style</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1435790823m/25159057.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1435790823s/25159057.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/25159057-ametora</link>
+  <num_pages>296</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Basic Books</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2015</publication_year>
+  <publication_month>12</publication_month>
+  <average_rating>4.27</average_rating>
+  <ratings_count>273</ratings_count>
+  <description>Look closely at any typically “American” article of clothing these days, and you may be surprised to see a Japanese label inside. From high-end denim to oxford button-downs, Japanese designers have taken the classic American look—known as &lt;i&gt;ametora&lt;/i&gt;, or “American traditional”—and turned it into a huge business for companies like Uniqlo, Kamakura Shirts, Evisu, and Kapital. This phenomenon is part of a long dialogue between Japanese and American fashion; in fact, many of the basic items and traditions of the modern American wardrobe are alive and well today thanks to the stewardship of Japanese consumers and fashion cognoscenti, who ritualized and preserved these American styles during periods when they were out of vogue in their native land.&lt;br /&gt;&lt;br /&gt;In &lt;i&gt;Ametora&lt;/i&gt;, cultural historian W. David Marx traces the Japanese assimilation of American fashion over the past hundred and fifty years, showing how Japanese trendsetters and entrepreneurs mimicked, adapted, imported, and ultimately perfected American style, dramatically reshaping not only Japan’s culture but also our own in the process.&lt;br /&gt;</description>
+<authors>
+<author>
+<id>14723962</id>
+<name>W. David Marx</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1451485879p5/14723962.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1451485879p2/14723962.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/14723962.W_David_Marx]]></link>
+<average_rating>4.27</average_rating>
+<ratings_count>273</ratings_count>
+<text_reviews_count>34</text_reviews_count>
+</author>
+</authors>
+  <published>2015</published>
+<work>  <id>44862590</id>
+  <uri>kca://work/amzn1.gr.work.v1.l9OFAaqLXBGF0SznKQG7FQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Nov 07 20:39:44 -0800 2016</date_added>
+  <date_updated>Mon Nov 07 20:39:45 -0800 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1806249121]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1806249121]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1796712603</id>
+    <book>
+  <id type="integer">2564820</id>
+  <isbn>1861893485</isbn>
+  <isbn13>9781861893482</isbn13>
+  <text_reviews_count type="integer">6</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.NGsZtGG--r4KkQDsgwh8yA</uri>
+  <title>Korean Cuisine: An Illustrated History</title>
+  <title_without_series>Korean Cuisine: An Illustrated History</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/2564820-korean-cuisine</link>
+  <num_pages>224</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Reaktion Books</publisher>
+  <publication_day>16</publication_day>
+  <publication_year>2008</publication_year>
+  <publication_month>4</publication_month>
+  <average_rating>3.59</average_rating>
+  <ratings_count>22</ratings_count>
+  <description>The spicy tang of kimchi, the richness of Korean barbecue, the hearty flavors of bibimbap: Korean cuisine is savored the world over for its diversity of ingredients and flavors. Michael Pettid offers here a lushly illustrated historical account of Korean food and its intricate relationship with the nation’s culture.&lt;br /&gt;&lt;br /&gt;Over the last twelve centuries, Korean food dishes and their complex preparations have evolved along with the larger cultural and political upheaval experienced by the nation. Pettid charts this historical development of the cuisine, exploring the ways that regional distinctions and historical transformations played out in the Korean diet—including the effects of wartime food shortages and preparation techniques. Underlying all these dishes are complicated philosophical and aesthetic considerations, and Pettid delves into their impact on everything from the rituals associated with group meals or drinks with friends to the strict rules governing combinations of dishes and ingredients according to temperature, texture, spices, color, and consistency.&lt;br /&gt;&lt;br /&gt;Featuring a batch of mouthwatering recipes and over a hundred vivid photographs of a striking array of dishes, &lt;i&gt;Korean Cuisine&lt;/i&gt; is an incisive and engaging investigation into the relationship between Korean culture and food that will spice up the bookshelves of foodies and scholars alike.</description>
+<authors>
+<author>
+<id>1133550</id>
+<name>Michael J. Pettid</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/1133550.Michael_J_Pettid]]></link>
+<average_rating>3.62</average_rating>
+<ratings_count>42</ratings_count>
+<text_reviews_count>7</text_reviews_count>
+</author>
+</authors>
+  <published>2008</published>
+<work>  <id>2573332</id>
+  <uri>kca://work/amzn1.gr.work.v1.c9jNxndTsQXK7gdEk6fBNQ</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Oct 28 11:38:12 -0700 2016</date_added>
+  <date_updated>Fri Oct 28 11:38:13 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1796712603]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1796712603]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1796711900</id>
+    <book>
+  <id type="integer">150437</id>
+  <isbn>0691121354</isbn>
+  <isbn13>9780691121352</isbn13>
+  <text_reviews_count type="integer">89</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.Lzv8YtN26vmZ9fMXZ_wirQ</uri>
+  <title>A Farewell to Alms: A Brief Economic History of the World</title>
+  <title_without_series>A Farewell to Alms: A Brief Economic History of the World</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/150437.A_Farewell_to_Alms</link>
+  <num_pages>420</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>13</publication_day>
+  <publication_year>2007</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>3.69</average_rating>
+  <ratings_count>878</ratings_count>
+  <description>&lt;br /&gt;Why are some parts of the world so rich and others so poor? Why did the Industrial Revolution--and the unprecedented economic growth that came with it--occur in eighteenth-century England, and not at some other time, or in some other place? Why didn't industrialization make the whole world rich--and why did it make large parts of the world even poorer? In "A Farewell to Alms," Gregory Clark tackles these profound questions and suggests a new and provocative way in which culture--not exploitation, geography, or resources--explains the wealth, and the poverty, of nations.&lt;br /&gt; Countering the prevailing theory that the Industrial Revolution was sparked by the sudden development of stable political, legal, and economic institutions in seventeenth-century Europe, Clark shows that such institutions existed long before industrialization. He argues instead that these institutions gradually led to deep cultural changes by encouraging people to abandon hunter-gatherer instincts-violence, impatience, and economy of effort-and adopt economic habits-hard work, rationality, and education.&lt;br /&gt; The problem, Clark says, is that only societies that have long histories of settlement and security seem to develop the cultural characteristics and effective workforces that enable economic growth. For the many societies that have not enjoyed long periods of stability, industrialization has not been a blessing. Clark also dissects the notion, championed by Jared Diamond in "Guns, Germs, and Steel," that natural endowments such as geography account for differences in the wealth of nations.&lt;br /&gt; A brilliant and sobering challenge to the idea that poor societies can be economically developed through outside intervention, "A Farewell to Alms" may change the way global economic history is understood.&lt;br /&gt;</description>
+<authors>
+<author>
+<id>13964</id>
+<name>Gregory Clark</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1327283609p5/13964.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1327283609p2/13964.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/13964.Gregory_Clark]]></link>
+<average_rating>3.73</average_rating>
+<ratings_count>1184</ratings_count>
+<text_reviews_count>134</text_reviews_count>
+</author>
+</authors>
+  <published>2007</published>
+<work>  <id>2496952</id>
+  <uri>kca://work/amzn1.gr.work.v1.qPpBHCFfRUDSuAllxgVSJA</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Fri Oct 28 11:37:06 -0700 2016</date_added>
+  <date_updated>Fri Oct 28 11:37:07 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1796711900]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1796711900]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1792415641</id>
+    <book>
+  <id type="integer">61278</id>
+  <isbn>0691124523</isbn>
+  <isbn13>9780691124520</isbn13>
+  <text_reviews_count type="integer">12</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.8o2XpRI1NE441DSS3ROyVA</uri>
+  <title>The Company of Strangers: A Natural History of Economic Life</title>
+  <title_without_series>The Company of Strangers: A Natural History of Economic Life</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/61278.The_Company_of_Strangers</link>
+  <num_pages>320</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>7</publication_day>
+  <publication_year>2005</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>3.70</average_rating>
+  <ratings_count>225</ratings_count>
+  <description>Human beings are the only species in nature to have developed an elaborate division of labor between strangers. Even something as simple as buying a shirt depends on an astonishing web of interaction and organization that spans the world. But unlike that other uniquely human attribute, language, our ability to cooperate with strangers did not evolve gradually through our prehistory. Only 10,000 years ago--a blink of an eye in evolutionary time--humans hunted in bands, were intensely suspicious of strangers, and fought those whom they could not flee. Yet since the dawn of agriculture we have refined the division of labor to the point where, today, we live and work amid strangers and depend upon millions more. Every time we travel by rail or air we entrust our lives to individuals we do not know. What institutions have made this possible?&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;In &lt;i&gt;The Company of Strangers&lt;/i&gt;, Paul Seabright provides an original evolutionary and sociological account of the emergence of those economic institutions that manage not only markets but also the world's myriad other affairs.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;Drawing on insights from biology, anthropology, history, psychology, and literature, Seabright explores how our evolved ability of abstract reasoning has allowed institutions like money, markets, and cities to provide the foundation of social trust. But how long can the networks of modern life survive when we are exposed as never before to risks originating in distant parts of the globe? This lively narrative shows us the remarkable strangeness, and fragility, of our everyday lives.</description>
+<authors>
+<author>
+<id>34482</id>
+<name>Paul Seabright</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_200x266-d279b33f8eec0f27b7272477f09806be.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/m_50x66-82093808bca726cb3249a493fbd3bd0f.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/34482.Paul_Seabright]]></link>
+<average_rating>3.72</average_rating>
+<ratings_count>270</ratings_count>
+<text_reviews_count>24</text_reviews_count>
+</author>
+</authors>
+  <published>2005</published>
+<work>  <id>59599</id>
+  <uri>kca://work/amzn1.gr.work.v1.Xu9SAyPi9jTIwzgFvgdciQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Oct 23 17:00:11 -0700 2016</date_added>
+  <date_updated>Sun Oct 23 17:00:12 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1792415641]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1792415641]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1785573061</id>
+    <book>
+  <id type="integer">10483171</id>
+  <isbn>0670022756</isbn>
+  <isbn13>9780670022755</isbn13>
+  <text_reviews_count type="integer">278</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.y16sVT8o18FjJAwA2MygKg</uri>
+  <title>The Beginning of Infinity: Explanations That Transform the World</title>
+  <title_without_series>The Beginning of Infinity: Explanations That Transform the World</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1311705051m/10483171.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1311705051s/10483171.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/10483171-the-beginning-of-infinity</link>
+  <num_pages>487</num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.10</average_rating>
+  <ratings_count>3628</ratings_count>
+  <description>The Beginning of Infinity: Explanations That Transform the World</description>
+<authors>
+<author>
+<id>103190</id>
+<name>David Deutsch</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1346933648p5/103190.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1346933648p2/103190.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/103190.David_Deutsch]]></link>
+<average_rating>4.09</average_rating>
+<ratings_count>7415</ratings_count>
+<text_reviews_count>472</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>15388653</id>
+  <uri>kca://work/amzn1.gr.work.v1.3xkDRtbc5CjegwtymmzqRg</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sat Oct 15 19:17:22 -0700 2016</date_added>
+  <date_updated>Sat Oct 15 19:17:23 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1785573061]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1785573061]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1781051494</id>
+    <book>
+  <id type="integer">31138556</id>
+  <isbn nil="true"/>
+  <isbn13 nil="true"/>
+  <text_reviews_count type="integer">3438</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.oHMNNs-TwRbguBqR2BQmkw</uri>
+  <title>Homo Deus: A Brief History of Tomorrow</title>
+  <title_without_series>Homo Deus: A Brief History of Tomorrow</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/31138556-homo-deus</link>
+  <num_pages></num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher></publisher>
+  <publication_day></publication_day>
+  <publication_year></publication_year>
+  <publication_month></publication_month>
+  <average_rating>4.31</average_rating>
+  <ratings_count>46915</ratings_count>
+  <description>&lt;p&gt;Yuval Noah Harari, author of the critically-acclaimed &lt;em&gt;New York Times&lt;/em&gt; bestseller and international phenomenon &lt;em&gt;Sapiens&lt;/em&gt;, returns with an equally original, compelling, and provocative book, turning his focus toward humanity’s future, and our quest to upgrade humans into gods.&lt;/p&gt;&lt;strong&gt;&lt;/strong&gt;&lt;p&gt;Over the past century humankind has managed to do the impossible and rein in famine, plague, and war. This may seem hard to accept, but, as Harari explains in his trademark style—thorough, yet riveting—famine, plague and war have been transformed from incomprehensible and uncontrollable forces of nature into manageable challenges. For the first time ever, more people die from eating too much than from eating too little; more people die from old age than from infectious diseases; and more people commit suicide than are killed by soldiers, terrorists and criminals put together. The average American is a thousand times more likely to die from binging at McDonalds than from being blown up by Al Qaeda.&lt;/p&gt;&lt;p&gt;What then will replace famine, plague, and war at the top of the human agenda? As the self-made gods of planet earth, what destinies will we set ourselves, and which quests will we undertake?&lt;em&gt; Homo Deus&lt;/em&gt; explores the projects, dreams and nightmares that will shape the twenty-first century—from overcoming death to creating artificial life. It asks the fundamental questions: Where do we go from here? And how will we protect this fragile world from our own destructive powers? This is the next stage of evolution. This is Homo Deus.&lt;/p&gt;&lt;p&gt;With the same insight and clarity that made &lt;em&gt;Sapiens&lt;/em&gt; an international hit and a &lt;em&gt;New York Times&lt;/em&gt; bestseller, Harari maps out our future. &lt;/p&gt;</description>
+<authors>
+<author>
+<id>395812</id>
+<name>Yuval Noah Harari</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1505974966p5/395812.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1505974966p2/395812.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/395812.Yuval_Noah_Harari]]></link>
+<average_rating>4.42</average_rating>
+<ratings_count>198830</ratings_count>
+<text_reviews_count>17700</text_reviews_count>
+</author>
+</authors>
+  <published></published>
+<work>  <id>45087110</id>
+  <uri>kca://work/amzn1.gr.work.v1.HTyreZEYCKHDFE8KP_-yZw</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Oct 10 16:45:40 -0700 2016</date_added>
+  <date_updated>Sun Aug 12 20:03:28 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1781051494]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1781051494]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1777824793</id>
+    <book>
+  <id type="integer">29238799</id>
+  <isbn>1501109790</isbn>
+  <isbn13>9781501109799</isbn13>
+  <text_reviews_count type="integer">254</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.XxR2PbLH4tbALivbfXEN_A</uri>
+  <title>Pre-Suasion: A Revolutionary Way to Influence and Persuade</title>
+  <title_without_series>Pre-Suasion: A Revolutionary Way to Influence and Persuade</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1468786982m/29238799.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1468786982s/29238799.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/29238799-pre-suasion</link>
+  <num_pages>432</num_pages>
+  <format>Hardcover</format>
+  <edition_information/>
+  <publisher>Simon  Schuster</publisher>
+  <publication_day>6</publication_day>
+  <publication_year>2016</publication_year>
+  <publication_month>9</publication_month>
+  <average_rating>4.04</average_rating>
+  <ratings_count>3006</ratings_count>
+  <description>The author of the legendary bestseller &lt;i&gt;Influence&lt;/i&gt;, social psychologist Robert Cialdini shines a light on effective persuasion and reveals that the secret doesn’t lie in the message itself, but in the key moment before that message is delivered.&lt;br /&gt;&lt;br /&gt;What separates effective communicators from truly successful persuaders? Using the same combination of rigorous scientific research and accessibility that made his &lt;i&gt;Influence&lt;/i&gt; an iconic bestseller, Robert Cialdini explains how to capitalize on the essential window of time before you deliver an important message. This “privileged moment for change” prepares people to be receptive to a message before they experience it. Optimal persuasion is achieved only through optimal &lt;i&gt;pre&lt;/i&gt;-suasion. In other words, to change “minds” a pre-suader must also change “states of mind.”&lt;br /&gt;&lt;br /&gt;His first solo work in over thirty years, Cialdini’s &lt;i&gt;Pre-Suasion&lt;/i&gt; draws on his extensive experience as the most cited social psychologist of our time and explains the techniques a person should implement to become a master persuader. Altering a listener’s attitudes, beliefs, or experiences isn’t necessary, says Cialdini—all that’s required is for a communicator to redirect the audience’s focus of attention before a relevant action.&lt;br /&gt;&lt;br /&gt;From studies on advertising imagery to treating opiate addiction, from the annual letters of Berkshire Hathaway to the annals of history, Cialdini draws on an array of studies and narratives to outline the specific techniques you can use on online marketing campaigns and even effective wartime propaganda. He illustrates how the artful diversion of attention leads to successful pre-suasion and gets your targeted audience primed and ready to say, “Yes.”</description>
+<authors>
+<author>
+<id>160932</id>
+<name>Robert B. Cialdini</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1293767250p5/160932.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1293767250p2/160932.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/160932.Robert_B_Cialdini]]></link>
+<average_rating>4.15</average_rating>
+<ratings_count>78235</ratings_count>
+<text_reviews_count>3187</text_reviews_count>
+</author>
+</authors>
+  <published>2016</published>
+<work>  <id>49480958</id>
+  <uri>kca://work/amzn1.gr.work.v1.NNTZ0hZDMHxN-Q_1je5yiQ</uri>
+</work></book>
+
+
+  <rating>3</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Thu Oct 06 19:22:18 -0700 2016</date_added>
+  <date_updated>Thu Oct 06 19:22:19 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1777824793]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1777824793]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1734673661</id>
+    <book>
+  <id type="integer">7821831</id>
+  <isbn>1594202761</isbn>
+  <isbn13>9781594202766</isbn13>
+  <text_reviews_count type="integer">284</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.puabK-4YvKU6JIBaV1Lr6g</uri>
+  <title>Ill Fares the Land</title>
+  <title_without_series>Ill Fares the Land</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1269635764m/7821831.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1269635764s/7821831.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/7821831-ill-fares-the-land</link>
+  <num_pages>237</num_pages>
+  <format></format>
+  <edition_information/>
+  <publisher>The Penguin Press HC</publisher>
+  <publication_day>18</publication_day>
+  <publication_year>2010</publication_year>
+  <publication_month>3</publication_month>
+  <average_rating>4.04</average_rating>
+  <ratings_count>2902</ratings_count>
+  <description>Something is profoundly wrong with the way we think about how we should live today.&lt;br /&gt;&lt;br /&gt;In Ill Fares The Land, Tony Judt, one of our leading historians and thinkers, reveals how we have arrived at our present dangerously confused moment. Judt masterfully crystallizes what we’ve all been feeling into a way to think our way into, and thus out of, our great collective dis-ease about the current state of things.&lt;br /&gt;&lt;br /&gt;As the economic collapse of 2008 made clear, the social contract that defined postwar life in Europe and America – the guarantee of a basal level of security, stability and fairness -- is no longer guaranteed; in fact, it’s no longer part of the common discourse. Judt offers the language we need to address our common needs, rejecting the nihilistic individualism of the far right and the debunked socialism of the past. To find a way forward, we must look to our not so distant past and to social democracy in action: to re-enshrining fairness over mere efficiency.&lt;br /&gt;&lt;br /&gt;Distinctly absent from our national dialogue, social democrats believe that the state can play an enhanced role in our lives without threatening our liberties. Instead of placing blind faith in the market—as we have to our detriment for the past thirty years—social democrats entrust their fellow citizens and the state itself.&lt;br /&gt;&lt;br /&gt;Ill Fares the Land challenges us to confront our societal ills and to shoulder responsibility for the world we live in. For hope remains. In reintroducing alternatives to the status quo, Judt reinvigorates our political conversation, providing the tools necessary to imagine a new form of governance, a new way of life.</description>
+<authors>
+<author>
+<id>16708</id>
+<name>Tony Judt</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1344698761p5/16708.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1344698761p2/16708.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/16708.Tony_Judt]]></link>
+<average_rating>4.21</average_rating>
+<ratings_count>15425</ratings_count>
+<text_reviews_count>1487</text_reviews_count>
+</author>
+</authors>
+  <published>2010</published>
+<work>  <id>10861819</id>
+  <uri>kca://work/amzn1.gr.work.v1.FCnwTAq_d9kGEcI2iJTjEA</uri>
+</work></book>
+
+
+  <rating>2</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sun Aug 21 08:28:56 -0700 2016</date_added>
+  <date_updated>Sun Aug 21 08:28:57 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1734673661]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1734673661]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1732468420</id>
+    <book>
+  <id type="integer">345590</id>
+  <isbn>0684846411</isbn>
+  <isbn13>9780684846415</isbn13>
+  <text_reviews_count type="integer">29</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.cahqT6IwnRagWkfGUcf79g</uri>
+  <title>Economics Explained</title>
+  <title_without_series>Economics Explained</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1413166344m/345590.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1413166344s/345590.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/345590.Economics_Explained</link>
+  <num_pages>240</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Touchstone</publisher>
+  <publication_day>5</publication_day>
+  <publication_year>1998</publication_year>
+  <publication_month>5</publication_month>
+  <average_rating>3.67</average_rating>
+  <ratings_count>303</ratings_count>
+  <description>&lt;i&gt;Economics Explained&lt;/i&gt; has an announced purpose to explain that mysterious thing called economics. But there is a new urgency to the book. It is announced in the first sentence of the introduction: "Just in case the reader-to-be hasn't noticed, disturbing things are going on in the American economy these days." This new edition is about these disturbing things: a trend toward inequality of incomes, the appearance of a new "globalized" capitalism, the "specter" of inflation. As before, Robert Heilbroner and Lester Thurow treat these problems in language that seeks to make clear their causes and treatments. In this straightforward, highly accessible reference, Heilbroner and Thurow--two of America's most respected and articulate economists--offer all the economics essential for becoming an effective investor, a savvy business decision maker, or simply an informed member of society.</description>
+<authors>
+<author>
+<id>45396</id>
+<name>Robert L. Heilbroner</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1270842051p5/45396.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1270842051p2/45396.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/45396.Robert_L_Heilbroner]]></link>
+<average_rating>4.05</average_rating>
+<ratings_count>7084</ratings_count>
+<text_reviews_count>517</text_reviews_count>
+</author>
+</authors>
+  <published>1998</published>
+<work>  <id>335897</id>
+  <uri>kca://work/amzn1.gr.work.v1.2ys2M2QhB6IvD5oTJl7uZg</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Thu Aug 18 19:44:56 -0700 2016</date_added>
+  <date_updated>Thu Aug 18 19:44:57 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1732468420]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1732468420]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1727713789</id>
+    <book>
+  <id type="integer">82256</id>
+  <isbn>0684832720</isbn>
+  <isbn13>9780684832722</isbn13>
+  <text_reviews_count type="integer">51</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.Lu-DDuNhCGBUtCGVbOozVg</uri>
+  <title>The Sovereign Individual: Mastering the Transition to the Information Age</title>
+  <title_without_series>The Sovereign Individual: Mastering the Transition to the Information Age</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/82256.The_Sovereign_Individual</link>
+  <num_pages>448</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Touchstone</publisher>
+  <publication_day>26</publication_day>
+  <publication_year>1999</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>4.30</average_rating>
+  <ratings_count>311</ratings_count>
+  <description>Two renowned investment advisors and authors of the bestseller &lt;i&gt;The Great Reckoning&lt;/i&gt; bring to light both currents of disaster and the potential for prosperity and renewal in the face of radical changes in human history as we move into the next century. &lt;i&gt;The Sovereign Individual&lt;/i&gt; details strategies necessary for adapting financially to the next phase of Western civilization. &lt;br /&gt; Few observers of the late twentieth century have their fingers so presciently on the pulse of the global political and economic realignment ushering in the new millennium as do James Dale Davidson and Lord William Rees-Mogg. Their bold prediction of disaster on Wall Street in &lt;i&gt;Blood in the Streets&lt;/i&gt; was borne out by Black Tuesday. In their ensuing bestsellar, &lt;i&gt;The Great Reckoning,&lt;/i&gt; published just weeks before the coup attempt against Gorbachev, they analyzed the pending collapse of the Soviet Union and foretold the civil war in Yugoslavia and other events that have proved to be among the most searing developments of the past few years. &lt;br /&gt; In &lt;i&gt;The Sovereign Individual,&lt;/i&gt; Davidson and Rees-Mogg explore the greatest economic and political transition in centuries -- the shift from an industrial to an information-based society. This transition, which they have termed "the fourth stage of human society," will liberate individuals as never before, irrevocably altering the power of government. This outstanding book will replace false hopes and fictions with new understanding and clarified values.</description>
+<authors>
+<author>
+<id>47004</id>
+<name>James Dale Davidson</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/47004.James_Dale_Davidson]]></link>
+<average_rating>4.09</average_rating>
+<ratings_count>512</ratings_count>
+<text_reviews_count>71</text_reviews_count>
+</author>
+</authors>
+  <published>1999</published>
+<work>  <id>79428</id>
+  <uri>kca://work/amzn1.gr.work.v1.7XTqcigHJqzM-FBa1XjO-g</uri>
+</work></book>
+
+
+  <rating>4</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Sat Aug 13 20:23:42 -0700 2016</date_added>
+  <date_updated>Fri Jul 13 13:08:45 -0700 2018</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1727713789]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1727713789]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1710111237</id>
+    <book>
+  <id type="integer">11562741</id>
+  <isbn>0415428882</isbn>
+  <isbn13>9780415428880</isbn13>
+  <text_reviews_count type="integer">4</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.9B9aS6qbZz5X711FOqcyfQ</uri>
+  <title>Modern Political Economics: Making Sense of the Post-2008 World</title>
+  <title_without_series>Modern Political Economics: Making Sense of the Post-2008 World</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/11562741-modern-political-economics</link>
+  <num_pages>536</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Routledge</publisher>
+  <publication_day>1</publication_day>
+  <publication_year>2011</publication_year>
+  <publication_month>6</publication_month>
+  <average_rating>4.49</average_rating>
+  <ratings_count>43</ratings_count>
+  <description>Once in a while the world astonishes itself. Anxious incredulity replaces intellectual torpor and a puzzled public strains its antennae in every possible direction, desperately seeking explanations for the causes and nature of what just hit it. 2008 was such a moment. Not only did the financial system collapse, and send the real economy into a tailspin, but it also revealed the great gulf separating economics from a very real capitalism. Modern Political Economics has a single aim: To help readers make sense of how 2008 came about and what the post-2008 world has in store. The book is divided into two parts. The first part delves into every major economic theory, from Aristotle to the present, with a determination to discover clues of what went wrong in 2008. The main finding is that all economic theory is inherently flawed. Any system of ideas whose purpose is to describe capitalism in mathematical or engineering terms leads to inevitable logical inconsistency; an inherent error that stands between us and a decent grasp of capitalist reality. The only scientific truth about capitalism is its radical indeterminacy, a condition which makes it impossible to use science's tools (e.g. calculus and statistics) to second-guess it. The second part casts an attentive eye on the post-war era; on the breeding ground of the Crash of 2008. It distinguishes between two major post-war phases: The Global Plan (1947-1971) and the Global Minotaur (1971-2008). This dynamic new book delves into every major economic theory and maps out meticulously the trajectory that global capitalism followed from post-war almost centrally planned stability, to designed disintegration in the 1970s, to an intentional magnification of unsustainable imbalances in the 1980s and, finally, to the most spectacular privatisation of money in the 1990s and beyond. Modern Political Economics is essential reading for Economics students and anyone seeking a better understanding of</description>
+<authors>
+<author>
+<id>405898</id>
+<name>Yanis Varoufakis</name>
+<role></role>
+<image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1439626431p5/405898.jpg]]>
+</image_url>
+<small_image_url nophoto='false'>
+<![CDATA[https://images.gr-assets.com/authors/1439626431p2/405898.jpg]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/405898.Yanis_Varoufakis]]></link>
+<average_rating>4.15</average_rating>
+<ratings_count>6241</ratings_count>
+<text_reviews_count>735</text_reviews_count>
+</author>
+</authors>
+  <published>2011</published>
+<work>  <id>16503203</id>
+  <uri>kca://work/amzn1.gr.work.v1.5H2lW7JJp4sTCIjvqwS-9A</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Tue Jul 26 18:32:46 -0700 2016</date_added>
+  <date_updated>Tue Jul 26 18:32:47 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1710111237]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1710111237]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1702314833</id>
+    <book>
+  <id type="integer">929766</id>
+  <isbn>1566491800</isbn>
+  <isbn13>9781566491808</isbn13>
+  <text_reviews_count type="integer">6</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.PSMy__EyHZP-6w3rPOm7Hw</uri>
+  <title>Frozen Desire: The Meaning of Money</title>
+  <title_without_series>Frozen Desire: The Meaning of Money</title_without_series>
+  <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+  <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/929766.Frozen_Desire</link>
+  <num_pages>320</num_pages>
+  <format>Paperback</format>
+  <edition_information/>
+  <publisher>Welcome Rain Publishers</publisher>
+  <publication_day>24</publication_day>
+  <publication_year>2001</publication_year>
+  <publication_month>10</publication_month>
+  <average_rating>3.70</average_rating>
+  <ratings_count>61</ratings_count>
+  <description>"The best single book I have ever seen on the history, sociology, literature, cultures and philosophy of money. This learned book is my pick of the year for any intelligent and broadly curious reader". -- "Worth Magazine".</description>
+<authors>
+<author>
+<id>14423</id>
+<name>James Buchan</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/14423.James_Buchan]]></link>
+<average_rating>3.56</average_rating>
+<ratings_count>1020</ratings_count>
+<text_reviews_count>164</text_reviews_count>
+</author>
+</authors>
+  <published>2001</published>
+<work>  <id>565550</id>
+  <uri>kca://work/amzn1.gr.work.v1.pBIqw52a5gB6WIP66PGl5A</uri>
+</work></book>
+
+
+  <rating>1</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Jul 18 15:58:45 -0700 2016</date_added>
+  <date_updated>Mon Jul 18 15:58:46 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1702314833]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1702314833]]></link>
+    <owned>0</owned>
+</review>
+
+    <review>
+  <id>1695181505</id>
+    <book>
+  <id type="integer">17942053</id>
+  <isbn>1400848326</isbn>
+  <isbn13>9781400848324</isbn13>
+  <text_reviews_count type="integer">11</text_reviews_count>
+  <uri>kca://book/amzn1.gr.book.v1.FZHGgCGhs7ziFyjeT39_hg</uri>
+  <title>Big Gods: How Religion Transformed Cooperation and Conflict</title>
+  <title_without_series>Big Gods: How Religion Transformed Cooperation and Conflict</title_without_series>
+  <image_url>https://images.gr-assets.com/books/1376877965m/17942053.jpg</image_url>
+  <small_image_url>https://images.gr-assets.com/books/1376877965s/17942053.jpg</small_image_url>
+  <large_image_url/>
+  <link>https://www.goodreads.com/book/show/17942053-big-gods</link>
+  <num_pages>264</num_pages>
+  <format>ebook</format>
+  <edition_information/>
+  <publisher>Princeton University Press</publisher>
+  <publication_day>25</publication_day>
+  <publication_year>2013</publication_year>
+  <publication_month>8</publication_month>
+  <average_rating>3.96</average_rating>
+  <ratings_count>150</ratings_count>
+  <description>How did human societies scale up from tight-knit groups of hunter-gatherers to the large, anonymous, cooperative societies of today--even though anonymity is the enemy of cooperation? How did organized religions with "Big Gods"--the great monotheistic and polytheistic faiths--spread to colonize most minds in the world? In &lt;i&gt;Big Gods&lt;/i&gt;, Ara Norenzayan makes the surprising argument that these fundamental puzzles about the origins of civilization answer each other.&lt;br /&gt;&lt;br /&gt;Sincere faith in watchful Big Gods unleashed unprecedented cooperation within ever-expanding groups, yet at the same time it introduced a new source of potential conflict between competing groups. And in some parts of the world, societies with atheist majorities--some of the most cooperative and prosperous in the world--have climbed religion's ladder, and then kicked it away.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Big Gods&lt;/i&gt; answers fundamental questions about the origins and spread of world religions and helps us understand the rise of cooperative societies without belief in gods.</description>
+<authors>
+<author>
+<id>3089107</id>
+<name>Ara Norenzayan</name>
+<role></role>
+<image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png]]>
+</image_url>
+<small_image_url nophoto='true'>
+<![CDATA[https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png]]>
+</small_image_url>
+<link><![CDATA[https://www.goodreads.com/author/show/3089107.Ara_Norenzayan]]></link>
+<average_rating>3.94</average_rating>
+<ratings_count>162</ratings_count>
+<text_reviews_count>14</text_reviews_count>
+</author>
+</authors>
+  <published>2013</published>
+<work>  <id>25154244</id>
+  <uri>kca://work/amzn1.gr.work.v1.cK6nwRstCCuw-ihh_WfW2g</uri>
+</work></book>
+
+
+  <rating>5</rating>
+  <votes>0</votes>
+  <spoiler_flag>false</spoiler_flag>
+  <spoilers_state>none</spoilers_state>
+  
+
+<shelves>
+    <shelf name="read" exclusive="true" id="48059142" review_shelf_id= ""/>
+
+</shelves>
+
+  <recommended_for></recommended_for>
+  <recommended_by></recommended_by>
+  <started_at></started_at>
+  <read_at></read_at>
+  <date_added>Mon Jul 11 15:22:33 -0700 2016</date_added>
+  <date_updated>Mon Jul 11 15:22:34 -0700 2016</date_updated>
+  <read_count>1</read_count>
+  <body>
+  </body>
+
+  
+
+  <comments_count>0</comments_count>
+    <url><![CDATA[https://www.goodreads.com/review/show/1695181505]]></url>
+  <link><![CDATA[https://www.goodreads.com/review/show/1695181505]]></link>
+    <owned>0</owned>
+</review>
+</reviews>
+
+</GoodreadsResponse>

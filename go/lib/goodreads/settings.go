@@ -2,6 +2,7 @@ package goodreads
 
 type Settings struct {
 	CachePath  string `json:"cache_path,omitempty"`
+	ApiURL     string `json:"api_url,omitempty"`
 	ApiKey     string `json:"api_key,omitempty"`
 	UserId     int    `json:"user_id,omitempty"`
 	PerPage    int    `json:"per_page,omitempty"`
@@ -12,6 +13,7 @@ type Settings struct {
 func DefaultSettings() *Settings {
 	return &Settings{
 		"./cache",
+		"https://www.goodreads.com",
 		"",
 		0,
 		50,
