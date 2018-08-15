@@ -86,7 +86,7 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	tgFuncs := template.FuncMap{
-		"webpackPath": renderer.Webpack().ManifestPath,
+		"webpackUrl":  renderer.Webpack().ManifestUrl,
 		"markdown":    renderer.parseMarkdownPath,
 		"processHTML": renderer.processHTML,
 		"title": func(data interface{}) string {

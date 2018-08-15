@@ -96,9 +96,9 @@ func (setter *Setter) getPostsAtom(ctx router.Context) error {
 		return err
 	}
 
-	logoPath := setter.h.Renderer.Webpack().ManifestPath("images/logo.png")
+	logoUrl := setter.h.Renderer.Webpack().ManifestUrl("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
-	return setter.h.RespondAtom(ctx, "posts", logoPath, htmlEntries)
+	return setter.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
 }
 
 func (setter *Setter) getRobotsTxt(ctx router.Context) error {

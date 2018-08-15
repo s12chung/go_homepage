@@ -81,24 +81,24 @@ func (a *Renderer) Author() *Author {
 	return &Author{Name: a.Settings.AuthorName, Uri: a.Settings.AuthorURI()}
 }
 
-func (a *Renderer) AlternateLink(path string) *Link {
-	return &Link{Rel: "alternate", Type: "text/html", Href: a.Settings.UrlFor(path)}
+func (a *Renderer) AlternateLink(url string) *Link {
+	return &Link{Rel: "alternate", Type: "text/html", Href: a.Settings.FullUrlFor(url)}
 }
 
-func (a *Renderer) NewFeed(feedName string, lastUpdated time.Time, selfPath, iconPath string) *Feed {
+func (a *Renderer) NewFeed(feedName string, lastUpdated time.Time, selfUrl, iconUrl string) *Feed {
 	return &Feed{
 		XMLLang: "en-US",
 		XMLNS:   "http://www.w3.org/2005/Atom",
 
 		Title:   fmt.Sprintf("%v - %v", strings.Title(feedName), a.Settings.Host),
-		Icon:    a.Settings.UrlFor(iconPath),
+		Icon:    a.Settings.FullUrlFor(iconUrl),
 		ID:      strings.Join([]string{a.Settings.Host, "2018", feedName}, ":"),
 		Updated: lastUpdated,
 
 		Author: a.Author(),
 
 		Links: []*Link{
-			{Rel: "self", Type: "application/atom+xml", Href: a.Settings.UrlFor(selfPath)},
+			{Rel: "self", Type: "application/atom+xml", Href: a.Settings.FullUrlFor(selfUrl)},
 			a.AlternateLink(""),
 		},
 	}

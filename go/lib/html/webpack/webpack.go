@@ -119,7 +119,7 @@ func (w *Webpack) getResponsiveImage(originalSrc string) (*ResponsiveImage, erro
 	_, hasResponsive := responsiveExtensions[filepath.Ext(originalSrc)]
 	if !hasResponsive {
 		manifestKey := filepath.Join(postImagesPath, filepath.Base(originalSrc))
-		return &ResponsiveImage{Src: w.ManifestPath(manifestKey)}, nil
+		return &ResponsiveImage{Src: w.ManifestUrl(manifestKey)}, nil
 	}
 
 	u, err := url.Parse(originalSrc)
@@ -188,6 +188,6 @@ func (w *Webpack) readManifest() error {
 	return json.Unmarshal(bytes, &w.manifestMap)
 }
 
-func (w *Webpack) ManifestPath(key string) string {
+func (w *Webpack) ManifestUrl(key string) string {
 	return AssetsPath() + "/" + w.manifestValue(key)
 }

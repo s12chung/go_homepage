@@ -162,12 +162,12 @@ func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
 		return nil, err
 	}
 
-	urls := make([]string, len(filePaths))
+	filenames := make([]string, len(filePaths))
 	for i, filePath := range filePaths {
 		basename := filepath.Base(filePath)
-		urls[i] = strings.TrimSuffix(basename, filepath.Ext(basename))
+		filenames[i] = strings.TrimSuffix(basename, filepath.Ext(basename))
 	}
-	return urls, nil
+	return filenames, nil
 }
 
 func (factory *Factory) postPath(filename string) (string, bool, error) {

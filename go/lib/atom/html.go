@@ -31,13 +31,13 @@ func (htmlEntry *HtmlEntry) ToEntry(a *Renderer) *Entry {
 	}
 }
 
-func Render(settings *Settings, feedName, selfPath, logoPath string, htmlEntries []*HtmlEntry) ([]byte, error) {
+func Render(settings *Settings, feedName, selfUrl, logoUrl string, htmlEntries []*HtmlEntry) ([]byte, error) {
 	atomRenderer := NewRenderer(settings)
-	feed := HtmlEntriesToFeed(atomRenderer, feedName, selfPath, logoPath, htmlEntries)
+	feed := HtmlEntriesToFeed(atomRenderer, feedName, selfUrl, logoUrl, htmlEntries)
 	return feed.Marhshall()
 }
 
-func HtmlEntriesToFeed(atomRenderer *Renderer, feedName, selfPath, logoPath string, htmlEntries []*HtmlEntry) *Feed {
+func HtmlEntriesToFeed(atomRenderer *Renderer, feedName, selfUrl, logoUrl string, htmlEntries []*HtmlEntry) *Feed {
 	entries := make([]*Entry, len(htmlEntries))
 	for i, htmlEntry := range htmlEntries {
 		entries[i] = htmlEntry.ToEntry(atomRenderer)
@@ -47,7 +47,7 @@ func HtmlEntriesToFeed(atomRenderer *Renderer, feedName, selfPath, logoPath stri
 	if len(htmlEntries) >= 1 {
 		lastUpdated = htmlEntries[0].Updated
 	}
-	feed := atomRenderer.NewFeed(feedName, lastUpdated, selfPath, logoPath)
+	feed := atomRenderer.NewFeed(feedName, lastUpdated, selfUrl, logoUrl)
 	feed.Entries = entries
 	return feed
 }

@@ -37,10 +37,10 @@ func (domainSettings *Settings) Url() string {
 	return fmt.Sprintf("http%v://%v", ssl, domainSettings.Host)
 }
 
-func (domainSettings *Settings) UrlFor(path string) string {
-	path = strings.Trim(path, "/")
-	if path == "" {
+func (domainSettings *Settings) FullUrlFor(url string) string {
+	url = strings.Trim(url, "/")
+	if url == "" {
 		return domainSettings.Url()
 	}
-	return strings.Join([]string{domainSettings.Url(), path}, "/")
+	return strings.Join([]string{domainSettings.Url(), url}, "/")
 }
