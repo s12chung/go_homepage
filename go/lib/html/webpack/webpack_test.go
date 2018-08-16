@@ -55,21 +55,21 @@ func TestAssetsPath(t *testing.T) {
 func TestAssetsUrl(t *testing.T) {
 	assetsPath = "asset_test"
 	got := AssetsUrl()
-	test.AssertBasic(t, "Result", got, "/asset_test/")
+	test.AssertLabel(t, "Result", got, "/asset_test/")
 }
 
 func TestWebpack_GeneratedAssetsPath(t *testing.T) {
 	assetsPath = "asset_test"
 	webpack, _ := defaultWebpack()
 	got := webpack.GeneratedAssetsPath()
-	test.AssertBasic(t, "Result", got, path.Join(generatedPath, assetsPath))
+	test.AssertLabel(t, "Result", got, path.Join(generatedPath, assetsPath))
 }
 
 func TestWebpack_GeneratedManifestPath(t *testing.T) {
 	assetsPath = "asset_test"
 	webpack, _ := defaultWebpack()
 	got := webpack.GeneratedManifestPath()
-	test.AssertBasic(t, "Result", got, path.Join(generatedPath, assetsPath, manifestpath))
+	test.AssertLabel(t, "Result", got, path.Join(generatedPath, assetsPath, manifestpath))
 }
 
 func TestWebpack_ManifestUrl(t *testing.T) {
@@ -78,7 +78,7 @@ func TestWebpack_ManifestUrl(t *testing.T) {
 	got := webpack.ManifestUrl("vendor.css")
 
 	test.PrintLogEntries(t, hook)
-	test.AssertBasic(t, "Result", got, path.Join(assetsPath, "vendor-32267303b2484ed8b3aa.css"))
+	test.AssertLabel(t, "Result", got, path.Join(assetsPath, "vendor-32267303b2484ed8b3aa.css"))
 }
 
 func TestWebpack_GetResponsiveImage(t *testing.T) {

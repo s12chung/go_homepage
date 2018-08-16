@@ -26,7 +26,7 @@ func TestCleanFilePath(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := CleanFilePath(tc.input)
-		test.AssertBasic(t, tc.input, got, tc.expected)
+		test.AssertInput(t, tc.input, got, tc.expected)
 	}
 }
 
@@ -42,7 +42,7 @@ func TestToSimpleQuery(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := ToSimpleQuery(tc.input)
-		test.AssertBasic(t, tc.input, got, tc.expected)
+		test.AssertInput(t, tc.input, got, tc.expected)
 	}
 }
 
@@ -59,7 +59,7 @@ func TestSliceList(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := SliceList(tc.input)
-		test.AssertBasic(t, tc.input, got, tc.expected)
+		test.AssertInput(t, tc.input, got, tc.expected)
 	}
 }
 

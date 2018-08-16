@@ -29,7 +29,7 @@ func TestRenderer_AssetsUrl(t *testing.T) {
 	got := renderer.AssetsUrl()
 	exp := "/assets/"
 	if got != exp {
-		test.AssertBasic(t, "Result", got, exp)
+		test.AssertLabel(t, "Result", got, exp)
 	}
 }
 
@@ -37,7 +37,7 @@ func TestRenderer_Webpack(t *testing.T) {
 	renderer, _ := defaultRenderer()
 	got := renderer.Webpack()
 	if got != renderer.w {
-		test.AssertBasic(t, "Result", got, renderer.w)
+		test.AssertLabel(t, "Result", got, renderer.w)
 	}
 }
 
@@ -45,7 +45,7 @@ func TestRenderer_GeneratedAssetsPath(t *testing.T) {
 	renderer, _ := defaultRenderer()
 	got := renderer.GeneratedAssetsPath()
 	if got != renderer.w.GeneratedAssetsPath() {
-		test.AssertBasic(t, "Result", got, renderer.w.GeneratedAssetsPath())
+		test.AssertLabel(t, "Result", got, renderer.w.GeneratedAssetsPath())
 	}
 }
 

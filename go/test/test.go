@@ -2,6 +2,7 @@ package test
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -13,13 +14,23 @@ import (
 
 const FixturePath = "./testdata"
 
-func AssertBasic(t *testing.T, input, got, exp interface{}) {
+func AssertInput(t *testing.T, input, got, exp interface{}) {
 	context := NewContext().SetFields(ContextFields{
 		"input": input,
 	})
 	if got != exp {
 		t.Error(context.GotExpString("Result", got, exp))
 	}
+}
+
+func AssertLabel(t *testing.T, label string, got, exp interface{}) {
+	if got != exp {
+		t.Error(AssertLabelString(label, got, exp))
+	}
+}
+
+func AssertLabelString(label string, got, exp interface{}) string {
+	return fmt.Sprintf("%v - got: %v, exp: %v", label, got, exp)
 }
 
 func RandSeed() {
