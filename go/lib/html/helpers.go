@@ -12,14 +12,16 @@ import (
 func defaultTemplateFuncs() template.FuncMap {
 	scratch := NewScratch()
 
+	// add tests to ./testdata/helpers.tmpl
 	return template.FuncMap{
 		"scratch": func() *Scratch { return scratch },
 
 		"htmlSafe": htmlSafe,
 
-		"sliceMake": sliceMake,
-		"dictMake":  dictMake,
-		"sequence":  sequence,
+		"sliceMake":       sliceMake,
+		"stringSliceMake": stringSliceMake,
+		"dictMake":        dictMake,
+		"sequence":        sequence,
 
 		"dateFormat": dateFormat,
 		"now":        time.Now,
@@ -67,8 +69,9 @@ func (s *Scratch) HasKey(key string) bool {
 	return hasKey
 }
 
-func (s *Scratch) Delete(key string) {
+func (s *Scratch) Delete(key string) string {
 	delete(s.M, key)
+	return ""
 }
 
 func htmlSafe(s string) template.HTML {
@@ -76,6 +79,10 @@ func htmlSafe(s string) template.HTML {
 }
 
 func sliceMake(args ...interface{}) []interface{} {
+	return args
+}
+
+func stringSliceMake(args ...string) []string {
 	return args
 }
 

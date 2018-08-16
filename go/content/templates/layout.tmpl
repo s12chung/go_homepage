@@ -23,7 +23,7 @@
         <a href="/"><img class="logo" src="{{webpackUrl "images/logo.png"}}"/></a>
 
         <nav>
-            {{$navItems := sliceMake "Reading" "About"}}
+            {{$navItems := stringSliceMake "Reading" "About"}}
             {{range $navItems}}
                 <a href="/{{toLower .}}">{{.}}</a>
             {{end}}

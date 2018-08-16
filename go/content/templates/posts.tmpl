@@ -1,5 +1,5 @@
 {{define "content"}}
-	{{markdown "posts.md"}}
+	{{htmlSafe (markdown "posts.md")}}
 
     <section class="posts">
         {{scratch.Set "currentYear" 0}}

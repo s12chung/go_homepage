@@ -59,14 +59,14 @@ func (renderer *Renderer) processHTML(html string) string {
 	})
 }
 
-func (renderer *Renderer) parseMarkdownPath(filename string) template.HTML {
+func (renderer *Renderer) parseMarkdownPath(filename string) string {
 	filePath := path.Join(renderer.settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		renderer.log.Error(err)
 		return ""
 	}
-	return template.HTML(blackfriday.Run(input))
+	return string(blackfriday.Run(input))
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
@@ -85,6 +85,7 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 }
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
+	// add tests to ./testdata/renderer_funcs.tmpl (excluding title)
 	tgFuncs := template.FuncMap{
 		"webpackUrl":  renderer.Webpack().ManifestUrl,
 		"markdown":    renderer.parseMarkdownPath,

@@ -1,0 +1,56 @@
+{{define "content"}}
+<div>
+{{scratch.Set "a" "1"}}
+{{scratch.Get "a"}}
+{{scratch.HasKey "a"}}
+{{scratch.Delete "a"}}
+{{scratch.HasKey "a"}}
+
+{{scratch.Append "slice" "a"}}
+{{scratch.Append "slice" "b"}}
+{{scratch.Append "slice" "c"}}
+{{scratch.Append "slice" "d"}}
+{{scratch.Get "slice"}}
+{{scratch.HasKey "slice"}}
+{{scratch.Delete "slice"}}
+{{scratch.HasKey "slice"}}
+</div>
+
+<div>
+{{.Html}}
+{{htmlSafe .Html}}
+</div>
+
+<div>
+{{$slice := sliceMake 10 9 8}}
+{{$slice}}
+{{index $slice 0}}
+
+{{$stringSlice := stringSliceMake "1" "2" "3"}}
+{{$stringSlice}}
+{{index $stringSlice 0}}
+
+{{$dict := dictMake "a" "1" "b" "2"}}
+{{$dict}}
+{{index $dict "a"}}
+
+{{$seq := sequence 5}}
+{{$seq}}
+</div>
+
+<div>
+{{dateFormat now}}
+</div>
+
+<div>
+{{sliceList (stringSliceMake "Johnny" "Kate")}}
+{{toLower "Steve"}}
+</div>
+
+
+<div>
+{{add 55 37}}
+{{subtract 55 37}}
+{{percent 1 3}}
+</div>
+{{end}}

@@ -1,0 +1,23 @@
+{
+  "srcSet": "content/images/test-afe607afeab81578d972f0ce9a92bdf4-325.png 325w,content/images/test-d31be3db558b4fe54b2c098abdd96306-750.png 750w,content/images/test-e4b7c37523ea30081ad02f6191b299f6-1440.png 1440w",
+  "images": [
+    {
+      "path": "content/images/test-afe607afeab81578d972f0ce9a92bdf4-325.png",
+      "width": 325,
+      "height": 135
+    },
+    {
+      "path": "content/images/test-d31be3db558b4fe54b2c098abdd96306-750.png",
+      "width": 750,
+      "height": 313
+    },
+    {
+      "path": "content/images/test-e4b7c37523ea30081ad02f6191b299f6-1440.png",
+      "width": 1440,
+      "height": 600
+    }
+  ],
+  "src": "content/images/test-afe607afeab81578d972f0ce9a92bdf4-325.png",
+  "width": 325,
+  "height": 135
+}

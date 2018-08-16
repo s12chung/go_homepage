@@ -1,0 +1,9 @@
+{{define "content"}}
+<div>
+{{webpackUrl "vendor.css"}}
+</div>
+{{htmlSafe (markdown "renderer_funcs.md")}}
+<div>
+{{htmlSafe (processHTML (markdown "renderer_funcs.md"))}}
+</div>
+{{end}}
