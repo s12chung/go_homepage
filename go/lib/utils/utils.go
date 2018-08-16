@@ -73,14 +73,13 @@ func GetStringField(data interface{}, name string) string {
 	}
 
 	dataValue := reflect.ValueOf(data)
-	if dataValue.Type().Kind() != reflect.Ptr {
-		dataValue = reflect.New(reflect.TypeOf(data))
+	if dataValue.Kind() == reflect.Ptr {
+		dataValue = dataValue.Elem()
 	}
 
-	field := dataValue.Elem().FieldByName(name)
-	if field.IsValid() {
+	field := dataValue.FieldByName(name)
+	if field.IsValid() && field.Type().Kind() == reflect.String {
 		return field.String()
-	} else {
-		return ""
 	}
+	return ""
 }
