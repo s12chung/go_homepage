@@ -121,100 +121,99 @@ func TestFilePaths(t *testing.T) {
 	}
 }
 
-// testCases are identical, but one with pointers, other isn't
 func TestGetStringField(t *testing.T) {
 	type testCase struct {
 		data     interface{}
+		dataPtr  interface{}
 		name     string
 		expected string
 	}
-
-	testCases1 := []testCase{
-		{nil, "test", ""},
-		{&struct{}{}, "waka", ""},
-		{&struct{ Name string }{"the name"}, "Name", "the name"},
-		{&struct {
-			Name string
-			Zors string
-		}{"the name", "zor"}, "Name", "the name"},
-		{&struct {
-			Name  string
-			Which []int
-		}{"the name", []int{1, 2}}, "Name", "the name"},
-		{&struct {
-			Name  string
-			Which []int
-		}{"the name", []int{1, 2}}, "Which", ""},
-		{&struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "Name", ""},
-		{&struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "NoExist", ""},
-		{&struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "No", ""},
-		{&struct {
-			Name []int
-			Zors string
-		}{[]int{100, 200, 300}, "zor"}, "Zors", "zor"},
+	newTestCase := func(name, expected string, dataF func() (interface{}, interface{})) testCase {
+		data, dataPtr := dataF()
+		return testCase{data, dataPtr, name, expected}
 	}
 
-	testCases2 := []testCase{
-		{nil, "test", ""},
-		{struct{}{}, "waka", ""},
-		{struct{ Name string }{"the name"}, "Name", "the name"},
-		{struct {
-			Name string
-			Zors string
-		}{"the name", "zor"}, "Name", "the name"},
-		{struct {
-			Name  string
-			Which []int
-		}{"the name", []int{1, 2}}, "Name", "the name"},
-		{struct {
-			Name  string
-			Which []int
-		}{"the name", []int{1, 2}}, "Which", ""},
-		{struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "Name", ""},
-		{struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "NoExist", ""},
-		{struct {
-			Name  []int
-			Zors  string
-			Which []int
-		}{[]int{100, 200, 300}, "zor", []int{1, 2}}, "No", ""},
-		{struct {
-			Name []int
-			Zors string
-		}{[]int{100, 200, 300}, "zor"}, "Zors", "zor"},
+	testCases := []testCase{
+		newTestCase("test", "", func() (interface{}, interface{}) {
+			return nil, nil
+		}),
+		newTestCase("Name", "", func() (interface{}, interface{}) {
+			data := struct{}{}
+			return data, &data
+		}),
+		newTestCase("Name", "the name", func() (interface{}, interface{}) {
+			data := struct{ Name string }{"the name"}
+			return data, &data
+		}),
+		newTestCase("Name", "the name", func() (interface{}, interface{}) {
+			data := struct {
+				Name string
+				Zors string
+			}{"the name", "zor"}
+			return data, &data
+		}),
+		newTestCase("Name", "the name", func() (interface{}, interface{}) {
+			data := struct {
+				Name  string
+				Which []int
+			}{"the name", []int{1, 2}}
+			return data, &data
+		}),
+		newTestCase("Which", "", func() (interface{}, interface{}) {
+			data := struct {
+				Name  string
+				Which []int
+			}{"the name", []int{1, 2}}
+			return data, &data
+		}),
+		newTestCase("Name", "", func() (interface{}, interface{}) {
+			data := struct {
+				Name  []int
+				Zors  string
+				Which []int
+			}{[]int{100, 200, 300}, "zor", []int{1, 2}}
+			return data, &data
+		}),
+		newTestCase("Zors", "zor", func() (interface{}, interface{}) {
+			data := struct {
+				Name  []int
+				Zors  string
+				Which []int
+			}{[]int{100, 200, 300}, "zor", []int{1, 2}}
+			return data, &data
+		}),
+		newTestCase("NoExist", "", func() (interface{}, interface{}) {
+			data := struct {
+				Name  []int
+				Zors  string
+				Which []int
+			}{[]int{100, 200, 300}, "zor", []int{1, 2}}
+			return data, &data
+		}),
+		newTestCase("No", "", func() (interface{}, interface{}) {
+			data := struct {
+				Name  []int
+				Zors  string
+				Which []int
+			}{[]int{100, 200, 300}, "zor", []int{1, 2}}
+			return data, &data
+		}),
 	}
 
-	for _, testCases := range [][]testCase{testCases1, testCases2} {
-		for testCaseIndex, tc := range testCases {
-			context := test.NewContext().SetFields(test.ContextFields{
-				"index": testCaseIndex,
-				"data":  tc.data,
-				"name":  tc.name,
-			})
+	for testCaseIndex, tc := range testCases {
+		context := test.NewContext().SetFields(test.ContextFields{
+			"index": testCaseIndex,
+			"data":  tc.data,
+			"name":  tc.name,
+		})
 
-			got := GetStringField(tc.data, tc.name)
-			if got != tc.expected {
-				t.Error(context.GotExpString("Result", got, tc.expected))
-			}
+		got := GetStringField(tc.data, tc.name)
+		if got != tc.expected {
+			t.Error(context.GotExpString("Struct", got, tc.expected))
+		}
+		got = GetStringField(tc.dataPtr, tc.name)
+		if got != tc.expected {
+			t.Error(context.GotExpString("Pointer", got, tc.expected))
 		}
 	}
 }
