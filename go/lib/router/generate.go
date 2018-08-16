@@ -55,40 +55,40 @@ func (ctx *GenerateContext) Respond(bytes []byte) error {
 //
 type GenerateRouter struct {
 	log    logrus.FieldLogger
-	routes map[string]func(ctx Context) error
+	routes map[string]ContextHandler
 
-	arounds []func(ctx Context, handler func(ctx Context) error) error
+	arounds []AroundHandler
 }
 
 func NewGenerateRouter(log logrus.FieldLogger) *GenerateRouter {
 	return &GenerateRouter{
 		log,
-		make(map[string]func(ctx Context) error),
+		make(map[string]ContextHandler),
 		nil,
 	}
 }
 
-func (router *GenerateRouter) Around(handler func(ctx Context, handler func(ctx Context) error) error) {
+func (router *GenerateRouter) Around(handler AroundHandler) {
 	router.arounds = append(router.arounds, handler)
 }
 
-func (router *GenerateRouter) GetWildcardHTML(handler func(ctx Context) error) {
+func (router *GenerateRouter) GetWildcardHTML(handler ContextHandler) {
 	router.checkAndSetRoutes(WildcardUrlPattern, handler)
 }
 
-func (router *GenerateRouter) GetRootHTML(handler func(ctx Context) error) {
+func (router *GenerateRouter) GetRootHTML(handler ContextHandler) {
 	router.checkAndSetRoutes(RootUrlPattern, handler)
 }
 
-func (router *GenerateRouter) GetHTML(pattern string, handler func(ctx Context) error) {
+func (router *GenerateRouter) GetHTML(pattern string, handler ContextHandler) {
 	router.checkAndSetRoutes(pattern, handler)
 }
 
-func (router *GenerateRouter) Get(pattern, mimeType string, handler func(ctx Context) error) {
+func (router *GenerateRouter) Get(pattern, mimeType string, handler ContextHandler) {
 	router.checkAndSetRoutes(pattern, handler)
 }
 
-func (router *GenerateRouter) checkAndSetRoutes(pattern string, handler func(ctx Context) error) {
+func (router *GenerateRouter) checkAndSetRoutes(pattern string, handler ContextHandler) {
 	_, has := router.routes[pattern]
 	if has {
 		panicDuplicateRoute(pattern)

@@ -16,6 +16,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+type WebHandler func(w http.ResponseWriter, r *http.Request) error
+
 //
 // Context
 //
@@ -61,11 +63,11 @@ type WebRouter struct {
 	serveMux *http.ServeMux
 	log      logrus.FieldLogger
 
-	arounds []func(ctx Context, handler func(ctx Context) error) error
+	arounds []AroundHandler
 	routes  map[string]bool
 
-	rootHandler     func(w http.ResponseWriter, r *http.Request)
-	wildcardHandler func(w http.ResponseWriter, r *http.Request)
+	rootHandler     http.HandlerFunc
+	wildcardHandler http.HandlerFunc
 
 	port int
 }
@@ -91,26 +93,26 @@ func NewWebRouter(port int, log logrus.FieldLogger) *WebRouter {
 	return router
 }
 
-func (router *WebRouter) Around(handler func(ctx Context, handler func(ctx Context) error) error) {
+func (router *WebRouter) Around(handler AroundHandler) {
 	router.arounds = append(router.arounds, handler)
 }
 
-func (router *WebRouter) GetWildcardHTML(handler func(ctx Context) error) {
+func (router *WebRouter) GetWildcardHTML(handler ContextHandler) {
 	router.checkAndSetRoutes(WildcardUrlPattern)
 	router.wildcardHandler = router.getRequestHandler(router.htmlHandler(handler))
 }
 
-func (router *WebRouter) GetRootHTML(handler func(ctx Context) error) {
+func (router *WebRouter) GetRootHTML(handler ContextHandler) {
 	router.checkAndSetRoutes(RootUrlPattern)
 	router.rootHandler = router.getRequestHandler(router.htmlHandler(handler))
 }
 
-func (router *WebRouter) GetHTML(pattern string, handler func(ctx Context) error) {
+func (router *WebRouter) GetHTML(pattern string, handler ContextHandler) {
 	router.checkAndSetRoutes(pattern)
 	router.get(pattern, router.htmlHandler(handler))
 }
 
-func (router *WebRouter) Get(pattern, mimeType string, handler func(ctx Context) error) {
+func (router *WebRouter) Get(pattern, mimeType string, handler ContextHandler) {
 	router.checkAndSetRoutes(pattern)
 	router.get(pattern, router.handler(mimeType, handler))
 }
@@ -138,11 +140,11 @@ func (router *WebRouter) Requester() Requester {
 	return newWebRequester(router.port)
 }
 
-func (router *WebRouter) htmlHandler(handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
+func (router *WebRouter) htmlHandler(handler ContextHandler) WebHandler {
 	return router.handler(mime.TypeByExtension(".html"), handler)
 }
 
-func (router *WebRouter) handler(mimeType string, handler func(ctx Context) error) func(w http.ResponseWriter, r *http.Request) error {
+func (router *WebRouter) handler(mimeType string, handler ContextHandler) WebHandler {
 	return func(w http.ResponseWriter, r *http.Request) error {
 		w.Header().Set("Content-Type", mimeType)
 
@@ -161,7 +163,7 @@ func (router *WebRouter) handler(mimeType string, handler func(ctx Context) erro
 	}
 }
 
-func (router *WebRouter) getRequestHandler(handler func(w http.ResponseWriter, r *http.Request) error) func(w http.ResponseWriter, r *http.Request) {
+func (router *WebRouter) getRequestHandler(handler WebHandler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			err := handler(w, r)
@@ -198,7 +200,7 @@ func (router *WebRouter) FileServe(pattern, dirPath string) {
 	})
 }
 
-func (router *WebRouter) get(pattern string, handler func(w http.ResponseWriter, r *http.Request) error) {
+func (router *WebRouter) get(pattern string, handler WebHandler) {
 	if pattern == RootUrlPattern {
 		router.log.Errorf("Can not use pattern that touches root, use GetRootHTML or GetWildcardHTML instead")
 		return

@@ -12,6 +12,9 @@ const RootUrlPattern = "/"
 
 var IsRootUrlPart = func(urlParts []string) bool { return len(urlParts) == 0 }
 
+type ContextHandler func(ctx Context) error
+type AroundHandler func(ctx Context, handler ContextHandler) error
+
 type Context interface {
 	Respond(bytes []byte) error
 
@@ -23,11 +26,11 @@ type Context interface {
 }
 
 type Router interface {
-	Around(handler func(ctx Context, handler func(ctx Context) error) error)
-	GetWildcardHTML(handler func(ctx Context) error)
-	GetRootHTML(handler func(ctx Context) error)
-	GetHTML(pattern string, handler func(ctx Context) error)
-	Get(pattern, mimeType string, handler func(ctx Context) error)
+	Around(handler AroundHandler)
+	GetWildcardHTML(handler ContextHandler)
+	GetRootHTML(handler ContextHandler)
+	GetHTML(pattern string, handler ContextHandler)
+	Get(pattern, mimeType string, handler ContextHandler)
 
 	StaticRoutes() []string
 	Requester() Requester
@@ -54,8 +57,8 @@ func urlParts(url string) ([]string, error) {
 	return parts, nil
 }
 
-func callArounds(arounds []func(ctx Context, handler func(ctx Context) error) error, handler func(ctx Context) error, ctx Context) error {
-	aroundToNext := make([]func(ctx Context) error, len(arounds))
+func callArounds(arounds []AroundHandler, handler ContextHandler, ctx Context) error {
+	aroundToNext := make([]ContextHandler, len(arounds))
 	for index := range arounds {
 		reverseIndex := len(arounds) - 1 - index
 		around := arounds[reverseIndex]
