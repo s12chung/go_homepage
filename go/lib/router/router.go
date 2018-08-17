@@ -36,8 +36,17 @@ type Router interface {
 	Requester() Requester
 }
 
+type Response struct {
+	Body     []byte
+	MimeType string
+}
+
+func NewResponse(body []byte, mimeType string) *Response {
+	return &Response{body, mimeType}
+}
+
 type Requester interface {
-	Get(url string) ([]byte, error)
+	Get(url string) (*Response, error)
 }
 
 func panicDuplicateRoute(route string) {

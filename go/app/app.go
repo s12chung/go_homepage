@@ -119,7 +119,7 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 	})
 
 	return pool.NewTask(log, func() error {
-		bytes, err := requester.Get(url)
+		response, err := requester.Get(url)
 		if err != nil {
 			return err
 		}
@@ -132,7 +132,7 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 		generatedFilePath := path.Join(app.settings.GeneratedPath, filename)
 
 		log.Infof("Writing response into %v", generatedFilePath)
-		return writeFile(generatedFilePath, bytes)
+		return writeFile(generatedFilePath, response.Body)
 	})
 }
 

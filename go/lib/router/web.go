@@ -230,7 +230,7 @@ func newWebRequester(port int) *WebRequester {
 	}
 }
 
-func (requester *WebRequester) Get(url string) ([]byte, error) {
+func (requester *WebRequester) Get(url string) (*Response, error) {
 	response, err := http.Get(fmt.Sprintf("http://%v:%v%v", requester.hostname, requester.port, url))
 	if err != nil {
 		return nil, err
@@ -244,5 +244,5 @@ func (requester *WebRequester) Get(url string) ([]byte, error) {
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
 		return nil, fmt.Errorf(strings.TrimSpace(string(body)))
 	}
-	return body, nil
+	return NewResponse(body, response.Header.Get("Content-Type")), nil
 }

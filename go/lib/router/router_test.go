@@ -10,6 +10,7 @@ import (
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
 	"github.com/s12chung/go_homepage/go/test"
+	"path/filepath"
 )
 
 type RouterSetup interface {
@@ -99,6 +100,76 @@ func (tester *RouterTester) TestRouter_Around(t *testing.T) {
 	}
 }
 
+func (tester *RouterTester) TestRequester_Get(t *testing.T) {
+	router, _, _ := tester.setup.DefaultRouter()
+
+	testCases := []struct {
+		pattern  string
+		mimeType string
+		response string
+	}{
+		{WildcardUrlPattern, "text/html; charset=utf-8", `<div>Being wild</div>`},
+		{RootUrlPattern, "text/html; charset=utf-8", `<p>the root of it all</p>`},
+		{"/page", "text/html; charset=utf-8", `<html>some page</html>`},
+		{"/something.atom", "application/xml", `<?xml version="1.0" encoding="UTF-8"?>`},
+		{"/robots.txt", "text/plain", "User-agent: *\nDisallow: /"},
+	}
+
+	for _, tc := range testCases {
+		response := tc.response
+		handler := func(ctx Context) error {
+			return ctx.Respond([]byte(response))
+		}
+
+		switch tc.pattern {
+		case WildcardUrlPattern:
+			router.GetWildcardHTML(handler)
+		case RootUrlPattern:
+			router.GetRootHTML(handler)
+		default:
+			if filepath.Ext(tc.pattern) == "" {
+				router.GetHTML(tc.pattern, handler)
+			} else {
+				router.Get(tc.pattern, tc.mimeType, handler)
+			}
+		}
+
+	}
+	tester.setup.RunServer(router, func() {
+		requeseter := tester.setup.Requester(router)
+		for testCaseIndex, tc := range testCases {
+			context := test.NewContext().SetFields(test.ContextFields{
+				"index":    testCaseIndex,
+				"pattern":  tc.pattern,
+				"mimeType": tc.mimeType,
+				"response": tc.response,
+			})
+
+			url := tc.pattern
+			if url == WildcardUrlPattern {
+				url = "/does_not_exist"
+			}
+
+			response, err := requeseter.Get(url)
+			if err != nil {
+				t.Errorf(context.String(err))
+			}
+
+			got := string(response.Body)
+			exp := tc.response
+			if got != exp {
+				t.Error(context.GotExpString("Response.Body", got, exp))
+			}
+
+			got = response.MimeType
+			exp = tc.mimeType
+			if got != exp {
+				t.Error(context.GotExpString("Response.MimeType", got, exp))
+			}
+		}
+	})
+}
+
 func (tester *RouterTester) NewGetTester(requestUrl string, testFunc func(router Router, handler ContextHandler)) *GetTester {
 	return &GetTester{
 		tester.setup,
@@ -131,15 +202,14 @@ func (getTester *GetTester) testRouterContext(t *testing.T) {
 			t.Error(test.AssertLabelString("ctx.UrlParts()", ctx.UrlParts(), urlParts))
 		}
 
-		ctx.Respond([]byte(expResponse))
-		return nil
+		return ctx.Respond([]byte(expResponse))
 	})
 	getTester.setup.RunServer(router, func() {
 		response, err := getTester.setup.Requester(router).Get(getTester.requestUrl)
 		if err != nil {
 			t.Error(err)
 		}
-		test.AssertLabel(t, "response", string(response), expResponse)
+		test.AssertLabel(t, "response", string(response.Body), expResponse)
 		test.AssertLabel(t, "called", called, true)
 	})
 }

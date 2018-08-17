@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/sirupsen/logrus"
+	"mime"
 )
 
 func RunFileServer(targetDir string, port int, log logrus.FieldLogger) error {
@@ -53,9 +54,18 @@ func (ctx *GenerateContext) Respond(bytes []byte) error {
 //
 // Router
 //
+type GenerateRoute struct {
+	MimeType string
+	handler  ContextHandler
+}
+
+func NewGenerateRoute(mimeType string, handler ContextHandler) *GenerateRoute {
+	return &GenerateRoute{mimeType, handler}
+}
+
 type GenerateRouter struct {
 	log    logrus.FieldLogger
-	routes map[string]ContextHandler
+	routes map[string]*GenerateRoute
 
 	arounds []AroundHandler
 }
@@ -63,7 +73,7 @@ type GenerateRouter struct {
 func NewGenerateRouter(log logrus.FieldLogger) *GenerateRouter {
 	return &GenerateRouter{
 		log,
-		make(map[string]ContextHandler),
+		make(map[string]*GenerateRoute),
 		nil,
 	}
 }
@@ -73,33 +83,37 @@ func (router *GenerateRouter) Around(handler AroundHandler) {
 }
 
 func (router *GenerateRouter) GetWildcardHTML(handler ContextHandler) {
-	router.checkAndSetRoutes(WildcardUrlPattern, handler)
+	router.checkAndSetHTMLRoutes(WildcardUrlPattern, handler)
 }
 
 func (router *GenerateRouter) GetRootHTML(handler ContextHandler) {
-	router.checkAndSetRoutes(RootUrlPattern, handler)
+	router.checkAndSetHTMLRoutes(RootUrlPattern, handler)
 }
 
 func (router *GenerateRouter) GetHTML(pattern string, handler ContextHandler) {
-	router.checkAndSetRoutes(pattern, handler)
+	router.checkAndSetHTMLRoutes(pattern, handler)
 }
 
 func (router *GenerateRouter) Get(pattern, mimeType string, handler ContextHandler) {
-	router.checkAndSetRoutes(pattern, handler)
+	router.checkAndSetRoutes(pattern, mimeType, handler)
 }
 
-func (router *GenerateRouter) checkAndSetRoutes(pattern string, handler ContextHandler) {
+func (router *GenerateRouter) checkAndSetHTMLRoutes(pattern string, handler ContextHandler) {
+	router.checkAndSetRoutes(pattern, mime.TypeByExtension(".html"), handler)
+}
+
+func (router *GenerateRouter) checkAndSetRoutes(pattern, mimeType string, handler ContextHandler) {
 	_, has := router.routes[pattern]
 	if has {
 		panicDuplicateRoute(pattern)
 	}
-	router.routes[pattern] = handler
+	router.routes[pattern] = NewGenerateRoute(mimeType, handler)
 }
 
-func (router *GenerateRouter) get(url string) ([]byte, error) {
-	handler := router.routes[url]
-	if handler == nil {
-		handler = router.routes[WildcardUrlPattern]
+func (router *GenerateRouter) get(url string) (*Response, error) {
+	route := router.routes[url]
+	if route == nil {
+		route = router.routes[WildcardUrlPattern]
 	}
 
 	ctx := NewGenerateContext(router.log)
@@ -110,11 +124,11 @@ func (router *GenerateRouter) get(url string) ([]byte, error) {
 	}
 	ctx.urlParts = parts
 
-	err = callArounds(router.arounds, handler, ctx)
+	err = callArounds(router.arounds, route.handler, ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ctx.response, nil
+	return NewResponse(ctx.response, route.MimeType), nil
 }
 
 func (router *GenerateRouter) StaticRoutes() []string {
@@ -140,6 +154,6 @@ type GenerateRequester struct {
 	router *GenerateRouter
 }
 
-func (requester *GenerateRequester) Get(url string) ([]byte, error) {
+func (requester *GenerateRequester) Get(url string) (*Response, error) {
 	return requester.router.get(url)
 }
