@@ -58,6 +58,10 @@ func urlParts(url string) ([]string, error) {
 }
 
 func callArounds(arounds []AroundHandler, handler ContextHandler, ctx Context) error {
+	if len(arounds) == 0 {
+		return handler(ctx)
+	}
+
 	aroundToNext := make([]ContextHandler, len(arounds))
 	for index := range arounds {
 		reverseIndex := len(arounds) - 1 - index

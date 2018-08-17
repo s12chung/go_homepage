@@ -15,7 +15,7 @@ import (
 func (setter *Setter) setAllRoutes(r router.Router, tracker *router.Tracker) {
 	r.GetRootHTML(setter.getPosts)
 	tracker.AddDependentUrl(router.RootUrlPattern)
-	r.Get("/posts.atom", " application/xml", setter.getPostsAtom)
+	r.Get("/posts.atom", "application/xml", setter.getPostsAtom)
 	tracker.AddDependentUrl("/posts.atom")
 
 	r.GetWildcardHTML(setter.getPost)
