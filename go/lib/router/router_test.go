@@ -100,44 +100,76 @@ func (tester *RouterTester) TestRouter_Around(t *testing.T) {
 	}
 }
 
-func (tester *RouterTester) TestRequester_Get(t *testing.T) {
-	router, _, _ := tester.setup.DefaultRouter()
+var AllGetTypesWithResponse = []struct {
+	pattern  string
+	mimeType string
+	response string
+}{
+	{WildcardUrlPattern, "text/html; charset=utf-8", `<div>Being wild</div>`},
+	{RootUrlPattern, "text/html; charset=utf-8", `<p>the root of it all</p>`},
+	{"/page", "text/html; charset=utf-8", `<html>some page</html>`},
+	{"/something.atom", "application/xml", `<?xml version="1.0" encoding="UTF-8"?>`},
+	{"/robots.txt", "text/plain", "User-agent: *\nDisallow: /"},
+}
 
-	testCases := []struct {
-		pattern  string
-		mimeType string
-		response string
-	}{
-		{WildcardUrlPattern, "text/html; charset=utf-8", `<div>Being wild</div>`},
-		{RootUrlPattern, "text/html; charset=utf-8", `<p>the root of it all</p>`},
-		{"/page", "text/html; charset=utf-8", `<html>some page</html>`},
-		{"/something.atom", "application/xml", `<?xml version="1.0" encoding="UTF-8"?>`},
-		{"/robots.txt", "text/plain", "User-agent: *\nDisallow: /"},
-	}
-
-	for _, tc := range testCases {
-		response := tc.response
+func SetupAllGetTypesWithResponse(router Router) {
+	for _, allGetTypeWithResponse := range AllGetTypesWithResponse {
+		response := allGetTypeWithResponse.response
 		handler := func(ctx Context) error {
 			return ctx.Respond([]byte(response))
 		}
 
-		switch tc.pattern {
+		switch allGetTypeWithResponse.pattern {
 		case WildcardUrlPattern:
 			router.GetWildcardHTML(handler)
 		case RootUrlPattern:
 			router.GetRootHTML(handler)
 		default:
-			if filepath.Ext(tc.pattern) == "" {
-				router.GetHTML(tc.pattern, handler)
+			if filepath.Ext(allGetTypeWithResponse.pattern) == "" {
+				router.GetHTML(allGetTypeWithResponse.pattern, handler)
 			} else {
-				router.Get(tc.pattern, tc.mimeType, handler)
+				router.Get(allGetTypeWithResponse.pattern, allGetTypeWithResponse.mimeType, handler)
 			}
 		}
 
 	}
+}
+
+type AllGetType struct {
+	htmlRoutes  []string
+	otherRoutes []string
+	mimeTypes   []string
+}
+
+var AllGetTypesVaried = []AllGetType{
+	{[]string{}, []string{}, []string{}},
+	{[]string{"/some"}, []string{"/something.atom"}, []string{"application/xml"}},
+	{[]string{"/some", "/ha", "/works"}, []string{"/something.atom", "/robots.txt"}, []string{"application/xml", "text/plain"}},
+}
+
+func SetupAllGetTypeVaried(router Router, allGetType AllGetType) {
+	handler := func(ctx Context) error {
+		return nil
+	}
+
+	router.GetWildcardHTML(handler)
+	router.GetRootHTML(handler)
+
+	for _, htmlRoute := range allGetType.htmlRoutes {
+		router.GetHTML(htmlRoute, handler)
+	}
+	for i, route := range allGetType.otherRoutes {
+		router.Get(route, allGetType.mimeTypes[i], handler)
+	}
+}
+
+func (tester *RouterTester) TestRequester_Get(t *testing.T) {
+	router, _, _ := tester.setup.DefaultRouter()
+	SetupAllGetTypesWithResponse(router)
+
 	tester.setup.RunServer(router, func() {
 		requeseter := tester.setup.Requester(router)
-		for testCaseIndex, tc := range testCases {
+		for testCaseIndex, tc := range AllGetTypesWithResponse {
 			context := test.NewContext().SetFields(test.ContextFields{
 				"index":    testCaseIndex,
 				"pattern":  tc.pattern,
@@ -269,40 +301,18 @@ func (tester *RouterTester) TestRouter_Get(t *testing.T) {
 }
 
 func (tester *RouterTester) TestRouter_StaticRoutes(t *testing.T) {
-	handler := func(ctx Context) error {
-		return nil
-	}
-
-	testCases := []struct {
-		htmlRoutes  []string
-		otherRoutes []string
-		mimeTypes   []string
-	}{
-		{[]string{}, []string{}, []string{}},
-		{[]string{"/some"}, []string{"/something.atom"}, []string{"application/xml"}},
-		{[]string{"/some", "/ha", "/works"}, []string{"/something.atom", "/robots.txt"}, []string{"application/xml", "text/plain"}},
-	}
-
-	for testCaseIndex, tc := range testCases {
+	for testCaseIndex, allGetType := range AllGetTypesVaried {
 		context := test.NewContext().SetFields(test.ContextFields{
 			"index":       testCaseIndex,
-			"htmlRoutes":  tc.htmlRoutes,
-			"otherRoutes": tc.otherRoutes,
+			"htmlRoutes":  allGetType.htmlRoutes,
+			"otherRoutes": allGetType.otherRoutes,
 		})
 
 		router, _, _ := tester.setup.DefaultRouter()
-		router.GetWildcardHTML(handler)
-		router.GetRootHTML(handler)
-
-		for _, htmlRoute := range tc.htmlRoutes {
-			router.GetHTML(htmlRoute, handler)
-		}
-		for i, route := range tc.otherRoutes {
-			router.Get(route, tc.mimeTypes[i], handler)
-		}
+		SetupAllGetTypeVaried(router, allGetType)
 
 		got := router.StaticRoutes()
-		exp := append(tc.htmlRoutes, tc.otherRoutes...)
+		exp := append(allGetType.htmlRoutes, allGetType.otherRoutes...)
 		exp = append(exp, RootUrlPattern)
 
 		sort.Strings(got)
