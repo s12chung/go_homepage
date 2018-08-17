@@ -3,6 +3,7 @@ package app
 import (
 	"fmt"
 	"io/ioutil"
+	"mime"
 	"os"
 	"path"
 	"time"
@@ -19,6 +20,12 @@ type App struct {
 	log         logrus.FieldLogger
 }
 
+var ExtraMimeTypes = map[string]string{
+	".atom": "application/xml",
+	".ico":  "image/x-icon",
+	".txt":  "text/plain; charset=utf-8",
+}
+
 func NewApp(routeSetter router.Setter, settings *Settings, log logrus.FieldLogger) *App {
 	return &App{
 		routeSetter,
@@ -29,6 +36,9 @@ func NewApp(routeSetter router.Setter, settings *Settings, log logrus.FieldLogge
 
 func (app *App) Host() error {
 	r := router.NewWebRouter(app.settings.ServerPort, app.log)
+	for ext, mimeType := range ExtraMimeTypes {
+		mime.AddExtensionType(ext, mimeType)
+	}
 	r.FileServe(app.routeSetter.AssetsUrl(), app.routeSetter.GeneratedAssetsPath())
 	app.setRoutes(r)
 

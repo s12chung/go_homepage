@@ -108,6 +108,7 @@ var AllGetTypesWithResponse = []struct {
 	{WildcardUrlPattern, "text/html; charset=utf-8", `<div>Being wild</div>`},
 	{RootUrlPattern, "text/html; charset=utf-8", `<p>the root of it all</p>`},
 	{"/page", "text/html; charset=utf-8", `<html>some page</html>`},
+	{"/another_page", "text/html; charset=utf-8", `<html>another_page</html>`},
 	{"/something.atom", "application/xml", `<?xml version="1.0" encoding="UTF-8"?>`},
 	{"/robots.txt", "text/plain", "User-agent: *\nDisallow: /"},
 }
@@ -169,15 +170,15 @@ func (tester *RouterTester) TestRequester_Get(t *testing.T) {
 
 	tester.setup.RunServer(router, func() {
 		requeseter := tester.setup.Requester(router)
-		for testCaseIndex, tc := range AllGetTypesWithResponse {
+		for getIndex, allGetTypeWithResponse := range AllGetTypesWithResponse {
 			context := test.NewContext().SetFields(test.ContextFields{
-				"index":    testCaseIndex,
-				"pattern":  tc.pattern,
-				"mimeType": tc.mimeType,
-				"response": tc.response,
+				"index":    getIndex,
+				"pattern":  allGetTypeWithResponse.pattern,
+				"mimeType": allGetTypeWithResponse.mimeType,
+				"response": allGetTypeWithResponse.response,
 			})
 
-			url := tc.pattern
+			url := allGetTypeWithResponse.pattern
 			if url == WildcardUrlPattern {
 				url = "/does_not_exist"
 			}
@@ -188,13 +189,13 @@ func (tester *RouterTester) TestRequester_Get(t *testing.T) {
 			}
 
 			got := string(response.Body)
-			exp := tc.response
+			exp := allGetTypeWithResponse.response
 			if got != exp {
 				t.Error(context.GotExpString("Response.Body", got, exp))
 			}
 
 			got = response.MimeType
-			exp = tc.mimeType
+			exp = allGetTypeWithResponse.mimeType
 			if got != exp {
 				t.Error(context.GotExpString("Response.MimeType", got, exp))
 			}
