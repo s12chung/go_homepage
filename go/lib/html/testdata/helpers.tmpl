@@ -39,7 +39,9 @@
 </div>
 
 <div>
-{{dateFormat now}}
+{{/* now changes all the time, so just run it and assume it works */}}
+{{$now := now}}
+{{dateFormat .Date}}
 </div>
 
 <div>

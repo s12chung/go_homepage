@@ -62,7 +62,7 @@ func TestRenderer_Render(t *testing.T) {
 		{"title", "The Default", struct{ Title string }{"The Given"}},
 		{"title", "", struct{ Title string }{"The Given"}},
 		{"renderer_funcs", "", nil},
-		{"helpers", "", map[string]string{"Html": `<span>html_data</span>`}},
+		{"helpers", "", map[string]interface{}{"Html": `<span>html_data</span>`, "Date": test.Time(1)}},
 	}
 
 	for testCaseIndex, tc := range testCases {
