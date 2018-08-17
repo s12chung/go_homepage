@@ -12,7 +12,7 @@ install:
 
 build: build-assets build-go
 
-dev: clean build watch watch-install
+dev: clean build watch
 	make -j file-server watch-logs
 
 # See https://github.com/webpack/webpack/issues/2537#issuecomment-280447557
@@ -72,7 +72,7 @@ clean:
 clean-all: clean
 	rm -rf cache
 
-server: clean build-assets
+server: build-assets
 	go install
 	$(GOPATH)/bin/go_homepage -server
 
@@ -88,12 +88,10 @@ build-assets:
 
 watch:
 	watchman watch-project .
+	watchman -j < watchman/build-go.json
+	watchman -j < watchman/build-assets.json
 
 watch-logs:
 	mkdir -p logs
 	touch logs/watchman-build.log
 	tail -f logs/watchman-build.log
-
-watch-install:
-	watchman -j < watchman/build-go.json
-	watchman -j < watchman/build-assets.json
