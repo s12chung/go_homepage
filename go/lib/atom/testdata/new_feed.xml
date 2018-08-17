@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>yourwebsite.com:2018:posts</id>
+  <title>Posts - yourwebsite.com</title>
+  <updated>2018-01-01T01:01:01.000000001Z</updated>
+  <icon>https://yourwebsite.com/something.png</icon>
+  <author>
+    <name>Your Name</name>
+    <uri>https://yourwebsite.com</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://yourwebsite.com/the_posts"></link>
+  <link rel="alternate" type="text/html" href="https://yourwebsite.com"></link>
+</feed>

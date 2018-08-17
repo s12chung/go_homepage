@@ -38,7 +38,6 @@ func TestRender(t *testing.T) {
 			t.Error(context.String(err))
 		}
 
-		exp := string(test.ReadFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex)))
 		got := string(bytes)
 		if len(tc.htmlEntries) == 0 {
 			regex := regexp.MustCompile(`<updated>[^<].*</updated>`)
@@ -49,6 +48,8 @@ func TestRender(t *testing.T) {
 			test.WriteFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex), []byte(got))
 			continue
 		}
+
+		exp := string(test.ReadFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex)))
 		if got != exp {
 			t.Error(context.DiffString("Render", got, exp, cmp.Diff(got, exp)))
 		}
