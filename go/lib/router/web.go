@@ -81,7 +81,7 @@ func NewWebRouter(port int, log logrus.FieldLogger) *WebRouter {
 	}
 
 	router := &WebRouter{
-		http.DefaultServeMux,
+		http.NewServeMux(),
 		log,
 		nil,
 		make(map[string]bool),
@@ -211,15 +211,16 @@ func (router *WebRouter) get(pattern string, handler WebHandler) {
 
 func (router *WebRouter) Run() error {
 	router.log.Infof("Running server at http://localhost:%v/", router.port)
-	return http.ListenAndServe(":"+strconv.Itoa(router.port), router.serveMux)
+	server := &http.Server{Addr: ":" + strconv.Itoa(router.port), Handler: router.serveMux}
+	return server.ListenAndServe()
 }
 
 //
 // Requester
 //
 type WebRequester struct {
-	host string
-	port int
+	hostname string
+	port     int
 }
 
 func newWebRequester(port int) *WebRequester {
@@ -230,12 +231,18 @@ func newWebRequester(port int) *WebRequester {
 }
 
 func (requester *WebRequester) Get(url string) ([]byte, error) {
-	response, err := http.Get(fmt.Sprintf("http://%v:%v%v", requester.host, requester.port, url))
+	response, err := http.Get(fmt.Sprintf("http://%v:%v%v", requester.hostname, requester.port, url))
 	if err != nil {
 		return nil, err
 	}
 
 	defer response.Body.Close()
-	return ioutil.ReadAll(response.Body)
-
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode < 200 || response.StatusCode >= 300 {
+		return nil, fmt.Errorf(strings.TrimSpace(string(body)))
+	}
+	return body, nil
 }

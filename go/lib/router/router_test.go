@@ -12,8 +12,18 @@ import (
 	"github.com/s12chung/go_homepage/go/test"
 )
 
+type RouterSetup interface {
+	DefaultRouter() (Router, logrus.FieldLogger, *logTest.Hook)
+	RunServer(router Router, callback func())
+	Requester(router Router) Requester
+}
+
 type RouterTester struct {
-	defaultRouter func() (Router, logrus.FieldLogger, *logTest.Hook)
+	setup RouterSetup
+}
+
+func NewRouterTester(setup RouterSetup) *RouterTester {
+	return &RouterTester{setup}
 }
 
 func (tester *RouterTester) TestRouter_Around(t *testing.T) {
@@ -65,7 +75,7 @@ func (tester *RouterTester) TestRouter_Around(t *testing.T) {
 			"handlersLen": len(tc.handlers),
 		})
 
-		router, _, _ := tester.defaultRouter()
+		router, _, _ := tester.setup.DefaultRouter()
 		router.GetRootHTML(func(ctx Context) error {
 			testPreviousContext(ctx)
 
@@ -77,27 +87,28 @@ func (tester *RouterTester) TestRouter_Around(t *testing.T) {
 			router.Around(handler)
 		}
 
-		_, err := router.Requester().Get(RootUrlPattern)
-		if err != nil {
-			t.Error(context.String(err))
-		}
-		if !cmp.Equal(got, tc.expected) {
-			t.Error(context.GotExpString("state", got, tc.expected))
-		}
+		tester.setup.RunServer(router, func() {
+			_, err := tester.setup.Requester(router).Get(RootUrlPattern)
+			if err != nil {
+				t.Error(context.String(err))
+			}
+			if !cmp.Equal(got, tc.expected) {
+				t.Error(context.GotExpString("state", got, tc.expected))
+			}
+		})
 	}
 }
 
 func (tester *RouterTester) NewGetTester(requestUrl string, testFunc func(router Router, handler ContextHandler)) *GetTester {
 	return &GetTester{
-		tester.defaultRouter,
+		tester.setup,
 		requestUrl,
 		testFunc,
 	}
 }
 
 type GetTester struct {
-	defaultRouter func() (Router, logrus.FieldLogger, *logTest.Hook)
-
+	setup      RouterSetup
 	requestUrl string
 	testFunc   func(router Router, handler ContextHandler)
 }
@@ -110,7 +121,7 @@ func (getTester *GetTester) TestGet(t *testing.T) {
 func (getTester *GetTester) testRouterContext(t *testing.T) {
 	called := false
 	expResponse := "The Response"
-	router, log, _ := getTester.defaultRouter()
+	router, log, _ := getTester.setup.DefaultRouter()
 	getTester.testFunc(router, func(ctx Context) error {
 		called = true
 		test.AssertLabel(t, "ctx.Log()", ctx.Log(), log)
@@ -123,30 +134,34 @@ func (getTester *GetTester) testRouterContext(t *testing.T) {
 		ctx.Respond([]byte(expResponse))
 		return nil
 	})
-	response, err := router.Requester().Get(getTester.requestUrl)
-	if err != nil {
-		t.Error(err)
-	}
-	test.AssertLabel(t, "response", string(response), expResponse)
-	test.AssertLabel(t, "called", called, true)
+	getTester.setup.RunServer(router, func() {
+		response, err := getTester.setup.Requester(router).Get(getTester.requestUrl)
+		if err != nil {
+			t.Error(err)
+		}
+		test.AssertLabel(t, "response", string(response), expResponse)
+		test.AssertLabel(t, "called", called, true)
+	})
 }
 
 func (getTester *GetTester) testRouterErrors(t *testing.T) {
 	called := false
 	expError := "test error"
-	router, _, _ := getTester.defaultRouter()
+	router, _, _ := getTester.setup.DefaultRouter()
 	getTester.testFunc(router, func(ctx Context) error {
 		called = true
 		return fmt.Errorf(expError)
 	})
-	_, err := router.Requester().Get(getTester.requestUrl)
-	test.AssertLabel(t, "Handler error", err.Error(), expError)
 
-	_, err = router.Requester().Get("/multipart/url")
-	if err == nil {
-		t.Error("Multipart Urls are not giving errors")
-	}
+	getTester.setup.RunServer(router, func() {
+		_, err := getTester.setup.Requester(router).Get(getTester.requestUrl)
+		test.AssertLabel(t, "Handler error", err.Error(), expError)
 
+		_, err = getTester.setup.Requester(router).Get("/multipart/url")
+		if err == nil {
+			t.Error("Multipart Urls are not giving errors")
+		}
+	})
 	func() {
 		defer func() {
 			if r := recover(); r == nil {
@@ -205,7 +220,7 @@ func (tester *RouterTester) TestRouter_StaticRoutes(t *testing.T) {
 			"otherRoutes": tc.otherRoutes,
 		})
 
-		router, _, _ := tester.defaultRouter()
+		router, _, _ := tester.setup.DefaultRouter()
 		router.GetWildcardHTML(handler)
 		router.GetRootHTML(handler)
 

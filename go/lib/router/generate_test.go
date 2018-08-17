@@ -8,15 +8,27 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+type GenerateRouterSetup struct{}
+
+func (setup *GenerateRouterSetup) DefaultRouter() (Router, logrus.FieldLogger, *logTest.Hook) {
+	return defaultGenerateRouter()
+}
+
+func (setup *GenerateRouterSetup) RunServer(router Router, callback func()) {
+	callback()
+}
+
+func (setup *GenerateRouterSetup) Requester(router Router) Requester {
+	return router.Requester()
+}
+
 func defaultGenerateRouter() (*GenerateRouter, logrus.FieldLogger, *logTest.Hook) {
 	log, hook := logTest.NewNullLogger()
 	return NewGenerateRouter(log), log, hook
 }
 
 func generateRouterTester() *RouterTester {
-	return &RouterTester{func() (Router, logrus.FieldLogger, *logTest.Hook) {
-		return defaultGenerateRouter()
-	}}
+	return NewRouterTester(&GenerateRouterSetup{})
 }
 
 func TestGenerateRouter_Around(t *testing.T) {
