@@ -9,6 +9,7 @@ import (
 type ContextFields map[string]interface{}
 
 type Context struct {
+	fields       ContextFields
 	fieldsString string
 }
 
@@ -17,15 +18,27 @@ func NewContext() *Context {
 }
 
 func (context *Context) SetFields(fields ContextFields) *Context {
-	fieldStrings := make([]string, len(fields))
+	context.fields = fields
+	context.fieldsString = ""
+	return context
+}
+
+func (context *Context) makeFieldsString() string {
+	fieldStrings := make([]string, len(context.fields))
 	i := 0
-	for k, v := range fields {
+	for k, v := range context.fields {
 		fieldStrings[i] = fmt.Sprintf("%v=%v", k, v)
 		i += 1
 	}
 	sort.Strings(fieldStrings)
-	context.fieldsString = strings.Join(fieldStrings, " ")
-	return context
+	return strings.Join(fieldStrings, " ")
+}
+
+func (context *Context) FieldsString() string {
+	if context.fieldsString == "" {
+		context.fieldsString = context.makeFieldsString()
+	}
+	return context.fieldsString
 }
 
 func (context *Context) String(i interface{}) string {
@@ -33,7 +46,7 @@ func (context *Context) String(i interface{}) string {
 }
 
 func (context *Context) Stringf(format string, args ...interface{}) string {
-	return strings.Join([]string{context.fieldsString, fmt.Sprintf(format, args...)}, " - ")
+	return strings.Join([]string{context.FieldsString(), fmt.Sprintf(format, args...)}, " - ")
 }
 
 func (context *Context) GotExpString(label string, got, exp interface{}) string {
