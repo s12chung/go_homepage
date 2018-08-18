@@ -9,6 +9,14 @@ import (
 	"strings"
 )
 
+func MkdirAll(path string) error {
+	return os.MkdirAll(path, 0755)
+}
+
+func WriteFile(path string, bytes []byte) error {
+	return ioutil.WriteFile(path, bytes, 0644)
+}
+
 func CleanFilePath(filePath string) string {
 	filePath = strings.TrimLeft(filePath, ".")
 	return strings.Trim(filePath, "/")

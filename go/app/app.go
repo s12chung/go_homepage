@@ -2,9 +2,7 @@ package app
 
 import (
 	"fmt"
-	"io/ioutil"
 	"mime"
-	"os"
 	"path"
 	"time"
 
@@ -12,6 +10,7 @@ import (
 
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
+	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
 var ExtraMimeTypes = map[string]string{
@@ -46,7 +45,7 @@ func (app *App) Host() error {
 }
 
 func (app *App) Generate() error {
-	err := app.setup()
+	err := utils.MkdirAll(app.settings.GeneratedPath)
 	if err != nil {
 		return err
 	}
@@ -58,10 +57,6 @@ func (app *App) Generate() error {
 		return err
 	}
 	return nil
-}
-
-func (app *App) setup() error {
-	return os.MkdirAll(app.settings.GeneratedPath, 0755)
 }
 
 func (app *App) setRoutes(r router.Router) *router.Tracker {
@@ -147,12 +142,8 @@ func (app *App) getUrlTask(requester router.Requester, url string) *pool.Task {
 		generatedFilePath := path.Join(app.settings.GeneratedPath, filename)
 
 		log.Infof("Writing response into %v", generatedFilePath)
-		return writeFile(generatedFilePath, response.Body)
+		return utils.WriteFile(generatedFilePath, response.Body)
 	})
-}
-
-func writeFile(path string, bytes []byte) error {
-	return ioutil.WriteFile(path, bytes, 0644)
 }
 
 func (app *App) runTasks(tasks []*pool.Task) {

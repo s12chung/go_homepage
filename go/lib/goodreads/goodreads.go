@@ -46,7 +46,7 @@ func (client *Client) GetBooks() ([]*Book, error) {
 		client.log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
 		return nil, nil
 	}
-	err := client.setup()
+	err := utils.MkdirAll(client.Settings.CachePath)
 	if err != nil {
 		return nil, err
 	}
@@ -70,10 +70,6 @@ func toBooks(bookMap map[string]*Book) []*Book {
 
 func (client *Client) invalidSettings() bool {
 	return client.Settings.ApiKey == "" && client.Settings.UserId == 0
-}
-
-func (client *Client) setup() error {
-	return os.MkdirAll(client.Settings.CachePath, 0755)
 }
 
 func (client *Client) getBooks(userId int) (map[string]*Book, error) {
