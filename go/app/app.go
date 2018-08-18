@@ -14,16 +14,16 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
-type App struct {
-	routeSetter router.Setter
-	settings    *Settings
-	log         logrus.FieldLogger
-}
-
 var ExtraMimeTypes = map[string]string{
 	".atom": "application/xml",
 	".ico":  "image/x-icon",
 	".txt":  "text/plain; charset=utf-8",
+}
+
+type App struct {
+	routeSetter router.Setter
+	settings    *Settings
+	log         logrus.FieldLogger
 }
 
 func NewApp(routeSetter router.Setter, settings *Settings, log logrus.FieldLogger) *App {
@@ -53,7 +53,7 @@ func (app *App) Generate() error {
 
 	r := router.NewGenerateRouter(app.log)
 	routeTracker := app.setRoutes(r)
-	err = app.requestRoutes(routeTracker)
+	err = app.requestRoutes(r.Requester(), routeTracker)
 	if err != nil {
 		return err
 	}
@@ -90,14 +90,19 @@ func (app *App) setRoutes(r router.Router) *router.Tracker {
 		return err
 	})
 
-	routeTracker := router.NewTracker(r, app.routeSetter.WildcardRoutes)
+	routeTracker := router.NewTracker(func() ([]string, error) {
+		staticRoutes := r.StaticRoutes()
+		wildcardRoutes, err := app.routeSetter.WildcardRoutes()
+		if err != nil {
+			return nil, err
+		}
+		return append(staticRoutes, wildcardRoutes...), nil
+	})
 	app.routeSetter.SetRoutes(r, routeTracker)
 	return routeTracker
 }
 
-func (app *App) requestRoutes(tracker *router.Tracker) error {
-	requester := tracker.Router.Requester()
-
+func (app *App) requestRoutes(requester router.Requester, tracker *router.Tracker) error {
 	var urlBatches [][]string
 
 	independentUrls, err := tracker.IndependentUrls()
