@@ -15,7 +15,7 @@ func defaultTracker(allUrls func() ([]string, error)) *Tracker {
 func TestTracker_Urls(t *testing.T) {
 	testCases := []struct {
 		allUrls         []string
-		allUrlsError    bool
+		error           bool
 		dependentUrls   []string
 		independentUrls []string
 	}{
@@ -26,18 +26,21 @@ func TestTracker_Urls(t *testing.T) {
 		{[]string{"a", "b", "c", "d"}, false, []string{"a", "b"}, []string{"c", "d"}},
 		{[]string{"a", "b", "c", "d"}, false, []string{}, []string{"a", "b", "c", "d"}},
 		{[]string{"a", "b"}, false, []string{}, []string{"a", "b"}},
+		{[]string{"a", "b"}, true, []string{"c"}, []string{}},
+		{[]string{"a", "b"}, true, []string{"b", "c"}, []string{}},
+		{[]string{"a", "b"}, true, []string{"a", "b", "c"}, []string{}},
 	}
 
 	for testCaseIndex, tc := range testCases {
 		context := test.NewContext().SetFields(test.ContextFields{
 			"index":         testCaseIndex,
 			"allUrls":       tc.allUrls,
-			"allUrlsError":  tc.allUrlsError,
+			"error":         tc.error,
 			"dependentUrls": tc.dependentUrls,
 		})
 
 		tracker := defaultTracker(func() ([]string, error) {
-			if tc.allUrlsError {
+			if tc.error {
 				return nil, fmt.Errorf("error")
 			}
 			return tc.allUrls, nil
@@ -56,11 +59,8 @@ func TestTracker_Urls(t *testing.T) {
 		}
 		got, err := tracker.IndependentUrls()
 		if err != nil {
-			if tc.allUrlsError == false {
+			if tc.error == false {
 				t.Error(context.String(err))
-			}
-			if got != nil {
-				t.Error(context.String("independentUrls should be nil with error"))
 			}
 			continue
 		}

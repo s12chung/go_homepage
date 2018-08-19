@@ -1,5 +1,7 @@
 package app
 
+import "fmt"
+
 type Tracker struct {
 	AllUrls       func() ([]string, error)
 	dependentUrls map[string]bool
@@ -19,13 +21,16 @@ func (tracker *Tracker) IndependentUrls() ([]string, error) {
 		return nil, err
 	}
 
-	independentUrls := make([]string, len(allUrls)-len(tracker.dependentUrls))
+	independentUrlsLen := len(allUrls) - len(tracker.dependentUrls)
+	independentUrls := make([]string, independentUrlsLen)
 	i := 0
 	for _, url := range allUrls {
-		_, exists := tracker.dependentUrls[url]
-		if !exists {
+		if !tracker.dependentUrls[url] {
+			if i == independentUrlsLen {
+				return nil, fmt.Errorf("there are dependentUrls that are not in allUrls")
+			}
 			independentUrls[i] = url
-			i += 1
+			i++
 		}
 	}
 	return independentUrls, nil
