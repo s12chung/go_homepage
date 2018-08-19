@@ -21,7 +21,7 @@ type Content struct {
 
 type Route interface {
 	SetRoutes(r router.Router, tracker *app.Tracker)
-	WildcardRoutes() ([]string, error)
+	WildcardUrls() ([]string, error)
 }
 
 func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger) *Content {
@@ -52,10 +52,10 @@ func (content *Content) SetRoutes(r router.Router, tracker *app.Tracker) {
 	}
 }
 
-func (content *Content) WildcardRoutes() ([]string, error) {
+func (content *Content) WildcardUrls() ([]string, error) {
 	var wildcardUrls []string
 	for _, route := range content.routes {
-		urls, err := route.WildcardRoutes()
+		urls, err := route.WildcardUrls()
 		if err != nil {
 			return nil, err
 		}

@@ -51,8 +51,8 @@ func TestGenerateRouter_Get(t *testing.T) {
 	generateRouterTester().TestRouter_Get(t)
 }
 
-func TestGenerateRouter_StaticRoutes(t *testing.T) {
-	generateRouterTester().TestRouter_StaticRoutes(t)
+func TestGenerateRouter_StaticUrls(t *testing.T) {
+	generateRouterTester().TestRouter_StaticUrls(t)
 }
 
 func TestGenerateRequester_Get(t *testing.T) {

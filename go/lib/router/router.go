@@ -32,7 +32,7 @@ type Router interface {
 	GetHTML(pattern string, handler ContextHandler)
 	Get(pattern, mimeType string, handler ContextHandler)
 
-	StaticRoutes() []string
+	StaticUrls() []string
 	Requester() Requester
 }
 

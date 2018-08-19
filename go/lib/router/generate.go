@@ -131,7 +131,7 @@ func (router *GenerateRouter) get(url string) (*Response, error) {
 	return NewResponse(ctx.response, route.MimeType), nil
 }
 
-func (router *GenerateRouter) StaticRoutes() []string {
+func (router *GenerateRouter) StaticUrls() []string {
 	var staticRoutes []string
 	for k := range router.routes {
 		if k != WildcardUrlPattern {

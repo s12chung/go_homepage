@@ -89,8 +89,8 @@ func TestWebRouter_Get(t *testing.T) {
 	webRouterTester().TestRouter_Get(t)
 }
 
-func TestWebRouter_StaticRoutes(t *testing.T) {
-	webRouterTester().TestRouter_StaticRoutes(t)
+func TestWebRouter_StaticUrls(t *testing.T) {
+	webRouterTester().TestRouter_StaticUrls(t)
 }
 
 var mimeTypes = map[string]string{

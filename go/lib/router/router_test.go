@@ -301,7 +301,7 @@ func (tester *RouterTester) TestRouter_Get(t *testing.T) {
 	}).TestGet(t)
 }
 
-func (tester *RouterTester) TestRouter_StaticRoutes(t *testing.T) {
+func (tester *RouterTester) TestRouter_StaticUrls(t *testing.T) {
 	for testCaseIndex, allGetType := range AllGetTypesVaried {
 		context := test.NewContext().SetFields(test.ContextFields{
 			"index":       testCaseIndex,
@@ -312,7 +312,7 @@ func (tester *RouterTester) TestRouter_StaticRoutes(t *testing.T) {
 		router, _, _ := tester.setup.DefaultRouter()
 		SetupAllGetTypeVaried(router, allGetType)
 
-		got := router.StaticRoutes()
+		got := router.StaticUrls()
 		exp := append(allGetType.htmlRoutes, allGetType.otherRoutes...)
 		exp = append(exp, RootUrlPattern)
 

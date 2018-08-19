@@ -126,7 +126,7 @@ func (router *WebRouter) checkAndSetRoutes(pattern string) error {
 	return nil
 }
 
-func (router *WebRouter) StaticRoutes() []string {
+func (router *WebRouter) StaticUrls() []string {
 	var staticRoutes []string
 	for k := range router.routes {
 		if k != WildcardUrlPattern {

@@ -33,7 +33,7 @@ func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) {
 	r.Get("/robots.txt", "text/plain", routes.getRobotsTxt)
 }
 
-func (routes *AllRoutes) WildcardRoutes() ([]string, error) {
+func (routes *AllRoutes) WildcardUrls() ([]string, error) {
 	allPostFilenames, err := models.AllPostFilenames()
 	if err != nil {
 		return nil, err
