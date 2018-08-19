@@ -78,7 +78,7 @@ func NewRenderer(settings *Settings) *Renderer {
 }
 
 func (a *Renderer) Author() *Author {
-	return &Author{Name: a.Settings.AuthorName, Uri: a.Settings.AuthorURI()}
+	return &Author{Name: a.Settings.AuthorName, Uri: a.Settings.AuthorURIDefaulted()}
 }
 
 func (a *Renderer) AlternateLink(url string) *Link {

@@ -8,7 +8,7 @@ import (
 )
 
 type Settings struct {
-	Models    *models.Settings    `json:"model,omitempty"`
+	Models    *models.Settings    `json:"models,omitempty"`
 	Template  *html.Settings      `json:"template,omitempty"`
 	Atom      *atom.Settings      `json:"atom,omitempty"`
 	Goodreads *goodreads.Settings `json:"goodreads,omitempty"`

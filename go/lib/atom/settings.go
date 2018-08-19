@@ -16,17 +16,17 @@ func DefaultSettings() *Settings {
 
 type Settings struct {
 	AuthorName string `json:"author_name,omitempty"`
-	authorURI  string `json:"author_uri,omitempty"`
+	AuthorURI  string `json:"author_uri,omitempty"`
 
 	Host string `json:"host,omitempty"`
 	SSL  bool   `json:"ssl,omitempty"`
 }
 
-func (domainSettings *Settings) AuthorURI() string {
-	if domainSettings.authorURI == "" {
+func (domainSettings *Settings) AuthorURIDefaulted() string {
+	if domainSettings.AuthorURI == "" {
 		return domainSettings.Url()
 	}
-	return domainSettings.authorURI
+	return domainSettings.AuthorURI
 }
 
 func (domainSettings *Settings) Url() string {

@@ -1,8 +1,8 @@
 package models
 
 type Settings struct {
-	PostsPath  string `json:"generated_path,omitempty"`
-	DraftsPath string `json:"generated_path,omitempty"`
+	PostsPath  string `json:"posts_path,omitempty"`
+	DraftsPath string `json:"drafts_path,omitempty"`
 	GithubUrl  string `json:"github_url,omitempty"`
 }
 
