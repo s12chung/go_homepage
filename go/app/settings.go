@@ -16,8 +16,6 @@ type Settings struct {
 	Content        interface{} `json:"content,omitempty"`
 }
 
-const settingsPath = "settings.json"
-
 func DefaultSettings() *Settings {
 	return &Settings{
 		"./generated",
@@ -28,28 +26,27 @@ func DefaultSettings() *Settings {
 	}
 }
 
-func ReadFromFile(settings *Settings, log logrus.FieldLogger) {
+func ReadFromFile(path string, settings *Settings, log logrus.FieldLogger) {
 	generatedPath := os.Getenv("GENERATED_PATH")
 	if generatedPath != "" {
 		settings.GeneratedPath = generatedPath
 	}
 
-	_, err := os.Stat(settingsPath)
+	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		log.Infof("%v not found, using defaults...", settingsPath)
+		log.Infof("%v not found, using defaults...", path)
 		return
 	}
 
-	file, err := ioutil.ReadFile(settingsPath)
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Warnf("error reading %v, using defaults...", settingsPath)
+		log.Warnf("error reading %v, using defaults...", path)
 		return
 	}
 
-	// set through settingsPath
 	err = json.Unmarshal(file, settings)
 	if err != nil {
-		log.Warnf("error reading %v, using defaults...", settingsPath)
+		log.Warnf("error reading %v, using defaults...", path)
 		return
 	}
 }

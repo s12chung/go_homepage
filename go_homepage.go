@@ -22,7 +22,7 @@ func main() {
 	settings := app.DefaultSettings()
 	contentSettings := content.DefaultSettings()
 	settings.Content = contentSettings
-	app.ReadFromFile(settings, log)
+	app.ReadFromFile("./settings.json", settings, log)
 
 	err := cli.NewCli(settings, func() app.Setter {
 		return content.NewContent(settings.GeneratedPath, contentSettings, log)
