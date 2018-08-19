@@ -6,7 +6,7 @@ import (
 
 	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/cmd"
-	"github.com/s12chung/go_homepage/go/content/routes"
+	"github.com/s12chung/go_homepage/go/content"
 )
 
 func main() {
@@ -20,12 +20,12 @@ func main() {
 	}
 
 	settings := app.DefaultSettings()
-	contentSettings := routes.DefaultSettings()
+	contentSettings := content.DefaultSettings()
 	settings.Content = contentSettings
 	app.ReadFromFile(settings, log)
 
 	err := cmd.NewCmd(settings, func() app.Setter {
-		return routes.NewSetter(settings.GeneratedPath, contentSettings, log)
+		return content.NewContent(settings.GeneratedPath, contentSettings, log)
 	}).Run(log)
 	if err != nil {
 		log.Fatal(err)

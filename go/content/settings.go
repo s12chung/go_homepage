@@ -1,4 +1,4 @@
-package routes
+package content
 
 import (
 	"github.com/s12chung/go_homepage/go/content/models"

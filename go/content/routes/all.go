@@ -13,19 +13,27 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
-func (setter *Setter) setAllRoutes(r router.Router, tracker *app.Tracker) {
-	r.GetRootHTML(setter.getPosts)
-	tracker.AddDependentUrl(router.RootUrlPattern)
-	r.Get("/posts.atom", "application/xml", setter.getPostsAtom)
-	tracker.AddDependentUrl("/posts.atom")
-
-	r.GetWildcardHTML(setter.getPost)
-	r.GetHTML("/reading", setter.getReading)
-	r.GetHTML("/about", setter.getAbout)
-	r.Get("/robots.txt", "text/plain", setter.getRobotsTxt)
+type AllRoutes struct {
+	h *Helper
 }
 
-func (setter *Setter) WildcardPostRoutes() ([]string, error) {
+func NewAllRoutes(h *Helper) *AllRoutes {
+	return &AllRoutes{h}
+}
+
+func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) {
+	r.GetRootHTML(routes.getPosts)
+	tracker.AddDependentUrl(router.RootUrlPattern)
+	r.Get("/posts.atom", "application/xml", routes.getPostsAtom)
+	tracker.AddDependentUrl("/posts.atom")
+
+	r.GetWildcardHTML(routes.getPost)
+	r.GetHTML("/reading", routes.getReading)
+	r.GetHTML("/about", routes.getAbout)
+	r.Get("/robots.txt", "text/plain", routes.getRobotsTxt)
+}
+
+func (routes *AllRoutes) WildcardRoutes() ([]string, error) {
 	allPostFilenames, err := models.AllPostFilenames()
 	if err != nil {
 		return nil, err
@@ -41,12 +49,12 @@ func (setter *Setter) WildcardPostRoutes() ([]string, error) {
 	return allPostFilenames, nil
 }
 
-func (setter *Setter) getAbout(ctx router.Context) error {
-	return setter.RespondUrlHTML(ctx, nil)
+func (routes *AllRoutes) getAbout(ctx router.Context) error {
+	return routes.h.RespondUrlHTML(ctx, nil)
 }
 
-func (setter *Setter) getReading(ctx router.Context) error {
-	books, err := goodreads.NewClient(setter.Settings.Goodreads, ctx.Log()).GetBooks()
+func (routes *AllRoutes) getReading(ctx router.Context) error {
+	books, err := goodreads.NewClient(routes.h.GoodreadSettings, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
@@ -66,18 +74,18 @@ func (setter *Setter) getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		earliestYear,
 	}
-	return setter.RespondUrlHTML(ctx, data)
+	return routes.h.RespondUrlHTML(ctx, data)
 }
 
-func (setter *Setter) getPost(ctx router.Context) error {
+func (routes *AllRoutes) getPost(ctx router.Context) error {
 	post, err := models.NewPost(ctx.UrlParts()[0])
 	if err != nil {
 		return err
 	}
-	return setter.RespondHTML(ctx, "post", post)
+	return routes.h.RespondHTML(ctx, "post", post)
 }
 
-func (setter *Setter) getPosts(ctx router.Context) error {
+func (routes *AllRoutes) getPosts(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
@@ -88,21 +96,21 @@ func (setter *Setter) getPosts(ctx router.Context) error {
 	}{
 		posts,
 	}
-	return setter.RespondHTML(ctx, "posts", data)
+	return routes.h.RespondHTML(ctx, "posts", data)
 }
 
-func (setter *Setter) getPostsAtom(ctx router.Context) error {
+func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
 	}
 
-	logoUrl := setter.HtmlRenderer.Webpack().ManifestUrl("images/logo.png")
+	logoUrl := routes.h.HtmlRenderer.Webpack().ManifestUrl("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
-	return setter.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
+	return routes.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
 }
 
-func (setter *Setter) getRobotsTxt(ctx router.Context) error {
+func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {
 	return ctx.Respond([]byte{})
 }
 
