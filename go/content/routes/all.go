@@ -6,13 +6,14 @@ import (
 	"sort"
 	"time"
 
+	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/content/atom"
 	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
 
-func (setter *Setter) setAllRoutes(r router.Router, tracker *router.Tracker) {
+func (setter *Setter) setAllRoutes(r router.Router, tracker *app.Tracker) {
 	r.GetRootHTML(setter.getPosts)
 	tracker.AddDependentUrl(router.RootUrlPattern)
 	r.Get("/posts.atom", "application/xml", setter.getPostsAtom)

@@ -1,4 +1,4 @@
-package router
+package app
 
 type Tracker struct {
 	AllUrls       func() ([]string, error)

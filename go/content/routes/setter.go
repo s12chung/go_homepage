@@ -13,7 +13,7 @@ func NewSetter(h *app.RespondHelper) *Setter {
 	return &Setter{h}
 }
 
-func (setter *Setter) SetRoutes(r router.Router, tracker *router.Tracker) {
+func (setter *Setter) SetRoutes(r router.Router, tracker *app.Tracker) {
 	setter.setAllRoutes(r, tracker)
 }
 

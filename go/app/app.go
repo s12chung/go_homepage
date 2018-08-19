@@ -20,12 +20,12 @@ var ExtraMimeTypes = map[string]string{
 }
 
 type App struct {
-	routeSetter router.Setter
+	routeSetter Setter
 	settings    *Settings
 	log         logrus.FieldLogger
 }
 
-func NewApp(routeSetter router.Setter, settings *Settings, log logrus.FieldLogger) *App {
+func NewApp(routeSetter Setter, settings *Settings, log logrus.FieldLogger) *App {
 	return &App{
 		routeSetter,
 		settings,
@@ -59,7 +59,7 @@ func (app *App) Generate() error {
 	return nil
 }
 
-func (app *App) setRoutes(r router.Router) *router.Tracker {
+func (app *App) setRoutes(r router.Router) *Tracker {
 	r.Around(func(ctx router.Context, handler router.ContextHandler) error {
 		ctx.SetLog(ctx.Log().WithFields(logrus.Fields{
 			"type": "routes",
@@ -85,7 +85,7 @@ func (app *App) setRoutes(r router.Router) *router.Tracker {
 		return err
 	})
 
-	routeTracker := router.NewTracker(func() ([]string, error) {
+	routeTracker := NewTracker(func() ([]string, error) {
 		staticRoutes := r.StaticRoutes()
 		wildcardRoutes, err := app.routeSetter.WildcardRoutes()
 		if err != nil {
@@ -97,7 +97,7 @@ func (app *App) setRoutes(r router.Router) *router.Tracker {
 	return routeTracker
 }
 
-func (app *App) requestRoutes(requester router.Requester, tracker *router.Tracker) error {
+func (app *App) requestRoutes(requester router.Requester, tracker *Tracker) error {
 	var urlBatches [][]string
 
 	independentUrls, err := tracker.IndependentUrls()
