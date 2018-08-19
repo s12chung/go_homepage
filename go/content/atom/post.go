@@ -7,7 +7,7 @@ import (
 
 func PostsToHtmlEntries(posts []*models.Post) []*atom.HtmlEntry {
 	if atom.EntryLimit < len(posts) {
-		posts = posts[0 : atom.EntryLimit-1]
+		posts = posts[0:atom.EntryLimit]
 	}
 	htmlEntries := make([]*atom.HtmlEntry, len(posts))
 	for i, post := range posts {
