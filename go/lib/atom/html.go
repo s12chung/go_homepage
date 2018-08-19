@@ -31,8 +31,16 @@ func (htmlEntry *HtmlEntry) ToEntry(a *Renderer) *Entry {
 	}
 }
 
-func Render(settings *Settings, feedName, selfUrl, logoUrl string, htmlEntries []*HtmlEntry) ([]byte, error) {
-	atomRenderer := NewRenderer(settings)
+type HtmlRenderer struct {
+	Settings *Settings
+}
+
+func NewHtmlRenderer(settings *Settings) *HtmlRenderer {
+	return &HtmlRenderer{settings}
+}
+
+func (renderer *HtmlRenderer) Render(feedName, selfUrl, logoUrl string, htmlEntries []*HtmlEntry) ([]byte, error) {
+	atomRenderer := NewRenderer(renderer.Settings)
 	feed := HtmlEntriesToFeed(atomRenderer, feedName, selfUrl, logoUrl, htmlEntries)
 	return feed.Marhshall()
 }

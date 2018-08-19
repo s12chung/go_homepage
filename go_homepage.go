@@ -6,9 +6,7 @@ import (
 
 	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/cmd"
-	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/content/routes"
-	"github.com/s12chung/go_homepage/go/lib/html"
 )
 
 func main() {
@@ -21,15 +19,13 @@ func main() {
 		Level: logrus.InfoLevel,
 	}
 
-	s := app.ReadFromFile(log)
-	models.Config(s.PostsPath, s.DraftsPath, s.GithubUrl, log.WithFields(logrus.Fields{
-		"type": "models",
-	}))
+	settings := app.DefaultSettings()
+	contentSettings := routes.DefaultSettings()
+	settings.Content = contentSettings
+	app.ReadFromFile(settings, log)
 
-	err := cmd.NewCmd(s, func() app.Setter {
-		renderer := html.NewRenderer(s.GeneratedPath, &s.Template, log)
-		respondHelper := app.NewRespondHelper(renderer, s)
-		return routes.NewSetter(respondHelper)
+	err := cmd.NewCmd(settings, func() app.Setter {
+		return routes.NewSetter(settings.GeneratedPath, contentSettings, log)
 	}).Run(log)
 	if err != nil {
 		log.Fatal(err)

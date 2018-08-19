@@ -3,23 +3,19 @@ package models
 import "github.com/sirupsen/logrus"
 
 type Factory struct {
-	postsPath  string
-	draftsPath string
-	githubUrl  string
-	log        logrus.FieldLogger
+	Settings *Settings
+	log      logrus.FieldLogger
 }
 
 var factory *Factory
 
-func Config(postsPath, draftsPath, githubUrl string, log logrus.FieldLogger) {
-	factory = NewFactory(postsPath, draftsPath, githubUrl, log)
+func Config(settings *Settings, log logrus.FieldLogger) {
+	factory = NewFactory(settings, log)
 }
 
-func NewFactory(postsPath, draftsPath, githubUrl string, log logrus.FieldLogger) *Factory {
+func NewFactory(settings *Settings, log logrus.FieldLogger) *Factory {
 	return &Factory{
-		postsPath,
-		draftsPath,
-		githubUrl,
+		settings,
 		log,
 	}
 }

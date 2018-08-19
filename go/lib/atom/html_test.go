@@ -10,9 +10,13 @@ import (
 	"github.com/s12chung/go_homepage/go/test"
 )
 
+func defaultHtmlRenderer() *HtmlRenderer {
+	return NewHtmlRenderer(DefaultSettings())
+}
+
 var updateFixturesPtr = test.UpdateFixtureFlag()
 
-func TestRender(t *testing.T) {
+func TestHtmlRenderer_Render(t *testing.T) {
 	htmlEntries := []*HtmlEntry{
 		{"first", "num #1", test.Time(1), "<p>The story starts here</p>", "The sum", test.Time(2)},
 		{"second", "num #2", test.Time(3), "<p>The story is in the middle here</p>", "The sum of it all", test.Time(4)},
@@ -33,7 +37,7 @@ func TestRender(t *testing.T) {
 			"index": testCaseIndex,
 		})
 
-		bytes, err := Render(DefaultSettings(), "the test feed for posts", "posts", "logo.png", tc.htmlEntries)
+		bytes, err := defaultHtmlRenderer().Render("the test feed for posts", "posts", "logo.png", tc.htmlEntries)
 		if err != nil {
 			t.Error(context.String(err))
 		}
@@ -51,7 +55,7 @@ func TestRender(t *testing.T) {
 
 		exp := string(test.ReadFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex)))
 		if got != exp {
-			t.Error(context.DiffString("Render", got, exp, cmp.Diff(got, exp)))
+			t.Error(context.DiffString("RenderHtml", got, exp, cmp.Diff(got, exp)))
 		}
 	}
 }

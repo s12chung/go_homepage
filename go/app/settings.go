@@ -1,28 +1,19 @@
 package app
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"os"
 
+	"encoding/json"
 	"github.com/sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/go/lib/atom"
-	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/html"
+	"io/ioutil"
 )
 
 type Settings struct {
-	GeneratedPath  string             `json:"generated_path,omitempty"`
-	PostsPath      string             `json:"generated_path,omitempty"`
-	DraftsPath     string             `json:"generated_path,omitempty"`
-	GithubUrl      string             `json:"github_url,omitempty"`
-	Concurrency    int                `json:"concurrency,omitempty"`
-	ServerPort     int                `json:"server_port,omitempty"`
-	FileServerPort int                `json:"server_port,omitempty"`
-	Template       html.Settings      `json:"template,omitempty"`
-	Goodreads      goodreads.Settings `json:"goodreads,omitempty"`
-	Atom           atom.Settings      `json:"atom,omitempty"`
+	GeneratedPath  string      `json:"generated_path,omitempty"`
+	Concurrency    int         `json:"concurrency,omitempty"`
+	ServerPort     int         `json:"server_port,omitempty"`
+	FileServerPort int         `json:"file_server_port,omitempty"`
+	Content        interface{} `json:"content,omitempty"`
 }
 
 const settingsPath = "settings.json"
@@ -30,23 +21,14 @@ const settingsPath = "settings.json"
 func DefaultSettings() *Settings {
 	return &Settings{
 		"./generated",
-		"./content/posts",
-		"./content/drafts",
-		"",
 		10,
 		8080,
 		3000,
-		*html.DefaultSettings(),
-		*goodreads.DefaultSettings(),
-		*atom.DefaultSettings(),
+		nil,
 	}
 }
 
-func ReadFromFile(log logrus.FieldLogger) *Settings {
-	// also programmatically set in defaults
-	settings := DefaultSettings()
-
-	// set here
+func ReadFromFile(settings *Settings, log logrus.FieldLogger) {
 	generatedPath := os.Getenv("GENERATED_PATH")
 	if generatedPath != "" {
 		settings.GeneratedPath = generatedPath
@@ -55,20 +37,19 @@ func ReadFromFile(log logrus.FieldLogger) *Settings {
 	_, err := os.Stat(settingsPath)
 	if os.IsNotExist(err) {
 		log.Infof("%v not found, using defaults...", settingsPath)
-		return settings
+		return
 	}
 
 	file, err := ioutil.ReadFile(settingsPath)
 	if err != nil {
 		log.Warnf("error reading %v, using defaults...", settingsPath)
-		return settings
+		return
 	}
 
 	// set through settingsPath
 	err = json.Unmarshal(file, settings)
 	if err != nil {
 		log.Warnf("error reading %v, using defaults...", settingsPath)
-		return settings
+		return
 	}
-	return settings
 }

@@ -39,9 +39,9 @@ func (post *Post) MarkdownFilename() string {
 }
 
 func (post *Post) FilePath() string {
-	folderPath := factory.postsPath
+	folderPath := factory.Settings.PostsPath
 	if post.IsDraft {
-		folderPath = factory.draftsPath
+		folderPath = factory.Settings.DraftsPath
 	}
 	return strings.Join([]string{
 		utils.CleanFilePath(folderPath),
@@ -50,11 +50,13 @@ func (post *Post) FilePath() string {
 }
 
 func (post *Post) EditGithubUrl() string {
-	if factory.githubUrl == "" {
+	githubUrl := factory.Settings.GithubUrl
+	if githubUrl == "" {
 		return ""
 	}
+
 	return strings.Join([]string{
-		factory.githubUrl,
+		githubUrl,
 		"edit/master",
 		post.FilePath(),
 	}, "/")
@@ -139,13 +141,13 @@ func AllPostFilenames() ([]string, error) {
 func (factory *Factory) allPostFilenames() ([]string, error) {
 	var allPostUrls []string
 
-	postsUrls, err := factory.postFilenames(factory.postsPath)
+	postsUrls, err := factory.postFilenames(factory.Settings.PostsPath)
 	if err != nil {
 		return nil, err
 	}
 	allPostUrls = append(allPostUrls, postsUrls...)
 
-	draftUrls, err := factory.postFilenames(factory.draftsPath)
+	draftUrls, err := factory.postFilenames(factory.Settings.DraftsPath)
 	if err != nil {
 		return nil, err
 	}
@@ -173,8 +175,8 @@ func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
 func (factory *Factory) postPath(filename string) (string, bool, error) {
 	filename = markdownFilename(filename)
 	paths := []string{
-		path.Join(factory.postsPath, filename),
-		path.Join(factory.draftsPath, filename),
+		path.Join(factory.Settings.PostsPath, filename),
+		path.Join(factory.Settings.DraftsPath, filename),
 	}
 
 	for index, currentPath := range paths {

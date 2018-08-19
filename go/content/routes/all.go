@@ -42,11 +42,11 @@ func (setter *Setter) WildcardPostRoutes() ([]string, error) {
 }
 
 func (setter *Setter) getAbout(ctx router.Context) error {
-	return setter.h.RespondUrlHTML(ctx, nil)
+	return setter.RespondUrlHTML(ctx, nil)
 }
 
 func (setter *Setter) getReading(ctx router.Context) error {
-	books, err := goodreads.NewClient(&setter.h.Settings.Goodreads, ctx.Log()).GetBooks()
+	books, err := goodreads.NewClient(setter.Settings.Goodreads, ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
@@ -66,7 +66,7 @@ func (setter *Setter) getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		earliestYear,
 	}
-	return setter.h.RespondUrlHTML(ctx, data)
+	return setter.RespondUrlHTML(ctx, data)
 }
 
 func (setter *Setter) getPost(ctx router.Context) error {
@@ -74,7 +74,7 @@ func (setter *Setter) getPost(ctx router.Context) error {
 	if err != nil {
 		return err
 	}
-	return setter.h.RespondHTML(ctx, "post", post)
+	return setter.RespondHTML(ctx, "post", post)
 }
 
 func (setter *Setter) getPosts(ctx router.Context) error {
@@ -88,7 +88,7 @@ func (setter *Setter) getPosts(ctx router.Context) error {
 	}{
 		posts,
 	}
-	return setter.h.RespondHTML(ctx, "posts", data)
+	return setter.RespondHTML(ctx, "posts", data)
 }
 
 func (setter *Setter) getPostsAtom(ctx router.Context) error {
@@ -97,9 +97,9 @@ func (setter *Setter) getPostsAtom(ctx router.Context) error {
 		return err
 	}
 
-	logoUrl := setter.h.Renderer.Webpack().ManifestUrl("images/logo.png")
+	logoUrl := setter.HtmlRenderer.Webpack().ManifestUrl("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
-	return setter.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
+	return setter.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
 }
 
 func (setter *Setter) getRobotsTxt(ctx router.Context) error {

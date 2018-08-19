@@ -1,14 +1,16 @@
 {
-  "github_url": "https://github.com/s12chung/go_homepage",
-  "template" : {
-    "website_title": "Your Website Title"
-  },
-  "goodreads": {
-    "api_key": "",
-    "user_id": 0
-  },
-  "atom": {
-    "author_name": "Your Name",
-    "host": "yourwebsite.com"
+  "content": {
+    "github_url": "https://github.com/s12chung/go_homepage",
+    "template": {
+      "website_title": "Your Website Title"
+    },
+    "goodreads": {
+      "api_key": "",
+      "user_id": 0
+    },
+    "atom": {
+      "author_name": "Your Name",
+      "host": "yourwebsite.com"
+    }
   }
 }
