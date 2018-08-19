@@ -2,7 +2,6 @@ package app
 
 import (
 	"fmt"
-	"mime"
 	"path"
 	"time"
 
@@ -12,12 +11,6 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/router"
 	"github.com/s12chung/go_homepage/go/lib/utils"
 )
-
-var ExtraMimeTypes = map[string]string{
-	".atom": "application/xml",
-	".ico":  "image/x-icon",
-	".txt":  "text/plain; charset=utf-8",
-}
 
 type App struct {
 	routeSetter Setter
@@ -47,9 +40,6 @@ func (app *App) FileServerPort() int {
 
 func (app *App) Host() error {
 	r := router.NewWebRouter(app.settings.ServerPort, app.log)
-	for ext, mimeType := range ExtraMimeTypes {
-		mime.AddExtensionType(ext, mimeType)
-	}
 	r.FileServe(app.routeSetter.AssetsUrl(), app.routeSetter.GeneratedAssetsPath())
 	app.setRoutes(r)
 

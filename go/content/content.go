@@ -1,6 +1,8 @@
 package content
 
 import (
+	"mime"
+
 	"github.com/sirupsen/logrus"
 
 	"github.com/s12chung/go_homepage/go/app"
@@ -10,6 +12,12 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
 )
+
+var ExtraMimeTypes = map[string]string{
+	".atom": "application/xml",
+	".ico":  "image/x-icon",
+	".txt":  "text/plain; charset=utf-8",
+}
 
 type Content struct {
 	Settings *Settings
@@ -28,6 +36,10 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 	models.Config(settings.Models, log.WithFields(logrus.Fields{
 		"type": "models",
 	}))
+	for ext, mimeType := range ExtraMimeTypes {
+		mime.AddExtensionType(ext, mimeType)
+	}
+
 	htmlRenderer := html.NewRenderer(generatedPath, settings.Template, log)
 	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
 	helper := routes.NewHelper(settings.Goodreads, htmlRenderer, atomRenderer)
