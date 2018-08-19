@@ -1,6 +1,7 @@
 package content
 
 import (
+	"fmt"
 	"mime"
 
 	"github.com/sirupsen/logrus"
@@ -65,12 +66,20 @@ func (content *Content) SetRoutes(r router.Router, tracker *app.Tracker) {
 }
 
 func (content *Content) WildcardUrls() ([]string, error) {
-	var wildcardUrls []string
+	wildcardUrls := []string{}
+	wildcardUrlsMap := make(map[string]bool)
 	for _, route := range content.routes {
 		urls, err := route.WildcardUrls()
 		if err != nil {
 			return nil, err
 		}
+		for _, url := range urls {
+			if wildcardUrlsMap[url] {
+				return nil, fmt.Errorf("duplicate wildcar url found: %v", url)
+			}
+			wildcardUrlsMap[url] = true
+		}
+
 		wildcardUrls = append(wildcardUrls, urls...)
 	}
 	return wildcardUrls, nil

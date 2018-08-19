@@ -143,12 +143,17 @@ type AllGetType struct {
 }
 
 var AllGetTypesVaried = []AllGetType{
+	{nil, nil, nil},
 	{[]string{}, []string{}, []string{}},
 	{[]string{"/some"}, []string{"/something.atom"}, []string{"application/xml"}},
 	{[]string{"/some", "/ha", "/works"}, []string{"/something.atom", "/robots.txt"}, []string{"application/xml", "text/plain"}},
 }
 
 func SetupAllGetTypeVaried(router Router, allGetType AllGetType) {
+	if allGetType.htmlRoutes == nil {
+		return
+	}
+
 	handler := func(ctx Context) error {
 		return nil
 	}
@@ -315,6 +320,9 @@ func (tester *RouterTester) TestRouter_StaticUrls(t *testing.T) {
 		got := router.StaticUrls()
 		exp := append(allGetType.htmlRoutes, allGetType.otherRoutes...)
 		exp = append(exp, RootUrlPattern)
+		if allGetType.htmlRoutes == nil {
+			exp = []string{}
+		}
 
 		sort.Strings(got)
 		sort.Strings(exp)

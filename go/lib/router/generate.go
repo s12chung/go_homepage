@@ -132,7 +132,7 @@ func (router *GenerateRouter) get(url string) (*Response, error) {
 }
 
 func (router *GenerateRouter) StaticUrls() []string {
-	var staticRoutes []string
+	staticRoutes := []string{}
 	for k := range router.routes {
 		if k != WildcardUrlPattern {
 			staticRoutes = append(staticRoutes, k)
