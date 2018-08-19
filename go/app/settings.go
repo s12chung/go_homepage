@@ -2,10 +2,6 @@ package app
 
 import (
 	"os"
-
-	"encoding/json"
-	"github.com/sirupsen/logrus"
-	"io/ioutil"
 )
 
 type Settings struct {
@@ -17,36 +13,15 @@ type Settings struct {
 }
 
 func DefaultSettings() *Settings {
+	generatedPath := os.Getenv("GENERATED_PATH")
+	if generatedPath != "" {
+		generatedPath = "./generated"
+	}
 	return &Settings{
-		"./generated",
+		generatedPath,
 		10,
 		8080,
 		3000,
 		nil,
-	}
-}
-
-func ReadFromFile(path string, settings *Settings, log logrus.FieldLogger) {
-	generatedPath := os.Getenv("GENERATED_PATH")
-	if generatedPath != "" {
-		settings.GeneratedPath = generatedPath
-	}
-
-	_, err := os.Stat(path)
-	if os.IsNotExist(err) {
-		log.Infof("%v not found, using defaults...", path)
-		return
-	}
-
-	file, err := ioutil.ReadFile(path)
-	if err != nil {
-		log.Warnf("error reading %v, using defaults...", path)
-		return
-	}
-
-	err = json.Unmarshal(file, settings)
-	if err != nil {
-		log.Warnf("error reading %v, using defaults...", path)
-		return
 	}
 }
