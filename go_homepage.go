@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/cmd"
+	"github.com/s12chung/go_homepage/go/cli"
 	"github.com/s12chung/go_homepage/go/content"
 )
 
@@ -24,7 +24,7 @@ func main() {
 	settings.Content = contentSettings
 	app.ReadFromFile(settings, log)
 
-	err := cmd.NewCmd(settings, func() app.Setter {
+	err := cli.NewCli(settings, func() app.Setter {
 		return content.NewContent(settings.GeneratedPath, contentSettings, log)
 	}).Run(log)
 	if err != nil {
