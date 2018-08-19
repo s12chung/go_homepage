@@ -24,6 +24,10 @@ prod: clean
 test:
 	go test ./go/...
 
+mock:
+	go install ./vendor/github.com/golang/mock/mockgen
+	go generate ./go/...
+
 push-docker-deploy:
 	git push origin master
 	make docker-deploy

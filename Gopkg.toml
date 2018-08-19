@@ -24,15 +24,8 @@
 #   go-tests = true
 #   unused-packages = true
 
-
-[[constraint]]
-  name = "github.com/sirupsen/logrus"
-  version = "1.0.5"
+required = ["github.com/golang/mock/mockgen"]
 
 [prune]
   go-tests = true
   unused-packages = true
-
-[[constraint]]
-  name = "github.com/russross/blackfriday"
-  version = "2.0.0"

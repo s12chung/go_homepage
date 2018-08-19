@@ -8,6 +8,16 @@
   version = "1.1"
 
 [[projects]]
+  name = "github.com/golang/mock"
+  packages = [
+    "gomock",
+    "mockgen",
+    "mockgen/model"
+  ]
+  revision = "c34cdb4725f4c3844d095133c6e40e448b86589b"
+  version = "v1.1.1"
+
+[[projects]]
   name = "github.com/google/go-cmp"
   packages = [
     "cmp",
@@ -48,6 +58,12 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  revision = "aaf60122140d3fcf75376d319f0554393160eb50"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = [
     "unix",
@@ -64,6 +80,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "56e8d9cf6856a0d726e871e4359aef09bd3bc48fd3a201a9d8e86b3ad7e4445c"
+  inputs-digest = "1e57190524b64f213c7daba823c24d0ca5558fd042958370282f111b206247b7"
   solver-name = "gps-cdcl"
   solver-version = 1
