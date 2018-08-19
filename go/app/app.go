@@ -33,6 +33,18 @@ func NewApp(routeSetter Setter, settings *Settings, log logrus.FieldLogger) *App
 	}
 }
 
+func (app *App) RunFileServer() error {
+	return router.RunFileServer(app.settings.GeneratedPath, app.settings.FileServerPort, app.log)
+}
+
+func (app *App) GeneratedPath() string {
+	return app.settings.GeneratedPath
+}
+
+func (app *App) FileServerPort() int {
+	return app.settings.FileServerPort
+}
+
 func (app *App) Host() error {
 	r := router.NewWebRouter(app.settings.ServerPort, app.log)
 	for ext, mimeType := range ExtraMimeTypes {
@@ -44,7 +56,16 @@ func (app *App) Host() error {
 	return r.Run()
 }
 
+func (app *App) ServerPort() int {
+	return app.settings.ServerPort
+}
+
 func (app *App) Generate() error {
+	start := time.Now()
+	defer func() {
+		app.log.Infof("Build generated in %v.", time.Now().Sub(start))
+	}()
+
 	err := utils.MkdirAll(app.settings.GeneratedPath)
 	if err != nil {
 		return err

@@ -3,41 +3,51 @@ package cli
 import (
 	"flag"
 	"fmt"
-	"time"
-
-	"github.com/sirupsen/logrus"
-
-	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/lib/router"
+	"os"
 )
 
+type App interface {
+	RunFileServer() error
+	Host() error
+	Generate() error
+
+	GeneratedPath() string
+	FileServerPort() int
+	ServerPort() int
+}
+
+func DefaultName() string {
+	return os.Args[0]
+}
+
+func DefaultArgs() []string {
+	return os.Args[1:]
+}
+
 type Cli struct {
-	*app.Settings
-	routeSetter func() app.Setter
+	app  App
+	flag *flag.FlagSet
 }
 
-func NewCli(settings *app.Settings, routeSetter func() app.Setter) *Cli {
-	return &Cli{settings, routeSetter}
+func NewCli(app App, name string) *Cli {
+	f := flag.NewFlagSet(name, flag.ExitOnError)
+	return &Cli{app, f}
 }
 
-func (cli *Cli) Run(log logrus.FieldLogger) error {
-	fileServerPtr := flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, generated files in %v on localhost:%v", cli.Settings.GeneratedPath, cli.Settings.FileServerPort))
-	serverPtr := flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", cli.Settings.ServerPort))
+func (cli *Cli) Run(args []string) error {
+	app := cli.app
 
-	flag.Parse()
+	fileServerPtr := cli.flag.Bool("file-server", false, fmt.Sprintf("Serves, but not generates, files in %v on localhost:%v", app.GeneratedPath(), app.FileServerPort()))
+	serverPtr := cli.flag.Bool("server", false, fmt.Sprintf("Hosts server on localhost:%v", app.ServerPort()))
+	cli.flag.Parse(args)
 
 	if *fileServerPtr {
-		return router.RunFileServer(cli.Settings.GeneratedPath, cli.FileServerPort, log)
+		return app.RunFileServer()
 	} else {
-		a := app.NewApp(cli.routeSetter(), cli.Settings, log)
 		if *serverPtr {
-			return a.Host()
+			return app.Host()
 		} else {
-			start := time.Now()
-			defer func() {
-				log.Infof("Build generated in %v.", time.Now().Sub(start))
-			}()
-			return a.Generate()
+			return app.Generate()
 		}
 	}
 }

@@ -25,9 +25,8 @@ func main() {
 	settings.Content = contentSettings
 	utils.SettingsFromFile("./settings.json", settings, log)
 
-	err := cli.NewCli(settings, func() app.Setter {
-		return content.NewContent(settings.GeneratedPath, contentSettings, log)
-	}).Run(log)
+	a := app.NewApp(content.NewContent(settings.GeneratedPath, contentSettings, log), settings, log)
+	err := cli.NewCli(a, cli.DefaultName()).Run(cli.DefaultArgs())
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
