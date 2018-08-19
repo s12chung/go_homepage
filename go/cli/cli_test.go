@@ -25,13 +25,13 @@ func TestCli_Run(t *testing.T) {
 		{[]string{"-file-server", "-blah"}, ""},
 	}
 	for testCaseIndex, tc := range testCases {
-		controller := gomock.NewController(t)
 		context := test.NewContext().SetFields(test.ContextFields{
 			"index":        testCaseIndex,
 			"args":         tc.args,
 			"functionName": tc.functionName,
 		})
 
+		controller := gomock.NewController(t)
 		app := mocks.NewMockApp(controller)
 		expect := app.EXPECT()
 
