@@ -2,7 +2,7 @@ SHORT_TTL := 3600
 # for assets, which don't change or have hashed filenames
 LONG_TTL := 86400
 
-.PHONY: server
+.PHONY: server docker
 
 all: install build
 
@@ -54,16 +54,16 @@ docker-build:
 	docker-compose up --build --no-start
 
 docker:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+	docker-compose -f docker-compose.yml -f docker/docker-compose.dev.yml up
 
 docker-prod:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+	docker-compose -f docker-compose.yml -f docker/docker-compose.prod.yml up
 
 docker-test:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml up --exit-code-from web
+	docker-compose -f docker-compose.yml -f docker/docker-compose.test.yml up --exit-code-from web
 
 docker-deploy:
-	docker-compose -f docker-compose.yml -f docker-compose.deploy.yml up
+	docker-compose -f docker-compose.yml -f docker/docker-compose.deploy.yml up
 
 docker-sh:
 	docker-compose exec web ash
