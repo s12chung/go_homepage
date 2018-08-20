@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /
+
+User-agent: Applebot
+Disallow: /ajax/
+Disallow: /blah
+
+User-agent: baiduspider
+Disallow: /assets/
+Disallow: /favicon.ico
+
+User-agent: Naverbot
+Disallow: /

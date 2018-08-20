@@ -10,11 +10,11 @@ import (
 	"github.com/s12chung/go_homepage/go/test"
 )
 
+var updateFixturesPtr = test.UpdateFixtureFlag()
+
 func defaultHtmlRenderer() *HtmlRenderer {
 	return NewHtmlRenderer(DefaultSettings())
 }
-
-var updateFixturesPtr = test.UpdateFixtureFlag()
 
 func TestHtmlRenderer_Render(t *testing.T) {
 	htmlEntries := []*HtmlEntry{
@@ -48,12 +48,13 @@ func TestHtmlRenderer_Render(t *testing.T) {
 			got = regex.ReplaceAllString(got, "<updated>REPLACED time.Now()</updated>")
 		}
 
+		fixtureFilename := fmt.Sprintf("feed%v.xml", testCaseIndex)
 		if *updateFixturesPtr {
-			test.WriteFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex), []byte(got))
+			test.WriteFixture(t, fixtureFilename, []byte(got))
 			continue
 		}
 
-		exp := string(test.ReadFixture(t, fmt.Sprintf("feed%v.xml", testCaseIndex)))
+		exp := string(test.ReadFixture(t, fixtureFilename))
 		if got != exp {
 			t.Error(context.DiffString("RenderHtml", got, exp, cmp.Diff(got, exp)))
 		}

@@ -115,6 +115,8 @@ func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 }
 
 func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {
+	// decided not to show the directory structure via this file
+	// there is a lib for robots.txt in go/lib/robots though
 	return ctx.Respond([]byte{})
 }
 

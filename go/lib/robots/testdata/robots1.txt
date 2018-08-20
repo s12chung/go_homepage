@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+
+User-agent: Applebot
+Disallow: /ajax/
+Disallow: /blah
