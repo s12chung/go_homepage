@@ -10,6 +10,6 @@ func DefaultSettings() *Settings {
 	return &Settings{
 		"./go/content/templates",
 		"Your Website Title",
-		"./assets/markdowns",
+		"./content/markdowns",
 	}
 }
