@@ -6,7 +6,6 @@ import (
 	"os"
 )
 
-//go:generate mockgen -destination=../test/mocks/cli_app.go -package=mocks github.com/s12chung/go_homepage/go/cli App
 type App interface {
 	RunFileServer() error
 	Host() error

@@ -17,31 +17,31 @@ func NewHelper(goodReadSettings *goodreads.Settings, htmlRenderer *html.Renderer
 	return &Helper{goodReadSettings, htmlRenderer, atomRenderer}
 }
 
-func (setter *Helper) RespondAtom(ctx router.Context, feedName, logoUrl string, htmlEntries []*atom.HtmlEntry) error {
-	bytes, err := setter.AtomRenderer.Render(feedName, ctx.Url(), logoUrl, htmlEntries)
+func (helper *Helper) RespondAtom(ctx router.Context, feedName, logoUrl string, htmlEntries []*atom.HtmlEntry) error {
+	bytes, err := helper.AtomRenderer.Render(feedName, ctx.Url(), logoUrl, htmlEntries)
 	if err != nil {
 		return err
 	}
 	return ctx.Respond(bytes)
 }
 
-func (setter *Helper) RespondUrlHTML(ctx router.Context, data interface{}) error {
-	return setter.RespondHTML(ctx, "", data)
+func (helper *Helper) RespondUrlHTML(ctx router.Context, data interface{}) error {
+	return helper.RespondHTML(ctx, "", data)
 }
 
-func (setter *Helper) RespondHTML(ctx router.Context, templateName string, data interface{}) error {
-	bytes, err := setter.renderHTML(ctx, templateName, data)
+func (helper *Helper) RespondHTML(ctx router.Context, templateName string, data interface{}) error {
+	bytes, err := helper.renderHTML(ctx, templateName, data)
 	if err != nil {
 		return err
 	}
 	return ctx.Respond(bytes)
 }
 
-func (setter *Helper) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
+func (helper *Helper) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
 	tmplName = templateName(ctx, tmplName)
 	defaultTitle := defaultTitle(ctx, tmplName)
 	ctx.Log().Infof("Rendering template %v with title %v", tmplName, defaultTitle)
-	return setter.HtmlRenderer.Render(tmplName, defaultTitle, data)
+	return helper.HtmlRenderer.Render(tmplName, defaultTitle, data)
 }
 
 func templateName(ctx router.Context, templateName string) string {

@@ -17,6 +17,8 @@ import (
 	"github.com/s12chung/go_homepage/go/test/mocks"
 )
 
+//go:generate mockgen -destination=../test/mocks/app_setter.go -package=mocks github.com/s12chung/go_homepage/go/app Setter
+
 func defaultApp(setter app.Setter, generatedPath string) (*app.App, logrus.FieldLogger, *logTest.Hook) {
 	settings := app.DefaultSettings()
 	settings.GeneratedPath = generatedPath
