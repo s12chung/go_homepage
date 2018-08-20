@@ -59,6 +59,9 @@ docker:
 docker-prod:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
 
+docker-test:
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up --exit-code-from web
+
 docker-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.deploy.yml up
 

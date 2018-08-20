@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  - DOCKER_WORKDIR=/go/src/github.com/s12chung/go_homepage GENERATED_PATH=./generated ASSETS_PATH=assets
+
+script:
+  - make docker-test
