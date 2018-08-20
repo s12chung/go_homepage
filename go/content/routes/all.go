@@ -14,10 +14,10 @@ import (
 )
 
 type AllRoutes struct {
-	h *Helper
+	h Helper
 }
 
-func NewAllRoutes(h *Helper) *AllRoutes {
+func NewAllRoutes(h Helper) *AllRoutes {
 	return &AllRoutes{h}
 }
 
@@ -53,8 +53,14 @@ func (routes *AllRoutes) getAbout(ctx router.Context) error {
 	return routes.h.RespondUrlHTML(ctx, nil)
 }
 
+type readingData struct {
+	Books        []*goodreads.Book
+	RatingMap    map[int]int
+	EarliestYear int
+}
+
 func (routes *AllRoutes) getReading(ctx router.Context) error {
-	books, err := goodreads.NewClient(routes.h.GoodreadSettings, ctx.Log()).GetBooks()
+	books, err := goodreads.NewClient(routes.h.GoodreadsSettings(), ctx.Log()).GetBooks()
 	if err != nil {
 		return err
 	}
@@ -65,11 +71,7 @@ func (routes *AllRoutes) getReading(ctx router.Context) error {
 		earliestYear = books[len(books)-1].SortedDate().Year()
 	}
 
-	data := struct {
-		Books        []*goodreads.Book
-		RatingMap    map[int]int
-		EarliestYear int
-	}{
+	data := readingData{
 		books,
 		goodreads.RatingMap(books),
 		earliestYear,
@@ -85,15 +87,17 @@ func (routes *AllRoutes) getPost(ctx router.Context) error {
 	return routes.h.RespondHTML(ctx, "post", post)
 }
 
+type postsData struct {
+	Posts []*models.Post
+}
+
 func (routes *AllRoutes) getPosts(ctx router.Context) error {
 	posts, err := sortedPosts()
 	if err != nil {
 		return err
 	}
 
-	data := struct {
-		Posts []*models.Post
-	}{
+	data := postsData{
 		posts,
 	}
 	return routes.h.RespondHTML(ctx, "posts", data)
@@ -105,7 +109,7 @@ func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 		return err
 	}
 
-	logoUrl := routes.h.HtmlRenderer.Webpack().ManifestUrl("images/logo.png")
+	logoUrl := routes.h.ManifestUrl("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
 	return routes.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
 }

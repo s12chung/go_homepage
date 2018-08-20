@@ -1,41 +1,35 @@
 package models
 
 import (
-	"testing"
-
-	logTest "github.com/sirupsen/logrus/hooks/test"
-
 	"fmt"
-	"github.com/google/go-cmp/cmp"
-	"github.com/s12chung/go_homepage/go/test"
 	"os"
-	"path"
 	"sort"
 	"strconv"
 	"strings"
+	"testing"
 	"time"
+
+	"github.com/google/go-cmp/cmp"
+	logTest "github.com/sirupsen/logrus/hooks/test"
+
+	"github.com/s12chung/go_homepage/go/test"
 )
+
+func configFactory() {
+	log, _ := logTest.NewNullLogger()
+	TestConfig(test.FixturePath, log)
+}
+
+func setPostDirEmpty() {
+	log, _ := logTest.NewNullLogger()
+	TestSetPostDirEmpty(log)
+}
 
 func TestMain(m *testing.M) {
 	configFactory()
 	retCode := m.Run()
-	factory = nil
-	ResetPostMap()
+	configFactory()
 	os.Exit(retCode)
-}
-
-func configFactory() {
-	log, _ := logTest.NewNullLogger()
-	settings := DefaultSettings()
-	settings.PostsPath = path.Join(test.FixturePath, "posts")
-	settings.DraftsPath = path.Join(test.FixturePath, "drafts")
-	Config(settings, log)
-}
-
-func setPostDirEmpty() {
-	settings := factory.settings
-	settings.PostsPath = "."
-	settings.DraftsPath = "."
 }
 
 func TestPost_Id(t *testing.T) {
@@ -174,7 +168,6 @@ func TestAllPosts(t *testing.T) {
 		})
 
 		configFactory()
-		ResetPostMap()
 		if tc.postDirEmpty {
 			setPostDirEmpty()
 		}

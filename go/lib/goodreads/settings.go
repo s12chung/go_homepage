@@ -10,6 +10,10 @@ type Settings struct {
 	RateLimit  int    `json:"rate_limit,omitempty"`
 }
 
+func (settings *Settings) invalid() bool {
+	return settings.ApiKey == "" && settings.UserId == 0
+}
+
 func DefaultSettings() *Settings {
 	return &Settings{
 		"./cache",
@@ -20,4 +24,19 @@ func DefaultSettings() *Settings {
 		200,
 		1000,
 	}
+}
+
+func TestSettings(cachePath, apiUrl string) *Settings {
+	settings := DefaultSettings()
+	settings.ApiURL = apiUrl
+	settings.ApiKey = "good_test"
+	settings.UserId = 1
+	settings.RateLimit = 1
+	settings.CachePath = cachePath
+	return settings
+}
+
+func InvalidateSettings(settings *Settings) {
+	settings.ApiKey = ""
+	settings.UserId = 0
 }

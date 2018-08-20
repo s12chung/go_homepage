@@ -42,10 +42,6 @@ func NewClient(settings *Settings, log logrus.FieldLogger) *Client {
 }
 
 func (client *Client) GetBooks() ([]*Book, error) {
-	if client.invalidSettings() {
-		client.log.Warn("Invalid goodsreads Settings, skipping goodsreads API calls")
-		return nil, nil
-	}
 	err := utils.MkdirAll(client.Settings.CachePath)
 	if err != nil {
 		return nil, err
@@ -68,12 +64,12 @@ func toBooks(bookMap map[string]*Book) []*Book {
 	return books
 }
 
-func (client *Client) invalidSettings() bool {
-	return client.Settings.ApiKey == "" && client.Settings.UserId == 0
-}
-
 func (client *Client) getBooks(userId int) (map[string]*Book, error) {
 	bookMap := client.readBooksCache()
+	if client.Settings.invalid() {
+		client.log.Warn("Invalid Goodreads Settings, skipping Goodreads API calls")
+		return bookMap, nil
+	}
 	bookMap = client.GetBooksRequest(userId, bookMap)
 	return bookMap, client.saveBooksCache(bookMap)
 }

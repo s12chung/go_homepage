@@ -1,6 +1,10 @@
 package models
 
-import "github.com/sirupsen/logrus"
+import (
+	"path"
+
+	"github.com/sirupsen/logrus"
+)
 
 type Factory struct {
 	settings *Settings
@@ -18,4 +22,19 @@ func NewFactory(settings *Settings, log logrus.FieldLogger) *Factory {
 		settings,
 		log,
 	}
+}
+
+func TestConfig(relative string, log logrus.FieldLogger) {
+	ResetPostMap()
+	settings := DefaultSettings()
+	settings.PostsPath = path.Join(relative, "posts")
+	settings.DraftsPath = path.Join(relative, "drafts")
+	Config(settings, log)
+}
+
+func TestSetPostDirEmpty(log logrus.FieldLogger) {
+	settings := DefaultSettings()
+	settings.PostsPath = "."
+	settings.DraftsPath = "."
+	Config(settings, log)
 }

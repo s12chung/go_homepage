@@ -22,19 +22,13 @@ import (
 
 func defaultClient(t *testing.T, apiUrl string) (*Client, *logTest.Hook, func()) {
 	log, hook := logTest.NewNullLogger()
-	s := DefaultSettings()
-	s.ApiURL = apiUrl
-	s.ApiKey = "good_test"
-	s.UserId = 1
-	s.RateLimit = 1
-	newCachePath, clean := test.SandboxDir(t, s.CachePath)
-	s.CachePath = newCachePath
-	return NewClient(s, log), hook, clean
+	newCachePath, clean := test.SandboxDir(t, DefaultSettings().CachePath)
+	settings := TestSettings(newCachePath, apiUrl)
+	return NewClient(settings, log), hook, clean
 }
 
 func invalidateSettings(client *Client) {
-	client.Settings.ApiKey = ""
-	client.Settings.UserId = 0
+	InvalidateSettings(client.Settings)
 }
 
 type serverSettings struct {
@@ -165,6 +159,7 @@ func TestClient_GetBooks(t *testing.T) {
 		{perPage: DefaultSettings().MaxPerPage, numberOfRequests: 3},
 		{perPage: DefaultSettings().PerPage, numberOfRequests: 1, fromPreviousCache: true},
 		{perPage: DefaultSettings().PerPage, numberOfRequests: 1, fromPreviousCache: true},
+		{invalidSettings: true, unsafeLogEntries: true, fromPreviousCache: true},
 		{perPage: DefaultSettings().MaxPerPage, numberOfRequests: 3},
 	}
 

@@ -25,7 +25,7 @@ type Content struct {
 	Log      logrus.FieldLogger
 
 	routes []Route
-	helper *routes.Helper
+	helper *routes.BaseHelper
 }
 
 type Route interface {
@@ -43,7 +43,7 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 
 	htmlRenderer := html.NewRenderer(generatedPath, settings.Template, log)
 	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
-	helper := routes.NewHelper(settings.Goodreads, htmlRenderer, atomRenderer)
+	helper := routes.NewBaseHelper(settings.Goodreads, htmlRenderer, atomRenderer)
 
 	return &Content{
 		settings,
@@ -53,7 +53,7 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 	}
 }
 
-func allRoutes(helper *routes.Helper) []Route {
+func allRoutes(helper routes.Helper) []Route {
 	return []Route{
 		routes.NewAllRoutes(helper),
 	}
