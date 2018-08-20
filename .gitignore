@@ -6,7 +6,7 @@ node_modules/**
 generated/*
 logs/*
 cache/*
-settings.json
 
 .envrc
+settings.json
 aws/credentials
