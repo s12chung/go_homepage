@@ -20,6 +20,8 @@ const markdownExtension = ".md"
 
 var postMap = map[string]*Post{}
 
+func ResetPostMap() { postMap = map[string]*Post{} }
+
 type Post struct {
 	Title       string    `yaml:"title"`
 	Description string    `yaml:"description"`
@@ -39,9 +41,9 @@ func (post *Post) MarkdownFilename() string {
 }
 
 func (post *Post) FilePath() string {
-	folderPath := factory.Settings.PostsPath
+	folderPath := factory.settings.PostsPath
 	if post.IsDraft {
-		folderPath = factory.Settings.DraftsPath
+		folderPath = factory.settings.DraftsPath
 	}
 	return strings.Join([]string{
 		utils.CleanFilePath(folderPath),
@@ -50,7 +52,7 @@ func (post *Post) FilePath() string {
 }
 
 func (post *Post) EditGithubUrl() string {
-	githubUrl := factory.Settings.GithubUrl
+	githubUrl := factory.settings.GithubUrl
 	if githubUrl == "" {
 		return ""
 	}
@@ -63,11 +65,12 @@ func (post *Post) EditGithubUrl() string {
 }
 
 func NewPost(filename string) (*Post, error) {
-	return factory.NewPost(filename)
-}
+	post := postMap[filename]
+	if post != nil {
+		return post, nil
+	}
 
-func (factory *Factory) NewPost(filename string) (*Post, error) {
-	filePath, isDraft, err := factory.postPath(filename)
+	filePath, isDraft, err := postPath(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -77,15 +80,18 @@ func (factory *Factory) NewPost(filename string) (*Post, error) {
 	}
 
 	post, markdown, err := postParts(input)
-	post.Filename = filename
-	post.MarkdownHTML = string(blackfriday.Run([]byte(markdown)))
-	post.IsDraft = isDraft
-
 	if err != nil {
 		return nil, err
 	}
+	post.Filename = filename
+	post.MarkdownHTML = string(blackfriday.Run([]byte(markdown)))
+	post.IsDraft = isDraft
 	postMap[post.Filename] = post
 	return post, nil
+}
+
+func Posts() ([]*Post, error) {
+	return AllPosts(func(post *Post) bool { return !post.IsDraft })
 }
 
 func AllPosts(sel func(*Post) bool) ([]*Post, error) {
@@ -94,10 +100,6 @@ func AllPosts(sel func(*Post) bool) ([]*Post, error) {
 		return nil, err
 	}
 	return toPosts(postMap, sel), nil
-}
-
-func Posts() ([]*Post, error) {
-	return AllPosts(func(post *Post) bool { return !post.IsDraft })
 }
 
 func fillPostMap() error {
@@ -135,26 +137,22 @@ func toPosts(postMap map[string]*Post, sel func(*Post) bool) []*Post {
 }
 
 func AllPostFilenames() ([]string, error) {
-	return factory.allPostFilenames()
-}
+	allPostUrls := []string{}
 
-func (factory *Factory) allPostFilenames() ([]string, error) {
-	var allPostUrls []string
-
-	postsUrls, err := factory.postFilenames(factory.Settings.PostsPath)
+	postsUrls, err := postFilenames(factory.settings.PostsPath)
 	if err != nil {
 		return nil, err
 	}
 	allPostUrls = append(allPostUrls, postsUrls...)
 
-	draftUrls, err := factory.postFilenames(factory.Settings.DraftsPath)
+	draftUrls, err := postFilenames(factory.settings.DraftsPath)
 	if err != nil {
 		return nil, err
 	}
 	return append(allPostUrls, draftUrls...), nil
 }
 
-func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
+func postFilenames(postsDirPath string) ([]string, error) {
 	filePaths, err := utils.FilePaths(markdownExtension, postsDirPath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -172,11 +170,11 @@ func (factory *Factory) postFilenames(postsDirPath string) ([]string, error) {
 	return filenames, nil
 }
 
-func (factory *Factory) postPath(filename string) (string, bool, error) {
+func postPath(filename string) (string, bool, error) {
 	filename = markdownFilename(filename)
 	paths := []string{
-		path.Join(factory.Settings.PostsPath, filename),
-		path.Join(factory.Settings.DraftsPath, filename),
+		path.Join(factory.settings.PostsPath, filename),
+		path.Join(factory.settings.DraftsPath, filename),
 	}
 
 	for index, currentPath := range paths {

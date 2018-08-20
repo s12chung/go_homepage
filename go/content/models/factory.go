@@ -3,7 +3,7 @@ package models
 import "github.com/sirupsen/logrus"
 
 type Factory struct {
-	Settings *Settings
+	settings *Settings
 	log      logrus.FieldLogger
 }
 
