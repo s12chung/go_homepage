@@ -1,4 +1,4 @@
-# go_homepage
+# go_homepage [![Build Status](https://travis-ci.com/s12chung/go_homepage.svg?branch=master)](https://travis-ci.com/s12chung/go_homepage)
 A static website generator for https://stevenchung.ca written with Go and Webpack.
 
 It has:
@@ -22,7 +22,7 @@ make docker-install
 
 This will build docker and do all the installation inside docker. After, it’ll copy all downloaded code libraries from the docker container to the host, so that when the container and host sync filesystems, the libraries will be there.
 
-Look for all files with `.example` in the filename. Make a copy without `.example` and fill in the missing information. You can skip the [`aws`](aws) folder, as that relates to deploying. You also can set more settings by looking at [`settings.go`](go/app/settings/settings.go).
+Look for all files with `.example` in the filename. Make a copy without `.example` and fill in the missing information. You can skip the [`aws`](aws) folder, as that relates to deploying. You also can set more settings by looking at [`app/settings.go`](go/app/settings.go) and [`content/settings.go`](go/content/settings.go).
 
 You can run a developer instance through Docker via:
 ```sh
@@ -34,25 +34,36 @@ For production:
 make docker-prod
 ```
 
-By default, you can access the file server via `http://localhost:3000`.
+By default, this will generate all the files of the static website in `generated` and host the directory in a file server via `http://localhost:3000`.
 
 All blog post content is in the `content` folder.
 
-## Code Structure
+## Structure
 `go_homepage` manages the following through a `Makefile`:
 
 - A Go executable
 - A Webpack setup
-- `watchman` - a file diff watcher by Facebook to auto compile everything conveniently for development
-- `aws-cli` - to handle Amazon S3 Deployment
+- `watchman` - A file diff watcher by Facebook to auto compile everything conveniently for development
+- `aws-cli` - Handles Amazon S3 Deployment
 
-First, Webpack compiles/optimizes all the assets (JS, CSS, images) in the `assets` and `content` folders (`make build-assets`). It also generates a `Manifest.json` and `content/responsive` folder of json files. These files give the Go executable file paths from Webpack compilation.
+First, Webpack compiles/optimizes all the assets (JS, CSS, images) in the `assets` and `content` folders (`make build-assets`). It also generates a `Manifest.json` and `content/responsive` folder of json files. These files give the Go executable file paths from the Webpack compilation.
 
-After, the Go executable generates all the web page files using the content folder and the json files from Webpack (`make build-go`). It also does any API requests if needed. By default, the generated results are put in the `generated` folder. The Go executable can also host these files with a file server (`make file-server`).
+After, the Go executable generates all the web page files using the `content` folder and the json files from Webpack (`make build-go`). It also does any API requests if needed. By default, the generated results are put in the `generated` folder. The Go executable can also host these files with a file server (`make file-server`).
 
 The code is structured much like a Go web app. In fact, you can start it as a web app (`make server`), which uses Go standard lib `net/http` internally.
 
 I run them through Docker, which handles all the system dependencies to install Go, nodejs, image optimization, etc. See [`Dockerfile`](Dockerfile) to see system dependencies. Your local system probably has some of them already, as Docker is running Alpine, a minimal Linux distribution.
+
+## Go Structure
+The Go code is structured in different folders:
+- `go_homepage.go` - This contains `main` of the binary, and does configuration gluing everything together
+- `cli` - Basic CLI interface for `app`
+- `app` - Does high level commands of the `cli.App` interface (generate, file-server, server) by taking the `byte[]` output of `content` to generate files concurrently or serving it via http
+- `content` - The content of the website, your templates, routes, and rendering formats. The custom part of your website.
+- `lib` - A set of independent libraries, including the routing framework and utils
+- `test` - Well, for tests
+
+The code is designed to make folders work independently. I’m confident you can import my code can fill in your `content`.
 
 ## Deploy
 `go_homepage` is designed to be hosted on Amazon S3.
@@ -102,7 +113,7 @@ because it ensures my origin master is synced with my homepage. In the future, I
 ## Host
 You can host `go_homepage` directly from Amazon S3, it’s easy to Google for.
 
-I find it best to use Amazon CloudFront CDN with Amazon Certificate Manager to provide SSL.
+I find it best to use Amazon CloudFront CDN with Amazon Certificate Manager to provide SSL. Also, note about [CNAMEs on Root domains](https://serverfault.com/questions/613829/why-cant-a-cname-record-be-used-at-the-apex-aka-root-of-a-domain), which can break your emails (that happened to me).
 
 ### Setup
 First, open the Amazon Certificate Manager and request a public certificate. Use both `*.yourwebsite.com` and `yourwebsite.com` as domain names. Use DNS validation, which will tell you to create a `CNAME` record in your DNS for your domain with the given `name` and `value` (note that `name` is the full url host, your DNS may only need the subdomain of the `name` to specify the host).
@@ -124,3 +135,6 @@ Once validated, go to Amazon CloudFront and create a distribution. Choose `Web` 
 These are the **must have** options, I’d browse through the other options and see what you like.
 
 After creation and when status is deployed (a few minutes), you can access your website via the `Domain Name` (<some_hash>.cloudfront.net). Create a `CNAME` record on your DNS to point the url you’re hosting (yourwebsite.com) to that `Domain Name`.
+
+## Inspiration
+Much inspiration was taken from [brandur/sorg](https://github.com/brandur/sorg).
