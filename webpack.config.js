@@ -23,7 +23,6 @@ const cssLoaders = [
 
 const filename = isProduction ? '[name]-[hash]' : '[name]';
 const imageTest = /\.(png|jpg|gif)$/;
-const contentImagesPath = 'content/images/';
 const rootFaviconFiles = [
     "favicon.ico",
     "browserconfig.xml"
@@ -41,6 +40,24 @@ const fileLoader = function(outputPath, name) {
             }
         }
     ];
+};
+
+// no support for gif
+const responsiveExt = /\.(png|jpg)$/;
+const nonResponsiveExt = /\.(gif)$/;
+const responsiveRules = function(include, outputPath, filenameWithoutExt) {
+    return [
+        {
+            test: nonResponsiveExt,
+            include: include,
+            use: fileLoader(outputPath, filenameWithoutExt + '.[ext]')
+        },
+        {
+            test: responsiveExt,
+            include: include,
+            use: responsive(outputPath + "responsive/", outputPath + filenameWithoutExt + '-[width].[ext]')
+        }
+    ]
 };
 
 const responsive = function(jsonOutputPath, imageName) {
@@ -86,10 +103,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: cssLoaders.concat([
-                    {
-                        loader: 'sass-loader',
-                        options: { sourceMap: !isProduction }
-                    }
+                    { loader: 'sass-loader', options: { sourceMap: !isProduction } }
                 ]),
             },
             {
@@ -105,24 +119,9 @@ module.exports = {
                 include: rootFaviconFiles,
                 use: fileLoader('../', '[name].[ext]')
             },
-            {
-                test: imageTest,
-                include: relativePath('assets/images'),
-                use: fileLoader('images/', filename + '.[ext]')
-            },
-            {
-                // load what responsive-loader can't
-                test: /\.(gif)$/,
-                include: relativePath('content'),
-                use: fileLoader(contentImagesPath, filename + '.[ext]')
-            },
-            {
-                // no support for gif
-                test: /\.(png|jpg)$/,
-                include: relativePath('content'),
-                use: responsive('content/responsive/', contentImagesPath + filename + '-[width].[ext]')
-            },
-        ],
+        ]
+            .concat(responsiveRules(relativePath('assets/images'), 'images/', filename))
+            .concat(responsiveRules(relativePath('content'), 'content/images/', filename))
     },
 
     plugins: [

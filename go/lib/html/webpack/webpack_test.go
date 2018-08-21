@@ -65,13 +65,6 @@ func TestWebpack_GeneratedAssetsPath(t *testing.T) {
 	test.AssertLabel(t, "Result", got, path.Join(generatedPath, assetsPath))
 }
 
-func TestWebpack_GeneratedManifestPath(t *testing.T) {
-	assetsPath = "asset_test"
-	webpack, _ := defaultWebpack()
-	got := webpack.GeneratedManifestPath()
-	test.AssertLabel(t, "Result", got, path.Join(generatedPath, assetsPath, manifestpath))
-}
-
 func TestWebpack_ManifestUrl(t *testing.T) {
 	assetsPath = "manifesttest"
 	webpack, hook := defaultWebpack()
