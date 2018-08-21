@@ -28,7 +28,6 @@ func setPostDirEmpty() {
 func TestMain(m *testing.M) {
 	configFactory()
 	retCode := m.Run()
-	configFactory()
 	os.Exit(retCode)
 }
 

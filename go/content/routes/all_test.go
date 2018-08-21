@@ -42,7 +42,6 @@ func goodreadsSettings(t *testing.T, apiUrl string) (*goodreads.Settings, func()
 func TestMain(m *testing.M) {
 	modelsConfig()
 	retCode := m.Run()
-	modelsConfig()
 	os.Exit(retCode)
 }
 
