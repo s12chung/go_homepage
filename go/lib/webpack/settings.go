@@ -1,6 +1,8 @@
 package webpack
 
-import "os"
+import (
+	"os"
+)
 
 type Settings struct {
 	AssetsPath             string            `json:"assets_path,omitempty"`
@@ -10,11 +12,11 @@ type Settings struct {
 
 func DefaultSettings() *Settings {
 	assetsPath := os.Getenv("ASSETS_PATH")
-	if assetsPath != "" {
+	if assetsPath == "" {
 		assetsPath = "assets"
 	}
 	return &Settings{
-		"assets",
+		assetsPath,
 		"content",
 		map[string]string{
 			"assets":  "images",

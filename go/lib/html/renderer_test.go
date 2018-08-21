@@ -17,13 +17,11 @@ import (
 var updateFixturesPtr = test.UpdateFixtureFlag()
 
 func defaultRenderer() (*Renderer, *logTest.Hook) {
-	settings := &Settings{
-		test.FixturePath,
-		"The Website Title",
-	}
+	settings := DefaultSettings()
+	settings.TemplatePath = test.FixturePath
 	log, hook := logTest.NewNullLogger()
 
-	w := webpack.NewWebpack(path.Join(test.FixturePath, "generated"), log)
+	w := webpack.NewWebpack(path.Join(test.FixturePath, "generated"), webpack.DefaultSettings(), log)
 	md := markdown.NewMarkdown(&markdown.Settings{path.Join(test.FixturePath, "markdowns")}, log)
 	return NewRenderer(settings, []Plugin{w, md}, log), hook
 }

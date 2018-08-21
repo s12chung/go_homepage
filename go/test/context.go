@@ -50,9 +50,9 @@ func (context *Context) Stringf(format string, args ...interface{}) string {
 }
 
 func (context *Context) GotExpString(label string, got, exp interface{}) string {
-	return context.Stringf("%v - got: %v, exp: %v", label, got, exp)
+	return context.String(AssertLabelString(label, got, exp))
 }
 
 func (context *Context) DiffString(label string, got, exp, diff interface{}) string {
-	return context.Stringf("%v - got: %v, exp: %v, diff: %v", label, got, exp, diff)
+	return context.Stringf("%v, diff: %v", AssertLabelString(label, got, exp), diff)
 }

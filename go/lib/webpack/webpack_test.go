@@ -13,70 +13,75 @@ import (
 
 var generatedPath = path.Join(test.FixturePath, "generated")
 
-func defaultWebpack() (*Webpack, *logTest.Hook) {
-	log, hook := logTest.NewNullLogger()
-	return NewWebpack(generatedPath, log), hook
+func setAssetsPath(val string, callback func()) {
+	os.Setenv("ASSETS_PATH", val)
+	callback()
+	os.Setenv("ASSETS_PATH", "")
 }
 
-func TestAssetsPath(t *testing.T) {
+func defaultWebpack() (*Webpack, *logTest.Hook) {
+	log, hook := logTest.NewNullLogger()
+	settings := DefaultSettings()
+	settings.ResponsiveImageMap = map[string]string{
+		"test": "",
+	}
+	return NewWebpack(generatedPath, settings, log), hook
+}
+
+func TestWebpack_AssetsPath(t *testing.T) {
 	testCases := []struct {
-		env          string
-		fromPrevious bool
-		expected     string
+		env      string
+		expected string
 	}{
-		{"", false, "assets"},
-		{"", true, "assets"},
-		{"test_env", true, "assets"},
-		{"test_env", false, "test_env"},
-		{"test_again", true, "test_env"},
-		{"", true, "test_env"},
-		{"test_again", false, "test_again"},
+		{"", "assets"},
+		{"test_env", "test_env"},
 	}
 
 	for testCaseIndex, tc := range testCases {
 		context := test.NewContext().SetFields(test.ContextFields{
-			"index":        testCaseIndex,
-			"env":          tc.env,
-			"fromPrevious": tc.fromPrevious,
+			"index": testCaseIndex,
+			"env":   tc.env,
 		})
 
-		if !tc.fromPrevious {
-			assetsPath = ""
-		}
-		os.Setenv("ASSETS_PATH", tc.env)
-
-		got := AssetsPath()
-		if got != tc.expected {
-			t.Error(context.GotExpString("Result", got, tc.expected))
-		}
+		setAssetsPath(tc.env, func() {
+			os.Setenv("ASSETS_PATH", tc.env)
+			webpack, _ := defaultWebpack()
+			got := webpack.AssetsPath()
+			if got != tc.expected {
+				t.Error(context.GotExpString("Result", got, tc.expected))
+			}
+		})
 	}
 }
 
-func TestAssetsUrl(t *testing.T) {
-	assetsPath = "asset_test"
-	got := AssetsUrl()
-	test.AssertLabel(t, "Result", got, "/asset_test/")
+func TestWebpack_AssetsUrl(t *testing.T) {
+	webpack, _ := defaultWebpack()
+	got := webpack.AssetsUrl()
+	test.AssertLabel(t, "Result", got, "/assets/")
 }
 
 func TestWebpack_GeneratedAssetsPath(t *testing.T) {
-	assetsPath = "asset_test"
 	webpack, _ := defaultWebpack()
 	got := webpack.GeneratedAssetsPath()
-	test.AssertLabel(t, "Result", got, path.Join(generatedPath, assetsPath))
+	test.AssertLabel(t, "Result", got, path.Join(generatedPath, webpack.AssetsPath()))
 }
 
 func TestWebpack_ManifestUrl(t *testing.T) {
-	assetsPath = "manifesttest"
-	webpack, hook := defaultWebpack()
-	got := webpack.ManifestUrl("vendor.css")
+	setAssetsPath("manifesttest", func() {
+		webpack, hook := defaultWebpack()
+		got := webpack.ManifestUrl("vendor.css")
 
-	test.PrintLogEntries(t, hook)
-	test.AssertLabel(t, "Result", got, path.Join(assetsPath, "vendor-32267303b2484ed8b3aa.css"))
+		test.PrintLogEntries(t, hook)
+		test.AssertLabel(t, "Result", got, path.Join(webpack.AssetsPath(), "vendor-32267303b2484ed8b3aa.css"))
+	})
 }
 
 func TestWebpack_GetResponsiveImage(t *testing.T) {
-	assetsPath = "responsivetest"
-	webpack, hook := defaultWebpack()
+	var webpack *Webpack
+	var hook *logTest.Hook
+	setAssetsPath("responsivetest", func() {
+		webpack, hook = defaultWebpack()
+	})
 
 	testCases := []struct {
 		originalSrc string
@@ -84,14 +89,14 @@ func TestWebpack_GetResponsiveImage(t *testing.T) {
 	}{
 		{"test.jpg",
 			&ResponsiveImage{
-				"responsivetest/content/images/test-37a65f446db3e9da33606b7eb48721bb-325.jpg 325w, responsivetest/content/images/test-c9d1dad468456287c20a476ade8a4d3f-750.jpg 750w, responsivetest/content/images/test-be268849aa760a62798817c27db7c430-1500.jpg 1500w, responsivetest/content/images/test-38e5ee006bf91e6af6d508bce2a9da4c-3000.jpg 3000w, responsivetest/content/images/test-84800b3286f76133d1592c9e68fa10be-4000.jpg 4000w",
-				"responsivetest/content/images/test-37a65f446db3e9da33606b7eb48721bb-325.jpg",
+				"responsivetest/test-37a65f446db3e9da33606b7eb48721bb-325.jpg 325w, responsivetest/test-c9d1dad468456287c20a476ade8a4d3f-750.jpg 750w, responsivetest/test-be268849aa760a62798817c27db7c430-1500.jpg 1500w, responsivetest/test-38e5ee006bf91e6af6d508bce2a9da4c-3000.jpg 3000w, responsivetest/test-84800b3286f76133d1592c9e68fa10be-4000.jpg 4000w",
+				"responsivetest/test-37a65f446db3e9da33606b7eb48721bb-325.jpg",
 			},
 		},
 		{"test.png",
 			&ResponsiveImage{
-				"responsivetest/content/images/test-afe607afeab81578d972f0ce9a92bdf4-325.png 325w, responsivetest/content/images/test-d31be3db558b4fe54b2c098abdd96306-750.png 750w, responsivetest/content/images/test-e4b7c37523ea30081ad02f6191b299f6-1440.png 1440w",
-				"responsivetest/content/images/test-afe607afeab81578d972f0ce9a92bdf4-325.png",
+				"responsivetest/test-afe607afeab81578d972f0ce9a92bdf4-325.png 325w, responsivetest/test-d31be3db558b4fe54b2c098abdd96306-750.png 750w, responsivetest/test-e4b7c37523ea30081ad02f6191b299f6-1440.png 1440w",
+				"responsivetest/test-afe607afeab81578d972f0ce9a92bdf4-325.png",
 			},
 		},
 	}
@@ -101,8 +106,7 @@ func TestWebpack_GetResponsiveImage(t *testing.T) {
 			"originalSrc": tc.originalSrc,
 		})
 
-		got := webpack.GetResponsiveImage(tc.originalSrc)
-
+		got := webpack.GetResponsiveImage("test", tc.originalSrc)
 		test.PrintLogEntries(t, hook)
 		if !cmp.Equal(got, tc.expected) {
 			t.Error(context.GotExpString("result", got, tc.expected))
