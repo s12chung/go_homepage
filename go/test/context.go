@@ -54,5 +54,5 @@ func (context *Context) GotExpString(label string, got, exp interface{}) string 
 }
 
 func (context *Context) DiffString(label string, got, exp, diff interface{}) string {
-	return context.Stringf("%v, diff: %v", AssertLabelString(label, got, exp), diff)
+	return context.Stringf(DiffString(label, got, exp, diff))
 }

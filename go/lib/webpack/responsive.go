@@ -55,21 +55,15 @@ func (r *Responsive) getResponsiveImage(originalSrc string) (*ResponsiveImage, e
 	if err != nil {
 		return nil, err
 	}
-	err = responsiveImage.changeResponsiveImageUrl(path.Join(r.assetsFolder, r.imagePath))
-	if err != nil {
-		return nil, err
-	}
-
+	responsiveImage.ChangeSrcPrefix(path.Join(r.assetsFolder, r.imagePath), r.log)
 	return responsiveImage, nil
 }
 
-func (r *Responsive) makeJsonPath(originalSrc string) string {
-	filename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
-	return path.Join(r.generatedPath, r.assetsFolder, r.imagePath, responsiveFolder, filename)
-}
-
 func (r *Responsive) readResponsiveImageJSON(originalSrc string) (*ResponsiveImage, error) {
-	bytes, err := ioutil.ReadFile(r.makeJsonPath(originalSrc))
+	filename := fmt.Sprintf("%v.json", filepath.Base(originalSrc))
+	filePath := path.Join(r.generatedPath, r.assetsFolder, r.imagePath, responsiveFolder, filename)
+
+	bytes, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}

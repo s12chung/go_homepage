@@ -20,33 +20,30 @@ func NewManifest(generatedPath, assetsFolder string, log logrus.FieldLogger) *Ma
 	return &Manifest{generatedPath, assetsFolder, map[string]string{}, log}
 }
 
+func (w *Manifest) ManifestUrl(key string) string {
+	return w.assetsFolder + "/" + w.manifestValue(key)
+}
+
 func (w *Manifest) manifestValue(key string) string {
 	if len(w.manifestMap) == 0 {
 		err := w.readManifest()
 		if err != nil {
 			w.log.Errorf("readManifest error: %v", err)
-			return ""
+			return key
 		}
 	}
 	value := w.manifestMap[key]
 	if value == "" {
 		w.log.Errorf("webpack manifestValue not found for key: %v", key)
+		return key
 	}
 	return value
 }
 
 func (w *Manifest) readManifest() error {
-	bytes, err := ioutil.ReadFile(w.GeneratedManifestPath())
+	bytes, err := ioutil.ReadFile(filepath.Join(w.generatedPath, w.assetsFolder, manifestPath))
 	if err != nil {
 		return err
 	}
 	return json.Unmarshal(bytes, &w.manifestMap)
-}
-
-func (w *Manifest) GeneratedManifestPath() string {
-	return filepath.Join(w.generatedPath, w.assetsFolder, manifestPath)
-}
-
-func (w *Manifest) ManifestUrl(key string) string {
-	return w.assetsFolder + "/" + w.manifestValue(key)
 }

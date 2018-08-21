@@ -33,6 +33,10 @@ func AssertLabelString(label string, got, exp interface{}) string {
 	return fmt.Sprintf("%v - got: %v, exp: %v", label, got, exp)
 }
 
+func DiffString(label string, got, exp, diff interface{}) string {
+	return fmt.Sprintf("%v, diff: %v", AssertLabelString(label, got, exp), diff)
+}
+
 func RandSeed() {
 	rand.Seed(time.Now().UTC().UnixNano())
 }

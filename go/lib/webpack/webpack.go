@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
+var imgRegex = regexp.MustCompile(`<img[^>]+(src="([^"]*)")`)
 
 type Webpack struct {
 	generatedPath string
@@ -47,10 +47,15 @@ func (w *Webpack) GeneratedAssetsPath() string {
 	return filepath.Join(w.generatedPath, w.AssetsPath())
 }
 
+func (w *Webpack) ManifestUrl(key string) string {
+	return w.manifest.ManifestUrl(key)
+}
+
 func (w *Webpack) GetResponsiveImage(key, originalSrc string) *ResponsiveImage {
 	responsive, has := w.responsiveMap[key]
 	if !has {
 		w.log.Errorf("Invalid key given to GetResponsiveImage: %v", key)
+		return &ResponsiveImage{Src: originalSrc}
 	}
 	if !HasResponsive(originalSrc) {
 		manifestKey := filepath.Join(responsive.imagePath, filepath.Base(originalSrc))
@@ -59,13 +64,10 @@ func (w *Webpack) GetResponsiveImage(key, originalSrc string) *ResponsiveImage {
 	return responsive.GetResponsiveImage(originalSrc)
 }
 
-func (w *Webpack) ManifestUrl(key string) string {
-	return w.manifest.ManifestUrl(key)
-}
-
-func (w *Webpack) replaceResponsiveAttrs(html string) string {
+func (w *Webpack) ReplaceResponsiveAttrs(html string) string {
 	responsiveKey := w.settings.ReplaceResponsiveAttrs
 	if w.settings.ReplaceResponsiveAttrs == "" {
+		w.log.Errorf("no settings.ReplaceResponsiveAttrs found")
 		return html
 	}
 	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
@@ -75,7 +77,7 @@ func (w *Webpack) replaceResponsiveAttrs(html string) string {
 	})
 }
 
-func (w *Webpack) responsiveHtmlAttrs(key, originalSrc string) template.HTMLAttr {
+func (w *Webpack) ResponsiveHtmlAttrs(key, originalSrc string) template.HTMLAttr {
 	responsiveImage := w.GetResponsiveImage(key, originalSrc)
 	return template.HTMLAttr(responsiveImage.HtmlAttrs())
 }
@@ -83,7 +85,7 @@ func (w *Webpack) responsiveHtmlAttrs(key, originalSrc string) template.HTMLAttr
 func (w *Webpack) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
 		"webpackUrl":             w.ManifestUrl,
-		"responsiveAttrs":        w.responsiveHtmlAttrs,
-		"replaceResponsiveAttrs": w.replaceResponsiveAttrs,
+		"responsiveAttrs":        w.ResponsiveHtmlAttrs,
+		"replaceResponsiveAttrs": w.ReplaceResponsiveAttrs,
 	}
 }

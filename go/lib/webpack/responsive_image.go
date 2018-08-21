@@ -2,47 +2,59 @@ package webpack
 
 import (
 	"fmt"
+	"github.com/s12chung/go_homepage/go/lib/utils"
+	"github.com/sirupsen/logrus"
 	"path"
 	"regexp"
 	"strings"
 )
 
 type ResponsiveImage struct {
-	SrcSet string `json:"srcSet"`
 	Src    string `json:"src"`
+	SrcSet string `json:"srcSet"`
 }
 
 var spacesRegex = regexp.MustCompile(`\s+`)
 
-func (r *ResponsiveImage) changeResponsiveImageUrl(imagesUrl string) error {
-	r.Src = r.changeSrc(imagesUrl, r.Src)
+func (r *ResponsiveImage) ChangeSrcPrefix(prefix string, log logrus.FieldLogger) {
+	r.Src = changeSrcPrefix(prefix, r.Src)
 	if r.SrcSet == "" {
-		return nil
+		return
 	}
 
-	srcWidths := strings.Split(r.SrcSet, ",")
-	newSrcSet := make([]string, len(srcWidths))
-	for i, srcWidth := range srcWidths {
+	var newSrcSet []string
+	for _, srcWidth := range strings.Split(r.SrcSet, ",") {
 		srcWidthSplit := spacesRegex.Split(strings.Trim(srcWidth, " "), -1)
 		if len(srcWidthSplit) != 2 {
-			return fmt.Errorf("srcSet is not formatted correctly with '%v' for img src='%v'", srcWidth, r.Src)
-			newSrcSet[i] = srcWidth
+			log.Warn("skipping, srcSet is not formatted correctly with '%v' for img src='%v'", srcWidth, r.Src)
+			continue
 		}
-		newSrcSet[i] = fmt.Sprintf("%v %v", r.changeSrc(imagesUrl, srcWidthSplit[0]), srcWidthSplit[1])
+		newSrcSet = append(newSrcSet, fmt.Sprintf("%v %v", changeSrcPrefix(prefix, srcWidthSplit[0]), srcWidthSplit[1]))
 	}
 
 	r.SrcSet = strings.Join(newSrcSet, ", ")
-	return nil
 }
 
 func (r *ResponsiveImage) HtmlAttrs() string {
-	htmlAttrs := []string{fmt.Sprintf(`src="%v"`, r.Src)}
+	var htmlAttrs []string
+	if r.Src != "" {
+		htmlAttrs = append(htmlAttrs, fmt.Sprintf(`src="%v"`, r.Src))
+	}
 	if r.SrcSet != "" {
 		htmlAttrs = append(htmlAttrs, fmt.Sprintf(`srcset="%v"`, r.SrcSet))
 	}
 	return strings.Join(htmlAttrs, " ")
 }
 
-func (r *ResponsiveImage) changeSrc(imagesUrl, src string) string {
-	return fmt.Sprintf("%v/%v", imagesUrl, path.Base(src))
+func changeSrcPrefix(prefix, src string) string {
+	if src == "" {
+		return ""
+	}
+
+	prefix = utils.CleanFilePath(prefix)
+	base := path.Base(src)
+	if prefix == "" {
+		return base
+	}
+	return fmt.Sprintf("%v/%v", prefix, base)
 }

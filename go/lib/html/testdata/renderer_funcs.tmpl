@@ -1,9 +1,0 @@
-{{define "content"}}
-<div>
-{{webpackUrl "vendor.css"}}
-</div>
-{{htmlSafe (markdown "renderer_funcs.md")}}
-<div>
-{{htmlSafe (replaceResponsiveAttrs (markdown "renderer_funcs.md"))}}
-</div>
-{{end}}
