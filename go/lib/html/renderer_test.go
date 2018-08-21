@@ -2,14 +2,16 @@ package html
 
 import (
 	"path"
+	"strconv"
 	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
+	"github.com/s12chung/go_homepage/go/lib/markdown"
+	"github.com/s12chung/go_homepage/go/lib/webpack"
 	"github.com/s12chung/go_homepage/go/test"
-	"strconv"
 )
 
 var updateFixturesPtr = test.UpdateFixtureFlag()
@@ -18,35 +20,12 @@ func defaultRenderer() (*Renderer, *logTest.Hook) {
 	settings := &Settings{
 		test.FixturePath,
 		"The Website Title",
-		path.Join(test.FixturePath, "markdowns"),
 	}
 	log, hook := logTest.NewNullLogger()
-	return NewRenderer(path.Join(test.FixturePath, "generated"), settings, log), hook
-}
 
-func TestRenderer_AssetsUrl(t *testing.T) {
-	renderer, _ := defaultRenderer()
-	got := renderer.AssetsUrl()
-	exp := "/assets/"
-	if got != exp {
-		test.AssertLabel(t, "Result", got, exp)
-	}
-}
-
-func TestRenderer_Webpack(t *testing.T) {
-	renderer, _ := defaultRenderer()
-	got := renderer.Webpack()
-	if got != renderer.w {
-		test.AssertLabel(t, "Result", got, renderer.w)
-	}
-}
-
-func TestRenderer_GeneratedAssetsPath(t *testing.T) {
-	renderer, _ := defaultRenderer()
-	got := renderer.GeneratedAssetsPath()
-	if got != renderer.w.GeneratedAssetsPath() {
-		test.AssertLabel(t, "Result", got, renderer.w.GeneratedAssetsPath())
-	}
+	w := webpack.NewWebpack(path.Join(test.FixturePath, "generated"), log)
+	md := markdown.NewMarkdown(&markdown.Settings{path.Join(test.FixturePath, "markdowns")}, log)
+	return NewRenderer(settings, []Plugin{w, md}, log), hook
 }
 
 func TestRenderer_Render(t *testing.T) {

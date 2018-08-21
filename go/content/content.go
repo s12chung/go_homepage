@@ -11,7 +11,9 @@ import (
 	"github.com/s12chung/go_homepage/go/content/routes"
 	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/html"
+	"github.com/s12chung/go_homepage/go/lib/markdown"
 	"github.com/s12chung/go_homepage/go/lib/router"
+	"github.com/s12chung/go_homepage/go/lib/webpack"
 )
 
 var ExtraMimeTypes = map[string]string{
@@ -41,9 +43,11 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 		mime.AddExtensionType(ext, mimeType)
 	}
 
-	htmlRenderer := html.NewRenderer(generatedPath, settings.Template, log)
+	w := webpack.NewWebpack(generatedPath, log)
+	md := markdown.NewMarkdown(settings.Markdown, log)
+	htmlRenderer := html.NewRenderer(settings.Template, []html.Plugin{w, md}, log)
 	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
-	helper := routes.NewBaseHelper(settings.Goodreads, htmlRenderer, atomRenderer)
+	helper := routes.NewBaseHelper(settings.Goodreads, w, htmlRenderer, atomRenderer)
 
 	return &Content{
 		settings,
@@ -86,9 +90,9 @@ func (content *Content) WildcardUrls() ([]string, error) {
 }
 
 func (content *Content) AssetsUrl() string {
-	return content.helper.HtmlRenderer.AssetsUrl()
+	return webpack.AssetsUrl()
 }
 
 func (content *Content) GeneratedAssetsPath() string {
-	return content.helper.HtmlRenderer.GeneratedAssetsPath()
+	return content.helper.Webpack.GeneratedAssetsPath()
 }

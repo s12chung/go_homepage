@@ -2,11 +2,16 @@ package webpack
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
+	"html/template"
 	"os"
 	"path/filepath"
+	"regexp"
+	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
+var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
 var assetsPath = ""
 var assetsUrl = ""
 
@@ -59,4 +64,23 @@ func (w *Webpack) GetResponsiveImage(originalSrc string) *ResponsiveImage {
 
 func (w *Webpack) ManifestUrl(key string) string {
 	return w.manifest.ManifestUrl(key)
+}
+
+func (w *Webpack) ProcessHTML(html string) string {
+	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
+		matches := imgRegex.FindStringSubmatch(imgTag)
+		responsiveImage := w.GetResponsiveImage(matches[2])
+
+		attributes := []string{fmt.Sprintf(`src="%v"`, responsiveImage.Src)}
+		if responsiveImage.SrcSet != "" {
+			attributes = append(attributes, fmt.Sprintf(`srcset="%v"`, responsiveImage.SrcSet))
+		}
+		return strings.Replace(imgTag, matches[1], strings.Join(attributes, " "), 1)
+	})
+}
+
+func (w *Webpack) TemplateFuncs() template.FuncMap {
+	return template.FuncMap{
+		"webpackUrl": w.ManifestUrl,
+	}
 }

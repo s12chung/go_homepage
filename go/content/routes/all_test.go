@@ -47,7 +47,7 @@ func TestMain(m *testing.M) {
 }
 
 func defaultAllRoutes() *AllRoutes {
-	return NewAllRoutes(NewBaseHelper(nil, nil, nil))
+	return NewAllRoutes(NewBaseHelper(nil, nil, nil, nil))
 }
 
 func TestAllRoutes_WildcardUrls(t *testing.T) {

@@ -5,6 +5,7 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
 	"github.com/s12chung/go_homepage/go/lib/html"
 	"github.com/s12chung/go_homepage/go/lib/router"
+	"github.com/s12chung/go_homepage/go/lib/webpack"
 )
 
 type Helper interface {
@@ -17,16 +18,17 @@ type Helper interface {
 
 type BaseHelper struct {
 	goodreadsSettings *goodreads.Settings
+	Webpack           *webpack.Webpack
 	HtmlRenderer      *html.Renderer
 	AtomRenderer      *atom.HtmlRenderer
 }
 
-func NewBaseHelper(goodReadSettings *goodreads.Settings, htmlRenderer *html.Renderer, atomRenderer *atom.HtmlRenderer) *BaseHelper {
-	return &BaseHelper{goodReadSettings, htmlRenderer, atomRenderer}
+func NewBaseHelper(goodReadSettings *goodreads.Settings, w *webpack.Webpack, htmlRenderer *html.Renderer, atomRenderer *atom.HtmlRenderer) *BaseHelper {
+	return &BaseHelper{goodReadSettings, w, htmlRenderer, atomRenderer}
 }
 
 func (helper *BaseHelper) ManifestUrl(key string) string {
-	return helper.HtmlRenderer.Webpack().ManifestUrl(key)
+	return helper.Webpack.ManifestUrl(key)
 }
 
 func (helper *BaseHelper) GoodreadsSettings() *goodreads.Settings {

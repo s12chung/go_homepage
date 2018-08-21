@@ -5,6 +5,7 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/atom"
 	"github.com/s12chung/go_homepage/go/lib/goodreads"
 	"github.com/s12chung/go_homepage/go/lib/html"
+	"github.com/s12chung/go_homepage/go/lib/markdown"
 )
 
 type Settings struct {
@@ -12,6 +13,7 @@ type Settings struct {
 	Template  *html.Settings      `json:"template,omitempty"`
 	Atom      *atom.Settings      `json:"atom,omitempty"`
 	Goodreads *goodreads.Settings `json:"goodreads,omitempty"`
+	Markdown  *markdown.Settings  `json:"markdown,omitempty"`
 }
 
 func DefaultSettings() *Settings {
@@ -20,5 +22,6 @@ func DefaultSettings() *Settings {
 		html.DefaultSettings(),
 		atom.DefaultSettings(),
 		goodreads.DefaultSettings(),
+		markdown.DefaultSettings(),
 	}
 }

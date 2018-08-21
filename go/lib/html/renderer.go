@@ -4,69 +4,39 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"path"
 	"path/filepath"
-	"regexp"
 	"strings"
 
-	"github.com/russross/blackfriday"
 	"github.com/sirupsen/logrus"
 
-	"github.com/s12chung/go_homepage/go/lib/html/webpack"
 	"github.com/s12chung/go_homepage/go/lib/utils"
 )
 
-var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
-
 type Renderer struct {
 	settings *Settings
-	w        *webpack.Webpack
+	plugins  []Plugin
 	log      logrus.FieldLogger
 }
 
-func NewRenderer(generatedPath string, settings *Settings, log logrus.FieldLogger) *Renderer {
-	w := webpack.NewWebpack(generatedPath, log)
+func NewRenderer(settings *Settings, plugins []Plugin, log logrus.FieldLogger) *Renderer {
 	return &Renderer{
 		settings,
-		w,
+		plugins,
 		log,
 	}
 }
 
-func (renderer *Renderer) Webpack() *webpack.Webpack {
-	return renderer.w
-}
-
-func (renderer *Renderer) AssetsUrl() string {
-	return webpack.AssetsUrl()
-}
-
-func (renderer *Renderer) GeneratedAssetsPath() string {
-	return renderer.Webpack().GeneratedAssetsPath()
+type Plugin interface {
+	ProcessHTML(html string) string
+	TemplateFuncs() template.FuncMap
 }
 
 func (renderer *Renderer) processHTML(html string) string {
-	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
-		matches := imgRegex.FindStringSubmatch(imgTag)
-		responsiveImage := renderer.Webpack().GetResponsiveImage(matches[2])
-
-		attributes := []string{fmt.Sprintf(`src="%v"`, responsiveImage.Src)}
-		if responsiveImage.SrcSet != "" {
-			attributes = append(attributes, fmt.Sprintf(`srcset="%v"`, responsiveImage.SrcSet))
-		}
-		return strings.Replace(imgTag, matches[1], strings.Join(attributes, " "), 1)
-	})
-}
-
-func (renderer *Renderer) parseMarkdownPath(filename string) string {
-	filePath := path.Join(renderer.settings.MarkdownsPath, filename)
-	input, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		renderer.log.Error(err)
-		return ""
+	for _, plugin := range renderer.plugins {
+		html = plugin.ProcessHTML(html)
 	}
-	return string(blackfriday.Run(input))
+	return html
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
@@ -85,10 +55,9 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 }
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
+	defaults := defaultTemplateFuncs()
 	// add tests to ./testdata/renderer_funcs.tmpl (excluding title)
-	tgFuncs := template.FuncMap{
-		"webpackUrl":  renderer.Webpack().ManifestUrl,
-		"markdown":    renderer.parseMarkdownPath,
+	mergeFuncMap(defaults, template.FuncMap{
 		"processHTML": renderer.processHTML,
 		"title": func(data interface{}) string {
 			title := utils.GetStringField(data, "Title")
@@ -101,13 +70,17 @@ func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 			}
 			return fmt.Sprintf("%v - %v", strings.Title(title), renderer.settings.WebsiteTitle)
 		},
-	}
-
-	defaults := defaultTemplateFuncs()
-	for k, v := range tgFuncs {
-		defaults[k] = v
+	})
+	for _, plugin := range renderer.plugins {
+		mergeFuncMap(defaults, plugin.TemplateFuncs())
 	}
 	return defaults
+}
+
+func mergeFuncMap(dest, src template.FuncMap) {
+	for k, v := range src {
+		dest[k] = v
+	}
 }
 
 func (renderer *Renderer) Render(name, defaultTitle string, data interface{}) ([]byte, error) {
