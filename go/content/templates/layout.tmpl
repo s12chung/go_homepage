@@ -20,7 +20,7 @@
 <body>
 <section class="layout">
     <header class="layout">
-        <a href="/"><img class="logo" src="{{webpackUrl "images/logo.png"}}"/></a>
+        <a href="/"><img class="logo" {{responsiveAttrs "assets" "logo.png"}}/></a>
 
         <nav>
             {{$navItems := stringSliceMake "Reading" "About"}}

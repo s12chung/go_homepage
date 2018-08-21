@@ -43,7 +43,7 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 		mime.AddExtensionType(ext, mimeType)
 	}
 
-	w := webpack.NewWebpack(generatedPath, log)
+	w := webpack.NewWebpack(generatedPath, settings.Webpack, log)
 	md := markdown.NewMarkdown(settings.Markdown, log)
 	htmlRenderer := html.NewRenderer(settings.Template, []html.Plugin{w, md}, log)
 	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
@@ -90,7 +90,7 @@ func (content *Content) WildcardUrls() ([]string, error) {
 }
 
 func (content *Content) AssetsUrl() string {
-	return webpack.AssetsUrl()
+	return content.helper.Webpack.AssetsUrl()
 }
 
 func (content *Content) GeneratedAssetsPath() string {

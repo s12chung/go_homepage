@@ -35,6 +35,14 @@ func (r *ResponsiveImage) changeResponsiveImageUrl(imagesUrl string) error {
 	return nil
 }
 
+func (r *ResponsiveImage) HtmlAttrs() string {
+	htmlAttrs := []string{fmt.Sprintf(`src="%v"`, r.Src)}
+	if r.SrcSet != "" {
+		htmlAttrs = append(htmlAttrs, fmt.Sprintf(`srcset="%v"`, r.SrcSet))
+	}
+	return strings.Join(htmlAttrs, " ")
+}
+
 func (r *ResponsiveImage) changeSrc(imagesUrl, src string) string {
 	return fmt.Sprintf("%v/%v", imagesUrl, path.Base(src))
 }

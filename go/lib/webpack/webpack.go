@@ -3,7 +3,6 @@ package webpack
 import (
 	"fmt"
 	"html/template"
-	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -12,54 +11,52 @@ import (
 )
 
 var imgRegex = regexp.MustCompile(`<img (src="([^"]*)")`)
-var assetsPath = ""
-var assetsUrl = ""
-
-func AssetsPath() string {
-	if assetsPath != "" {
-		return assetsPath
-	}
-	assetsPath = os.Getenv("ASSETS_PATH")
-	if assetsPath != "" {
-		return assetsPath
-	}
-	assetsPath = "assets"
-	return assetsPath
-}
-
-func AssetsUrl() string {
-	if assetsUrl == "" {
-		assetsUrl = fmt.Sprintf("/%v/", AssetsPath())
-	}
-	return assetsUrl
-}
 
 type Webpack struct {
 	generatedPath string
+	settings      *Settings
 	manifest      *Manifest
-	responsive    *Responsive
+	responsiveMap map[string]*Responsive
 	log           logrus.FieldLogger
 }
 
-func NewWebpack(generatedPath string, log logrus.FieldLogger) *Webpack {
+func NewWebpack(generatedPath string, settings *Settings, log logrus.FieldLogger) *Webpack {
+	responsiveMap := map[string]*Responsive{}
+	for k, imagePath := range settings.ResponsiveImageMap {
+		responsiveMap[k] = NewResponsive(generatedPath, settings.AssetsPath, imagePath, log)
+	}
+
 	return &Webpack{
 		generatedPath,
-		NewManifest(generatedPath, AssetsPath(), log),
-		NewResponsive(generatedPath, AssetsPath(), "content/images", log),
+		settings,
+		NewManifest(generatedPath, settings.AssetsPath, log),
+		responsiveMap,
 		log,
 	}
 }
 
-func (w *Webpack) GeneratedAssetsPath() string {
-	return filepath.Join(w.generatedPath, AssetsPath())
+func (w *Webpack) AssetsPath() string {
+	return w.settings.AssetsPath
 }
 
-func (w *Webpack) GetResponsiveImage(originalSrc string) *ResponsiveImage {
+func (w *Webpack) AssetsUrl() string {
+	return fmt.Sprintf("/%v/", w.AssetsPath())
+}
+
+func (w *Webpack) GeneratedAssetsPath() string {
+	return filepath.Join(w.generatedPath, w.AssetsPath())
+}
+
+func (w *Webpack) GetResponsiveImage(key, originalSrc string) *ResponsiveImage {
+	responsive, has := w.responsiveMap[key]
+	if !has {
+		w.log.Errorf("Invalid key given to GetResponsiveImage: %v", key)
+	}
 	if !HasResponsive(originalSrc) {
-		manifestKey := filepath.Join(w.responsive.imagePath, filepath.Base(originalSrc))
+		manifestKey := filepath.Join(responsive.imagePath, filepath.Base(originalSrc))
 		return &ResponsiveImage{Src: w.ManifestUrl(manifestKey)}
 	}
-	return w.responsive.GetResponsiveImage(originalSrc)
+	return responsive.GetResponsiveImage(originalSrc)
 }
 
 func (w *Webpack) ManifestUrl(key string) string {
@@ -67,20 +64,25 @@ func (w *Webpack) ManifestUrl(key string) string {
 }
 
 func (w *Webpack) ProcessHTML(html string) string {
+	responsiveKey := w.settings.ProcessHTMLResponsiveImage
+	if w.settings.ProcessHTMLResponsiveImage == "" {
+		return html
+	}
 	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
 		matches := imgRegex.FindStringSubmatch(imgTag)
-		responsiveImage := w.GetResponsiveImage(matches[2])
-
-		attributes := []string{fmt.Sprintf(`src="%v"`, responsiveImage.Src)}
-		if responsiveImage.SrcSet != "" {
-			attributes = append(attributes, fmt.Sprintf(`srcset="%v"`, responsiveImage.SrcSet))
-		}
-		return strings.Replace(imgTag, matches[1], strings.Join(attributes, " "), 1)
+		responsiveImage := w.GetResponsiveImage(responsiveKey, matches[2])
+		return strings.Replace(imgTag, matches[1], responsiveImage.HtmlAttrs(), 1)
 	})
+}
+
+func (w *Webpack) responsiveHtmlAttrs(key, originalSrc string) template.HTMLAttr {
+	responsiveImage := w.GetResponsiveImage(key, originalSrc)
+	return template.HTMLAttr(responsiveImage.HtmlAttrs())
 }
 
 func (w *Webpack) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
-		"webpackUrl": w.ManifestUrl,
+		"webpackUrl":      w.ManifestUrl,
+		"responsiveAttrs": w.responsiveHtmlAttrs,
 	}
 }

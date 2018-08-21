@@ -48,5 +48,5 @@ func (w *Manifest) GeneratedManifestPath() string {
 }
 
 func (w *Manifest) ManifestUrl(key string) string {
-	return AssetsPath() + "/" + w.manifestValue(key)
+	return w.assetsFolder + "/" + w.manifestValue(key)
 }
