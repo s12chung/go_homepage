@@ -18,7 +18,7 @@ func NewMarkdown(settings *Settings, log logrus.FieldLogger) *Markdown {
 	return &Markdown{settings, log}
 }
 
-func (markdown *Markdown) parseMarkdownPath(filename string) string {
+func (markdown *Markdown) ProcessMarkdown(filename string) string {
 	filePath := path.Join(markdown.settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -30,6 +30,6 @@ func (markdown *Markdown) parseMarkdownPath(filename string) string {
 
 func (markdown *Markdown) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
-		"markdown": markdown.parseMarkdownPath,
+		"markdown": markdown.ProcessMarkdown,
 	}
 }
