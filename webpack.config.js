@@ -64,10 +64,10 @@ const responsive = function(jsonOutputPath, imageName) {
             loader: 'file-loader',
             options: {
                 outputPath: jsonOutputPath,
-                name: '[name].[ext].json',
+                name: '[name.[ext].json',
             }
         },
-        'eval-loader',
+        'webpack-stringify-loader',
         {
             loader: 'responsive-loader',
             options: {
@@ -81,10 +81,6 @@ const responsive = function(jsonOutputPath, imageName) {
 };
 
 module.exports = {
-    resolveLoader: {
-        modules: ['node_modules', 'webpack/loaders']
-    },
-
     mode: isProduction ? "production" : "development",
 
     entry: {

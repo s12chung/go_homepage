@@ -6061,6 +6061,10 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
+webpack-stringify-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/webpack-stringify-loader/-/webpack-stringify-loader-1.0.0.tgz#9dedc99d2e401f862d470288ae695361a5bb9282"
+
 webpack@^4.15.0:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.16.3.tgz#861be3176d81e7e3d71c66c8acc9bba35588b525"

@@ -18,7 +18,8 @@
     "responsive-loader": "^1.1.0",
     "sass-loader": "^7.0.3",
     "sharp": "^0.20.5",
-    "webpack-manifest-plugin": "^2.0.3"
+    "webpack-manifest-plugin": "^2.0.3",
+    "webpack-stringify-loader": "^1.0.0"
   },
   "devDependencies": {
     "webpack": "^4.15.0",
