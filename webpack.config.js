@@ -41,9 +41,8 @@ const fileLoader = function(outputPath, name) {
     ];
 };
 
-// no support for gif
 const responsiveExt = /\.(png|jpg)$/;
-const nonResponsiveExt = /\.(gif)$/;
+const nonResponsiveExt = /\.(gif|svg)$/;
 const responsiveRules = function(include, outputPath, filenameWithoutExt) {
     return [
         {

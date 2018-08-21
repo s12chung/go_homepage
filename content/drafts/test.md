@@ -26,6 +26,7 @@ Test images is here:
 ![Test JPG](images/test.jpg)
 ![Test PNG](images/test.png)
 ![Test GIF](images/test.gif)
+![Test GIF](images/test.svg)
 
 ## Advanced
 
