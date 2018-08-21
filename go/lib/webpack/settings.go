@@ -3,9 +3,9 @@ package webpack
 import "os"
 
 type Settings struct {
-	AssetsPath                 string            `json:"assets_path,omitempty"`
-	ProcessHTMLResponsiveImage string            `json:"process_html_responsive_image,omitempty"`
-	ResponsiveImageMap         map[string]string `json:"responsive_image_map,omitempty"`
+	AssetsPath             string            `json:"assets_path,omitempty"`
+	ReplaceResponsiveAttrs string            `json:"process_html_responsive_image,omitempty"`
+	ResponsiveImageMap     map[string]string `json:"responsive_image_map,omitempty"`
 }
 
 func DefaultSettings() *Settings {

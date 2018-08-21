@@ -1,7 +1,7 @@
 {{define "content"}}
     <section class="post">
         {{template "main_header" dictMake "Title" .Title "Date" (dateFormat .PublishedAt) }}
-        {{htmlSafe (processHTML .MarkdownHTML)}}
+        {{htmlSafe (replaceResponsiveAttrs .MarkdownHTML)}}
 
         {{if ne .EditGithubUrl ""}}
             <footer class="post">

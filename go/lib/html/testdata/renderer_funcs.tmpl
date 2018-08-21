@@ -4,6 +4,6 @@
 </div>
 {{htmlSafe (markdown "renderer_funcs.md")}}
 <div>
-{{htmlSafe (processHTML (markdown "renderer_funcs.md"))}}
+{{htmlSafe (replaceResponsiveAttrs (markdown "renderer_funcs.md"))}}
 </div>
 {{end}}

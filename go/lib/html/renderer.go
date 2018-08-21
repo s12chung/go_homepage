@@ -28,15 +28,7 @@ func NewRenderer(settings *Settings, plugins []Plugin, log logrus.FieldLogger) *
 }
 
 type Plugin interface {
-	ProcessHTML(html string) string
 	TemplateFuncs() template.FuncMap
-}
-
-func (renderer *Renderer) processHTML(html string) string {
-	for _, plugin := range renderer.plugins {
-		html = plugin.ProcessHTML(html)
-	}
-	return html
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
@@ -58,7 +50,6 @@ func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	defaults := defaultTemplateFuncs()
 	// add tests to ./testdata/renderer_funcs.tmpl (excluding title)
 	mergeFuncMap(defaults, template.FuncMap{
-		"processHTML": renderer.processHTML,
 		"title": func(data interface{}) string {
 			title := utils.GetStringField(data, "Title")
 			if title == "" {

@@ -18,10 +18,6 @@ func NewMarkdown(settings *Settings, log logrus.FieldLogger) *Markdown {
 	return &Markdown{settings, log}
 }
 
-func (markdown *Markdown) ProcessHTML(html string) string {
-	return html
-}
-
 func (markdown *Markdown) parseMarkdownPath(filename string) string {
 	filePath := path.Join(markdown.settings.MarkdownsPath, filename)
 	input, err := ioutil.ReadFile(filePath)

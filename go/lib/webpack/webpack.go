@@ -63,9 +63,9 @@ func (w *Webpack) ManifestUrl(key string) string {
 	return w.manifest.ManifestUrl(key)
 }
 
-func (w *Webpack) ProcessHTML(html string) string {
-	responsiveKey := w.settings.ProcessHTMLResponsiveImage
-	if w.settings.ProcessHTMLResponsiveImage == "" {
+func (w *Webpack) replaceResponsiveAttrs(html string) string {
+	responsiveKey := w.settings.ReplaceResponsiveAttrs
+	if w.settings.ReplaceResponsiveAttrs == "" {
 		return html
 	}
 	return imgRegex.ReplaceAllStringFunc(html, func(imgTag string) string {
@@ -82,7 +82,8 @@ func (w *Webpack) responsiveHtmlAttrs(key, originalSrc string) template.HTMLAttr
 
 func (w *Webpack) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
-		"webpackUrl":      w.ManifestUrl,
-		"responsiveAttrs": w.responsiveHtmlAttrs,
+		"webpackUrl":             w.ManifestUrl,
+		"responsiveAttrs":        w.responsiveHtmlAttrs,
+		"replaceResponsiveAttrs": w.replaceResponsiveAttrs,
 	}
 }
