@@ -11,11 +11,8 @@ import (
 )
 
 func main() {
-	// when watchman fixes this, change back to Stderr because it is default in logrus:
-	// can't downgrade on alpine without manually building...
-	// https://github.com/facebook/watchman/issues/602
 	log := &logrus.Logger{
-		Out: os.Stdout,
+		Out: os.Stderr,
 		Formatter: &logrus.TextFormatter{
 			ForceColors: true,
 		},
