@@ -22,7 +22,6 @@ const cssLoaders = [
 ];
 
 const filename = isProduction ? '[name]-[hash]' : '[name]';
-const imageTest = /\.(png|jpg|gif)$/;
 const rootFaviconFiles = [
     "favicon.ico",
     "browserconfig.xml"
