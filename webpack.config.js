@@ -22,12 +22,26 @@ const cssLoaders = [
 ];
 
 const filename = isProduction ? '[name]-[hash]' : '[name]';
-const rootFaviconFiles = [
-    "favicon.ico",
-    "browserconfig.xml"
-].map(function (filename) {
-    return relativePath('assets/favicon/' + filename)
-});
+const faviconRules = function (faviconFilesPath) {
+    let rootFaviconFiles = [
+        "favicon.ico",
+        "browserconfig.xml"
+    ].map(function (filename) {
+        return relativePath(faviconFilesPath + "/" + filename)
+    });
+
+    return  [
+        {
+            exclude: rootFaviconFiles,
+            include: relativePath(faviconFilesPath),
+            use: fileLoader('favicon/', '[name].[ext]')
+        },
+        {
+            include: rootFaviconFiles,
+            use: fileLoader('../', '[name].[ext]')
+        }
+    ];
+};
 
 const fileLoader = function(outputPath, name) {
     return [
@@ -104,16 +118,8 @@ module.exports = {
                 test: /\.css$/,
                 use: cssLoaders
             },
-            {
-                exclude: rootFaviconFiles,
-                include: relativePath('assets/favicon'),
-                use: fileLoader('favicon/', '[name].[ext]')
-            },
-            {
-                include: rootFaviconFiles,
-                use: fileLoader('../', '[name].[ext]')
-            },
         ]
+            .concat(faviconRules('assets/favicon'))
             .concat(responsiveRules(relativePath('assets/images'), 'images/', filename))
             .concat(responsiveRules(relativePath('content'), 'content/images/', filename))
     },
