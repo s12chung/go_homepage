@@ -31,6 +31,40 @@ const rootFaviconFiles = [
     return relativePath('assets/favicon/' + filename)
 });
 
+const fileLoader = function(outputPath, name) {
+    return [
+        {
+            loader: 'file-loader',
+            options: {
+                outputPath: outputPath,
+                name: name,
+            }
+        }
+    ];
+};
+
+const responsive = function(jsonOutputPath, imageName) {
+    return [
+        {
+            loader: 'file-loader',
+            options: {
+                outputPath: jsonOutputPath,
+                name: '[name].[ext].json',
+            }
+        },
+        'eval-loader',
+        {
+            loader: 'responsive-loader',
+            options: {
+                name: imageName,
+                quality: 85, // this is default for JPEG, making it explicit
+                adapter: require('responsive-loader/sharp'),
+                sizes: [325, 750, 1500, 3000, 6000]
+            }
+        }
+    ];
+};
+
 module.exports = {
     resolveLoader: {
         modules: ['node_modules', 'webpack/loaders']
@@ -54,9 +88,7 @@ module.exports = {
                 use: cssLoaders.concat([
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sourceMap: !isProduction,
-                        }
+                        options: { sourceMap: !isProduction }
                     }
                 ]),
             },
@@ -67,78 +99,28 @@ module.exports = {
             {
                 exclude: rootFaviconFiles,
                 include: relativePath('assets/favicon'),
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'favicon/',
-                            name: '[name].[ext]',
-                        }
-                    }
-                ]
+                use: fileLoader('favicon/', '[name].[ext]')
             },
             {
                 include: rootFaviconFiles,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: '../',
-                            name: '[name].[ext]',
-                        }
-                    }
-                ]
+                use: fileLoader('../', '[name].[ext]')
             },
             {
                 test: imageTest,
                 include: relativePath('assets/images'),
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'images/',
-                            name: filename + '.[ext]',
-                        }
-                    }
-                ]
+                use: fileLoader('images/', filename + '.[ext]')
             },
             {
                 // load what responsive-loader can't
                 test: /\.(gif)$/,
                 include: relativePath('content'),
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: contentImagesPath,
-                            name: filename + '.[ext]',
-                        }
-                    }
-                ]
+                use: fileLoader(contentImagesPath, filename + '.[ext]')
             },
             {
                 // no support for gif
                 test: /\.(png|jpg)$/,
                 include: relativePath('content'),
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'content/responsive/',
-                            name: '[name].[ext].json',
-                        }
-                    },
-                    'eval-loader',
-                    {
-                        loader: 'responsive-loader',
-                        options: {
-                            name: contentImagesPath + filename + '-[width].[ext]',
-                            quality: 85, // this is default for JPEG, making it explicit
-                            adapter: require('responsive-loader/sharp'),
-                            sizes: [325, 750, 1500, 3000, 6000]
-                        }
-                    }
-                ]
+                use: responsive('content/responsive/', contentImagesPath + filename + '-[width].[ext]')
             },
         ],
     },
