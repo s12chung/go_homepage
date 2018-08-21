@@ -32,7 +32,7 @@ type Plugin interface {
 }
 
 func (renderer *Renderer) partialPaths() ([]string, error) {
-	filePaths, err := utils.FilePaths(".tmpl", renderer.settings.TemplatePath)
+	filePaths, err := utils.FilePaths(renderer.settings.TemplateExt, renderer.settings.TemplatePath)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,6 @@ func (renderer *Renderer) partialPaths() ([]string, error) {
 
 func (renderer *Renderer) templateFuncs(defaultTitle string) template.FuncMap {
 	defaults := defaultTemplateFuncs()
-	// add tests to ./testdata/renderer_funcs.tmpl (excluding title)
 	mergeFuncMap(defaults, template.FuncMap{
 		"title": func(data interface{}) string {
 			title := utils.GetStringField(data, "Title")
@@ -80,10 +79,12 @@ func (renderer *Renderer) Render(name, defaultTitle string, data interface{}) ([
 		return nil, err
 	}
 
-	templatePaths := append(partialPaths, []string{
-		path.Join(renderer.settings.TemplatePath, "layout.tmpl"),
-		path.Join(renderer.settings.TemplatePath, name+".tmpl"),
-	}...)
+	rootTemplateFilename := name + renderer.settings.TemplateExt
+	templatePaths := append(partialPaths, path.Join(renderer.settings.TemplatePath, rootTemplateFilename))
+	if renderer.settings.LayoutName != "" {
+		rootTemplateFilename = renderer.settings.LayoutName + renderer.settings.TemplateExt
+		templatePaths = append(templatePaths, path.Join(renderer.settings.TemplatePath, rootTemplateFilename))
+	}
 
 	tmpl, err := template.New("self").
 		Funcs(renderer.templateFuncs(defaultTitle)).
@@ -93,7 +94,7 @@ func (renderer *Renderer) Render(name, defaultTitle string, data interface{}) ([
 	}
 
 	buffer := &bytes.Buffer{}
-	err = tmpl.ExecuteTemplate(buffer, "layout.tmpl", data)
+	err = tmpl.ExecuteTemplate(buffer, rootTemplateFilename, data)
 	if err != nil {
 		return nil, err
 	}
