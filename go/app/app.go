@@ -10,7 +10,19 @@ import (
 	"github.com/s12chung/go_homepage/go/lib/pool"
 	"github.com/s12chung/go_homepage/go/lib/router"
 	"github.com/s12chung/go_homepage/go/lib/utils"
+	"os"
 )
+
+func DefaultLog() logrus.FieldLogger {
+	return &logrus.Logger{
+		Out: os.Stderr,
+		Formatter: &logrus.TextFormatter{
+			ForceColors: true,
+		},
+		Hooks: make(logrus.LevelHooks),
+		Level: logrus.InfoLevel,
+	}
+}
 
 type App struct {
 	routeSetter Setter

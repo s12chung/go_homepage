@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/sirupsen/logrus"
 	"os"
 
 	"github.com/s12chung/go_homepage/go/app"
@@ -11,22 +10,15 @@ import (
 )
 
 func main() {
-	log := &logrus.Logger{
-		Out: os.Stderr,
-		Formatter: &logrus.TextFormatter{
-			ForceColors: true,
-		},
-		Hooks: make(logrus.LevelHooks),
-		Level: logrus.InfoLevel,
-	}
+	log := app.DefaultLog()
 
 	settings := app.DefaultSettings()
 	contentSettings := content.DefaultSettings()
 	settings.Content = contentSettings
 	utils.SettingsFromFile("./settings.json", settings, log)
 
-	a := app.NewApp(content.NewContent(settings.GeneratedPath, contentSettings, log), settings, log)
-	err := cli.NewCli(cli.DefaultName(), a).Run(cli.DefaultArgs())
+	application := app.NewApp(content.NewContent(settings.GeneratedPath, contentSettings, log), settings, log)
+	err := cli.NewCli(cli.DefaultName(), application).Run(cli.DefaultArgs())
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
