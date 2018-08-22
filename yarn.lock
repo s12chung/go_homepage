@@ -5469,6 +5469,15 @@ webpack-cli@^3.0.8:
     sharp "^0.20.7"
     webpack-stringify-loader "^1.0.0"
 
+"webpack-def-sass@github:s12chung/webpack-def-sass":
+  version "1.0.0"
+  resolved "https://codeload.github.com/s12chung/webpack-def-sass/tar.gz/38d2d3d96c08edf74fcdafc3aaef7d86310d4872"
+  dependencies:
+    css-loader "^1.0.0"
+    mini-css-extract-plugin "^0.4.1"
+    node-sass "^4.9.0"
+    sass-loader "^7.0.3"
+
 webpack-manifest-plugin@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/webpack-manifest-plugin/-/webpack-manifest-plugin-2.0.3.tgz#b42c5b08a0319cedb3ec45d9375a9ecee0acf5eb"

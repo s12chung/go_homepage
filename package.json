@@ -10,14 +10,11 @@
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {
-    "css-loader": "^1.0.0",
     "hard-source-webpack-plugin": "^0.12.0",
-    "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.3",
     "webpack": "^4.15.0",
     "webpack-cli": "^3.0.8",
     "webpack-def-images": "github:s12chung/webpack-def-images",
+    "webpack-def-sass": "github:s12chung/webpack-def-sass",
     "webpack-manifest-plugin": "^2.0.3"
   }
 }
