@@ -15,7 +15,7 @@ import (
 func SettingsFromFile(path string, settings interface{}, log logrus.FieldLogger) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		log.Infof("%v not found, using defaults...", path)
+		log.Warnf("%v not found, using defaults...", path)
 		return
 	}
 

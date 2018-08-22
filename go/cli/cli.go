@@ -24,6 +24,10 @@ func DefaultArgs() []string {
 	return os.Args[1:]
 }
 
+func Run(application App) error {
+	return NewCli(DefaultName(), application).Run(DefaultArgs())
+}
+
 type Cli struct {
 	app  App
 	flag *flag.FlagSet

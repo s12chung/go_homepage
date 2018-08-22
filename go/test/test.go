@@ -37,6 +37,30 @@ func DiffString(label string, got, exp, diff interface{}) string {
 	return fmt.Sprintf("%v, diff: %v", AssertLabelString(label, got, exp), diff)
 }
 
+func TestEnvSetting(t *testing.T, envKey, defaultValue string, gotF func() string) {
+	testCases := []struct {
+		env string
+		exp string
+	}{
+		{"", defaultValue},
+		{"test", "test"},
+	}
+
+	for testCaseIndex, tc := range testCases {
+		context := NewContext().SetFields(ContextFields{
+			"index": testCaseIndex,
+			"env":   tc.env,
+		})
+
+		os.Setenv(envKey, tc.env)
+		got := gotF()
+		if got != tc.exp {
+			t.Error(context.GotExpString("Result", got, tc.exp))
+		}
+	}
+	os.Setenv(envKey, "")
+}
+
 func RandSeed() {
 	rand.Seed(time.Now().UTC().UnixNano())
 }

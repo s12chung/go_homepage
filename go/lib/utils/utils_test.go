@@ -29,8 +29,8 @@ func TestSettingsFromFile(t *testing.T) {
 		structName     string
 		safeLogEntries bool
 	}{
-		{"does not exist", nil, "", true},
-		{"does not exist", &basicSetting{}, "basicSetting", true},
+		{"does not exist", nil, "", false},
+		{"does not exist", &basicSetting{}, "basicSetting", false},
 		{"a.md", &basicSetting{}, "basicSetting", false},
 		{"basic_setting.json", &basicSetting{}, "basicSetting", true},
 		{"embedded_setting.json", &embeddedSetting{Basic: &basicSetting{}}, "embeddedSetting", true},
