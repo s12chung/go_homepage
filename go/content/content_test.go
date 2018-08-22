@@ -7,9 +7,9 @@ import (
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/lib/router"
-	"github.com/s12chung/go_homepage/go/test"
+	"github.com/s12chung/gostatic/go/app"
+	"github.com/s12chung/gostatic/go/lib/router"
+	"github.com/s12chung/gostatic/go/test"
 	"sort"
 )
 

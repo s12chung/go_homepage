@@ -2,7 +2,7 @@ package atom
 
 import (
 	"github.com/s12chung/go_homepage/go/content/models"
-	"github.com/s12chung/go_homepage/go/test"
+	"github.com/s12chung/gostatic/go/test"
 	"testing"
 )
 

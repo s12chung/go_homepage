@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"github.com/s12chung/go_homepage/go/lib/atom"
-	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/html"
-	"github.com/s12chung/go_homepage/go/lib/router"
-	"github.com/s12chung/go_homepage/go/lib/webpack"
+	"github.com/s12chung/gostatic/go/lib/atom"
+	"github.com/s12chung/gostatic/go/lib/goodreads"
+	"github.com/s12chung/gostatic/go/lib/html"
+	"github.com/s12chung/gostatic/go/lib/router"
+	"github.com/s12chung/gostatic/go/lib/webpack"
 )
 
 type Helper interface {

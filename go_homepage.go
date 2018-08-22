@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/s12chung/go_homepage/go/app"
-	"github.com/s12chung/go_homepage/go/cli"
 	"github.com/s12chung/go_homepage/go/content"
+	"github.com/s12chung/gostatic/go/app"
+	"github.com/s12chung/gostatic/go/cli"
 )
 
 func main() {

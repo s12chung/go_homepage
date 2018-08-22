@@ -6,11 +6,11 @@ import (
 	"sort"
 	"time"
 
-	"github.com/s12chung/go_homepage/go/app"
 	"github.com/s12chung/go_homepage/go/content/atom"
 	"github.com/s12chung/go_homepage/go/content/models"
-	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/router"
+	"github.com/s12chung/gostatic/go/app"
+	"github.com/s12chung/gostatic/go/lib/goodreads"
+	"github.com/s12chung/gostatic/go/lib/router"
 )
 
 type AllRoutes struct {

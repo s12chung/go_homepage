@@ -10,14 +10,14 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
-	"github.com/s12chung/go_homepage/go/test"
+	"github.com/s12chung/gostatic/go/test"
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
 	"github.com/s12chung/go_homepage/go/content/models"
-	"github.com/s12chung/go_homepage/go/lib/atom"
-	"github.com/s12chung/go_homepage/go/lib/goodreads"
-	"github.com/s12chung/go_homepage/go/lib/router"
-	"github.com/s12chung/go_homepage/go/test/mocks"
+	"github.com/s12chung/gostatic/go/lib/atom"
+	"github.com/s12chung/gostatic/go/lib/goodreads"
+	"github.com/s12chung/gostatic/go/lib/router"
+	"github.com/s12chung/gostatic/go/test/mocks"
 	"path"
 )
 

@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  name = "github.com/ernsheong/grand"
-  packages = ["."]
-  revision = "1b2738dec966a11a2b36c0db5d2aee7b95ce424d"
-  version = "1.1"
-
-[[projects]]
   name = "github.com/golang/mock"
   packages = [
     "gomock",
@@ -21,7 +15,6 @@
   name = "github.com/google/go-cmp"
   packages = [
     "cmp",
-    "cmp/cmpopts",
     "cmp/internal/diff",
     "cmp/internal/function",
     "cmp/internal/value"
@@ -34,6 +27,25 @@
   packages = ["."]
   revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
   version = "v2.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/s12chung/gostatic"
+  packages = [
+    "go/app",
+    "go/cli",
+    "go/lib/atom",
+    "go/lib/goodreads",
+    "go/lib/html",
+    "go/lib/markdown",
+    "go/lib/pool",
+    "go/lib/router",
+    "go/lib/utils",
+    "go/lib/webpack",
+    "go/test",
+    "go/test/mocks"
+  ]
+  revision = "bb29dee7ec98e354f33daea3b8ff0aa6799b9c79"
 
 [[projects]]
   branch = "master"
@@ -80,6 +92,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1e57190524b64f213c7daba823c24d0ca5558fd042958370282f111b206247b7"
+  inputs-digest = "25833e87931d7e9a5e4df0185b2696ecaf735ff3805bbf0d181d8e24e4a0c22f"
   solver-name = "gps-cdcl"
   solver-version = 1

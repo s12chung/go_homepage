@@ -13,7 +13,7 @@ import (
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
 
-	"github.com/s12chung/go_homepage/go/lib/utils"
+	"github.com/s12chung/gostatic/go/lib/utils"
 )
 
 const markdownExtension = ".md"

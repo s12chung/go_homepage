@@ -6,11 +6,11 @@ import (
 	"github.com/golang/mock/gomock"
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
-	"github.com/s12chung/go_homepage/go/test"
-	"github.com/s12chung/go_homepage/go/test/mocks"
+	"github.com/s12chung/gostatic/go/test"
+	"github.com/s12chung/gostatic/go/test/mocks"
 )
 
-//go:generate mockgen -destination=../../test/mocks/router_context.go -package=mocks github.com/s12chung/go_homepage/go/lib/router Context
+//go:generate mockgen -destination=../../test/mocks/router_context.go -package=mocks github.com/s12chung/gostatic/go/lib/router Context
 
 func TestTemplateName(t *testing.T) {
 	testCases := []struct {

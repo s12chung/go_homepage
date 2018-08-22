@@ -1,7 +1,0 @@
-{
-  "top_level": "the top of the world",
-  "basic": {
-    "generated_path": "some_path",
-    "concurrency": 22
-  }
-}

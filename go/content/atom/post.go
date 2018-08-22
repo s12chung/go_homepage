@@ -2,7 +2,7 @@ package atom
 
 import (
 	"github.com/s12chung/go_homepage/go/content/models"
-	"github.com/s12chung/go_homepage/go/lib/atom"
+	"github.com/s12chung/gostatic/go/lib/atom"
 )
 
 func PostsToHtmlEntries(posts []*models.Post) []*atom.HtmlEntry {
