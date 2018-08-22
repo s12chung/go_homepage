@@ -10,19 +10,14 @@
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {
-    "bin-wrapper": "github:s12chung/bin-wrapper#use_system_bin",
     "css-loader": "^1.0.0",
-    "file-loader": "^2.0.0",
     "hard-source-webpack-plugin": "^0.12.0",
-    "imagemin-webpack-plugin": "^2.2.0",
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.0",
-    "responsive-loader": "^1.1.0",
     "sass-loader": "^7.0.3",
-    "sharp": "^0.20.5",
     "webpack": "^4.15.0",
     "webpack-cli": "^3.0.8",
-    "webpack-manifest-plugin": "^2.0.3",
-    "webpack-stringify-loader": "^1.0.0"
+    "webpack-def-images": "github:s12chung/webpack-def-images",
+    "webpack-manifest-plugin": "^2.0.3"
   }
 }

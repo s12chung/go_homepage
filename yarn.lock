@@ -4623,7 +4623,7 @@ shallow-clone@^1.0.0:
     kind-of "^5.0.0"
     mixin-object "^2.0.1"
 
-sharp@^0.20.5:
+sharp@^0.20.7:
   version "0.20.7"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.20.7.tgz#d6e1abbe91453e2200090043f91a5cd345ee95cf"
   dependencies:
@@ -5457,6 +5457,17 @@ webpack-cli@^3.0.8:
     supports-color "^5.4.0"
     v8-compile-cache "^2.0.0"
     yargs "^12.0.1"
+
+"webpack-def-images@github:s12chung/webpack-def-images":
+  version "1.0.0"
+  resolved "https://codeload.github.com/s12chung/webpack-def-images/tar.gz/c634af32c89dfb27fd2bab446e73d9c9c834ab84"
+  dependencies:
+    bin-wrapper "github:s12chung/bin-wrapper#use_system_bin"
+    file-loader "^2.0.0"
+    imagemin-webpack-plugin "^2.2.0"
+    responsive-loader "^1.1.0"
+    sharp "^0.20.7"
+    webpack-stringify-loader "^1.0.0"
 
 webpack-manifest-plugin@^2.0.3:
   version "2.0.3"

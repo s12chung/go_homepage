@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const DefImages = require('webpack-def-images')(__dirname);
 
 const cssLoaders = [
     MiniCssExtractPlugin.loader,
@@ -22,78 +22,6 @@ const cssLoaders = [
 ];
 
 const filename = isProduction ? '[name]-[hash]' : '[name]';
-const faviconRules = function (faviconFilesPath) {
-    let rootFaviconFiles = [
-        "favicon.ico",
-        "browserconfig.xml"
-    ].map(function (filename) {
-        return relativePath(faviconFilesPath + "/" + filename)
-    });
-
-    return  [
-        {
-            exclude: rootFaviconFiles,
-            include: relativePath(faviconFilesPath),
-            use: fileLoader('favicon/', '[name].[ext]')
-        },
-        {
-            include: rootFaviconFiles,
-            use: fileLoader('../', '[name].[ext]')
-        }
-    ];
-};
-
-const fileLoader = function(outputPath, name) {
-    return [
-        {
-            loader: 'file-loader',
-            options: {
-                outputPath: outputPath,
-                name: name,
-            }
-        }
-    ];
-};
-
-const responsiveExt = /\.(png|jpg)$/;
-const nonResponsiveExt = /\.(gif|svg)$/;
-const responsiveRules = function(include, outputPath, filenameWithoutExt) {
-    return [
-        {
-            test: nonResponsiveExt,
-            include: include,
-            use: fileLoader(outputPath, filenameWithoutExt + '.[ext]')
-        },
-        {
-            test: responsiveExt,
-            include: include,
-            use: responsive(outputPath + "responsive/", outputPath + filenameWithoutExt + '-[width].[ext]')
-        }
-    ]
-};
-
-const responsive = function(jsonOutputPath, imageName) {
-    return [
-        {
-            loader: 'file-loader',
-            options: {
-                outputPath: jsonOutputPath,
-                name: '[name.[ext].json',
-            }
-        },
-        'webpack-stringify-loader',
-        {
-            loader: 'responsive-loader',
-            options: {
-                name: imageName,
-                quality: 85, // this is default for JPEG, making it explicit
-                adapter: require('responsive-loader/sharp'),
-                sizes: [325, 750, 1500, 3000, 6000]
-            }
-        }
-    ];
-};
-
 module.exports = {
     mode: isProduction ? "production" : "development",
 
@@ -119,18 +47,12 @@ module.exports = {
                 use: cssLoaders
             },
         ]
-            .concat(faviconRules('assets/favicon'))
-            .concat(responsiveRules(relativePath('assets/images'), 'images/', filename))
-            .concat(responsiveRules(relativePath('content'), 'content/images/', filename))
+            .concat(DefImages.faviconRules('assets/favicon'))
+            .concat(DefImages.responsiveRules(relativePath('assets/images'), 'images/', filename))
+            .concat(DefImages.responsiveRules(relativePath('content'), 'content/images/', filename))
     },
 
     plugins: [
-        // lossless compression, responsive-loader will do a quality change on JPEG to 85 quality
-        new ImageminPlugin({
-            test: /\.(png|gif|svg)$/,
-            cacheFolder: relativePath('node_modules/.cache/imagemin'),
-            jpegtran: null
-        }),
         new MiniCssExtractPlugin({
             filename: filename + '.css',
             chunkFilename: isProduction ? '[id]-[hash].css' : '[id].css',
@@ -143,5 +65,5 @@ module.exports = {
                 test: /mini-css-extract-plugin[\\/]dist[\\/]loader/,
             },
         ]),
-    ]
+    ].concat(DefImages.optimizationPlugins())
 };
