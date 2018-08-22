@@ -2,11 +2,9 @@ const path = require('path');
 const relativePath = function(p) { return path.resolve(__dirname, p); };
 
 const isProduction = process.env.NODE_ENV === "production";
-
-const ManifestPlugin = require('webpack-manifest-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-
 const filenameF = function() { return isProduction ? '[name]-[hash]' : '[name]'; };
+
+const DefStatic = require('webpack-def-static')(__dirname, filenameF);
 const DefImages = require('webpack-def-images')(__dirname, filenameF);
 const DefSass = require('webpack-def-sass')(__dirname, filenameF);
 
@@ -29,14 +27,7 @@ module.exports = {
             .concat(DefImages.responsiveRules(relativePath('content'), 'content/images/'))
     },
 
-    plugins: [
-        new ManifestPlugin(),
-        new HardSourceWebpackPlugin(),
-        new HardSourceWebpackPlugin.ExcludeModulePlugin([
-            { test: DefSass.hardSourceExcludeTest },
-        ]),
-    ]
+    plugins: DefStatic.allPlugins([{ test: DefSass.hardSourceExcludeTest }])
         .concat(DefImages.optimizationPlugins())
         .concat(DefSass.extractPlugins())
-
 };
