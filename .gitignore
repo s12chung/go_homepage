@@ -3,6 +3,7 @@
 vendor/**
 node_modules/**
 
+gostatic/**/*
 generated/*
 logs/*
 cache/*

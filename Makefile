@@ -65,6 +65,9 @@ docker-test:
 docker-deploy:
 	docker-compose -f docker-compose.yml -f docker/docker-compose.deploy.yml up
 
+docker-run-sh:
+	docker-compose -f docker-compose.yml -f docker/docker-compose.dev.yml run web ash
+
 docker-sh:
 	docker-compose exec web ash
 

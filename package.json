@@ -10,10 +10,8 @@
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {
+    "gostatic-webpack": "file:./gostatic/gostatic-webpack",
     "webpack": "^4.15.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-def-images": "github:s12chung/webpack-def-images",
-    "webpack-def-sass": "github:s12chung/webpack-def-sass",
-    "webpack-def-static": "github:s12chung/webpack-def-static"
+    "webpack-cli": "^3.0.8"
   }
 }

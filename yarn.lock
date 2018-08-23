@@ -2184,6 +2184,32 @@ glogg@^1.0.0:
   dependencies:
     sparkles "^1.0.0"
 
+"gostatic-webpack-css@file:gostatic/gostatic-webpack-css":
+  version "1.0.0"
+  dependencies:
+    css-loader "^1.0.0"
+    mini-css-extract-plugin "^0.4.1"
+    node-sass "^4.9.0"
+    sass-loader "^7.0.3"
+
+"gostatic-webpack-images@file:gostatic/gostatic-webpack-images":
+  version "1.0.0"
+  dependencies:
+    bin-wrapper "github:s12chung/bin-wrapper#use_system_bin"
+    file-loader "^2.0.0"
+    imagemin-webpack-plugin "^2.2.0"
+    responsive-loader "^1.1.0"
+    sharp "^0.20.7"
+    webpack-stringify-loader "^1.0.0"
+
+"gostatic-webpack@file:./gostatic/gostatic-webpack":
+  version "1.0.0"
+  dependencies:
+    gostatic-webpack-css "file:../../../../../usr/local/share/.cache/yarn/v1/gostatic-webpack-css"
+    gostatic-webpack-images "file:../../../../../usr/local/share/.cache/yarn/v1/gostatic-webpack-images"
+    hard-source-webpack-plugin "^0.12.0"
+    webpack-manifest-plugin "^2.0.3"
+
 got@^5.0.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/got/-/got-5.7.1.tgz#5f81635a61e4a6589f180569ea4e381680a51f35"
@@ -5457,33 +5483,6 @@ webpack-cli@^3.0.8:
     supports-color "^5.4.0"
     v8-compile-cache "^2.0.0"
     yargs "^12.0.1"
-
-"webpack-def-images@github:s12chung/webpack-def-images":
-  version "1.0.0"
-  resolved "https://codeload.github.com/s12chung/webpack-def-images/tar.gz/c634af32c89dfb27fd2bab446e73d9c9c834ab84"
-  dependencies:
-    bin-wrapper "github:s12chung/bin-wrapper#use_system_bin"
-    file-loader "^2.0.0"
-    imagemin-webpack-plugin "^2.2.0"
-    responsive-loader "^1.1.0"
-    sharp "^0.20.7"
-    webpack-stringify-loader "^1.0.0"
-
-"webpack-def-sass@github:s12chung/webpack-def-sass":
-  version "1.0.0"
-  resolved "https://codeload.github.com/s12chung/webpack-def-sass/tar.gz/38d2d3d96c08edf74fcdafc3aaef7d86310d4872"
-  dependencies:
-    css-loader "^1.0.0"
-    mini-css-extract-plugin "^0.4.1"
-    node-sass "^4.9.0"
-    sass-loader "^7.0.3"
-
-"webpack-def-static@github:s12chung/webpack-def-static":
-  version "1.0.0"
-  resolved "https://codeload.github.com/s12chung/webpack-def-static/tar.gz/a4500b13b8d1fc79833f97f41817506bb26b7396"
-  dependencies:
-    hard-source-webpack-plugin "^0.12.0"
-    webpack-manifest-plugin "^2.0.3"
 
 webpack-manifest-plugin@^2.0.3:
   version "2.0.3"
