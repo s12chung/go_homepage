@@ -24,13 +24,13 @@ func NewAllRoutes(h Helper) *AllRoutes {
 func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) {
 	r.GetRootHTML(routes.getPosts)
 	tracker.AddDependentUrl(router.RootUrlPattern)
-	r.Get("/posts.atom", "application/xml", routes.getPostsAtom)
+	r.Get("/posts.atom", routes.getPostsAtom)
 	tracker.AddDependentUrl("/posts.atom")
 
 	r.GetWildcardHTML(routes.getPost)
 	r.GetHTML("/reading", routes.getReading)
 	r.GetHTML("/about", routes.getAbout)
-	r.Get("/robots.txt", "text/plain", routes.getRobotsTxt)
+	r.Get("/robots.txt", routes.getRobotsTxt)
 }
 
 func (routes *AllRoutes) WildcardUrls() ([]string, error) {
