@@ -45,7 +45,7 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 
 	w := webpack.NewWebpack(generatedPath, settings.Webpack, log)
 	md := markdown.NewMarkdown(settings.Markdown, log)
-	htmlRenderer := html.NewRenderer(settings.Template, []html.Plugin{w, md}, log)
+	htmlRenderer := html.NewRenderer(settings.Html, []html.Plugin{w, md}, log)
 	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
 	helper := routes.NewBaseHelper(settings.Goodreads, w, htmlRenderer, atomRenderer)
 

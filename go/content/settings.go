@@ -11,7 +11,7 @@ import (
 
 type Settings struct {
 	Models    *models.Settings    `json:"models,omitempty"`
-	Template  *html.Settings      `json:"template,omitempty"`
+	Html      *html.Settings      `json:"html,omitempty"`
 	Atom      *atom.Settings      `json:"atom,omitempty"`
 	Goodreads *goodreads.Settings `json:"goodreads,omitempty"`
 	Markdown  *markdown.Settings  `json:"markdown,omitempty"`
