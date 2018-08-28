@@ -31,6 +31,7 @@ func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) {
 	r.GetHTML("/reading", routes.getReading)
 	r.GetHTML("/about", routes.getAbout)
 	r.Get("/robots.txt", routes.getRobotsTxt)
+	r.Get("/404.html", routes.get404)
 }
 
 func (routes *AllRoutes) WildcardUrls() ([]string, error) {
@@ -118,6 +119,10 @@ func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {
 	// decided not to show the directory structure via this file
 	// there is a lib for robots.txt in go/lib/robots though
 	return ctx.Respond([]byte{})
+}
+
+func (routes *AllRoutes) get404(ctx router.Context) error {
+	return routes.h.RespondHTML(ctx, "404", nil)
 }
 
 func sortedPosts() ([]*models.Post, error) {

@@ -1,12 +1,11 @@
 .idea/*
 
-vendor/**
-node_modules/**
-
-gostatic/**/*
+external/*
 generated/*
 logs/*
 cache/*
+vendor/*
+node_modules/*
 
 .envrc
 settings.json

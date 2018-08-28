@@ -2,7 +2,8 @@
   "name": "build-go",
   "expression": ["anyof",
     ["allof", ["pcre", ".(go|tmpl|md)$"], ["not", ["pcre", "_test.go$"]]],
-    ["name", "generated/assets/manifest.json", "wholename"]
+    ["name", "generated/assets/manifest.json", "wholename"],
+    ["name", "settings.json", "wholename"]
   ],
   "command": ["make", "build-go"],
   "append_files": false,

@@ -24,6 +24,7 @@ EXPOSE 8080
 WORKDIR $DOCKER_WORKDIR
 COPY . .
 
+# install watchman from custom build because of: https://github.com/facebook/watchman/issues/602
 RUN apk add ./watchman/watchman-4.7.0-r0.apk --allow-untrusted
 
 RUN make install

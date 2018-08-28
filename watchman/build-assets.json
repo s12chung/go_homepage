@@ -1,9 +1,6 @@
 ["trigger", ".", {
   "name": "build-assets",
-  "expression": ["allof",
-    ["dirname", "assets"],
-    ["pcre", ".(scss|js)$"]
-  ],
+  "expression": ["dirname", "assets"],
   "command": ["make", "build-assets"],
   "append_files": false,
   "stdout": ">>logs/watchman-build.log",
