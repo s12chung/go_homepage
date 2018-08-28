@@ -30,7 +30,7 @@ func (one *routeOne) SetRoutes(r router.Router, tracker *app.Tracker) {
 	r.GetWildcardHTML(handler)
 	r.GetHTML("/about", handler)
 	r.GetHTML("/posts", handler)
-	r.Get("/robots.txt", "text/plain", handler)
+	r.Get("/robots.txt", handler)
 
 	tracker.AddDependentUrl(router.RootUrlPattern)
 	tracker.AddDependentUrl("/posts")
@@ -44,7 +44,7 @@ type routeTwo struct {
 
 func (two *routeTwo) SetRoutes(r router.Router, tracker *app.Tracker) {
 	r.GetHTML("/something", handler)
-	r.Get("/posts.atom", "application/xml", handler)
+	r.Get("/posts.atom", handler)
 	tracker.AddDependentUrl("/something")
 }
 func (two *routeTwo) WildcardUrls() ([]string, error) {
