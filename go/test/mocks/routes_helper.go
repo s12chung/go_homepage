@@ -82,15 +82,3 @@ func (m *MockHelper) RespondHTML(arg0 router.Context, arg1 string, arg2 interfac
 func (mr *MockHelperMockRecorder) RespondHTML(arg0, arg1, arg2 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RespondHTML", reflect.TypeOf((*MockHelper)(nil).RespondHTML), arg0, arg1, arg2)
 }
-
-// RespondUrlHTML mocks base method
-func (m *MockHelper) RespondUrlHTML(arg0 router.Context, arg1 interface{}) error {
-	ret := m.ctrl.Call(m, "RespondUrlHTML", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// RespondUrlHTML indicates an expected call of RespondUrlHTML
-func (mr *MockHelperMockRecorder) RespondUrlHTML(arg0, arg1 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RespondUrlHTML", reflect.TypeOf((*MockHelper)(nil).RespondUrlHTML), arg0, arg1)
-}

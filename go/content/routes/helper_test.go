@@ -63,32 +63,3 @@ func TestTemplateName(t *testing.T) {
 
 	}
 }
-
-func TestDefaultTitle(t *testing.T) {
-	testCases := []struct {
-		templateName string
-		urlParts     []string
-		exp          string
-	}{
-		{"temp_name", []string{"testy"}, "temp_name"},
-		{"", []string{}, ""},
-		{"", []string{"testy"}, ""},
-	}
-
-	for testCaseIndex, tc := range testCases {
-		context := test.NewContext().SetFields(test.ContextFields{
-			"index":        testCaseIndex,
-			"templateName": tc.templateName,
-			"urlParts":     tc.urlParts,
-		})
-
-		controller := gomock.NewController(t)
-		ctx := mocks.NewMockContext(controller)
-		ctx.EXPECT().UrlParts().Return(tc.urlParts)
-
-		got := defaultTitle(ctx, tc.templateName)
-		if got != tc.exp {
-			t.Error(context.GotExpString("Result", got, tc.exp))
-		}
-	}
-}

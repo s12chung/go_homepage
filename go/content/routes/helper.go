@@ -11,7 +11,6 @@ import (
 type Helper interface {
 	ManifestUrl(key string) string
 	RespondAtom(ctx router.Context, feedName, logoUrl string, htmlEntries []*atom.HtmlEntry) error
-	RespondUrlHTML(ctx router.Context, data interface{}) error
 	RespondHTML(ctx router.Context, templateName string, data interface{}) error
 	GoodreadsSettings() *goodreads.Settings
 }
@@ -43,23 +42,18 @@ func (helper *BaseHelper) RespondAtom(ctx router.Context, feedName, logoUrl stri
 	return ctx.Respond(bytes)
 }
 
-func (helper *BaseHelper) RespondUrlHTML(ctx router.Context, data interface{}) error {
-	return helper.RespondHTML(ctx, "", data)
-}
-
-func (helper *BaseHelper) RespondHTML(ctx router.Context, templateName string, data interface{}) error {
-	bytes, err := helper.renderHTML(ctx, templateName, data)
+func (helper *BaseHelper) RespondHTML(ctx router.Context, templateName string, layoutD interface{}) error {
+	bytes, err := helper.renderHTML(ctx, templateName, layoutD)
 	if err != nil {
 		return err
 	}
 	return ctx.Respond(bytes)
 }
 
-func (helper *BaseHelper) renderHTML(ctx router.Context, tmplName string, data interface{}) ([]byte, error) {
+func (helper *BaseHelper) renderHTML(ctx router.Context, tmplName string, layoutD interface{}) ([]byte, error) {
 	tmplName = templateName(ctx, tmplName)
-	defaultTitle := defaultTitle(ctx, tmplName)
-	ctx.Log().Infof("Rendering template %v with title %v", tmplName, defaultTitle)
-	return helper.HtmlRenderer.Render(tmplName, defaultTitle, data)
+	ctx.Log().Infof("Rendering template %v", tmplName)
+	return helper.HtmlRenderer.Render(tmplName, layoutD)
 }
 
 func templateName(ctx router.Context, templateName string) string {
@@ -73,12 +67,4 @@ func templateName(ctx router.Context, templateName string) string {
 	} else {
 		return templateName
 	}
-}
-
-func defaultTitle(ctx router.Context, templateName string) string {
-	defaultTitle := templateName
-	if router.IsRootUrlPart(ctx.UrlParts()) {
-		defaultTitle = ""
-	}
-	return defaultTitle
 }

@@ -51,7 +51,7 @@ func (routes *AllRoutes) WildcardUrls() ([]string, error) {
 }
 
 func (routes *AllRoutes) getAbout(ctx router.Context) error {
-	return routes.h.RespondUrlHTML(ctx, nil)
+	return routes.h.RespondHTML(ctx, "", layoutData{"About", nil})
 }
 
 type readingData struct {
@@ -77,7 +77,7 @@ func (routes *AllRoutes) getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		earliestYear,
 	}
-	return routes.h.RespondUrlHTML(ctx, data)
+	return routes.h.RespondHTML(ctx, "", layoutData{"Reading", data})
 }
 
 func (routes *AllRoutes) getPost(ctx router.Context) error {
@@ -85,7 +85,7 @@ func (routes *AllRoutes) getPost(ctx router.Context) error {
 	if err != nil {
 		return err
 	}
-	return routes.h.RespondHTML(ctx, "post", post)
+	return routes.h.RespondHTML(ctx, "post", layoutData{post.Title, post})
 }
 
 type postsData struct {
@@ -101,7 +101,7 @@ func (routes *AllRoutes) getPosts(ctx router.Context) error {
 	data := postsData{
 		posts,
 	}
-	return routes.h.RespondHTML(ctx, "posts", data)
+	return routes.h.RespondHTML(ctx, "posts", layoutData{"", data})
 }
 
 func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
@@ -122,7 +122,7 @@ func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {
 }
 
 func (routes *AllRoutes) get404(ctx router.Context) error {
-	return routes.h.RespondHTML(ctx, "404", nil)
+	return routes.h.RespondHTML(ctx, "404", layoutData{"404", nil})
 }
 
 func sortedPosts() ([]*models.Post, error) {

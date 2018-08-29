@@ -91,7 +91,7 @@ func testRoute(t *testing.T, callback func(helper *mocks.MockHelper, ctx *mocks.
 
 func TestAllRoutes_getAbout(t *testing.T) {
 	testRoute(t, func(helper *mocks.MockHelper, ctx *mocks.MockContext) {
-		helper.EXPECT().RespondUrlHTML(ctx, nil)
+		helper.EXPECT().RespondHTML(ctx, "", layoutData{"About", nil})
 		err := NewAllRoutes(helper).getAbout(ctx)
 		if err != nil {
 			t.Error(err)
@@ -131,10 +131,20 @@ func TestAllRoutes_getReading(t *testing.T) {
 			defer clean()
 
 			helper.EXPECT().GoodreadsSettings().Return(settings)
-			helper.EXPECT().RespondUrlHTML(ctx, gomock.Any()).Do(func(ctx router.Context, data interface{}) {
-				d, ok := data.(readingData)
+			helper.EXPECT().RespondHTML(ctx, "", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
+				layoutD, ok := data.(layoutData)
+				if !ok {
+					t.Error(context.Stringf("could not convert to: %v", layoutData{}))
+					return
+				}
+				if layoutD.Title != "Reading" {
+					t.Error(context.GotExpString("layoutD.Title", layoutD.Title, "Reading"))
+				}
+
+				d, ok := layoutD.ContentData.(readingData)
 				if !ok {
 					t.Error(context.Stringf("could not convert to: %v", readingData{}))
+					return
 				}
 				years := make([]int, len(d.Books))
 				for i, book := range d.Books {
@@ -189,12 +199,22 @@ func TestAllRoutes_getPost(t *testing.T) {
 			ctx.EXPECT().UrlParts().Return([]string{tc.postFilename})
 			if tc.exists {
 				helper.EXPECT().RespondHTML(ctx, "post", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
-					d, ok := data.(*models.Post)
+					layoutD, ok := data.(layoutData)
+					if !ok {
+						t.Error(context.Stringf("could not convert to: %v", layoutData{}))
+						return
+					}
+					post, ok := layoutD.ContentData.(*models.Post)
 					if !ok {
 						t.Error(context.Stringf("could not convert to: %v", models.Post{}))
+						return
 					}
-					if d.Id() != tc.postFilename {
-						t.Error(context.GotExpString("Wrong Post", d.Id(), tc.postFilename))
+					if layoutD.Title != post.Title {
+						t.Error(context.GotExpString("layoutD.Title", layoutD.Title, post.Title))
+					}
+
+					if post.Id() != tc.postFilename {
+						t.Error(context.GotExpString("Wrong Post", post.Id(), tc.postFilename))
 					}
 				})
 			}
@@ -235,7 +255,16 @@ func TestAllRoutes_getPosts(t *testing.T) {
 			}
 
 			helper.EXPECT().RespondHTML(ctx, "posts", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
-				d, ok := data.(postsData)
+				layoutD, ok := data.(layoutData)
+				if !ok {
+					t.Error(context.Stringf("could not convert to: %v", layoutData{}))
+					return
+				}
+				if layoutD.Title != "" {
+					t.Error(context.GotExpString("layoutD.Title", layoutD.Title, ""))
+				}
+
+				d, ok := layoutD.ContentData.(postsData)
 				if !ok {
 					t.Error(context.Stringf("could not convert to: %v", postsData{}))
 				}

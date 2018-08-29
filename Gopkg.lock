@@ -44,7 +44,7 @@
     "go/lib/webpack",
     "go/test"
   ]
-  revision = "6867bb746eab6f9785353a47e784bb03c0750098"
+  revision = "f60a7e2bca825da73c701ab70edf582117990d17"
 
 [[projects]]
   branch = "master"
