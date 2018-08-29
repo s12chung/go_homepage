@@ -42,10 +42,9 @@
     "go/lib/router",
     "go/lib/utils",
     "go/lib/webpack",
-    "go/test",
-    "go/test/mocks"
+    "go/test"
   ]
-  revision = "34b63eefa880a14cac03995c31df539022a6953d"
+  revision = "6867bb746eab6f9785353a47e784bb03c0750098"
 
 [[projects]]
   branch = "master"
@@ -92,6 +91,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "25833e87931d7e9a5e4df0185b2696ecaf735ff3805bbf0d181d8e24e4a0c22f"
+  inputs-digest = "e5b0e403bb0b003737f7f27e4a934fe03bbc7aefa5d5ac25eebcac07b4737f9f"
   solver-name = "gps-cdcl"
   solver-version = 1

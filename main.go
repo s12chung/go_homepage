@@ -6,7 +6,6 @@ import (
 	"github.com/s12chung/go_homepage/go/content"
 	"github.com/s12chung/gostatic/go/app"
 	"github.com/s12chung/gostatic/go/cli"
-	"github.com/s12chung/gostatic/go/lib/utils"
 )
 
 func main() {
@@ -15,7 +14,7 @@ func main() {
 	settings := app.DefaultSettings()
 	contentSettings := content.DefaultSettings()
 	settings.Content = contentSettings
-	utils.SettingsFromFile("./settings.json", settings, log)
+	app.SettingsFromFile("./settings.json", settings, log)
 
 	theContent := content.NewContent(settings.GeneratedPath, contentSettings, log)
 	err := cli.Run(app.NewApp(theContent, settings, log))
