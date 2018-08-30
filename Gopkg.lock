@@ -29,7 +29,6 @@
   version = "v2.0.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/s12chung/gostatic"
   packages = [
     "go/app",
@@ -44,7 +43,8 @@
     "go/lib/webpack",
     "go/test"
   ]
-  revision = "f60a7e2bca825da73c701ab70edf582117990d17"
+  revision = "2373852575120781ca2ea22896879f3ab489fdbf"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
