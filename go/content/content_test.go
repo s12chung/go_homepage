@@ -35,7 +35,7 @@ func (one *routeOne) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	tracker.AddDependentURL("/posts")
 	return nil
 }
-func (one *routeOne) WildcardUrls() ([]string, error) {
+func (one *routeOne) WildcardURLs() ([]string, error) {
 	return []string{"one", "two", "three"}, nil
 }
 
@@ -48,7 +48,7 @@ func (two *routeTwo) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	tracker.AddDependentURL("/something")
 	return nil
 }
-func (two *routeTwo) WildcardUrls() ([]string, error) {
+func (two *routeTwo) WildcardURLs() ([]string, error) {
 	return []string{"two", "three", "four", "five"}, nil
 }
 
@@ -64,7 +64,7 @@ func TestContent_SetRoutes(t *testing.T) {
 	testCases := []struct {
 		routes        []Route
 		urls          []string
-		dependentUrls []string
+		dependentURLs []string
 	}{
 		{[]Route{}, []string{}, []string{}},
 		{[]Route{&routeOne{}}, []string{"/", "/about", "/posts", "/robots.txt"}, []string{"/posts", router.RootURL}},
@@ -86,20 +86,24 @@ func TestContent_SetRoutes(t *testing.T) {
 		tracker := app.NewTracker(func() []string {
 			return nil
 		})
-		content.SetRoutes(r, tracker)
+
+		err := content.SetRoutes(r, tracker)
+		if err != nil {
+			t.Error(context.String(err))
+		}
 
 		got := r.URLs()
 		sort.Strings(got)
 		sort.Strings(tc.urls)
 		if !cmp.Equal(got, tc.urls) {
-			t.Error(context.DiffString("r.Urls()", got, tc.urls, cmp.Diff(got, tc.urls)))
+			t.Error(context.DiffString("r.URLs()", got, tc.urls, cmp.Diff(got, tc.urls)))
 		}
 
 		got = tracker.DependentURLs()
 		sort.Strings(got)
-		sort.Strings(tc.dependentUrls)
-		if !cmp.Equal(got, tc.dependentUrls) {
-			t.Error(context.DiffString("tracker.DependentUrls()", got, tc.urls, cmp.Diff(got, tc.dependentUrls)))
+		sort.Strings(tc.dependentURLs)
+		if !cmp.Equal(got, tc.dependentURLs) {
+			t.Error(context.DiffString("tracker.DependentURLs()", got, tc.urls, cmp.Diff(got, tc.dependentURLs)))
 		}
 	}
 }

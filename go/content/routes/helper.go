@@ -14,7 +14,7 @@ import (
 
 type Helper interface {
 	ManifestURL(key string) string
-	RespondAtom(ctx router.Context, feedName, logoUrl string, htmlEntries []*atom.HTMLEntry) error
+	RespondAtom(ctx router.Context, feedName, logoURL string, htmlEntries []*atom.HTMLEntry) error
 	RespondHTML(ctx router.Context, templateName string, data interface{}) error
 	GoodreadsSettings() *goodreads.Settings
 }
@@ -22,7 +22,7 @@ type Helper interface {
 type BaseHelper struct {
 	goodreadsSettings *goodreads.Settings
 	Webpack           *webpack.Webpack
-	HtmlRenderer      *html.Renderer
+	HTMLRenderer      *html.Renderer
 	AtomRenderer      *atom.HTMLRenderer
 }
 
@@ -38,8 +38,8 @@ func (helper *BaseHelper) GoodreadsSettings() *goodreads.Settings {
 	return helper.goodreadsSettings
 }
 
-func (helper *BaseHelper) RespondAtom(ctx router.Context, feedName, logoUrl string, htmlEntries []*atom.HTMLEntry) error {
-	bytes, err := helper.AtomRenderer.Render(feedName, ctx.URL(), logoUrl, htmlEntries)
+func (helper *BaseHelper) RespondAtom(ctx router.Context, feedName, logoURL string, htmlEntries []*atom.HTMLEntry) error {
+	bytes, err := helper.AtomRenderer.Render(feedName, ctx.URL(), logoURL, htmlEntries)
 	if err != nil {
 		return err
 	}
@@ -52,7 +52,7 @@ func (helper *BaseHelper) RespondHTML(ctx router.Context, tmplName string, layou
 
 	ctx.Log().Infof("Rendering template %v", tmplName)
 
-	bytes, err := helper.HtmlRenderer.Render(tmplName, layoutD)
+	bytes, err := helper.HTMLRenderer.Render(tmplName, layoutD)
 	if err != nil {
 		return err
 	}

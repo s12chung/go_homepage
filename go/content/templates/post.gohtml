@@ -3,10 +3,10 @@
         {{template "main_header" dictMake "Title" .Title "Date" (dateFormat .PublishedAt) }}
         {{htmlSafe (replaceResponsiveAttrs "content" .MarkdownHTML)}}
 
-        {{if ne .EditGithubUrl ""}}
+        {{if ne .EditGithubURL ""}}
             <footer class="post">
                 <div class="border"></div>
-                <p>Typos? Mistakes? Help out and <a href="{{.EditGithubUrl}}">send a Pull Request</a>.</p>
+                <p>Typos? Mistakes? Help out and <a href="{{.EditGithubURL}}">send a Pull Request</a>.</p>
             </footer>
         {{end}}
     </section>

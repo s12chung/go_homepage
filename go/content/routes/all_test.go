@@ -46,9 +46,9 @@ func testGoodreadSettings(cachePath, apiURL string) *goodreads.Settings {
 	return settings
 }
 
-func goodreadsSettings(t *testing.T, apiUrl string) (*goodreads.Settings, func()) {
+func goodreadsSettings(t *testing.T, apiURL string) (*goodreads.Settings, func()) {
 	newCachePath, clean := test.SandboxDir(t, goodreads.DefaultSettings().CachePath)
-	settings := testGoodreadSettings(newCachePath, apiUrl)
+	settings := testGoodreadSettings(newCachePath, apiURL)
 	return settings, clean
 }
 
@@ -78,12 +78,14 @@ func TestAllRoutes_getAbout(t *testing.T) {
 	})
 }
 
+type readingTestCase struct {
+	emptyResponse bool
+	years         []int
+	ratingMap     map[int]int
+}
+
 func TestAllRoutes_getReading(t *testing.T) {
-	testCases := []struct {
-		emptyResponse bool
-		years         []int
-		ratingMap     map[int]int
-	}{
+	testCases := []readingTestCase{
 		{true, []int{}, map[int]int{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}},
 		{false, []int{2000, 2010, 2018}, map[int]int{1: 0, 2: 1, 3: 0, 4: 2, 5: 0}},
 	}
@@ -103,7 +105,10 @@ func TestAllRoutes_getReading(t *testing.T) {
 				if emptyResponse {
 					return
 				}
-				w.Write(test.ReadFixture(t, "goodreads.xml"))
+				_, err := w.Write(test.ReadFixture(t, "goodreads.xml"))
+				if err != nil {
+					t.Error(context.String(err))
+				}
 			}))
 			defer server.Close()
 			settings, clean := goodreadsSettings(t, server.URL)
@@ -111,51 +116,55 @@ func TestAllRoutes_getReading(t *testing.T) {
 
 			ctx.EXPECT().URL().Return("/reading")
 			helper.EXPECT().GoodreadsSettings().Return(settings)
-			helper.EXPECT().RespondHTML(ctx, "/reading", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
-				layoutD, ok := data.(layoutData)
-				if !ok {
-					t.Error(context.Stringf("could not convert to: %v", layoutData{}))
-					return
-				}
-				if layoutD.Title != "Reading" {
-					t.Error(context.GotExpString("layoutD.Title", layoutD.Title, "Reading"))
-				}
-
-				d, ok := layoutD.ContentData.(readingData)
-				if !ok {
-					t.Error(context.Stringf("could not convert to: %v", readingData{}))
-					return
-				}
-				years := make([]int, len(d.Books))
-				for i, book := range d.Books {
-					years[i] = book.SortedDate().Year()
-				}
-				sort.Ints(years)
-				sort.Ints(tc.years)
-				if !cmp.Equal(years, tc.years) {
-					t.Error(context.GotExpString("years", years, tc.years))
-				}
-
-				d.Books = nil
-				earliestYear := time.Now().Year()
-				if len(tc.years) != 0 {
-					earliestYear = tc.years[0]
-				}
-				exp := readingData{
-					nil,
-					tc.ratingMap,
-					earliestYear,
-				}
-				if !cmp.Equal(d, exp) {
-					t.Error(context.GotExpString("d", d, exp))
-				}
-			})
+			helper.EXPECT().RespondHTML(ctx, "/reading", gomock.Any()).Do(testReadingResponseF(t, context, tc))
 
 			err := NewAllRoutes(helper).getReading(ctx)
 			if err != nil {
 				t.Error(context.String(err))
 			}
 		})
+	}
+}
+
+func testReadingResponseF(t *testing.T, context *test.Context, tc readingTestCase) func(ctx router.Context, templateName string, data interface{}) {
+	return func(ctx router.Context, templateName string, data interface{}) {
+		layoutD, ok := data.(layoutData)
+		if !ok {
+			t.Error(context.Stringf("could not convert to: %v", layoutData{}))
+			return
+		}
+		if layoutD.Title != "Reading" {
+			t.Error(context.GotExpString("layoutD.Title", layoutD.Title, "Reading"))
+		}
+
+		d, ok := layoutD.ContentData.(readingData)
+		if !ok {
+			t.Error(context.Stringf("could not convert to: %v", readingData{}))
+			return
+		}
+		years := make([]int, len(d.Books))
+		for i, book := range d.Books {
+			years[i] = book.SortedDate().Year()
+		}
+		sort.Ints(years)
+		sort.Ints(tc.years)
+		if !cmp.Equal(years, tc.years) {
+			t.Error(context.GotExpString("years", years, tc.years))
+		}
+
+		d.Books = nil
+		earliestYear := time.Now().Year()
+		if len(tc.years) != 0 {
+			earliestYear = tc.years[0]
+		}
+		exp := readingData{
+			nil,
+			tc.ratingMap,
+			earliestYear,
+		}
+		if !cmp.Equal(d, exp) {
+			t.Error(context.GotExpString("d", d, exp))
+		}
 	}
 }
 
@@ -192,8 +201,8 @@ func TestAllRoutes_getPost(t *testing.T) {
 						t.Error(context.GotExpString("layoutD.Title", layoutD.Title, post.Title))
 					}
 
-					if post.Id() != tc.postFilename {
-						t.Error(context.GotExpString("Wrong Post", post.Id(), tc.postFilename))
+					if post.ID() != tc.postFilename {
+						t.Error(context.GotExpString("Wrong Post", post.ID(), tc.postFilename))
 					}
 				})
 			}
@@ -249,7 +258,7 @@ func TestAllRoutes_getPosts(t *testing.T) {
 				}
 				ids := make([]string, len(d.Posts))
 				for i, post := range d.Posts {
-					ids[i] = post.Id()
+					ids[i] = post.ID()
 				}
 				sort.Strings(ids)
 				sort.Strings(tc.expected)
@@ -287,10 +296,10 @@ func TestAllRoutes_getPostsAtom(t *testing.T) {
 				setPostDirEmpty()
 			}
 
-			expLogoUrl := "test_logo.png"
-			helper.EXPECT().ManifestURL("images/logo.png").Return(expLogoUrl)
-			helper.EXPECT().RespondAtom(ctx, "posts", expLogoUrl, gomock.Any()).
-				Do(func(tx router.Context, feedName, logoUrl string, htmlEntries []*atom.HTMLEntry) {
+			expLogoURL := "test_logo.png"
+			helper.EXPECT().ManifestURL("images/logo.png").Return(expLogoURL)
+			helper.EXPECT().RespondAtom(ctx, "posts", expLogoURL, gomock.Any()).
+				Do(func(tx router.Context, feedName, logoURL string, htmlEntries []*atom.HTMLEntry) {
 
 					ids := make([]string, len(htmlEntries))
 					for i, htmlEntry := range htmlEntries {

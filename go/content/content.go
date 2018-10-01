@@ -39,12 +39,15 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 		"type": "models",
 	}))
 	for ext, mimeType := range ExtraMimeTypes {
-		mime.AddExtensionType(ext, mimeType)
+		err := mime.AddExtensionType(ext, mimeType)
+		if err != nil {
+			log.Error(err)
+		}
 	}
 
 	w := webpack.NewWebpack(generatedPath, settings.Webpack, log)
 	md := markdown.NewMarkdown(settings.Markdown, log)
-	htmlRenderer := html.NewRenderer(settings.Html, []html.Plugin{w, md}, log)
+	htmlRenderer := html.NewRenderer(settings.HTML, []html.Plugin{w, md}, log)
 	atomRenderer := atom.NewHTMLRenderer(settings.Atom)
 	helper := routes.NewBaseHelper(settings.Goodreads, w, htmlRenderer, atomRenderer)
 

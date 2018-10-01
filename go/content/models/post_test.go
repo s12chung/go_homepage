@@ -31,9 +31,9 @@ func TestMain(m *testing.M) {
 	os.Exit(retCode)
 }
 
-func TestPost_Id(t *testing.T) {
+func TestPost_ID(t *testing.T) {
 	post := &Post{Filename: "some_filename"}
-	test.AssertLabel(t, "Result", post.Id(), post.Filename)
+	test.AssertLabel(t, "Result", post.ID(), post.Filename)
 }
 
 func TestPost_MarkdownFilename(t *testing.T) {
@@ -63,9 +63,9 @@ func TestPost_FilePath(t *testing.T) {
 	}
 }
 
-func TestPost_EditGithubUrl(t *testing.T) {
+func TestPost_EditGithubURL(t *testing.T) {
 	testCases := []struct {
-		githubUrl string
+		githubURL string
 		expected  string
 	}{
 		{"", ""},
@@ -75,11 +75,11 @@ func TestPost_EditGithubUrl(t *testing.T) {
 	for testCaseIndex, tc := range testCases {
 		context := test.NewContext().SetFields(test.ContextFields{
 			"index":     testCaseIndex,
-			"githubUrl": tc.githubUrl,
+			"githubURL": tc.githubURL,
 		})
-		factory.settings.GithubUrl = tc.githubUrl
+		factory.settings.GithubURL = tc.githubURL
 		post := &Post{Filename: "some_filename"}
-		got := post.EditGithubUrl()
+		got := post.EditGithubURL()
 		if got != tc.expected {
 			t.Error(context.GotExpString("Result", got, tc.expected))
 		}
@@ -186,7 +186,7 @@ func TestAllPosts(t *testing.T) {
 		}
 		for _, post := range posts {
 			got := filter(post)
-			if got != true {
+			if !got {
 				t.Error(context.String("not all posts fix the filter"))
 			}
 		}

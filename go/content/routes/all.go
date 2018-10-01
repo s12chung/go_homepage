@@ -104,9 +104,9 @@ func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 		return err
 	}
 
-	logoUrl := routes.h.ManifestURL("images/logo.png")
-	htmlEntries := atom.PostsToHtmlEntries(posts)
-	return routes.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
+	logoURL := routes.h.ManifestURL("images/logo.png")
+	htmlEntries := atom.PostsToHTMLEntries(posts)
+	return routes.h.RespondAtom(ctx, "posts", logoURL, htmlEntries)
 }
 
 func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {

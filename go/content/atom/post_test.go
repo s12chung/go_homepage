@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestPostsToHtmlEntries(t *testing.T) {
+func TestPostsToHTMLEntries(t *testing.T) {
 	testCases := []struct {
 		numberOfPosts int
 		expected      int
@@ -34,7 +34,7 @@ func TestPostsToHtmlEntries(t *testing.T) {
 		for i := 0; i < tc.numberOfPosts; i++ {
 			posts[i] = &models.Post{}
 		}
-		entries := PostsToHtmlEntries(posts)
+		entries := PostsToHTMLEntries(posts)
 		if len(entries) != tc.expected {
 			t.Error(context.GotExpString("len(entries)", len(entries), tc.expected))
 		}

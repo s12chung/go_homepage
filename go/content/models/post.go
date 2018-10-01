@@ -32,7 +32,7 @@ type Post struct {
 	MarkdownHTML string `yaml:"-"`
 }
 
-func (post *Post) Id() string {
+func (post *Post) ID() string {
 	return post.Filename
 }
 
@@ -51,14 +51,14 @@ func (post *Post) FilePath() string {
 	}, "/")
 }
 
-func (post *Post) EditGithubUrl() string {
-	githubUrl := factory.settings.GithubUrl
-	if githubUrl == "" {
+func (post *Post) EditGithubURL() string {
+	githubURL := factory.settings.GithubURL
+	if githubURL == "" {
 		return ""
 	}
 
 	return strings.Join([]string{
-		githubUrl,
+		githubURL,
 		"edit/master",
 		post.FilePath(),
 	}, "/")
@@ -137,19 +137,19 @@ func toPosts(postMap map[string]*Post, sel func(*Post) bool) []*Post {
 }
 
 func AllPostFilenames() ([]string, error) {
-	allPostUrls := []string{}
+	allPostURLs := []string{}
 
-	postsUrls, err := postFilenames(factory.settings.PostsPath)
+	postsURLs, err := postFilenames(factory.settings.PostsPath)
 	if err != nil {
 		return nil, err
 	}
-	allPostUrls = append(allPostUrls, postsUrls...)
+	allPostURLs = append(allPostURLs, postsURLs...)
 
-	draftUrls, err := postFilenames(factory.settings.DraftsPath)
+	draftURLs, err := postFilenames(factory.settings.DraftsPath)
 	if err != nil {
 		return nil, err
 	}
-	return append(allPostUrls, draftUrls...), nil
+	return append(allPostURLs, draftURLs...), nil
 }
 
 func postFilenames(postsDirPath string) ([]string, error) {
@@ -198,7 +198,11 @@ func postParts(bytes []byte) (*Post, string, error) {
 	}
 
 	post := Post{}
-	yaml.Unmarshal([]byte(frontMatter), &post)
+
+	err = yaml.Unmarshal([]byte(frontMatter), &post)
+	if err != nil {
+		return nil, "", err
+	}
 
 	hasSpace := regexp.MustCompile(`\s`).MatchString
 	if hasSpace(post.Filename) {

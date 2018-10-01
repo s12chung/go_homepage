@@ -3,7 +3,7 @@ package models
 type Settings struct {
 	PostsPath  string `json:"posts_path,omitempty"`
 	DraftsPath string `json:"drafts_path,omitempty"`
-	GithubUrl  string `json:"github_url,omitempty"`
+	GithubURL  string `json:"github_url,omitempty"`
 }
 
 func DefaultSettings() *Settings {
