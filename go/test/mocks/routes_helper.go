@@ -6,8 +6,8 @@ package mocks
 
 import (
 	gomock "github.com/golang/mock/gomock"
-	atom "github.com/s12chung/gostatic/go/lib/atom"
-	goodreads "github.com/s12chung/gostatic/go/lib/goodreads"
+	atom "github.com/s12chung/gostatic-packages/atom"
+	goodreads "github.com/s12chung/gostatic-packages/goodreads"
 	router "github.com/s12chung/gostatic/go/lib/router"
 	reflect "reflect"
 )
@@ -47,20 +47,20 @@ func (mr *MockHelperMockRecorder) GoodreadsSettings() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GoodreadsSettings", reflect.TypeOf((*MockHelper)(nil).GoodreadsSettings))
 }
 
-// ManifestUrl mocks base method
-func (m *MockHelper) ManifestUrl(arg0 string) string {
-	ret := m.ctrl.Call(m, "ManifestUrl", arg0)
+// ManifestURL mocks base method
+func (m *MockHelper) ManifestURL(arg0 string) string {
+	ret := m.ctrl.Call(m, "ManifestURL", arg0)
 	ret0, _ := ret[0].(string)
 	return ret0
 }
 
-// ManifestUrl indicates an expected call of ManifestUrl
-func (mr *MockHelperMockRecorder) ManifestUrl(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ManifestUrl", reflect.TypeOf((*MockHelper)(nil).ManifestUrl), arg0)
+// ManifestURL indicates an expected call of ManifestURL
+func (mr *MockHelperMockRecorder) ManifestURL(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ManifestURL", reflect.TypeOf((*MockHelper)(nil).ManifestURL), arg0)
 }
 
 // RespondAtom mocks base method
-func (m *MockHelper) RespondAtom(arg0 router.Context, arg1, arg2 string, arg3 []*atom.HtmlEntry) error {
+func (m *MockHelper) RespondAtom(arg0 router.Context, arg1, arg2 string, arg3 []*atom.HTMLEntry) error {
 	ret := m.ctrl.Call(m, "RespondAtom", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(error)
 	return ret0

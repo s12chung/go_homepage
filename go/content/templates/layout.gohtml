@@ -6,21 +6,21 @@
 
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{webpackUrl "favicon/apple-touch-icon.png"}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{webpackUrl "favicon/favicon-32x32.png"}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{webpackUrl "favicon/favicon-16x16.png"}}">
-    <link rel="manifest" href="{{webpackUrl "favicon/site.webmanifest"}}">
-    <link rel="mask-icon" href="{{webpackUrl "favicon/safari-pinned-tab.svg"}}" color="#000000">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{webpackURL "favicon/apple-touch-icon.png"}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{webpackURL "favicon/favicon-32x32.png"}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{webpackURL "favicon/favicon-16x16.png"}}">
+    <link rel="manifest" href="{{webpackURL "favicon/site.webmanifest"}}">
+    <link rel="mask-icon" href="{{webpackURL "favicon/safari-pinned-tab.svg"}}" color="#000000">
     <meta name="msapplication-TileColor" content="#000000">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" media="all" href="{{webpackUrl "vendor.css"}}">
-    <link rel="stylesheet" media="all" href="{{webpackUrl "main.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpackURL "vendor.css"}}">
+    <link rel="stylesheet" media="all" href="{{webpackURL "main.css"}}">
 </head>
 <body>
 <section class="layout">
     <header class="layout">
-        <a href="/"><img class="logo" src="{{webpackUrl "images/logo.png"}}"/></a>
+        <a href="/"><img class="logo" src="{{webpackURL "images/logo.png"}}"/></a>
 
         <nav>
             {{$navItems := stringSliceMake "Reading" "About"}}

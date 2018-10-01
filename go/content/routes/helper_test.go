@@ -3,63 +3,33 @@ package routes
 import (
 	"testing"
 
-	"github.com/golang/mock/gomock"
-	logTest "github.com/sirupsen/logrus/hooks/test"
-
-	"github.com/s12chung/go_homepage/go/test/mocks"
 	"github.com/s12chung/gostatic/go/test"
 )
 
-//go:generate mockgen -destination=../../test/mocks/router_context.go -package=mocks github.com/s12chung/gostatic/go/lib/router Context
-
 func TestTemplateName(t *testing.T) {
 	testCases := []struct {
-		templateName string
-		urlParts     []string
-		exp          string
-		panic        bool
+		tmplName string
+		exp      string
 	}{
-		{"", []string{"testy"}, "testy", false},
-		{"", []string{"one", "two"}, "one", false},
-		{"the_in", []string{"testy"}, "the_in", false},
-		{"the_in", []string{}, "the_in", false},
-		{"the_in", []string{"one", "two"}, "the_in", false},
-		{"", []string{}, "", true},
+		{"abc", "abc"},
+		{"abc.html", "abc"},
+		{"/abc", "abc"},
+		{"/abc.html", "abc"},
+		{"wee/abc", "abc"},
+		{"/wee/abc", "abc"},
+		{"/wee/abc.html", "abc"},
+		{"wee/abc.html", "abc"},
 	}
 
 	for testCaseIndex, tc := range testCases {
 		context := test.NewContext().SetFields(test.ContextFields{
-			"index":        testCaseIndex,
-			"templateName": tc.templateName,
-			"urlParts":     tc.urlParts,
+			"index":    testCaseIndex,
+			"tmplName": tc.tmplName,
 		})
 
-		controller := gomock.NewController(t)
-		ctx := mocks.NewMockContext(controller)
-		if tc.templateName == "" {
-			ctx.EXPECT().UrlParts().AnyTimes().Return(tc.urlParts)
+		got := templateName(tc.tmplName)
+		if got != tc.exp {
+			t.Error(context.GotExpString("Result", got, tc.exp))
 		}
-		if tc.panic {
-			log, _ := logTest.NewNullLogger()
-			ctx.EXPECT().Log().Return(log)
-		}
-
-		func() {
-			defer func() {
-				t.Log(context.FieldsString())
-				controller.Finish()
-				if tc.panic {
-					if r := recover(); r == nil {
-						t.Errorf("Did not panic for duplicate route setup.")
-					}
-				}
-			}()
-
-			got := templateName(ctx, tc.templateName)
-			if got != tc.exp {
-				t.Error(context.GotExpString("Result", got, tc.exp))
-			}
-		}()
-
 	}
 }

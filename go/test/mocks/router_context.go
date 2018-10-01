@@ -58,10 +58,8 @@ func (mr *MockContextMockRecorder) Log() *gomock.Call {
 }
 
 // Respond mocks base method
-func (m *MockContext) Respond(arg0 []byte) error {
-	ret := m.ctrl.Call(m, "Respond", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
+func (m *MockContext) Respond(arg0 []byte) {
+	m.ctrl.Call(m, "Respond", arg0)
 }
 
 // Respond indicates an expected call of Respond
@@ -89,26 +87,14 @@ func (mr *MockContextMockRecorder) SetLog(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetLog", reflect.TypeOf((*MockContext)(nil).SetLog), arg0)
 }
 
-// Url mocks base method
-func (m *MockContext) Url() string {
-	ret := m.ctrl.Call(m, "Url")
+// URL mocks base method
+func (m *MockContext) URL() string {
+	ret := m.ctrl.Call(m, "URL")
 	ret0, _ := ret[0].(string)
 	return ret0
 }
 
-// Url indicates an expected call of Url
-func (mr *MockContextMockRecorder) Url() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Url", reflect.TypeOf((*MockContext)(nil).Url))
-}
-
-// UrlParts mocks base method
-func (m *MockContext) UrlParts() []string {
-	ret := m.ctrl.Call(m, "UrlParts")
-	ret0, _ := ret[0].([]string)
-	return ret0
-}
-
-// UrlParts indicates an expected call of UrlParts
-func (mr *MockContextMockRecorder) UrlParts() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UrlParts", reflect.TypeOf((*MockContext)(nil).UrlParts))
+// URL indicates an expected call of URL
+func (mr *MockContextMockRecorder) URL() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "URL", reflect.TypeOf((*MockContext)(nil).URL))
 }

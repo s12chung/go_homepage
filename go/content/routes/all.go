@@ -1,16 +1,16 @@
 package routes
 
 import (
-	"fmt"
-	"regexp"
 	"sort"
 	"time"
 
 	"github.com/s12chung/go_homepage/go/content/atom"
 	"github.com/s12chung/go_homepage/go/content/models"
+
 	"github.com/s12chung/gostatic/go/app"
-	"github.com/s12chung/gostatic/go/lib/goodreads"
 	"github.com/s12chung/gostatic/go/lib/router"
+
+	"github.com/s12chung/gostatic-packages/goodreads"
 )
 
 type AllRoutes struct {
@@ -21,37 +21,29 @@ func NewAllRoutes(h Helper) *AllRoutes {
 	return &AllRoutes{h}
 }
 
-func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) {
+func (routes *AllRoutes) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	r.GetRootHTML(routes.getPosts)
-	tracker.AddDependentUrl(router.RootUrlPattern)
+	tracker.AddDependentURL(router.RootURL)
 	r.Get("/posts.atom", routes.getPostsAtom)
-	tracker.AddDependentUrl("/posts.atom")
+	tracker.AddDependentURL("/posts.atom")
 
-	r.GetWildcardHTML(routes.getPost)
 	r.GetHTML("/reading", routes.getReading)
 	r.GetHTML("/about", routes.getAbout)
 	r.Get("/robots.txt", routes.getRobotsTxt)
 	r.Get("/404.html", routes.get404)
-}
 
-func (routes *AllRoutes) WildcardUrls() ([]string, error) {
 	allPostFilenames, err := models.AllPostFilenames()
 	if err != nil {
-		return nil, err
+		return err
 	}
-
-	hasSpace := regexp.MustCompile(`\s`).MatchString
-	for i, filename := range allPostFilenames {
-		if hasSpace(filename) {
-			return nil, fmt.Errorf("filename '%v' has a space", filename)
-		}
-		allPostFilenames[i] = "/" + filename
+	for _, filename := range allPostFilenames {
+		r.GetHTML(filename, routes.getPostF(filename))
 	}
-	return allPostFilenames, nil
+	return nil
 }
 
 func (routes *AllRoutes) getAbout(ctx router.Context) error {
-	return routes.h.RespondHTML(ctx, "", layoutData{"About", nil})
+	return routes.h.RespondHTML(ctx, ctx.URL(), layoutData{"About", nil})
 }
 
 type readingData struct {
@@ -77,15 +69,17 @@ func (routes *AllRoutes) getReading(ctx router.Context) error {
 		goodreads.RatingMap(books),
 		earliestYear,
 	}
-	return routes.h.RespondHTML(ctx, "", layoutData{"Reading", data})
+	return routes.h.RespondHTML(ctx, ctx.URL(), layoutData{"Reading", data})
 }
 
-func (routes *AllRoutes) getPost(ctx router.Context) error {
-	post, err := models.NewPost(ctx.UrlParts()[0])
-	if err != nil {
-		return err
+func (routes *AllRoutes) getPostF(filename string) func(ctx router.Context) error {
+	return func(ctx router.Context) error {
+		post, err := models.NewPost(filename)
+		if err != nil {
+			return err
+		}
+		return routes.h.RespondHTML(ctx, "post", layoutData{post.Title, post})
 	}
-	return routes.h.RespondHTML(ctx, "post", layoutData{post.Title, post})
 }
 
 type postsData struct {
@@ -110,7 +104,7 @@ func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 		return err
 	}
 
-	logoUrl := routes.h.ManifestUrl("images/logo.png")
+	logoUrl := routes.h.ManifestURL("images/logo.png")
 	htmlEntries := atom.PostsToHtmlEntries(posts)
 	return routes.h.RespondAtom(ctx, "posts", logoUrl, htmlEntries)
 }
@@ -118,11 +112,12 @@ func (routes *AllRoutes) getPostsAtom(ctx router.Context) error {
 func (routes *AllRoutes) getRobotsTxt(ctx router.Context) error {
 	// decided not to show the directory structure via this file
 	// there is a lib for robots.txt in go/lib/robots though
-	return ctx.Respond([]byte{})
+	ctx.Respond([]byte{})
+	return nil
 }
 
 func (routes *AllRoutes) get404(ctx router.Context) error {
-	return routes.h.RespondHTML(ctx, "404", layoutData{"404", nil})
+	return routes.h.RespondHTML(ctx, ctx.URL(), layoutData{"404", nil})
 }
 
 func sortedPosts() ([]*models.Post, error) {

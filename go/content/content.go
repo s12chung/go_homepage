@@ -1,7 +1,6 @@
 package content
 
 import (
-	"fmt"
 	"mime"
 
 	"github.com/sirupsen/logrus"
@@ -9,11 +8,12 @@ import (
 	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/content/routes"
 	"github.com/s12chung/gostatic/go/app"
-	"github.com/s12chung/gostatic/go/lib/atom"
 	"github.com/s12chung/gostatic/go/lib/html"
-	"github.com/s12chung/gostatic/go/lib/markdown"
 	"github.com/s12chung/gostatic/go/lib/router"
 	"github.com/s12chung/gostatic/go/lib/webpack"
+
+	"github.com/s12chung/gostatic-packages/atom"
+	"github.com/s12chung/gostatic-packages/markdown"
 )
 
 var ExtraMimeTypes = map[string]string{
@@ -31,8 +31,7 @@ type Content struct {
 }
 
 type Route interface {
-	SetRoutes(r router.Router, tracker *app.Tracker)
-	WildcardUrls() ([]string, error)
+	SetRoutes(r router.Router, tracker *app.Tracker) error
 }
 
 func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger) *Content {
@@ -46,7 +45,7 @@ func NewContent(generatedPath string, settings *Settings, log logrus.FieldLogger
 	w := webpack.NewWebpack(generatedPath, settings.Webpack, log)
 	md := markdown.NewMarkdown(settings.Markdown, log)
 	htmlRenderer := html.NewRenderer(settings.Html, []html.Plugin{w, md}, log)
-	atomRenderer := atom.NewHtmlRenderer(settings.Atom)
+	atomRenderer := atom.NewHTMLRenderer(settings.Atom)
 	helper := routes.NewBaseHelper(settings.Goodreads, w, htmlRenderer, atomRenderer)
 
 	return &Content{
@@ -63,34 +62,18 @@ func allRoutes(helper routes.Helper) []Route {
 	}
 }
 
-func (content *Content) SetRoutes(r router.Router, tracker *app.Tracker) {
+func (content *Content) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	for _, route := range content.routes {
-		route.SetRoutes(r, tracker)
-	}
-}
-
-func (content *Content) WildcardUrls() ([]string, error) {
-	wildcardUrls := []string{}
-	wildcardUrlsMap := make(map[string]bool)
-	for _, route := range content.routes {
-		urls, err := route.WildcardUrls()
+		err := route.SetRoutes(r, tracker)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		for _, url := range urls {
-			if wildcardUrlsMap[url] {
-				return nil, fmt.Errorf("duplicate wildcar url found: %v", url)
-			}
-			wildcardUrlsMap[url] = true
-		}
-
-		wildcardUrls = append(wildcardUrls, urls...)
 	}
-	return wildcardUrls, nil
+	return nil
 }
 
-func (content *Content) AssetsUrl() string {
-	return content.helper.Webpack.AssetsUrl()
+func (content *Content) AssetsURL() string {
+	return content.helper.Webpack.AssetsURL()
 }
 
 func (content *Content) GeneratedAssetsPath() string {

@@ -199,6 +199,12 @@ func postParts(bytes []byte) (*Post, string, error) {
 
 	post := Post{}
 	yaml.Unmarshal([]byte(frontMatter), &post)
+
+	hasSpace := regexp.MustCompile(`\s`).MatchString
+	if hasSpace(post.Filename) {
+		return nil, "", fmt.Errorf("post has filename with space: %v", post.Filename)
+	}
+
 	return &post, markdown, nil
 }
 

@@ -13,15 +13,17 @@ import (
 	"github.com/google/go-cmp/cmp"
 	logTest "github.com/sirupsen/logrus/hooks/test"
 
-	"github.com/s12chung/gostatic/go/lib/atom"
-	"github.com/s12chung/gostatic/go/lib/goodreads"
 	"github.com/s12chung/gostatic/go/lib/router"
 	"github.com/s12chung/gostatic/go/test"
+
+	"github.com/s12chung/gostatic-packages/atom"
+	"github.com/s12chung/gostatic-packages/goodreads"
 
 	"github.com/s12chung/go_homepage/go/content/models"
 	"github.com/s12chung/go_homepage/go/test/mocks"
 )
 
+//go:generate mockgen -destination=../../test/mocks/router_context.go -package=mocks github.com/s12chung/gostatic/go/lib/router Context
 //go:generate mockgen -destination=../../test/mocks/routes_helper.go -package=mocks github.com/s12chung/go_homepage/go/content/routes Helper
 
 func modelsConfig() {
@@ -34,9 +36,19 @@ func setPostDirEmpty() {
 	models.TestSetPostDirEmpty(log)
 }
 
+func testGoodreadSettings(cachePath, apiURL string) *goodreads.Settings {
+	settings := goodreads.DefaultSettings()
+	settings.APIURL = apiURL
+	settings.APIKey = "good_test"
+	settings.UserID = 1
+	settings.RateLimit = 1
+	settings.CachePath = cachePath
+	return settings
+}
+
 func goodreadsSettings(t *testing.T, apiUrl string) (*goodreads.Settings, func()) {
 	newCachePath, clean := test.SandboxDir(t, goodreads.DefaultSettings().CachePath)
-	settings := goodreads.TestSettings(newCachePath, apiUrl)
+	settings := testGoodreadSettings(newCachePath, apiUrl)
 	return settings, clean
 }
 
@@ -44,41 +56,6 @@ func TestMain(m *testing.M) {
 	modelsConfig()
 	retCode := m.Run()
 	os.Exit(retCode)
-}
-
-func defaultAllRoutes() *AllRoutes {
-	return NewAllRoutes(NewBaseHelper(nil, nil, nil, nil))
-}
-
-func TestAllRoutes_WildcardUrls(t *testing.T) {
-	testCases := []struct {
-		postDirEmpty bool
-		expected     []string
-	}{
-		{true, []string{}},
-		{false, []string{"/post1", "/post2", "/draft1", "/draft2", "/draft3"}},
-	}
-
-	for testCaseIndex, tc := range testCases {
-		context := test.NewContext().SetFields(test.ContextFields{
-			"index":        testCaseIndex,
-			"postDirEmpty": tc.postDirEmpty,
-		})
-
-		modelsConfig()
-		if tc.postDirEmpty {
-			setPostDirEmpty()
-		}
-
-		allRoutes := defaultAllRoutes()
-		got, err := allRoutes.WildcardUrls()
-		if err != nil {
-			t.Error(context.String(err))
-		}
-		if !cmp.Equal(got, tc.expected) {
-			t.Error(context.GotExpString("Result", got, tc.expected))
-		}
-	}
 }
 
 func testRoute(t *testing.T, callback func(helper *mocks.MockHelper, ctx *mocks.MockContext)) {
@@ -91,7 +68,9 @@ func testRoute(t *testing.T, callback func(helper *mocks.MockHelper, ctx *mocks.
 
 func TestAllRoutes_getAbout(t *testing.T) {
 	testRoute(t, func(helper *mocks.MockHelper, ctx *mocks.MockContext) {
-		helper.EXPECT().RespondHTML(ctx, "", layoutData{"About", nil})
+		ctx.EXPECT().URL().Return("/about")
+		helper.EXPECT().RespondHTML(ctx, "/about", layoutData{"About", nil})
+
 		err := NewAllRoutes(helper).getAbout(ctx)
 		if err != nil {
 			t.Error(err)
@@ -130,8 +109,9 @@ func TestAllRoutes_getReading(t *testing.T) {
 			settings, clean := goodreadsSettings(t, server.URL)
 			defer clean()
 
+			ctx.EXPECT().URL().Return("/reading")
 			helper.EXPECT().GoodreadsSettings().Return(settings)
-			helper.EXPECT().RespondHTML(ctx, "", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
+			helper.EXPECT().RespondHTML(ctx, "/reading", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
 				layoutD, ok := data.(layoutData)
 				if !ok {
 					t.Error(context.Stringf("could not convert to: %v", layoutData{}))
@@ -196,7 +176,6 @@ func TestAllRoutes_getPost(t *testing.T) {
 				"postFilename": tc.postFilename,
 			})
 
-			ctx.EXPECT().UrlParts().Return([]string{tc.postFilename})
 			if tc.exists {
 				helper.EXPECT().RespondHTML(ctx, "post", gomock.Any()).Do(func(ctx router.Context, templateName string, data interface{}) {
 					layoutD, ok := data.(layoutData)
@@ -219,7 +198,7 @@ func TestAllRoutes_getPost(t *testing.T) {
 				})
 			}
 
-			err := NewAllRoutes(helper).getPost(ctx)
+			err := NewAllRoutes(helper).getPostF(tc.postFilename)(ctx)
 			if !tc.exists {
 				if err == nil {
 					t.Error(context.String("no error for not existing"))
@@ -309,13 +288,13 @@ func TestAllRoutes_getPostsAtom(t *testing.T) {
 			}
 
 			expLogoUrl := "test_logo.png"
-			helper.EXPECT().ManifestUrl("images/logo.png").Return(expLogoUrl)
+			helper.EXPECT().ManifestURL("images/logo.png").Return(expLogoUrl)
 			helper.EXPECT().RespondAtom(ctx, "posts", expLogoUrl, gomock.Any()).
-				Do(func(tx router.Context, feedName, logoUrl string, htmlEntries []*atom.HtmlEntry) {
+				Do(func(tx router.Context, feedName, logoUrl string, htmlEntries []*atom.HTMLEntry) {
 
 					ids := make([]string, len(htmlEntries))
 					for i, htmlEntry := range htmlEntries {
-						ids[i] = htmlEntry.Id
+						ids[i] = htmlEntry.ID
 					}
 					sort.Strings(ids)
 					sort.Strings(tc.expected)

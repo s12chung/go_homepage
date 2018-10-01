@@ -23,28 +23,41 @@
   version = "v0.2.0"
 
 [[projects]]
-  name = "github.com/russross/blackfriday"
+  branch = "master"
+  name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
-  revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
-  version = "v2.0.0"
+  revision = "b729f2633dfe35f4d1d8a32385f6685610ce1cb5"
 
 [[projects]]
+  name = "github.com/russross/blackfriday"
+  packages = ["."]
+  revision = "d3b5b032dc8e8927d31a5071b56e14c89f045135"
+  version = "v2.0.1"
+
+[[projects]]
+  branch = "master"
   name = "github.com/s12chung/gostatic"
   packages = [
     "go/app",
     "go/cli",
-    "go/lib/atom",
-    "go/lib/goodreads",
     "go/lib/html",
-    "go/lib/markdown",
     "go/lib/pool",
     "go/lib/router",
     "go/lib/utils",
     "go/lib/webpack",
     "go/test"
   ]
-  revision = "2373852575120781ca2ea22896879f3ab489fdbf"
-  version = "v1.0.0"
+  revision = "a28a1d2eb793a82b172ac63acb400d35286ad918"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/s12chung/gostatic-packages"
+  packages = [
+    "atom",
+    "goodreads",
+    "markdown"
+  ]
+  revision = "6c8d3836483be7160fee483a6e912f1dfeb886d6"
 
 [[projects]]
   branch = "master"
@@ -58,20 +71,20 @@
     ".",
     "hooks/test"
   ]
-  revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
-  version = "v1.0.6"
+  revision = "a67f783a3814b8729bd2dac5780b5f78f8dbd64d"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "614d502a4dac94afa3a6ce146bd1736da82514c6"
+  revision = "5295e8364332db77d75fce11f1d19c053919a9c9"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context"]
-  revision = "8a410e7b638dca158bf9e766925842f6651ff828"
+  revision = "4dfa2610cdf3b287375bbba5b8f2a14d3b01d8de"
 
 [[projects]]
   branch = "master"
@@ -80,7 +93,7 @@
     "unix",
     "windows"
   ]
-  revision = "d99a578cf41bfccdeaf48b0845c823a4b8b0ad5e"
+  revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
@@ -91,6 +104,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e5b0e403bb0b003737f7f27e4a934fe03bbc7aefa5d5ac25eebcac07b4737f9f"
+  inputs-digest = "cbfce992533cfdd6b7fdc484c213a7e9f280c9474f9f4d38c34b5b40a4d9e959"
   solver-name = "gps-cdcl"
   solver-version = 1

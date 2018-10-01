@@ -1,7 +1,7 @@
 ["trigger", ".", {
   "name": "build-go",
   "expression": ["anyof",
-    ["allof", ["pcre", ".(go|tmpl|md)$"], ["not", ["pcre", "_test.go$"]]],
+    ["allof", ["pcre", ".(go|gohtml|md)$"], ["not", ["pcre", "_test.go$"]]],
     ["name", "generated/assets/manifest.json", "wholename"],
     ["name", "settings.json", "wholename"]
   ],

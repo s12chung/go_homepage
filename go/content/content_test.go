@@ -25,15 +25,15 @@ var handler = func(ctx router.Context) error {
 type routeOne struct {
 }
 
-func (one *routeOne) SetRoutes(r router.Router, tracker *app.Tracker) {
+func (one *routeOne) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	r.GetRootHTML(handler)
-	r.GetWildcardHTML(handler)
 	r.GetHTML("/about", handler)
 	r.GetHTML("/posts", handler)
 	r.Get("/robots.txt", handler)
 
-	tracker.AddDependentUrl(router.RootUrlPattern)
-	tracker.AddDependentUrl("/posts")
+	tracker.AddDependentURL(router.RootURL)
+	tracker.AddDependentURL("/posts")
+	return nil
 }
 func (one *routeOne) WildcardUrls() ([]string, error) {
 	return []string{"one", "two", "three"}, nil
@@ -42,10 +42,11 @@ func (one *routeOne) WildcardUrls() ([]string, error) {
 type routeTwo struct {
 }
 
-func (two *routeTwo) SetRoutes(r router.Router, tracker *app.Tracker) {
+func (two *routeTwo) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	r.GetHTML("/something", handler)
 	r.Get("/posts.atom", handler)
-	tracker.AddDependentUrl("/something")
+	tracker.AddDependentURL("/something")
+	return nil
 }
 func (two *routeTwo) WildcardUrls() ([]string, error) {
 	return []string{"two", "three", "four", "five"}, nil
@@ -54,24 +55,22 @@ func (two *routeTwo) WildcardUrls() ([]string, error) {
 type routeThree struct {
 }
 
-func (three *routeThree) SetRoutes(r router.Router, tracker *app.Tracker) {
+func (three *routeThree) SetRoutes(r router.Router, tracker *app.Tracker) error {
 	r.GetHTML("/about", handler)
-}
-func (three *routeThree) WildcardUrls() ([]string, error) {
-	return nil, nil
+	return nil
 }
 
 func TestContent_SetRoutes(t *testing.T) {
 	testCases := []struct {
 		routes        []Route
-		staticUrls    []string
+		urls          []string
 		dependentUrls []string
 	}{
 		{[]Route{}, []string{}, []string{}},
-		{[]Route{&routeOne{}}, []string{"/", "/about", "/posts", "/robots.txt"}, []string{"/posts", router.RootUrlPattern}},
+		{[]Route{&routeOne{}}, []string{"/", "/about", "/posts", "/robots.txt"}, []string{"/posts", router.RootURL}},
 		{[]Route{&routeTwo{}}, []string{"/something", "/posts.atom"}, []string{"/something"}},
 		{[]Route{&routeThree{}}, []string{"/about"}, []string{}},
-		{[]Route{&routeOne{}, &routeTwo{}}, []string{"/", "/about", "/posts", "/robots.txt", "/something", "/posts.atom"}, []string{"/posts", router.RootUrlPattern, "/something"}},
+		{[]Route{&routeOne{}, &routeTwo{}}, []string{"/", "/about", "/posts", "/robots.txt", "/something", "/posts.atom"}, []string{"/posts", router.RootURL, "/something"}},
 		{[]Route{&routeTwo{}, &routeThree{}}, []string{"/something", "/posts.atom", "/about"}, []string{"/something"}},
 	}
 
@@ -84,66 +83,23 @@ func TestContent_SetRoutes(t *testing.T) {
 		content, log, _ := defaultContent()
 		content.routes = tc.routes
 		r := router.NewGenerateRouter(log)
-		tracker := app.NewTracker(func() ([]string, error) {
-			return nil, nil
+		tracker := app.NewTracker(func() []string {
+			return nil
 		})
 		content.SetRoutes(r, tracker)
 
-		got := r.StaticUrls()
+		got := r.URLs()
 		sort.Strings(got)
-		sort.Strings(tc.staticUrls)
-		if !cmp.Equal(got, tc.staticUrls) {
-			t.Error(context.DiffString("r.StaticUrls()", got, tc.staticUrls, cmp.Diff(got, tc.staticUrls)))
+		sort.Strings(tc.urls)
+		if !cmp.Equal(got, tc.urls) {
+			t.Error(context.DiffString("r.Urls()", got, tc.urls, cmp.Diff(got, tc.urls)))
 		}
 
-		got = tracker.DependentUrls()
+		got = tracker.DependentURLs()
 		sort.Strings(got)
 		sort.Strings(tc.dependentUrls)
 		if !cmp.Equal(got, tc.dependentUrls) {
-			t.Error(context.DiffString("tracker.DependentUrls()", got, tc.staticUrls, cmp.Diff(got, tc.dependentUrls)))
-		}
-	}
-}
-
-func TestContent_WildcardUrls(t *testing.T) {
-	testCases := []struct {
-		routes       []Route
-		wildcardUrls []string
-		error        bool
-	}{
-		{[]Route{}, []string{}, false},
-		{[]Route{&routeOne{}}, []string{"one", "two", "three"}, false},
-		{[]Route{&routeTwo{}}, []string{"two", "three", "four", "five"}, false},
-		{[]Route{&routeThree{}}, []string{}, false},
-		{[]Route{&routeOne{}, &routeTwo{}}, []string{"one", "two", "three", "four", "five"}, true},
-	}
-
-	for testCaseIndex, tc := range testCases {
-		context := test.NewContext().SetFields(test.ContextFields{
-			"index":  testCaseIndex,
-			"routes": tc.routes,
-		})
-
-		content, log, _ := defaultContent()
-		content.routes = tc.routes
-		r := router.NewGenerateRouter(log)
-		tracker := app.NewTracker(func() ([]string, error) {
-			return nil, nil
-		})
-		content.SetRoutes(r, tracker)
-
-		got, err := content.WildcardUrls()
-		if err != nil {
-			if !tc.error {
-				t.Error(context.String(err))
-			}
-			continue
-		}
-
-		sort.Strings(got)
-		sort.Strings(tc.wildcardUrls)
-		if !cmp.Equal(got, tc.wildcardUrls) {
-			t.Error(context.DiffString("content.WildcardUrls()", got, tc.wildcardUrls, cmp.Diff(got, tc.wildcardUrls)))
+			t.Error(context.DiffString("tracker.DependentUrls()", got, tc.urls, cmp.Diff(got, tc.dependentUrls)))
 		}
 	}
 }
